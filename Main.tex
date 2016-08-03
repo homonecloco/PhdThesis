@@ -1,0 +1,56 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[sharp]{easylist}
+\usepackage{graphicx}
+\usepackage{natbib}
+
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Ricardo Humberto Ramirez Gonzalez}
+\title{Thesis}
+\begin{document}
+
+\section{Thesis Outline}
+The proposed the following outline for my PhD thesis:
+
+\begin{easylist}
+	\ListProperties(Hang=true)
+	# \textbf{Introduction} It defines the objectives and the importance of the research. It focus on the the application of Next Generation Sequencing to molecular biology, wheat genetics and ultimately to breeding programs. It also mentions the current status of the wheat reference genome and other resources (genetic maps, markers) the need of tools to query them effectively. 
+	# \textbf{Literature Review} It describes the current status of the wheat genome, genetics and other resources.   
+	## \textbf{Wheat Breeding}. An overview of how breeding is carried on currently, the different sources of genetic diversity and the relevance of fixing agriculturally important traits. 
+	## \textbf{Wheat Genetics}. The section describes alleles an the concept of gene, both as a locus in the genome (Quantitative Trait Locus, QTL) and an specific transcript (central dogma of molecular biology). Finally, it discuses traditional Mendelian inheritance and the effect of polyploidy.  
+	## \textbf{Wheat Genomics}. A description of the current status of the wheat genome (\citet{Mayer2014}, \citet{Chapman2015}), the different available assemblies and and approaches to sort the scaffolds (Genome Zipper, the various genetic maps).  
+	## \textbf{Sequencing} The importance of the selection of the library preparation and the sequencing platforms available. A brief summary of RNA-Seq, Exome capture, ChIP-Seq, Whole Genome Shotgun, etc. and on which cases are more suitable for different experiments.  
+	## \textbf{Sequence analysis}. This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
+	## \textbf{Wheat online resources}. A compilation of the currently available resource for whet genetics and genomics. MAS wheat, CeralsDB, Ensembl, etc.   
+	# \textbf{Genetic mapping of \textit{Yr15}}. This section describes in detail than the paper of \citet{Ramirez-Gonzalez-2014}
+	## \textbf{\textit{Yr15}} Breeding importance of \textit{Yr15} and original source (an introgression of \textit{T. diccocoides}). 
+	## \textbf{Segregating population and resistance essays}. A description of the starting material and how the population was generated.  
+	## \textbf{Sequencing and mapping} RNA-Seq and the decision to call SNPs on gene models rather than the whole reference.  Details of the mapping against the Wheat UniGenes \cite{PontiusJUWagnerL2002} and the UCW. \cite{Krasileva2013} gene models.  
+	## \textbf{SNP Calling}. \verb|Ruby| implementation of the methodology described by \citet{Trick2012}. 
+	## \textbf{Bulk Frequency Ratios} Results of the simple SNP calls from the progenitors and how the score of the Bulk Frequency Ratios(BFR) improve the location of the SNPs. 
+	## \textbf{\textit{In silico} mapping}Mapping of the gene models to the IWGSC CSS \cite{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
+	## \textbf{Assay selection}. The selection criteria to decide which SNPs where selected to produce the genetic map: BFR$>$6, in the short arm of chromosome group 1 and from the \textit{Yr15} progenitor.
+	## \textbf{Genetic map} The three versions of the genetic map: With a subset of the F\textsubscript{2} population
+	## \textbf{Assembly of the transcriptome} A comparison between the known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted
+	# \textbf{PolyMarker} A fast polyploid primer design pipeline
+	## \textbf{Manual process of primer design} Explain how the SNP markers are designed without the tool. 
+	## \textbf{Global alignment} Search of the contigs with the sequence in the CSS reference and the importance of being able to distinguish between homoeologous regions. 
+	## \textbf{Local alignment} Once the region with the primer has been selected, make a local alignment. This section discusses why the local alignment is needed. 
+	## \textbf{Primer design tools} In this section, the principles of \textit{in silico} primer design are discussed, and why not simply selecting a genomic variation is enough (thermal stability, primers folding on themselves)
+	## \textbf{Primer selection algorithms} Different algorithms to select the "best primer". For KASP markers, the product should be as short as possible with the mutation in the first three bases. Other types of PCR require different priorities. A comparison with qPCR primers may be included in this section as well. 
+	## \textbf{Designed markers} Details of the generated primers for the 80k iSelect chip and the 820k axiom chip. This section also include counts on how many are genome specific, semi-specific and non specific. Also an analysis of how many are repeated or map to more than one chromosome perfectly.
+	# \textbf{Data integration}  
+	## \textbf{Data sources} A summary of the different sources to be integrated. So far, the following are included:
+	### \textbf{Assemblies} IWGSC Chinese Spring sequence survey, Chapman WGS assembly
+	### \textbf{Genetic maps} POPSeq genetic map, 42k markers map, Chapman genetic map. 
+	### \textbf{Genetic markers} 80k iSelect, 820k axiom
+	### \textbf{Mutations} Cadenza and Kronos mutations from Uauy's group.
+	### \textbf{Wheat lines} Mutant lines from above and lines genotyped with the 820k chip  
+	### \textbf{Gene annotations} UniGenes, UCW gene models, MIPS annotation from IWGSC CSS.              
+	### \textbf{Syntenic regions} GeneZipper and alignment to genes in relative species, using the Esembl! databases. 
+	## \textbf{Database design} In this section the relationships between all the data sources is discussed and different ways to query the data to get markers in linked regions, mutations common across different lines.
+	## \textbf{Graphical interface} The amount of data and the complex relationships between them require an easy to use interface. This section discusses the considerations on how to make the data available.
+	# \textbf{Conclusions and final remarks} This section wraps up by showing the relationship and importance of a comprehensive approach to data analysis, from the field, genetics, molecular biology and genomics. 
+\end{easylist}
+
+\end{document}
