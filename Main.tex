@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[12pt,a4paper]{book}
 \usepackage[english]{babel}
 \usepackage[sharp]{easylist}
 \usepackage{graphicx}
@@ -9,7 +9,15 @@
 \title{Thesis}
 \begin{document}
 
-\section{Thesis Outline}
+\include{Introduction/Introduction}
+\include{LitReview/LitReview}
+\include{Yr15/Yr15}
+\include{PolyMarker/PolyMarker}
+\include{expVIP/expVIP}
+\include{Conclusions/Conclusions}
+
+
+
 The proposed the following outline for my PhD thesis:
 
 \begin{easylist}
@@ -19,11 +27,11 @@ The proposed the following outline for my PhD thesis:
 	## \textbf{Wheat Breeding}. An overview of how breeding is carried on currently, the different sources of genetic diversity and the relevance of fixing agriculturally important traits. 
 	## \textbf{Wheat Genetics}. The section describes alleles an the concept of gene, both as a locus in the genome (Quantitative Trait Locus, QTL) and an specific transcript (central dogma of molecular biology). Finally, it discuses traditional Mendelian inheritance and the effect of polyploidy.  
 	## \textbf{Wheat Genomics}. A description of the current status of the wheat genome (\citet{Mayer2014}, \citet{Chapman2015}), the different available assemblies and and approaches to sort the scaffolds (Genome Zipper, the various genetic maps).  
-	## \textbf{Sequencing} The importance of the selection of the library preparation and the sequencing platforms available. A brief summary of RNA-Seq, Exome capture, ChIP-Seq, Whole Genome Shotgun, etc. and on which cases are more suitable for different experiments.  
+	## \textbf{Sequencing} The importance of the selection of the library preparation and the sequencing platforms available. A brief summary of RNA-Seq, Exome capture, Whole Genome Shotgun, etc. and on which cases are more suitable for different experiments.  Mention the new technologies developed during the years of the PhD (Ren-Seq, PacBio?)
 	## \textbf{Sequence analysis}. This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
 	## \textbf{Wheat online resources}. A compilation of the currently available resource for whet genetics and genomics. MAS wheat, CeralsDB, Ensembl, etc.   
 	# \textbf{Genetic mapping of \textit{Yr15}}. This section describes in detail than the paper of \citet{Ramirez-Gonzalez-2014}
-	## \textbf{\textit{Yr15}} Breeding importance of \textit{Yr15} and original source (an introgression of \textit{T. diccocoides}). 
+	## \textbf{(Introduction)\textit{Yr15}} Breeding importance of \textit{Yr15} and original source (an introgression of \textit{T. diccocoides}). 
 	## \textbf{Segregating population and resistance essays}. A description of the starting material and how the population was generated.  
 	## \textbf{Sequencing and mapping} RNA-Seq and the decision to call SNPs on gene models rather than the whole reference.  Details of the mapping against the Wheat UniGenes \cite{PontiusJUWagnerL2002} and the UCW. \cite{Krasileva2013} gene models.  
 	## \textbf{SNP Calling}. \verb|Ruby| implementation of the methodology described by \citet{Trick2012}. 
@@ -31,26 +39,29 @@ The proposed the following outline for my PhD thesis:
 	## \textbf{\textit{In silico} mapping}Mapping of the gene models to the IWGSC CSS \cite{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
 	## \textbf{Assay selection}. The selection criteria to decide which SNPs where selected to produce the genetic map: BFR$>$6, in the short arm of chromosome group 1 and from the \textit{Yr15} progenitor.
 	## \textbf{Genetic map} The three versions of the genetic map: With a subset of the F\textsubscript{2} population
-	## \textbf{Assembly of the transcriptome} A comparison between the known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted
+	## \textbf{Assembly of the transcriptome} A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
+	## \textbf{Conclusions} Remarks on how this techinque can be used to do fine-mapping and that if I were to start the project now I would  use exome capture or Ren-Seq. 
 	# \textbf{PolyMarker} A fast polyploid primer design pipeline
-	## \textbf{Manual process of primer design} Explain how the SNP markers are designed without the tool. 
+	## \textbf{Manual process of primer design(Introduction)} Explain how the SNP markers are designed without the tool. 
 	## \textbf{Global alignment} Search of the contigs with the sequence in the CSS reference and the importance of being able to distinguish between homoeologous regions. 
 	## \textbf{Local alignment} Once the region with the primer has been selected, make a local alignment. This section discusses why the local alignment is needed. 
 	## \textbf{Primer design tools} In this section, the principles of \textit{in silico} primer design are discussed, and why not simply selecting a genomic variation is enough (thermal stability, primers folding on themselves)
-	## \textbf{Primer selection algorithms} Different algorithms to select the "best primer". For KASP markers, the product should be as short as possible with the mutation in the first three bases. Other types of PCR require different priorities. A comparison with qPCR primers may be included in this section as well. 
+	## \textbf{Primer selection algorithms} Different algorithms to select the \"best primer\". 
+	### For KASP markers, the product should be as short as possible with the mutation in the first three bases. 
+	###  Algorithm to select the two primers with a geneome-specific variation. For amplicons/capillary sequencing. 
+	###  Algorithm to produce KASP for deletions in polyploids. 
 	## \textbf{Designed markers} Details of the generated primers for the 80k iSelect chip and the 820k axiom chip. This section also include counts on how many are genome specific, semi-specific and non specific. Also an analysis of how many are repeated or map to more than one chromosome perfectly.
-	# \textbf{Data integration}  
-	## \textbf{Data sources} A summary of the different sources to be integrated. So far, the following are included:
-	### \textbf{Assemblies} IWGSC Chinese Spring sequence survey, Chapman WGS assembly
-	### \textbf{Genetic maps} POPSeq genetic map, 42k markers map, Chapman genetic map. 
-	### \textbf{Genetic markers} 80k iSelect, 820k axiom
-	### \textbf{Mutations} Cadenza and Kronos mutations from Uauy's group.
-	### \textbf{Wheat lines} Mutant lines from above and lines genotyped with the 820k chip  
-	### \textbf{Gene annotations} UniGenes, UCW gene models, MIPS annotation from IWGSC CSS.              
-	### \textbf{Syntenic regions} GeneZipper and alignment to genes in relative species, using the Esembl! databases. 
-	## \textbf{Database design} In this section the relationships between all the data sources is discussed and different ways to query the data to get markers in linked regions, mutations common across different lines.
-	## \textbf{Graphical interface} The amount of data and the complex relationships between them require an easy to use interface. This section discusses the considerations on how to make the data available.
-	# \textbf{Conclusions and final remarks} This section wraps up by showing the relationship and importance of a comprehensive approach to data analysis, from the field, genetics, molecular biology and genomics. 
+	## \textbf{Conclusions} Remarks on the importance of getting the primers right, and the time saved by automating the primer selection. Also mention other primer design tools that have been inspired by polymarker: \cite{Ma2015}, \cite{Wang2016}
+	# \textbf{Gene expression (expVIP)}  
+	## \textbf{Expression experiments (Introduction)} Describe the list of previously published expression experiments and how they can potentially be used as a framework for new experiments.  
+	## \textbf{Database design} Description of how the database was designed and the flexibility given by having the factors and units as variables
+	## \textbf{Analysis pipeline} Implementation of the pipeline, from running kallisto to load the data in the database 
+	## \textbf{Graphical interface}  How the expression can be displayed filtered, and sorted
+	## \textbf{Conclusions} The use of previously published studies is a valuable resource. Also, mention that despite the fact that there are several expression/gene browsers, none of them allow comparisons between species and don't consider polyploids. 
+	# \textbf{Conclusions and final remarks} This section wraps up by showing the relationship and importance of a comprehensive approach to data analysis, from the field, genetics, molecular biology and genomics. I will also remark how the technology and the resources have changed in the last 4 years. As at the references used at beginning where superseded during the PhD. 
 \end{easylist}
+
+\bibliographystyle{plainnat}
+\bibliography{References}
 
 \end{document}
