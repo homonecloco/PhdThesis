@@ -5,35 +5,55 @@
 Explain how the SNP markers are designed without the tool and an overview. 
 
 
-\begin{figure}![ht]
+\begin{figure}
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/pipeline.pdf}
         \caption{PolyMarker Pipeline}
         \label{fig:poly:pipeline}
 \end{figure}
 
 
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.4\textwidth}
-        \includegraphics[width=1\textwidth]{PolyMarker/Figures/scaffoldsSearch.pdf}
-        \caption{Global search}
-        \label{fig:poly:globalSearch}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.4\textwidth}
-        \raisebox{10mm} { \includegraphics[width=1\textwidth]{PolyMarker/Figures/scaffoldsFound.pdf} }
-        \caption{Found regions by the local alignment}
-        \label{fig:poly:globalFound}
-    \end{subfigure}
-    \caption{Local alignments}\label{fig:global}
-\end{figure}
 
 
 \section{Global alignment} 
 Search of the contigs with the sequence in the CSS reference and the importance of being able to distinguish between homoeologous regions. 
 
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{PolyMarker/Figures/alignment/scaffoldsSearch.pdf}
+        \caption{Global search.}
+        \label{fig:poly:globalSearch}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.4\textwidth}
+        \raisebox{10mm} { \includegraphics[width=1\textwidth]{PolyMarker/Figures/alignment/scaffoldsFoundAround.pdf} }
+        \caption{Selected regions around the SNP on every chromosome.}
+        \label{fig:poly:globalAround}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{PolyMarker/Figures/alignment/scaffoldsFound.pdf}
+        \caption{Sequence of found regions around the SNP.}
+        \label{fig:poly:globalSequence}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=1\textwidth]{PolyMarker/Figures/alignment/localAlignment.pdf} 
+        \caption{Local alignment on regions around the SNP to detect indels.}
+        \label{fig:poly:localSequence}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=1\textwidth]{PolyMarker/Figures/alignment/mask.pdf} 
+        \caption{Alignment with mask and primer candidates.}
+        \label{fig:poly:mask}
+
+    \end{subfigure}
+    \caption{Alignments done by PolyMarker.}\label{fig:global}
+\end{figure}
 
 \section{Local alignment} 
 Once the region with the primer has been selected, make a local alignment. This section discusses why the local alignment is needed. 
