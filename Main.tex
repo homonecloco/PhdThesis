@@ -4,12 +4,63 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{caption}
+\usepackage{longtable}
 \usepackage{subcaption}
-
+\usepackage{pdflscape} 
+\usepackage[locale=UK]{siunitx} % Formats the units and values
+\usepackage{rotating}
+\usepackage{pdflscape}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage{datatool}
+\usepackage{booktabs} % For \toprule, \midrule and \bottomrule
+% start every dtl table with \toprule from booktabs
+\renewcommand{\dtldisplaystarttab}{\small}
+
+% likewise for \midrule and \bottomrule from booktabs 
+\renewcommand{\dtldisplayafterhead}{\midrule}
+\renewcommand{\dtldisplayendtab}{\\\bottomrule}
+
+% Setup siunitx:
+\sisetup{
+  round-mode          = places, % Rounds numbers
+  round-precision     = 2, % to 2 places
+  group-separator={,}
+}
+
+\newenvironment{localsize}[2]
+{%
+  \clearpage
+  \let\orignewcommand\newcommand
+  \let\newcommand\renewcommand
+  \makeatletter
+  \fontsize{#1pt}{#2pt}\selectfont
+  %\tiny
+  %\input{bk#1.clo}%
+  \makeatother
+  \let\newcommand\orignewcommand
+}
+{%
+  \clearpage
+}
+
+\newenvironment{changemargin}[2]{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{#1}%
+\setlength{\rightmargin}{#2}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}
+
+
 \author{Ricardo Humberto Ramirez Gonzalez}
 \title{Thesis}
 \begin{document}
+
+
 
 \include{Introduction/Introduction}
 \include{LitReview/LitReview}
@@ -17,6 +68,10 @@
 \include{PolyMarker/PolyMarker}
 \include{expVIP/expVIP}
 \include{Conclusions/Conclusions}
+
+\appendix
+
+\include{PolyMarker/Supplemental}
 
 
 \bibliographystyle{plainnat_short}
