@@ -16,6 +16,8 @@ The sequences are searched on the genomic reference using \texttt{exonerate}\cit
 Then, the alignment between homoeologues is refined using \texttt{MAFFT}\citep{Katoh2013}. 
 A list of candidate variations is produced and used as input for \texttt{Primer3}\citep{Rozen}. 
 Finally, the output of \texttt{Primer3} is parsed to find the best primer pair that contains a the targeted SNP and a base that is specific to the target genome (Figure \ref{fig:poly:pipeline}).  
+The pipeline is written as a Ruby script, using parsers and wrappers from BioRuby \citep{Goto2010} and bio-samtools \citep{Etherington2015,Ramirez-Gonzalez2012}. 
+The software is open source and released as a biogem \citep{Bonnal2012}, \texttt{bio-polyploid-tools}, the source code is available in github: \texttt{https://github.com/TGAC/bioruby-polyploid-tools}.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/pipeline.pdf}
@@ -23,6 +25,21 @@ Finally, the output of \texttt{Primer3} is parsed to find the best primer pair t
         \label{fig:poly:pipeline}
 \end{figure}
 
+The PolyMarker input consist on SNP list with: unique name for the marker, the target chromosome and the sequence for the marker. 
+The alternative alleles are surrounded by square brackets within the sequence. PolyMarker can take a list of several markers and design them in batch (Figure \ref{fig:poly:input}). 
+A \texttt{FASTA} file is produced with all the template sequences, with the alternative alleles substituted by the IUAPC ambiguity codes \citep{Cornish-Bowden1985}. 
+The flanking sequence surrounding the SNP is limited by default to 100bp to reduce the search time and avoid missing regions that diverge near the SNP, as when the variation is near an intron-exon junction. 
+%%TODO: Should we elaborate more here? 
+
+The template sequences are searched in the reference sequence using \texttt{exonerate}\citep{Slater2005}, figure \ref{fig:poly:globalSearch}. 
+The alignment is run with the \texttt{--model est2genome} option, to allow the search of sequences coming from transcripts, a common source of SNPs\citep{Allen2011}. 
+The exonerate output is formatted with the \texttt{--ryo} (roll your own format) to get an output easy to parse. 
+All the hits that contain the SNP are extracted from the reference with a flanking sequence that extend out of the hit, by defualt, to 100bp on each side of the SNP Figure \ref{fig:poly:globalAround}.
+The size of the flanking sequence can be set to different sizes to allow the design of different types of primers. 
+Different homoeologues may contain small indels (Figure \ref{fig:poly:globalSequence}). 
+To enable a comparasion base-per-base, a local alignment with \texttt{MAFFT} \citep{Katoh2013} is produced (Figure \ref{fig:poly:localSequence}. 
+For wheat, PolyMarker uses the contigs from \cite{Mayer2014}, as deposited in Ensembl. 
+As new releases of the wheat genome are made available, different parsers to assign the chromosome to each sequence can be added with little effort to PolyMarker. 
 
 %\section{Global alignment} 
 %Search of the contigs with the sequence in the CSS reference and the importance of being able to distinguish between homoeologous regions. 
@@ -30,9 +47,15 @@ Finally, the output of \texttt{Primer3} is parsed to find the best primer pair t
 
 \begin{figure}
     \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/input.pdf} 
+        \caption{PolyMarker input. The alternative alleles are sorrounded by brackets.}
+        \label{fig:poly:input}
+    \end{subfigure}
+
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsSearch.pdf}
-        \caption{Global search.}
+        \caption{Global search of templates in the reference contigs.}
         \label{fig:poly:globalSearch}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
@@ -40,7 +63,7 @@ Finally, the output of \texttt{Primer3} is parsed to find the best primer pair t
     \begin{subfigure}[b]{0.4\textwidth}
         \raisebox{10mm} { \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsFoundAround.pdf} }
         \caption{Selected regions around the SNP on every chromosome.}
-        \label{fig:poly:globalAround}
+        \label{fig:poly:globalAround} 
     \end{subfigure}
     
     \begin{subfigure}[b]{0.4\textwidth}
@@ -52,7 +75,7 @@ Finally, the output of \texttt{Primer3} is parsed to find the best primer pair t
       %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/localAlignment.pdf} 
-        \caption{Local alignment on regions around the SNP to detect indels.}
+        \caption{Local alignment on regions around the SNP detects indels.}
         \label{fig:poly:localSequence}
     \end{subfigure}
 
@@ -60,13 +83,9 @@ Finally, the output of \texttt{Primer3} is parsed to find the best primer pair t
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/mask.pdf} 
         \caption{Alignment with mask and primer candidates.}
         \label{fig:poly:mask}
-
     \end{subfigure}
     \caption{Alignments done by PolyMarker.}\label{fig:global}
 \end{figure}
-
-\section{Local alignment} 
-Once the region with the primer has been selected, make a local alignment. This section discusses why the local alignment is needed. 
 
 \section{Primer design tools} 
 In this section, the principles of \textit{in silico} primer design are discussed, and why not simply selecting a genomic variation is enough (thermal stability, primers folding on themselves)

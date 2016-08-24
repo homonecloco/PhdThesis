@@ -729,7 +729,7 @@ FUNCTION {article}
   if$
   format.issn output
   format.doi output
-  format.url output
+%%  format.url output
   new.block
   note output
   fin.entry
