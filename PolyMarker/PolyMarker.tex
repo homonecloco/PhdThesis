@@ -1,6 +1,7 @@
 %!TEX root = ../Main.tex
 
 \chapter{PolyMarker: A fast polyploid primer design pipeline}
+\chaptermark{PolyMarker}
 %\section{Introduction} 
 %Explain how the SNP markers are designed without the tool and an overview. 
 One of the main challenges of working with polyploid species is the design of genome specific molecular markers. 
@@ -12,7 +13,7 @@ To reduce the time invested in designed primers I have developed PolyMarker \cit
 \section{Pipeline}
 PolyMarker is an automated pipeline that takes as input a list of SNPs and a reference file and produces a list of primer triplets for SNP genotyping. 
 The list of SNPs is first converted to a \texttt{FASTA} file with ambiguity codes\citep{Cornish-Bowden1985} 
-The sequences are searched on the genomic reference using \texttt{exonerate}\citep{Slater2005} to find the homoeologue regions to the target sequence. 
+The sequences are searched on the genomic reference using \texttt{exonerate} \citep{Slater2005} to find the homoeologue regions to the target sequence. 
 Then, the alignment between homoeologues is refined using \texttt{MAFFT}\citep{Katoh2013}. 
 A list of candidate variations is produced and used as input for \texttt{Primer3}\citep{Rozen}. 
 Finally, the output of \texttt{Primer3} is parsed to find the best primer pair that contains a the targeted SNP and a base that is specific to the target genome (Figure \ref{fig:poly:pipeline}).  
