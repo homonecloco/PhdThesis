@@ -34,16 +34,33 @@ The flanking sequence surrounding the SNP is limited by default to 100bp to redu
 The template sequences are searched in the reference sequence using \texttt{exonerate}\citep{Slater2005}, figure \ref{fig:poly:globalSearch}. 
 The alignment is run with the \texttt{--model est2genome} option, to allow the search of sequences coming from transcripts, a common source of SNPs\citep{Allen2011}. 
 The exonerate output is formatted with the \texttt{--ryo} (roll your own format) to get an output easy to parse. 
-All the hits that contain the SNP are extracted from the reference with a flanking sequence that extend out of the hit, by defualt, to 100bp on each side of the SNP Figure \ref{fig:poly:globalAround}.
+All the hits that contain the SNP are extracted from the reference with a flanking sequence that extend out of the hit, by defualt, to 100bp on each side of the SNP (Figure \ref{fig:poly:globalAround}).
 The size of the flanking sequence can be set to different sizes to allow the design of different types of primers. 
 Different homoeologues may contain small indels (Figure \ref{fig:poly:globalSequence}). 
 To enable a comparasion base-per-base, a local alignment with \texttt{MAFFT} \citep{Katoh2013} is produced (Figure \ref{fig:poly:localSequence}. 
+
+PolyMarker searches across each base in the local alignment to identify the variations across homoeologues and the target marker.
+A mask is produced to highlight the bases with a variations (Figure \ref{fig:poly:mask}) on the following categories:
+\begin{labeling}{Non-homoeologous}
+%\begin{description}[align=right,labelwidth=4cm]
+\item [Specific] Homoeologous polymorphism which is only present in the target genome (upper case).
+\item [Semi-specific] Homoeologous polymorphism which is found in 2 of the 3 genomes, hence it discriminates against one of the off-target genomes or when not all the homoeologous sequences were found (lower case).
+\item [Non-specific] No variation is found across homoeologues (\texttt{-}).
+\item [Homoeologous] The target SNP is present across different chromosomes, so candidate SNP markers on this category are not expected to be reliably identify the allele (\texttt{:}).
+\item [Non-homoeologous] The target SNP is not present across chromosomes, so it can be used to identify an allele (\texttt{\&}).
+%\end{description} 
+\end{labeling} 
+
+PolyMarker was designed to produce SNP assays for KASP genotyping \citep{LGC}, which requires a common primer and two allele-specific primers. 
+The common primer is selected to start on a position from a: Specific; Semi-specific or; Non-specific, on that priority. 
+This means that the common primer will be as specific as possible in the region. 
+For the allele-specific primers, the starting position of the primer is on the base with the SNP. 
+To ensure that the stability of the candidate primers will be met, the putative starting positions are tested with \texttt{Primer3} \citep{Rozen}. 
+
+%%TODO: check for 3primer/ 5 primer instead of starts 
+PolyMarker was designed and validated with the markers described in section \ref{yr15:geneticMap}. 
 For wheat, PolyMarker uses the contigs from \cite{Mayer2014}, as deposited in Ensembl. 
 As new releases of the wheat genome are made available, different parsers to assign the chromosome to each sequence can be added with little effort to PolyMarker. 
-
-%\section{Global alignment} 
-%Search of the contigs with the sequence in the CSS reference and the importance of being able to distinguish between homoeologous regions. 
-
 
 \begin{figure}
     \centering
@@ -87,26 +104,67 @@ As new releases of the wheat genome are made available, different parsers to ass
     \caption{Alignments done by PolyMarker.}\label{fig:global}
 \end{figure}
 
-\section{Primer design tools} 
-In this section, the principles of \textit{in silico} primer design are discussed, and why not simply selecting a genomic variation is enough (thermal stability, primers folding on themselves)
 
-\section{Primer selection algorithms} 
-Different algorithms to select the \"best primer\". 
-
-\subsection{KASP markers} 
-For KASP markers, the product should be as short as possible with the mutation in the first three bases. 
-
-\section{Designed markers} Details of the generated primers for the 80k iSelect chip and the 820k axiom chip. This section also include counts on how many are genome specific, semi-specific and non specific. Also an analysis of how many are repeated or map to more than one chromosome perfectly.
-
-\subsection{Regular markers}  
-PolyMarker was designed for KASP assays, but it was later extended to produce regular primers, where both primers start with a genome-specific base. This simplifies the design of primers for regular PCR and capillary sequencing. 
+\section{PolyMarker public web service}
+To make PolyMarker accessible to the community, a web server that allow the submission of SNPs was developed. 
+The web interface consists on two virtual machines, one with a web facing interface that stores the queries, and a dedicated node to submit jobs to an HPC cluster.
+The on-line interface further simplifies the design of KASP assays, a process that used to take a couple of weeks now is done in a couple of hours. 
+Since the release of the public service in July 2014 until August 2016, 1,739 requests to PolyMarker have been done. 
+%TODO: Does this sounds like too much marketing? 
 
 
+\section{Applications of PolyMarker}
+
+PolyMarker is not restricted to wheat or to KASP assays, the source code is flexible and can be extended for other types of analysis. 
+On each of the following projects, PolyMarker has been adapted to design primers in species where KASP hasn't been used before, the primers are used for regular PCR amplification, or the use of KASP is not the conventional SNP calling. 
+
+\subsection{KASP assays for public sets of SNPs} 
+PolyMarker was used to design KASP assays for the 81,587 markers from \citep{Wang2014}, available on the PolyMarker website and in CeralsDB \citep{Wilkinson2012}. 
+Of those markers, 40,267 where designed using the target chromosome using the genetic map published by the genetic map. 
+Genes without a genetic position were aligned to scaffolds sorted by chromosome from the International Wheat Genome Sequencing Consortium \citep{Mayer2014} with BLAT \citep{Kent2002} and the best hit was selected as putative location. 
+97.5\% of the assays where designed and 76\% of them are semi-specific or specific, thereby improving their expected performance with respect to randomly designed primers (Table \ref{tab:poly:designed}). 
+A set of the designed assay was used to genotype a mapping population to find resistance to Fusarium head blight \citep{Burt2015}. 
+
+\begin{table}
+
+\centering
+\caption{Count of KASP assays designed for the 40,267 SNP markers located in the genetic map from \cite{Wang2014}. 4,228 assays did not align to the target chromosome. \label{tab:poly:designed} Not designed: Primer3 could not find viable primers flanking the SNP.}
+
+%\center
+\begin{tabular}{rccc}
+
+\toprule
+ & Homoeologous  &     Varietal  & Percentage\\
+  &  variant &      SNP & \\
+ \midrule
+Non-specific&1,765&5,857&21.15\%\\
+Semi-specific&7,942&6,907&41.20\%\\
+Specific&6,813&5,957&35.43\%\\
+Not designed &242&556&2.21\%\\
+\midrule
+ Total&16,762&19,277&36,039\\
+\bottomrule
+\end{tabular}
+
+\end{table}
+
+\subsection{Genotyping of \textit{Puccinia 
+striiformis f. sp. tritici} isolates.}
+In \cite{Hubbard2015}, \textit{Puccinia striiformis} f. sp. \textit{tritici} (PST) isolates were sequenced and assigned to clusters, according to their genotype.
+The clusters are useful to monitor the changes in the pathogen population, which can be used to predict if certain wheat lines will be resistant to the isolates in the field. 
+PolyMarker was used to design primers for PST, using the assembly PST-130 \cite{Cantu2011}.
+Out of 15 assays 11 can be used to identify to which cluster of isolates a sample is likely to belong (Supplemental Table \ref{app:PolyMarkerPST}).  
 
 
-\subsection{Deletion algorithms}
-Algorithm to produce KASP for deletions in polyploids. 
 
+
+\subsection{Validation of SNPs in a mutant population}
+\citep{Krasileva2016}
+
+
+\subsection{Validation of deletions on a mutant population}
+%Algorithm to produce KASP for deletions in polyploids. 
+Primers
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.4\textwidth}

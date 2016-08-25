@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{book}
+\documentclass[12pt,a4paper,oneside]{book}
 \usepackage[english]{babel}
 \usepackage[sharp]{easylist}
 \usepackage{graphicx}
@@ -10,9 +10,13 @@
 \usepackage[locale=UK]{siunitx} % Formats the units and values
 \usepackage{rotating}
 \usepackage{pdflscape}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[inner=4cm,outer=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{inconsolata}
 \usepackage{datatool}
+\usepackage{blindtext}
+\usepackage{scrextend}
+\usepackage{enumitem}
+\addtokomafont{labelinglabel}{\sffamily}
 \usepackage{booktabs} % For \toprule, \midrule and \bottomrule
 % start every dtl table with \toprule from booktabs
 \renewcommand{\dtldisplaystarttab}{\small}
@@ -20,6 +24,12 @@
 % likewise for \midrule and \bottomrule from booktabs 
 \renewcommand{\dtldisplayafterhead}{\midrule}
 \renewcommand{\dtldisplayendtab}{\\\bottomrule}
+
+
+\newenvironment{processtable}[3]{\setbox\temptbox=\hbox{{\tablesize #2}}%
+\tempdime\wd\temptbox\@processtable{#1}{#2}{#3}{\tempdime}}
+{\relax}
+
 
 % Setup siunitx:
 \sisetup{
@@ -61,7 +71,7 @@
 \begin{document}
 
 
-
+\tableofcontents
 \include{Introduction/Introduction}
 \include{LitReview/LitReview}
 \include{Yr15/Yr15}
