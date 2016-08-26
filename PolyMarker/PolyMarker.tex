@@ -13,7 +13,7 @@ To reduce the time invested in designed primers I have developed PolyMarker \cit
 \section{Pipeline}
 PolyMarker is an automated pipeline that takes as input a list of SNPs and a reference file and produces a list of primer triplets for SNP genotyping. 
 The list of SNPs is first converted to a \texttt{FASTA} file with ambiguity codes\citep{Cornish-Bowden1985} 
-The sequences are searched on the genomic reference using \texttt{exonerate} \citep{Slater2005} to find the homoeologue regions to the target sequence. 
+The template sequences are aligned with \texttt{exonerate} \citep{Slater2005}  to find the homoeologous regions to the target sequence. 
 Then, the alignment between homoeologues is refined using \texttt{MAFFT}\citep{Katoh2013}. 
 A list of candidate variations is produced and used as input for \texttt{Primer3}\citep{Rozen}. 
 Finally, the output of \texttt{Primer3} is parsed to find the best primer pair that contains a the targeted SNP and a base that is specific to the target genome (Figure \ref{fig:poly:pipeline}).  
@@ -32,8 +32,8 @@ A \texttt{FASTA} file is produced with all the template sequences, with the alte
 The flanking sequence surrounding the SNP is limited by default to 100bp to reduce the search time and avoid missing regions that diverge near the SNP, as when the variation is near an intron-exon junction. 
 %%TODO: Should we elaborate more here? 
 
-The template sequences are searched in the reference sequence using \texttt{exonerate}\citep{Slater2005}, figure \ref{fig:poly:globalSearch}. 
-The alignment is run with the \texttt{--model est2genome} option, to allow the search of sequences coming from transcripts, a common source of SNPs\citep{Allen2011}. 
+The template sequences are aligned to the reference using \texttt{exonerate} \citep{Slater2005}, figure \ref{fig:poly:globalSearch}. 
+The alignment is refined with the \texttt{--model est2genome} option, to allow the search of sequences coming from transcripts, a common source of SNPs\citep{Allen2011}. 
 The exonerate output is formatted with the \texttt{--ryo} (roll your own format) to get an output easy to parse. 
 All the hits that contain the SNP are extracted from the reference with a flanking sequence that extend out of the hit, by defualt, to 100bp on each side of the SNP (Figure \ref{fig:poly:globalAround}).
 The size of the flanking sequence can be set to different sizes to allow the design of different types of primers. 
@@ -156,11 +156,14 @@ The clusters are useful to monitor the changes in the pathogen population, which
 PolyMarker was used to design primers for PST, using the assembly PST-130 \cite{Cantu2011}.
 Out of 15 assays 11 can be used to identify to which cluster of isolates a sample is likely to belong (Supplemental Table \ref{app:PolyMarkerPST}).  
 
-
-
-
 \subsection{Validation of SNPs in a mutant population}
-\citep{Krasileva2016}
+
+PolyMarker was used to design primers to validate SNPs in a Targeted Induced Local Lesions in Genomes (TILLING) population, an approach to identify the function of genes by mutating them. 
+To calibrate the SNP calling, KASP assays were designed to get the mutations from $M_{2}$, $M_{3}$ and, $M_{5}$ mutants \cite{King2015}. 
+%TODO: Add more details as suplemental?
+Then primers were designed for the whole mutant poplation, consisting of 1,200 Cadenza (Hexaploid) and 1,535 Kronos (Tetraploid) wheat lines\cite{Krasileva2016}. Genome-specific primers  172 and 80 SNP assays on 19 and 8 $M_{4}$ Cadenza and Kronos lines respectively. 
+Of those, 71(85.5\%) Kronos and 147(88.8\%) of the Cadenza primers where valid assays (Tables \ref{app:PolyMarkerM4ValidationCadenza} and \ref{app:PolyMarkerM4ValidationKronos}).  
+
 
 
 \subsection{Validation of deletions on a mutant population}
