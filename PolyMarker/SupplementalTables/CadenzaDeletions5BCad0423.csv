@@ -1,0 +1,9 @@
+Marker,Deletion,LINE,chr,cM,SNP_type,1,2,3,4,5,6,7,8,9,10,11,12,C,C,C,C,Result
+5BS_2297308_Cadenza0423_12664_C12664T,-,Cadenza0423,5B,4.551,non-homoeologous,x,x,-,x,x,x,x,x,x,x,-,x,y,y,y,y,HOM Mutation 
+5BL_10812849_Cadenza0423_5664_G5664T,-,Cadenza0423,5B,38.769,non-homoeologous,x,x,-,x,x,x,x,x,x,x,-,x,y,y,y,y,HOM Mutation 
+5BL_10825062_Cadenza0423_7917_G7917A,-,Cadenza0423,5B,38.769,non-homoeologous,x,x,-,x,x,x,x,x,x,x,-,x,y,y,y,y,HOM Mutation 
+IWGSC_CSS_5BL_scaff_10847976:27068-27231,+,Cadenza0423,5B,38.769,hom-deletion,x,x,-,x,x,x,x,x,x,x,-,x,h,h,h,h,Hom Deletion
+IWGSC_CSS_5BL_scaff_10847976:28118-28674,+,Cadenza0423,5B,38.769,hom-deletion,x,x,-,x,x,x,x,x,x,x,-,x,h,h,h,h,Hom Deletion
+IWGSC_CSS_5BL_scaff_10865441:15863-15946,+,Cadenza0423,5B,38.769,hom-deletion,x,x,-,x,x,x,x,x,x,x,-,x,h,h,h,h,Hom Deletion
+5BL_10837222_Cadenza0423_4616_G4616A,-,Cadenza0423,5B,39.905,non-homoeologous,x,x,-,x,x,x,x,x,x,x,-,x,y,y,y,y,HOM Mutation 
+5BL_10891320_Cadenza0423_18847_C18847T,-,Cadenza0423,5B,45.594,non-homoeologous,y,y,-,y,h,x,x,y,h,y,-,h,y,y,y,y,HET Mutation 
