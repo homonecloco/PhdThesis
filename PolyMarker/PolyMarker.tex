@@ -11,6 +11,13 @@ The traditional methodology to find primer candidates include a blast search and
 To reduce the time invested in designed primers I have developed PolyMarker \citep{Ramirez-Gonzalez2015a}, a pipeline to automate the primer design for polyploid organisms.  
 
 \section{Pipeline}
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{PolyMarker/Figures/pipeline.pdf}
+        \caption{Steps and tools called by PolyMarker. The colour of the boxes represent: the step is an action inside the script(red); actions of the script(orange); temporary files(yellow); inputs(blue) and; outpus(green)}
+        \label{fig:poly:pipeline}
+\end{figure}
+
 PolyMarker is an automated pipeline that takes as input a list of SNPs and a reference file and produces a list of primer triplets for SNP genotyping. 
 The list of SNPs is first converted to a \texttt{FASTA} file with ambiguity codes \citep{Cornish-Bowden1985} 
 The template sequences are aligned with \texttt{exonerate} \citep{Slater2005}  to find the homoeologous regions to the target sequence. 
@@ -20,11 +27,6 @@ Finally, the output of \texttt{Primer3} is parsed to find the best primer pair t
 The pipeline is written as a Ruby script, using parsers and wrappers from BioRuby \citep{Goto2010} and bio-samtools \citep{Etherington2015,Ramirez-Gonzalez2012}. 
 The software is open source and released as a biogem \citep{Bonnal2012}, \texttt{bio-polyploid-tools}, the source code is available in github: \texttt{https://github.com/TGAC/bioruby-polyploid-tools}.
 
-\begin{figure}
-\includegraphics[width=1\textwidth]{PolyMarker/Figures/pipeline.pdf}
-        \caption{Steps and tools called by PolyMarker. The colour of the boxes represent: the step is an action inside the script(red); actions of the script(orange); temporary files(yellow); inputs(blue) and; outpus(green)}
-        \label{fig:poly:pipeline}
-\end{figure}
 
 The PolyMarker input consist on SNP list with: unique name for the marker, the target chromosome and the sequence for the marker. 
 The alternative alleles are surrounded by square brackets within the sequence. PolyMarker can take a list of several markers and design them in batch, Figure \ref{fig:poly:input}. 
