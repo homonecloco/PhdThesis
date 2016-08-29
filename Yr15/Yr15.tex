@@ -57,13 +57,18 @@ From the 232 plants in the $F_{2}$ population that germinated, 187 were resistan
 Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{Randhawa2009}, however the decresed number of succeptible plants can be explained by escapes in the virulence essays (i.e. plants scored as resistant without the \textit{Yr15} locus).   For this study we extracted DNA from individual plants in the $F_{2}$ population and we bulked RNA on 6 different bulks: 3 resistant and, 3 succeptible, Figure \ref{fig:yr15:f2}. 
 
 \section{Sequencing and mapping} 
-The sequencing of the bulks and the parents were done on 4 lanes of Illumina Hi-Seq2000. 
-Each one of the progenitors was sequenced on a single lane, to have enough coverage to call for SNPs
 
+RNA-Seq was used to avoid sequencing the non-coding regions and reduce the search space.  
+The sequencing of the bulks and the parents were done on a single Illumina Hi-Seq2000 each.
+The bulks were multiplexed and sequenced on a third of a lane each, as shown on Table \ref{tab:yr15:reads}. 
+To ensure that the quality of the sequencencing was good, \verb|fastqc-0.10| \citep{fastqc}  was run with its default parameters in each one of the fastq files.  
+The GC content was around 52\% in all the samples (Appendx \ref{App:AppendixQCGC}), which is expected as the sample should be of coding regions, and for wheat the reported GC content in genes is around 55\%.  
+The quality of the reads is fairly consistent, in general dropping after the base 80 across the samples (Appendix \ref{App:AppendixQCRead}). 
 
-In the experiment, each of the parentals where sequx§enced in a single Illumina Hi-Seq2000 Lane and the six bulks were barcoded to be sequenced on two lanes. The yield of the sequencing is the following: 
-
-\begin{center}
+\begin{table}
+\centering
+\caption{Arrangement and number of sequenced base pairs per sample. }
+\label{tab:yr15:reads}
 \begin{tabular}{rrccccc}
 \toprule
 Library & name & Bar code & Lane   &  Reads (\e{8} bp)\\ 
@@ -76,92 +81,16 @@ LIB1719 & Bulk S2 & CGTACG & 2 	& 1.49  \\
 LIB1720 & Bulk S3 & GTGGCC & 1 	&1.88  \\ 
 LIB1721 & AvocetS & N/A & 3 		& 4.13 \\ 
 LIB1722 & AvocetS + \textit{Yr15} & N/A & 4 	& 3.99  \\ 
-
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 
-
-% \section{Sequencing Quality Control}
-
-% To ensure that the quality of the sequencencing was good, fastqc-0.10  was run with its default parameters in each one of the fastq files.  The GC content was around 52\% in all the samples (Appendx \ref{App:AppendixQCGC}), which is expected as the sample should be of coding regions, and for wheat the reported GC content in genes is around 55\%.  The quality of the reads is fairly consistent, in general dropping after the base 80 across the samples (Appendix \ref{App:AppendixQCRead}). 
-
-% As part of the Sequence Informatics analysis, we screened for some of the common contaminants and one of the samples seemed to have several reads with common 21-kmers with Xanthomonas Campestris. Assembling the reads containing kmers which seemed contaminated resulted on 16S and 23S fragments, which are very likely that it is a conserved motif. Still, w went further and looked for Wheat's 16S in NCBI, run an alignment and I got contamination  (Table \ref{tab:aln16S}).
-
-% \begin{table}[h!]
-
-% \begin{center}
-
-% \begin{tabular}{rcccccc}
-% \toprule
-% Library 				&  Total reads  	& 16S percentage\\ \midrule
-%  Bulk R1		&  7.68\e{7} 	& 8.57\% \\ 
-%  Bulk R2		&  1.20\e{8}   	& 0.39\% \\ 
-%  Bulk R3		&  9.58\e{7}  	& 1.23\% \\ 
-%  Bulk S1		& 1.64\e{8}   	& 0.31\% \\ 
-%  Bulk S2 		& 1.49\e{8}  	& 4.10\%\\ 
-%  Bulk S3  		&1.88\e{8}  	& 0.28\%\\ 
-% AvocetS 		& 4.13\e{8} 	& 0.37\%\\ 
-%  AvocetS(Yr15) & 3.99\e{8}	 &0.50\%\\ 
-
-% \bottomrule
-% \end{tabular}
-% \end{center} 
-% \caption{Amount of sequence aligning to wheat 16S. Bulks R1 and S2 are have an overrepresentation of 16S}
-% \label{tab:aln16S}
-% \end{table}
-
-
-
-% \subsection{Alignments to Unigenes v60 with BWA}
-
-
-% All the samples where aligned to the Unigenes v60 (56,954 genes) using BWA 0.5.10\cite{Li2009} (Table \ref{tab:alnUv60}). The alignment provided showed that a few genes were overly expressed (Figure  \ref{fig:Uv60cumExp}), however we still have have over 20,000 genes with a coverage greater than 20x in all the samples (\ref{fig:Uv60sortCov}). The Bulk R1 shows less genes with a coverage above the threshold, which is expected as it is the sample with a higher representation of 16S  (Table \ref{tab:aln16S})
-
-% \begin{table}[h!]
-
-% \begin{center}
-% \begin{tabular}{rccccc}
-% \toprule
-% Sample	& Total reads	& Mapped reads	& \%Mapped reads	& Proper pairs & \% Proper pairs	\\
-% \midrule 
-% Bulk R1	& 7.68E+07	& 5.02E+07	& 65.38\%	& 4.37E+07	& 56.93\% \\
-% Bulk R2	& 1.20E+08	& 7.85E+07	& 65.38\%	& 6.67E+07	& 55.57\% \\
-% Bulk R3	& 9.58E+07	& 6.08E+07	& 63.52\%	& 5.09E+07	& 53.18\% \\
-% Bulk S1	& 1.64E+08	& 1.02E+08	& 62.36\%	& 8.47E+07	& 51.79\% \\
-% Bulk S2	& 1.49E+08	& 9.47E+07	& 63.55\%	& 8.00E+07	& 53.64\% \\
-% Bulk  S3	& 1.88E+08	& 1.21E+08	& 64.65\%	& 1.02E+08	& 54.38\% \\
-% AvocetS	& 4.13E+08	& 2.59E+08	& 62.68\%	& 2.13E+08	& 51.53\% \\
-% AvocetS(Yr15)	& 3.99E+08	& 2.65E+08	& 66.33\%	& 2.20E+08	& 55.24\% \\
-% \bottomrule
-%  \end{tabular}
-
-% The following plot shows the effect of not having a normalised sample, where less than 1,000 genes get around half of the sample.
-% \caption{Count and percentage of the samples aligned }
-% \label{tab:alnUv60}
-% \end{center}
-% \end{table}
-% \begin{figure}
-%         \centering
-%         \begin{subfigure}[b]{0.80\textwidth}
-%                 \centering
-%                 \includegraphics[width=\textwidth]{Results/images/CumulativeExpression.png}
-%                 \caption{Cumulative expression of genes. The horizontal line represents half of the sample }
-%                 \label{fig:Uv60cumExp}
-%         \end{subfigure}
-        
-%         \begin{subfigure}[b]{0.80\textwidth}
-%                 \centering
-%                 \includegraphics[width=\textwidth]{Results/images/sorted_coverage.png}
-%                 \caption{Coverage of genes, sorted by coverage}
-%                 \label{fig:Uv60sortCov}
-%         \end{subfigure}
-%         \caption{Volume of sequence assigned to each gene. Few genes are over expressed, but we still have enough coverage (above 20x) to continue the analysis. }
-%         \label{fig:Uv60expr}
-% \end{figure}
-
-%RNA-Seq and the decision to call SNPs on gene models rather than the whole reference.  Details of the mapping against the Wheat UniGenes \cite{PontiusJUWagnerL2002} and the UCW. \cite{Krasileva2013} gene models.  
+When the analysis was started, the draft genome and the corresponding annotation where not not release yet, hence gene models where used. 
+All the samples where aligned to the Unigenes v60 (56,954 genes) and the gene models from UCW \citep{Krasileva2013} using \verb|BWA 0.5.9| \citep{Li2009}. 
+The alignment provided showed that a few genes were overly expressed, however we still have have 22,107 and 36,808 genes, on the Unigenes and the UCW gene set respectivley,  with a coverage greater than 20x in the progenitor with \textit{Yr15}, Supplemental Table \ref{app:seqAlnCov}. 
+Both gene sets performed similarly in terms of the percentage of genes with reads and percentage of aligned reads. 
+Since each individual bulk has a lower coverage, the susceptible and resistant reads were merged \textit{in silico} and mapped as the individual bulks.  
 
 \section{SNP Calling}. 
 \verb|Ruby| implementation of the methodology described by \citet{Trick2012}. 
@@ -179,8 +108,12 @@ The selection criteria to decide which SNPs where selected to produce the geneti
 \label{yr15:geneticMap}
 The three versions of the genetic map: With a subset of the F\textsubscript{2} population
 
-\section{Assembly of the transcriptome} 
-A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
+%\section{Assembly of the transcriptome} 
+%A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
 
 \section{Conclusions} 
 Remarks on how this techinque can be used to do fine-mapping and that if I were to start the project now I would  use exome capture or Ren-Seq. 
+
+The references have changed since we started
+we can use different techniques now (exome capture, ren-seq)
+The markers are now used by our collaborators. 
