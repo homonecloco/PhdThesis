@@ -7,17 +7,58 @@
  
 %Breeding importance of \textit{Yr15} and original source (an introgression of \textit{T. diccocoides}). 
 Wheat breeding programs aim to improve the wheat lines available for production.
-One way to facilitate the selection of elite lines is to find molecular markers that can facilitate the selection of seeds without having to wait until the phenotype is observed.   
-Bulk Segregant Analysis (BSA) consists on pooling the DNA of individuals with contrasting phenotypes \citep{Michelmore1991} on a segregating population. 
+One of the traits desired in an elite line is the resistance to pathogens, such as \textit{Puccinia striiformis} f. sp.  \textit{tritici}, the fungi responsible of yellow rust.
+A source of resistance genes is are introgressions from other species, such as \textit{Triticum diccocides}. 
+In the University of Sydney a collection of \glspl{nil} with introgressions to several Yellow Rust resistance genes on a susceptible background were developed \citep{Wellings1998}. 
+On this chapter the NIL for the \textit{Yr15} locus is used to produce a mapping population to improve diagnostic markers. 
+
+%TODO: Paragraph explaining NILs
+
+
+Line selection can be done with molecular markers that can be used to test if certain allele is present in a line, without the need to do a phenotype.
+To find which regions are linked to a trait the use of $F_{2}$ mapping populations is a common practice.
+The population is produced by crossing two homozygous parents ($P_1$ and $P_{2}$) with different alleles, A/A (dominant) and a/a (recessive).
+When the trait is dominant and has a mendelian segregation, the $F_1$ population show the dominant trait, as it has a copy of each allele (A/a). 
+The $F_1$ is then self-crossed to and the population segregates with a ration 1:2:1, dominant:heterozygous:recessive respectively.
+This generates a population with a phenotype ratio of 3:1 (dominant:recessive), since the effect of the recessive allele is masked by the dominant gene (\citealt{VanOoijen2013}; Figure \ref{fig:yr15:f2schematic}).  
+
+\begin{SCfigure}
+  \centering
+    \includegraphics[width=0.4\textwidth]{Yr15/Figures/population/F2schematic.pdf}
+  \caption{The cross of two homozygous parents, $P_{1}$ and $P_{2}$, with a dominant and a recessive allele of a gene produce an heterozygous $F_{1}$. The $F_{1}$ crossed with itself produce a segregating $F_{2}$ population with a 1:2:1 ratio (A/A:A/a:a/a). The upper and lower cases represent dominant and recessive alleles  }. 
+  \label{fig:yr15:f2schematic}
+\end{SCfigure}
+
+
+\gls{bsa} consists on pooling the DNA of individuals with contrasting phenotypes \citep{Michelmore1991} on a segregating population. 
 The bulks show as heterozygous except for the region that is linked to the trait of interest. 
 This approach can be used to identify SNPs using High Throughput Sequencing, such as: exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome resquencing \citep{Schneeberger2009}, among others. 
 
-One of the traits desired in an elite line is the resistance to pathogens, such as \textit{Puccinia striiformis} f. sp.  \textit{tritici}, the fungi responsible of yellow rust.
-A source of resistance genes is are introgressions from other species, suchas \textit{Triticum diccocides}. 
-In the University of Sydney a collection of Near Isogenic Lines (NILs) with introgressions to several Yellow Rust resistance genes on a susceptible background were developed \citep{Wellings1998}. 
-On this chapter the NIL for the \textit{Yr15} locus is used to produce a mapping population to improve diagnostic markers. 
-The population was sequenced using RNA-Seq and a bioinformatic pipeline was developed to score Single Nucleotide Polymorphisms (SNPs) linked to the \textit{Yr15} locus.  
-Finally, the best candidate SNPs where selected to produce a genetic map which lead to a triplet of markers diagnostic to the target locus. The steps described in this chapter were first published in \citet{Ramirez-Gonzalez2015c} and the results of this chapter are published in \citet{Ramirez-Gonzalez2015b}.
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{Yr15/Figures/bfr.pdf}
+\caption{Illustration of a non-informative homoeologous SNP (G181T) present in both parental lines, and an informative allelic SNP (G184A), only present in the resistant progenitor Avocet S + Yr15. The consensus sequences from the parental genotypes include this information in the form of ambiguity codes (K and R, respectively). In the bulks, the individual reads align across the reference sequence, with matches indicated by dots, and polymorphisms at positions 181 and 184 indicated by the corresponding nucleotide variants at those positions. The SNP index is calculated as the frequency of the informative allelic SNP in each bulk. The Bulk Frequency Ratio is the quotient of the resistant and susceptible bulk SNP Indexes. Figure previously published in \citet{Ramirez-Gonzalez2015c}. }
+\label{fig:yr15:bfr}
+\end{figure}
+
+
+To Call for SNPs from RNA-Seq a reference transcriptome is used as target when aligning the reads. 
+The \gls{bfr} methodology can work on organisms has more than one pseudo genome and that the genes are not necessarily fully characterised independently among homoeologues or paralogues, you can have in a single reference collapsing similar regions. 
+The UniGenes database, from NCBI, contains the genes of each species, with all the variations of each gene automatically collapsed and represented as with the longest \acrshort{cdna} \citep{PontiusJUWagnerL2002}. 
+The \acrshort{ucw}  genes described in \citet{Krasileva2013} contains 94,177 models from tetraploid and hexaploid wheat, assembled and phased to separate different homoeologues. 
+Both gene sets are complement each other, however, the \acrshort{ucw} gene models should provide an improved alignment, since the different homoeologues aren't merged in a single model, a possible side effect of the UniGene pipeline. 
+
+Homoeologous variants, as exemplified by the G$>$T variant at position 181; K in consensus (Figure \ref{fig:yr15:bfr}), will produce the same ambiguity code for both parental consensus sequences and can therefore be excluded. 
+Real allelic SNPs between the parental genotypes, exemplified by the G$>$A variant at position 184; R in consensus, are distinguished by the presence in one, but not the other parental consensus sequence. 
+The allelic SNPs are then examined further with the alignments of the bulks to identified the SNPs that are enriched on the resistant plants.
+The SNP index is the proportion of times an alternative allele is observed over the coverage at certain, in the example the the susceptible bulk has an SNP index of $1/8=0.125$ and $6/8=0.75$ for the resistant bulk \citep{Takagi2013a}. traditional
+The \acrshort{bfr} are then calculated by dividing the SNP Index of sample containing the target phenotype (resistance) over the sample without the trait (susceptible), on the example is $0.75/0.125=6$.  
+A high BFR suggests that the \acrshort{snp} is linked to the target trait \citep{Trick2012}. 
+
+
+Finally, the best candidate SNPs where selected to produce a genetic map which lead to a triplet of markers diagnostic to the target locus. 
+
+The steps described in this chapter were first published in \citet{Ramirez-Gonzalez2015c} and the results of this chapter are published in \citet{Ramirez-Gonzalez2015b}.
 
 \section{Mapping population}
 
@@ -73,10 +114,10 @@ The quality of the reads is fairly consistent, in general dropping after the bas
 \toprule
 Library & name & Bar code & Lane   &  Reads (\e{8} bp)\\ 
 \midrule
-LIB1715 & Bulk R1& ATCACG & 1 	& 0.77\\
-LIB1716 & Bulk R2& TAGCTT & 1 		& 1.20\\
-LIB1717 & Bulk R3& ACTTGA & 2 	& 0.96  \\ 
-LIB1718 & Bulk S1& GGCTAC & 2 	& 1.64   \\ 
+LIB1715 & Bulk R1 & ATCACG & 1 	& 0.77\\
+LIB1716 & Bulk R2 & TAGCTT & 1 		& 1.20\\
+LIB1717 & Bulk R3 & ACTTGA & 2 	& 0.96  \\ 
+LIB1718 & Bulk S1 & GGCTAC & 2 	& 1.64   \\ 
 LIB1719 & Bulk S2 & CGTACG & 2 	& 1.49  \\ 
 LIB1720 & Bulk S3 & GTGGCC & 1 	&1.88  \\ 
 LIB1721 & AvocetS & N/A & 3 		& 4.13 \\ 
@@ -85,35 +126,28 @@ LIB1722 & AvocetS + \textit{Yr15} & N/A & 4 	& 3.99  \\
 \end{tabular}
 \end{table}
 
+\input{Yr15/SupplementalTables/alignedCoverage}
+
 When the analysis was started, the draft genome and the corresponding annotation where not not release yet, hence gene models where used. 
 All the samples where aligned to the Unigenes v60 (56,954 genes) and the gene models from UCW \citep{Krasileva2013} using \verb|BWA 0.5.9| \citep{Li2009}. 
-The alignment provided showed that a few genes were overly expressed, however we still have have 22,107 and 36,808 genes, on the Unigenes and the UCW gene set respectivley,  with a coverage greater than 20x in the progenitor with \textit{Yr15}, Supplemental Table \ref{app:seqAlnCov}. 
+The alignment provided showed that a few genes were overly expressed, however we still have have 22,107 and 36,808 genes, on the Unigenes and the UCW gene set respectivley,  with a coverage greater than 20x in the progenitor with \textit{Yr15}. 
 Both gene sets performed similarly in terms of the percentage of genes with reads and percentage of aligned reads. 
-Since each individual bulk has a lower coverage, the susceptible and resistant reads were merged \textit{in silico} and mapped as the individual bulks.  
+Since each individual bulk has a lower coverage, the susceptible and resistant reads were merged \textit{in silico} as: (i) susceptible bulks 1 with 2 (S1 + S2) and resistant bulks 1 with 2 (R1 + R2) and (ii) all the susceptible (S1 + S2 + S3) and resistant bulks (R1 + R2 + R3). 
+The merged samples increased the percentage of genes with coverage over 20x  to 44\% and 50\% in the resistant and susceptible bulks (Table \ref{app:seqAlnCov}), which is close to the coverage from the progenitors.
+
+
 
 \section{SNP Calling}
 
-To identify loci linked to the resistance provided by \textit{Yr15} in the segregating population the Bulk Frequency Ratios (BFR) described by \cite{Trick2012} on tetraploid wheat.
-The consensus sequence for each of the progenitors is obtained from the pileups, allowing to call variants with a 20\% of bases as alternative alleles. 
-Homoeologous variants, as exemplified by the G$>$T variant at position 181; K in consensus on Figure \ref{fig:yr15:bfr}, will produce the same ambiguity code for both parental consensus sequences and can therefore be excluded. 
-Real allelic SNPs between the parental genotypes, exemplified by the G$>$A variant at position 184; R in consensus, are distinguished by the presence in one, but not the other parental consensus sequence. 
 
-These allelic SNPs are then examined further in the alignments of the RNA-Seq reads from the susceptible and resistant bulks. To identify enriched and depleted SNPs we first calculate the SNP Index, which is the proportion of the non-consensus base at the positions previously identified (A at position 184 according to the example in Fig. 2b; Takagi et al., 2013a). Then, we calculate the bulk frequency ratios (BFR), which is the ratio between the SNP Indexes of the resistant and susceptible bulks (Trick et al., 2012). The BFR helps reduce the noise generated by differential expression of homoeologous genes and accounts for the presence of alternative bases at any given position. A closely linked SNP to the R-gene should generate a very high BFR since the resistant bulk will carry exclusively plants with the resistant allele, whereas the susceptible bulk should be devoid of any plants carrying the resistant allele. As one moves further away from the R-gene, recombination events occur between the gene and the candidate SNPs decreasing the BFR.
+%Using a base coverage threshold of at least 209, we identified SNPs between parental lines and the gene references. Roughly 3% more genes with polymorphisms were identified in AVS compared to Yr15 (Figure 2b) for those genes longer than 500 bp and with at least 50% breadth coverage. This suggests that the lower coverage of Yr15 is affecting the number of putative SNPs identified. Across both parental data sets, the use of the UCW gene models resulted in a higher number of monomorphic genes relative to the UniGene set, leading to a higher SNP frequency in the UniGenes (Figure 2b, Table S3). This is most likely due to the fact that multiple homoeologues are represented as a single sequence within the UniGene set as opposed to the homoeologue-specific UCW set in which a higher percentage of reads map to the correct homoeologues, thereby reducing the number of genes with SNPs. As both references were generated from varieties different to
+%AVS and are not complete, we called a base when at least 20% of the reads contained the nucleotide. When more than one putative consensus was identified, the corresponding Interna- tional Union of Pure and Applied Chemistry (IUPAC) ambiguity code was used (Cornish-Bowden, 1985). We next compared SNPs between parental lines; those found in both parents are most likely homoeologous SNP or common varietal polymorphism between AVS and the reference varieties. These shared SNPs are not informative for this study and were thus eliminated from the analysis. On the other hand, SNPs that are unique to a single parent represent putative varietal SNPs and were therefore examined further. Focusing on these unique varietal SNPs, we identified 66 426 putative SNPs across 16 022 UCW genes (17%
+The Bulk Frequency Ratio (BFR) algorithm (\citealt{Trick2012}; Figure \ref{fig:yr15:bfr} on tetraploid wheat, was used to identify loci linked to the resistance provided by \textit{Yr15} in the segregating population.
+Briefly, the consensus sequence for each of the progenitors is obtained from the pileups, allowing to call variants having 20\% of the bases as an alternative allele. 
 
-
-
-%\verb|Ruby| implementation of the methodology described by \citet{Trick2012}. 
-
-%\section{Bulk Frequency Ratios} 
-%Results of the simple SNP calls from the progenitors and how the score of the Bulk Frequency Ratios(BFR) improve the location of the SNPs. 
-\begin{figure}
-\includegraphics[width=1\textwidth]{Yr15/Figures/bfr.pdf}
-\caption{Illustration of a non-informative homoeologous SNP (G181T) present in both parental lines, and an informative allelic SNP (G184A), only present in the resistant progenitor Avocet S + Yr15. The consensus sequences from the parental genotypes include this information in the form of ambiguity codes (K and R, respectively). In the bulks, the individual reads align across the reference sequence, with matches indicated by dots, and polymorphisms at positions 181 and 184 indicated by the corresponding nucleotide variants at those positions. The SNP index is calculated as the frequency of the informative allelic SNP in each bulk. The Bulk Frequency Ratio is the quotient of the resistant and susceptible bulk SNP Indexes. Figure previously published in \citet{Ramirez-Gonzalez2015c}. }
-\label{fig:yr15:bfr}
-\end{figure}
 
 \section{\textit{In silico} mapping}
-Mapping of the gene models to the IWGSC CSS \cite{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
+Mapping of the gene models to the IWGSC CSS \citet{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
 
 \section{Assay selection}. 
 The selection criteria to decide which SNPs where selected to produce the genetic map: BFR$>$6, in the short arm of chromosome group 1 and from the \textit{Yr15} progenitor.
@@ -125,9 +159,10 @@ The three versions of the genetic map: With a subset of the F\textsubscript{2} p
 %\section{Assembly of the transcriptome} 
 %A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
 
-\section{Conclusions} 
+\section{Discussion} 
 Remarks on how this techinque can be used to do fine-mapping and that if I were to start the project now I would  use exome capture or Ren-Seq. 
 
 The references have changed since we started
-we can use different techniques now (exome capture, ren-seq)
+There are new annotations, now we don't necessarily need to use unigenes anymore. 
+We can use different techniques now (exome capture, ren-seq)
 The markers are now used by our collaborators. 

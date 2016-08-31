@@ -17,14 +17,14 @@
 \usepackage{scrextend}
 \usepackage{enumitem}
 \usepackage{wrapfig}
+\usepackage{sidecap}
 \usepackage{setspace}
 \usepackage{algorithm2e}
 \usepackage{algpseudocode}
+\usepackage[acronym]{glossaries}
 
 \SetInd{0.5em}{0.5em}
-
 \linespread{1.25}
-
 \addtokomafont{labelinglabel}{\sffamily}
 \usepackage{booktabs} % For \toprule, \midrule and \bottomrule
 % start every dtl table with \toprule from booktabs
@@ -80,19 +80,21 @@
 
 \author{Ricardo Humberto Ramirez Gonzalez}
 \title{Thesis}
+\include{Abbreviations}
+
+\makeglossaries
 \begin{document}
-
-
 \tableofcontents
+\printglossaries
+
 \include{Introduction/Introduction}
 \include{LitReview/LitReview}
-\include{Yr15/Yr15}
 \include{PolyMarker/PolyMarker}
+\include{Yr15/Yr15}
 \include{expVIP/expVIP}
 \include{Conclusions/Conclusions}
 
 \appendix
-
 \chapter{Supplemental tables}
 \include{Yr15/Supplemental}
 \include{PolyMarker/Supplemental}
@@ -102,5 +104,6 @@
 
 \bibliographystyle{plainnat_short}
 \bibliography{References}
+
 
 \end{document}

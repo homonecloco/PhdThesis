@@ -29,7 +29,7 @@ The software is open source and released as a biogem \citep{Bonnal2012}, \verb|b
 
 
 The PolyMarker input consist on SNP list with: unique name for the marker, the target chromosome and the sequence for the marker. 
-The alternative alleles are surrounded by square brackets within the sequence. PolyMarker can take a list of several markers and design them in batch, Figure \ref{fig:poly:input}. 
+The alternative alleles are surrounded by square brackets within the sequence. PolyMarker can take a list of several markers and design them in batch (Figure \ref{fig:poly:input}). 
 A \verb|FASTA| file is produced with all the template sequences, with the alternative alleles substituted by the IUAPC ambiguity codes \citep{Cornish-Bowden1985}. 
 The flanking sequence surrounding the SNP is limited by default to 100bp to reduce the search time and avoid missing regions that diverge near the SNP, as when the variation is near an intron-exon junction. 
 %%TODO: Should we elaborate more here? 
@@ -77,7 +77,7 @@ The flanking sequence surrounding the SNP is limited by default to 100bp to redu
     \label{fig:global}
 \end{figure}
 
-The template sequences are aligned to the reference using \verb|exonerate| \citep{Slater2005}, Figure \ref{fig:poly:globalSearch}. 
+The template sequences are aligned to the reference using \verb|exonerate| (\citealt{Slater2005}; Figure \ref{fig:poly:globalSearch}). 
 The alignment is refined with the \verb|--model est2genome| option, to allow the search of sequences coming from transcripts, a common source of SNPs \citep{Allen2011}. 
 The exonerate output is formatted with the \verb|--ryo| (roll your own format) to get an output easy to parse. 
 All the hits that contain the SNP are extracted from the reference with a flanking sequence that extend out of the hit, by defualt, to 100bp on each side of the SNP, Figure \ref{fig:poly:globalAround}.
@@ -164,11 +164,11 @@ Of those, 71(85.5\%) Kronos and 147(88.8\%) of the Cadenza primers where valid a
 
 On some of the TILLING mutant lines long deletions were detected \citep{Krasileva2016}.
 To validate the deletions is possible to use KASP assays to produce primers that amplify homoeologues.  
-PolyMarker was modified to search for variations across homoeologues to select a common primer that will amplify two genomes, Figures \ref{fig:poly:wt} and \ref{fig:poly:homM4}. 
-On lines without the targeted deletion, the amplification correspond to an homozygous assay, Figure \ref{fig:poly:homFalse}.  
-When a deletion is present the results of the assay look like an homozygous sample, with the intensity of the assay towards the the conserved homoeologue, Figure \ref{fig:poly:homReal}.
-A set of KASP assays for the the deletions and mutations located on the same chromosome where designed to validate 11 homozygous deletions on $m_{4}$ plants. 
-In all cases the segregation of the mutiations was as expected, except for a predicted heterozygous mutation that was called as homozygous. 
+PolyMarker was modified to search for variations across homoeologues to select a common primer that will amplify two genomes (Figure \ref{fig:poly:wt}, \subref{fig:poly:homM4}). 
+On lines without the targeted deletion, the amplification correspond to an homozygous assay (Figure \ref{fig:poly:homFalse}).  
+When a deletion is present the results of the assay look like an homozygous sample, with the intensity of the assay towards the the conserved homoeologue (Figure \ref{fig:poly:homReal}).
+A set of KASP assays for the the deletions and mutations located on the same chromosome where designed to validate 11 homozygous deletions on $M_{4}$ plants. 
+In all cases the segregation of the mutations was as expected, except for a predicted heterozygous mutation that was called as homozygous. 
 Also, all the KASP assays that contained a deletion were called homozygous, as expected. 
 To ensure that the calls didn't come from a single cluster, 4 wildtype plants were genotyped and the markers for deletions where called as heterozygous. 
 An example of a validated deletion, with the calls for each individual is shown on Table \ref{app:poly:homDelCad0423}.
