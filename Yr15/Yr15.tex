@@ -68,20 +68,20 @@ The steps described in this chapter were first published in \citet{Ramirez-Gonza
     \centering
      
      \begin{subfigure}[b]{0.4\textwidth}
-        \includegraphics[width=1\textwidth]{Yr15/Figures/population/Yr15Photo.png}
         \caption{}
+        \includegraphics[width=1\textwidth]{Yr15/Figures/population/Yr15Photo.png}
         \label{fig:yr15.yr15Photo}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.4\textwidth}
-        \includegraphics[width=1\textwidth]{Yr15/Figures/population/AVSPhoto.png}
         \caption{}
+        \includegraphics[width=1\textwidth]{Yr15/Figures/population/AVSPhoto.png}
         \label{fig:yr15:avsPhoto}
     \end{subfigure}
 
      \begin{subfigure}[b]{0.8\textwidth}
+     \caption{}
         \includegraphics[width=1\textwidth]{Yr15/Figures/population/F2Population.pdf} 
-    \caption{ }
     \label{fig:yr15:f2}
 	\end{subfigure}
 
@@ -90,21 +90,15 @@ The steps described in this chapter were first published in \citet{Ramirez-Gonza
 %\end{wrapfigure}
 \end{figure}
 
-The population was developed by crossing the resistant line `Avocet + \textit{Yr15}` (\textit{Yr15}) \citep{Wellings1998}, Figure \ref{fig:yr15.yr15Photo}, to the susceptible line Avocet (AVS), Figure \ref{fig:yr15:avsPhoto}. 
+The population was developed by crossing the resistant line \gls{yr15} \citep{Wellings1998}, Figure \ref{fig:yr15.yr15Photo}, to the susceptible line \gls{avs}, Figure \ref{fig:yr15:avsPhoto}. 
+\acrshort{yr15} is a \gls{nil} of a 6th generation \gls{bc} and the \acrshort{avs} background is highly succeptible to yellow rust, hence the resistance is coffered by the \acrshort{yr15} locus. 
 $F_{2}$ seeds from tree independent $F_{1}$ plants where sown and tissue was collected, before the fungal inoculation to avoid the effect of the response on the gene expression.  
 The plants were challenged at the three leaf stage as it is know that \textit{Yr15} confers resistance in seedlings \citep{Gerechter-Amitai1989}.
 The expected segregation on an $F_{2}$ population is 3:1 (resistant:susceptible), since \textit{Yr15} is a dominant gene.
 From the 232 plants in the $F_{2}$ population that germinated, 187 were resistant and 45 were susceptible, which deviates slightly from the expected ratio ($\chi^{2}=0.049$).
-Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{Randhawa2009}, however the decresed number of succeptible plants can be explained by escapes in the virulence essays (i.e. plants scored as resistant without the \textit{Yr15} locus).   For this study we extracted DNA from individual plants in the $F_{2}$ population and we bulked RNA on 6 different bulks: 3 resistant and, 3 succeptible, Figure \ref{fig:yr15:f2}. 
+Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{Randhawa2009}, however the decresed number of succeptible plants can be explained by escapes in the virulence essays (i.e. plants scored as resistant without the \textit{Yr15} locus).   For this study we extracted DNA from individual plants in the $F_{2}$ population and we bulked RNA on 6 different bulks: 3 resistant and, 3 succeptible ( Figure \ref{fig:yr15:f2}). 
 
 \section{Sequencing and mapping} 
-
-RNA-Seq was used to avoid sequencing the non-coding regions and reduce the search space.  
-The sequencing of the bulks and the parents were done on a single Illumina Hi-Seq2000 each.
-The bulks were multiplexed and sequenced on a third of a lane each, as shown on Table \ref{tab:yr15:reads}. 
-To ensure that the quality of the sequencencing was good, \verb|fastqc-0.10| \citep{fastqc}  was run with its default parameters in each one of the fastq files.  
-The GC content was around 52\% in all the samples (Appendx \ref{App:AppendixQCGC}), which is expected as the sample should be of coding regions, and for wheat the reported GC content in genes is around 55\%.  
-The quality of the reads is fairly consistent, in general dropping after the base 80 across the samples (Appendix \ref{App:AppendixQCRead}). 
 
 \begin{table}
 \centering
@@ -126,25 +120,100 @@ LIB1722 & AvocetS + \textit{Yr15} & N/A & 4 	& 3.99  \\
 \end{tabular}
 \end{table}
 
+
+RNA-Seq was used to avoid sequencing the non-coding regions and reduce the search space.  
+The sequencing of the bulks and the parents were done on a single Illumina Hi-Seq2000 each.
+The bulks were multiplexed and sequenced on a third of a lane each, as shown on Table \ref{tab:yr15:reads}. 
+To ensure that the quality of the sequencencing was good, \verb|fastqc-0.10| \citep{fastqc}  was run with its default parameters in each one of the fastq files.  
+The GC content was around 52\% in all the samples (Appendx \ref{App:AppendixQCGC}), which is expected as the sample should be of coding regions, and for wheat the reported GC content in genes is around 55\%.  
+The quality of the reads is fairly consistent, in general dropping after the base 80 across the samples (Appendix \ref{App:AppendixQCRead}). 
+
+
 \input{Yr15/SupplementalTables/alignedCoverage}
+
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.29\textwidth}
+    \caption{}
+     \includegraphics[width=1\textwidth]{Yr15/Figures/CoveragePerGene.pdf} 
+    \label{fig:yr15:covPerGene}
+\end{subfigure}
+~
+\begin{subfigure}{0.5\textwidth}
+    \caption{}
+    \includegraphics[width=1\textwidth]{Yr15/Figures/PercentageOfSnps.pdf} 
+    
+    \label{fig:yr15:SNPper}
+\end{subfigure}
+
+\caption{(\subref{fig:yr15:covPerGene}) Box plot distribution of the gene coverage of the parent reads (\acrshort{avs} and \acrshort{yr15}) across the UCW (blue) and the UniGene (red) gene models. The dashed line represents the 209 minimum coverage required for SNP calling. The full line represents the average coverage across all gene models. (\subref{fig:yr15:SNPper}) Percentage of genes exhibiting SNPs across references. The number of \acrshort{snp}s between the parent reads and the corresponding references was calculated (per 100 bp, rounded). The ‘between-parents’ category corresponds to putative SNPs when comparing the consensus sequence between \acrshort{avs} and \acrshort{yr15} Adapted from \citet{Ramirez-Gonzalez2015b} }
+\end{figure}
+
 
 When the analysis was started, the draft genome and the corresponding annotation where not not release yet, hence gene models where used. 
 All the samples where aligned to the Unigenes v60 (56,954 genes) and the gene models from UCW \citep{Krasileva2013} using \verb|BWA 0.5.9| \citep{Li2009}. 
 The alignment provided showed that a few genes were overly expressed, however we still have have 22,107 and 36,808 genes, on the Unigenes and the UCW gene set respectivley,  with a coverage greater than 20x in the progenitor with \textit{Yr15}. 
 Both gene sets performed similarly in terms of the percentage of genes with reads and percentage of aligned reads. 
+For \gls{avs} and \gls{yr15}, the percentage of genes with a coverage of at least $20x$ is $45\%$ and $39\%$ respetively across both references (Figure \ref{fig:yr15:covPerGene}).
 Since each individual bulk has a lower coverage, the susceptible and resistant reads were merged \textit{in silico} as: (i) susceptible bulks 1 with 2 (S1 + S2) and resistant bulks 1 with 2 (R1 + R2) and (ii) all the susceptible (S1 + S2 + S3) and resistant bulks (R1 + R2 + R3). 
 The merged samples increased the percentage of genes with coverage over 20x  to 44\% and 50\% in the resistant and susceptible bulks (Table \ref{app:seqAlnCov}), which is close to the coverage from the progenitors.
 
-
-
 \section{SNP Calling}
 
+The \acrshort{snp} calling was done on positions with a coverage of at least $20x$ on the progenitor lines against the gene reference. The \acrshort{avs} progenitor had roughly $3\%$ more genes with polymorphisms than \acrshort{yr15}, consistent with the difference in coverage, suggesting that with a higher coverage we could recover more \acrshort{snp}s from \acrshort{yr15}.
+The UniGenes have a higher number of \acrshort{snp}s because the \acrshort{ucw} gene models have a higher number of monomorphic genes when compared to the UniGenes. (Figure {\ref{fig:yr15:SNPper}}; Table \ref{app:yr15:cntSNP100bp}). 
+The difference in the number of relative monomorphic SNPs between references can be explained by the fact that the UniGenes have homoeologues can be represented as a single sequence, as opposed to the UCW set which are homoeologue-specific, improving the mapping to the correct homoeologue in the genes from the UCW set over the UniGenes.
 
-%Using a base coverage threshold of at least 209, we identified SNPs between parental lines and the gene references. Roughly 3% more genes with polymorphisms were identified in AVS compared to Yr15 (Figure 2b) for those genes longer than 500 bp and with at least 50% breadth coverage. This suggests that the lower coverage of Yr15 is affecting the number of putative SNPs identified. Across both parental data sets, the use of the UCW gene models resulted in a higher number of monomorphic genes relative to the UniGene set, leading to a higher SNP frequency in the UniGenes (Figure 2b, Table S3). This is most likely due to the fact that multiple homoeologues are represented as a single sequence within the UniGene set as opposed to the homoeologue-specific UCW set in which a higher percentage of reads map to the correct homoeologues, thereby reducing the number of genes with SNPs. As both references were generated from varieties different to
-%AVS and are not complete, we called a base when at least 20% of the reads contained the nucleotide. When more than one putative consensus was identified, the corresponding Interna- tional Union of Pure and Applied Chemistry (IUPAC) ambiguity code was used (Cornish-Bowden, 1985). We next compared SNPs between parental lines; those found in both parents are most likely homoeologous SNP or common varietal polymorphism between AVS and the reference varieties. These shared SNPs are not informative for this study and were thus eliminated from the analysis. On the other hand, SNPs that are unique to a single parent represent putative varietal SNPs and were therefore examined further. Focusing on these unique varietal SNPs, we identified 66 426 putative SNPs across 16 022 UCW genes (17%
-The Bulk Frequency Ratio (BFR) algorithm (\citealt{Trick2012}; Figure \ref{fig:yr15:bfr} on tetraploid wheat, was used to identify loci linked to the resistance provided by \textit{Yr15} in the segregating population.
+\input{Yr15/SupplementalTables/snpsPer100bp}
+
+Both gene sets were done from varieties different to \acrshort{avs} and are likely to be incomplete, hence we set a low threshold of at least 20\% of the observed nucleotides on any position to call an \acrshort{snp}. 
+To represent cases were more than one consensus base is called we use \gls{iuapc} codes (\citet{Cornish-Bowden1985}; Section \ref{lit:ambiguity}; Figure \ref{fig:yr15:bfr}).  
+To focus the analysis on informative \acrshort{snp}s, the common varietal SNPs and variations between homoeologues were removed by finding the cases when the consensus call on both progenitors is the same. 
+The \acrshort{snp}s that are unique to a single parental were examined in detail. 
+There are 66,426 putative SNPs across 16,022 (17\%) \acrshort{ucw} genes and 52,262 \acrshort{snp}s on 11,056 UniGenes (19.4\%; Figure \ref{fig:yr15:geneCount}).  
+
+\begin{SCfigure}
+    %\centering
+    \includegraphics[width=0.4\textwidth]{Yr15/Figures/geneCounts.pdf} 
+    \caption{Gene models with putative SNPs in common between the UCW and UniGenes reference. The intersection represnts the genes that are common in both sets. Adapted from \citet{Ramirez-Gonzalez2015b}}
+    \label{fig:yr15:geneCount}
+\end{SCfigure}
+
+\input{Yr15/SupplementalTables/genesAssignedtoArm}
+
+The high number of genes with \acrshort{snp}s was unexpected as a \acrshort{bc}6 \acrshort{nil} used for an $F_2$ mapping population expects to have $<1\%$ of the genetic background segregating. 
+The both sets of gene models were aligned with BLAT \citep{Kent2002} to the Chinese Spring Chromosome arm survey sequence (CSS; \citealt{Mayer2014}); the alignment resulted on 80,031 (85.0\%) UCW gene models and 41,118 (72.2\%) UniGenes assigned to a chromosome arm (Table \ref{tab:yr15:genesToCSS}). 
+The SNPs found in the mapped genes are evenly distributed across all the chromosomes (Figure \ref{fig:yr15:bfr0}), suggesting that the \acrlong{avs} (JIC, UK) used as parent in the $F_{2}$ is different to the \acrlong{avs} used for the \acrshort{yr15} \acrshort{nil} development (University of Sydney, Australia).  
+
+
+To confirm that the \acrlong{avs} seed stocks from JIC are distinct to the stocks in Sydney  DNA from both stocks was procured and compared with the iSelect 90k wheat SNP chip. 
+Between two independent \acrlong{avs} seeds from JIC only 58 out of 71,972 (0.08\%) valid assays were polymorphic. 
+Nonetheless, ther are over 5,000 ($>7.5\%$) assays with polymorphisms between  JIC-\acrlong{avs} and \acrlong{avs} from Sydney. 
+The different was not expected originally, but considering that the \acrlong{avs} seeds are coming from different stocks and the fact that in both countries commercial varieties with the same name had been released, it is not surprising. 
+
+
+\section{Bulk Frequency Ratios}
+
+The Bulk Frequency Ratio (BFR) algorithm (\citealt{Trick2012}; Figure \ref{fig:yr15:bfr}) on tetraploid wheat, was used to identify loci linked to the resistance provided by \textit{Yr15} in the segregating population.
 Briefly, the consensus sequence for each of the progenitors is obtained from the pileups, allowing to call variants having 20\% of the bases as an alternative allele. 
 
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.4\textwidth}
+	\caption{}
+	\label{fig:yr15:bfr0}
+	\includegraphics[height=0.55\textheight]{/Users/ramirezr/Documents/public_code/PhdThesis/Yr15/Figures/mapping/snpsBFR0.pdf}
+	\end{subfigure}
+	~
+	\begin{subfigure}{0.45\textwidth}
+	\caption{}
+	\label{fig:yr15:bfr6}
+	\includegraphics[height=0.55\textheight]{/Users/ramirezr/Documents/public_code/PhdThesis/Yr15/Figures/mapping/snpsBFR6.pdf}
+	\end{subfigure}
+	\caption{Genetic location of genes with SNPs between AVS and Yr15. The colour scale indicates the percentage of genes with SNPs per centi-Morgan (cM) across the 21 wheat chromosomes. The location of the genes was determined by the best alignment to the CSS scaffolds, and the location of these was determined by their position on a genetic map \citep{Wang2014} (\subref{fig:yr15:bfr0}). All the SNPS between progenitors. Note the lack of enrichment across any individual chromosome. (\subref{fig:yr15:bfr6}) SNPs with BFR$>$6. Note the enrichment in Chromosome 1B }
+	\label{fig:yr15:bfrs:0-6}
+\end{figure}
 
 \section{\textit{In silico} mapping}
 Mapping of the gene models to the IWGSC CSS \citet{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
@@ -156,6 +225,8 @@ The selection criteria to decide which SNPs where selected to produce the geneti
 \label{yr15:geneticMap}
 The three versions of the genetic map: With a subset of the F\textsubscript{2} population
 
+\section{Automating the SNP calling}
+
 %\section{Assembly of the transcriptome} 
 %A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
 
@@ -163,6 +234,13 @@ The three versions of the genetic map: With a subset of the F\textsubscript{2} p
 Remarks on how this techinque can be used to do fine-mapping and that if I were to start the project now I would  use exome capture or Ren-Seq. 
 
 The references have changed since we started
+
 There are new annotations, now we don't necessarily need to use unigenes anymore. 
+
+Importance of genotyping everything used in an experiment
+
+Mention other people using a similar strategy since this was published. 
+
 We can use different techniques now (exome capture, ren-seq)
+
 The markers are now used by our collaborators. 

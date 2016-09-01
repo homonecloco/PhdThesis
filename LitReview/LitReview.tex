@@ -70,6 +70,12 @@ When looking at a protein level, where the sequences may be only loosely similar
 
 When analysing high-throughput sequencing, having millions of short sequences make unfeasible to try to align the data to every possible reference. However, one can take in advantage the fact that you know which organism you are looking for and, if available, use a genomic reference. For this, tools like MAQ, BWA, Bowtie, among others, provide indexed search.  Once you have your reads aligned to a reference you can do more analysis, depending on the biological question being asked and the type of sequencing carried on.  Fortunately, most of the Short-Read sequence alignment produce similar outputs and the SAM format is becoming a de facto standard. This is allowing to make more modularised downstream analysis where you can test different aligners with different settings and pick the algorithm that better fits your experiment\cite{Liu2012,Li2009,Li2009a}. 
 
+\subsection{Ambiguity Codes}
+\label{lit:ambiguity}
+Make a table with the ambiguity codes and why they are useful. 
+
+
+
 \subsection{RNA-Seq}
 
 One way to narrow down which genes are involved in certain trait or response to the environment is to focus on studying only the expressed genes. One of the techniques involving high-throughput sequencing is RNA-Seq. This technique captures the messenger RNA in the tissue being studied and sequenced. The premise is that you will find a gene more expressed if it is being used by the organism. Some proteins with a vital role for the cell are always expressed (i.e. RuBisCO for carbon fixation in plants\cite{CooperGM2000}). On the simplest of the experiments you would need two datasets to compare, one with the gene being looked expressed and one where it is not. The expression can come from different environmental conditions, development stage or different genotypes.\cite{Mortazavi2008} 
