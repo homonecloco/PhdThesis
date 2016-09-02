@@ -195,8 +195,32 @@ The different was not expected originally, but considering that the \acrlong{avs
 
 \section{Bulk Frequency Ratios}
 
-The Bulk Frequency Ratio (BFR) algorithm (\citealt{Trick2012}; Figure \ref{fig:yr15:bfr}) on tetraploid wheat, was used to identify loci linked to the resistance provided by \textit{Yr15} in the segregating population.
-Briefly, the consensus sequence for each of the progenitors is obtained from the pileups, allowing to call variants having 20\% of the bases as an alternative allele. 
+The objective was find the \acrshort{snp}s enriched on each bulk and hence linked to the phenotype, variations from \acrshort{yr15} to resistance and from \acrshort{avs} to susceptibility in the segregating population. 
+Across individual bulks, it was possible to score between 15,261 (24.5\%) to 31,891(48.0\%) \acrshort{snp}s across both reference sets.
+On the \textit{in silico} mixes over $95\%$ of SNPs where scored (Table \ref{app:yr15:scoredSNPs}), suggesting that the coverage of individual bulks is not enough to score all the SNPs.  
+The scoring was done with the \acrlong{bfr} (\citealt{Trick2012};Figure \ref{fig:yr15:bfr}; Section \ref{yr15:sub:bfr}), which has a value that increases as the \acrshort{yr15} allele is observed more times relatively to the \acrshort{avs} allele.
+
+
+\input{Yr15/SupplementalTables/scoredSNPs}
+
+When increasing the minimum BFR threshold, enrichment of SNPs was observed in the short arm of the group 1 chromosomes (1S). 
+Without taking in account the BFR, $~3.6\%$ of the SNPs are located in the 1S group, similar to the number of SNPs located in other groups \ref{tab:yr15:genesToCSS}. 
+However, when increasing the threshold  (between $BFR > 5 $ and $BFR > 7$) the relative number of SNPs in group 1S increases. 
+After $BFR>7$ the gains in relative enrichment only improves marginally, but the number of called SNPs is reduced (Table \ref{app:yr15:bfrThresholds}; Figure \ref{fig:yr15:bfrChange}).
+For that reason, SNPs with a $BFR>6$ were selected for further validation. 
+The method described by \citet{Trick2012} was extended by including cases where there is a complete lack of coverage in one of the samples ($BFR=\infty$), which is an ideal case where the linkage between the SNP and the phenotype is perfect. 
+A total of 1,582 SNPs across 1,173 genes had a $BFR>6$.
+
+\input{Yr15/SupplementalTables/bfrThresholds}
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{Yr15/Figures/bfrChanges.pdf}
+\caption{ Effect of BFR threshold on the number of SNPs across the short arm of chromosome group 1. Figure previously published in \citet{Ramirez-Gonzalez2015b} }
+\label{fig:yr15:bfrChange}
+\end{figure}
+
+\section{\textit{In silico} mapping}
+Mapping of the gene models to the IWGSC CSS \citet{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
 
 \begin{figure}
 	\centering
@@ -215,8 +239,6 @@ Briefly, the consensus sequence for each of the progenitors is obtained from the
 	\label{fig:yr15:bfrs:0-6}
 \end{figure}
 
-\section{\textit{In silico} mapping}
-Mapping of the gene models to the IWGSC CSS \citet{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
 
 \section{Assay selection}. 
 The selection criteria to decide which SNPs where selected to produce the genetic map: BFR$>$6, in the short arm of chromosome group 1 and from the \textit{Yr15} progenitor.
@@ -240,9 +262,13 @@ The alignments where sorted and stored as single BAM files to have random access
 %TODO: Snippet with submission of the alignments. 
 
 \subsection{Bulk Frequency Ratios}
+\label{yr15:sub:bfr}
 
 %To identify variant candidates, the methodology described in Trick et al. (2012) was used and extended to work with BAM files and to consider cases when a variant is completely absent from the parental sequences. The consensus from the two parents is called, allowing for ambiguities to take into account possible homoeo- logues when at least 20% of the bases differ from the reference. The consensus is stored with standard IUPAC codes (Cornish- Bowden, 1985). On the bases where the consensus is different between the parents, the bulk frequency ratio (BFR) was calculated as in Trick et al. (2012). The algorithm was imple- mented using Ruby on the top of BioRuby (Goto et al., 2010) and extending the functionality of bio-samtools (Ramirez-Gonzalez et al., 2012). The BFRs were calculated independently on each of the three comparisons (Bulk 1: S1–R1, Bulk 2: S2–R2 and Bulk 3: S3–R3) and with in silico mixes of bulks 1 and 2; and bulks 1, 2 and 3 produced by merging the BAM files using samtools (Li et al., 2009). A list was produced with all the scores in a table format containing the BFR, coverage, ratio of the SNP base and the the parent containing the SNP (Data S2–S4).
 
+\lstinputlisting[language=Ruby,firstline=17, lastline=28, caption=Method to find best BLAT alignment]{Yr15/code/find_best_blat_hit.rb}
+
+\lstinputlisting[language=Ruby,firstline=33, lastline=43, caption=Extensions to Bio::Blat::Report::Hit to get the percentage of coverage]{Yr15/code/find_best_blat_hit.rb}
 %The UniGenes, UCW gene models and the contigs containing the 46 977 genetically mapped SNPs from Wang et al. (2014) were aligned with BLAT (Kent, 2002) to the CSS scaffolds (IWGSC, 2014). To assign the genes to a specific scaffold, we selected the best hit from the BLAT alignment, provided that at least 60% of the gene was covered in the scaffold with at least 90% of identity. This selection criterion reduces the number of spurious hits in repetitive motifs in the gene and allows the assignment to a homoeologous chromosome even when the correct homoeologue is missing from the CSS scaffolds. The origin of the scaffold was used to assign a putative chromosome arm. In addition, the gene models were also aligned to the cDNA of Hordeum vulgare (International Barley Genome Sequencing Consortium, 2012) from Ensembl! Plants, release 16 (Kersey et al., 2012). The genetic position of the wheat contigs with SNPs was used to calculate the density of SNPs with a BFR > 6 and for all SNPs between AVS and Yr15. After selection using the criteria outlined in the results section, the selected genes were sorted by BFR in the mix between samples to select the top 50 SNPs for further validation via KASP markers.
 
 %\section{Assembly of the transcriptome} 
