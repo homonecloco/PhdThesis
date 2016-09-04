@@ -269,7 +269,7 @@ This results are expected since previous studies have located \acrshort{yr15} ne
 \label{fig:yr15:chr1}
 \end{figure}
 
-The \acrshort{css} assembly was used as a common reference between the reference genes and the SNPs  40,266 SNP markers published at the time when this analysis was done \citep{Wang2014} to locate the SNPs with a $BFR>6$ (including $BFR=\inf$) in a genomic position (Figures \ref{fig:yr15:chr1}, \ref{fig:yr15:bfrs:0-6}).  
+The \acrshort{css} assembly was used as a common reference between the reference genes and the SNPs  40,266 SNP markers published at the time when this analysis was done \citep{Wang2014} to locate the SNPs with a $BFR>6$ (including $BFR=\infty$) in a genomic position (Figures \ref{fig:yr15:chr1}, \ref{fig:yr15:bfrs:0-6}).  
 From the 1,582 SNPS across 1,173 genes,  only 678 SNPs ($43\%$, 474 genes) were successfully located in the genetic map. 
 Since the \acrshort{css} assembly is quite fragmented, the low percentage of located SNPs can be because not all candidate SNPs had a corresponding scaffold that has at least one of the 40,266 markers in the genetic map. 
 Even if the number of located SNPs was not enough to give a position for over $50\%$ of the SNPs from the parental line, the resolution of the genetic position SNPs that were assigned improved over just having the chromosome arm information from the CSS assembly. 
@@ -324,21 +324,34 @@ Only SNPs meeting the three criteria were selected for further analysis.
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{Yr15/Figures/selection/selectionDetals.pdf}
-\caption{Bulk frequency ratio (BFR) of selected SNPs across the individual bulks and in silico mixes (UCW, red; UniGene, blue). The dotted line represents the BFR threshold of 6 (logarithmic scale). Left: Distribution of the BFRs for each selection criteria and the selected SNPs for validation. The circles on the top of each plot represent the percentage of SNPs with $BFR=\inf$. The Selection may include SNPs with $BFR<6$ when the same SNP has a higher score on the complementing reference (ie. $BFR>6$ on UCW, but $BFR<6$ on UniGenes). Right: The BFR values of selected SNPs were sorted in descending order across the different bulks and according to their origin. Validated SNPs are indicated by open triangles, and SNPs corresponding to markers R5, R8 and R11 are labelled across different bulks and mixes. Note that some SNPs are below the threshold in a specific bulk as they meet the BFR criteria across others. }
+\caption{Bulk frequency ratio (BFR) of selected SNPs across the individual bulks and in silico mixes (UCW, red; UniGene, blue). The dotted line represents the BFR threshold of 6 (logarithmic scale). Left: Distribution of the BFRs for each selection criteria and the selected SNPs for validation. The circles on the top of each plot represent the percentage of SNPs with $BFR=\infty$. The Selection may include SNPs with $BFR<6$ when the same SNP has a higher score on the complementing reference (ie. $BFR>6$ on UCW, but $BFR<6$ on UniGenes). Right: The BFR values of selected SNPs were sorted in descending order across the different bulks and according to their origin. Validated SNPs are indicated by open triangles, and SNPs corresponding to markers R5, R8 and R11 are labelled across different bulks and mixes. Note that some SNPs are below the threshold in a specific bulk as they meet the BFR criteria across others. }
 \label{fig:yr15:bfrDetailScore}
 \end{figure}
 
 With the multiple criteria the number of genes with a putative SNP went down from $>27,000$ to just 175; 77 and 98 from the UniGene and UCW gene sets respectively. 
-The selected genes from both references were aligned between references, as they come from independent sources an overlap in the selection between them is expected and, as expected, around half of the genes between gene sets overlap(Figure \ref{fig:yr15:snpset}). 
-The Fifty SNPs with the highest BFRs, out of the 175 genes, were selected for validation, 15 of them were redundant between references, resulting on 35 SNPs to validate. 
+The selected genes from both references were aligned between references, as they come from independent sources an overlap in the selection between them is expected and, as expected, around half of the genes between gene sets overlap (Figure \ref{fig:yr15:snpset}). 
+The 50 SNPs with the highest BFRs, out of the 175 genes, were selected for validation, 15 of them were redundant between references, resulting on 35 SNPs to validate. 
 
-
-
-%We next examined the behaviour of the SNPs across the individual bulks and in silico mixes to evaluate the usefulness of the multiple bulk strategy. We initially expected the number of SNPs with BFRs of infinity to drop in the in silico mixes as the additional coverage would reduce instances of calling for the absence of an allele. However, the opposite occurred as new genes with low expression and which were not represented in any single bulk comparison were rescued in the mix due to the higher combined coverage (Figure 5). Other SNPs were present consistently across all bulks and mixes, although their exact BFR values changed dependent on the bulk (Figure 5, marker R5). In other cases, individual SNPs would be missing from an individual bulk, but present in all others (marker R8). These results highlight the importance of adequate coverage across the bulks and argue for a strategy in which improved coverage is the main objective rather than having independent replications of the bulks them- selves. Although previous studies using genomic DNA found that relatively low coverage (<59) is sufficient to call for SNPs in model organisms (Schneeberger and Weigel, 2011), our results are in agreement with studies using populations for SNP calling (Abe et al., 2012; Takagi et al., 2013). The use of RNA-Seq data leads to a nonuniform distribution of the coverage across genes, and this is particularly evident on genes with low expression levels (Mortazavi et al., 2008). 
-
-%Approximately 60% of the reference gene models produced a unique hit with >99% sequence identity to a single IWGSC scaffold (Table S9). This suggests that in many cases, there is no unique homoeologue reference and hence the reads from at least two genomes will map to the same reference. We addressed this in the SNP calling by masking polymorphic positions within each parental line using the IUPAC ambiguity code. However, this also meant that a high coverage (209) was required to maintain a high confidence for SNP calling. We had previously shown in tetraploid wheat that increasing coverage from 89 to 169 reduces the total number of putative SNPs identified by 60%, but increases the validation rate from 57% to 83% (Trick et al., 2012). The balance between increased coverage, reduced number of SNPs and increased validation rates needs to be weighed in each situation according to the objectives of the study
+The separate bulks and the \textit{in silico} mixes were evaluated in detail to understand the behaviour and value of having multiple bulks. 
+The initial expectation was that as the number of SNPs with $BFR=\infty$ should drop in the mixes, as the improved coverage should reduce the instances were the absence of an allele is because of the lack of coverage on a particular sample. 
+However, the opposite happened, the additional coverage in the \textit{in silico} mixes recovered SNPs in genes with a low expression at the time of the sampling (Figure \ref{fig:yr15:bfrDetailScore}).  
+Some SNPs were present across al the samples, however the value of the BFR changed depending on the sample(marker R5). 
+On some cases a SNP are missing in an individual bulk, but present in the rest of them and in the mixes (marker R8). 
+The main reason affecting the scoring is the coverage in the sample for each particular gene, hence an strategy with a consistent coverage would be preferred for this kind of analysis.  
+Previous studies have shown that a coverage of $<5x$ is enough to call for SNPs in model organisms with a high-quality reference \citep{Schneeberger2011}.
+However, the results on this study are in line with other studies using populations for SNP calling \citep{Abe2012,Takagi2013}. 
+The non-uniform distribution of the coverage in RNA-Seq experiments affects the number of reads that can be used to call for SNPs, specially on genes with a low expression level \citep{Mortazavi2008}. 
 
 \input{Yr15/SupplementalTables/numberOfGenesWithUniqHit}
+
+%TODO: maybe move to the discussion. 
+Around $60\%$ of the gene models, across both references, had a unique hit with $>99\%$ sequence identity to a single \acrshort{css} scaffold (Table \ref{tab:yr15:mappedGenes}). 
+This is likely because there is no unique homoeologue in the gene models, leading to reads, from two different homoeologues, mapping to the same region.
+To reduce the number of spurious SNPs we used IUAPC ambiguity codes (Section \ref{lit:ambiguity}, \citet{Cornish-Bowden1985}) when two different alleles were observed.
+This had as side effect that in order to keep only high confidence SNPs we required a higher coverage ($>20x$). 
+On the original study introducing the BFR in tetraploid wheat, the authors show that increasing the coverage, from $8x$ to $16x$, reduces the putative SNPs by $60\%$, but the validated SNPs increas from $57\%$ to $83\%$ \citep{Trick2012}. 
+Hence, a compromise between increasing the minimum coverage at the cost of reducing the SNP candidates has to be reached in line with the objectives and available resources for a particular study. 
+
 
 \section{Genetic map} 
 \label{yr15:geneticMap}
