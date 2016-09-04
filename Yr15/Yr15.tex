@@ -6,6 +6,7 @@
 %This section describes in detail than the paper of \citet{Ramirez-Gonzalez-2014}
  
 %Breeding importance of \textit{Yr15} and original source (an introgression of \textit{T. diccocoides}). 
+
 Wheat breeding programs aim to improve the wheat lines available for production.
 One of the traits desired in an elite line is the resistance to pathogens, such as \textit{Puccinia striiformis} f. sp.  \textit{tritici}, the fungi responsible of yellow rust.
 A source of resistance genes is are introgressions from other species, such as \textit{Triticum diccocides}. 
@@ -13,7 +14,6 @@ In the University of Sydney a collection of \glspl{nil} with introgressions to s
 On this chapter the NIL for the \textit{Yr15} locus is used to produce a mapping population to improve diagnostic markers. 
 
 %TODO: Paragraph explaining NILs
-
 
 Line selection can be done with molecular markers that can be used to test if certain allele is present in a line, without the need to do a phenotype.
 To find which regions are linked to a trait the use of $F_{2}$ mapping populations is a common practice.
@@ -54,7 +54,24 @@ The allelic SNPs are then examined further with the alignments of the bulks to i
 The SNP index is the proportion of times an alternative allele is observed over the coverage at certain, in the example the the susceptible bulk has an SNP index of $1/8=0.125$ and $6/8=0.75$ for the resistant bulk \citep{Takagi2013a}. traditional
 The \acrshort{bfr} are then calculated by dividing the SNP Index of sample containing the target phenotype (resistance) over the sample without the trait (susceptible), on the example is $0.75/0.125=6$.  
 A high BFR suggests that the \acrshort{snp} is linked to the target trait \citep{Trick2012}. 
+The results of the BFR analysis on the $F_2$ population are discussed in Section \ref{sec:yr15:bfr}. 
 
+\begin{figure}
+  \centering
+  \includegraphics[width=1\textwidth]{Yr15/Figures/mapping/layersOfMapping.pdf}
+  \caption{Layers of information to do \textit{In Silico} mapping. SNPs are called from gene models. The genes and markers from genetic maps are aligned to scaffolds. The order of the markers in a genetic map can be used to sort the scaffolds.} 
+  \label{fig:yr15:layersOfMapping}
+\end{figure}
+
+There are several layers of information that can be used to add a context to the SNPs. 
+When the SNPs are called from genes like the UniGenes \citep{PontiusJUWagnerL2002} or the UCW gene models \citep{Krasileva2013}, the location of the genes can be assigned by aligning them to a genomic reference, even if it is fragmented. 
+A source to get the order of the scaffolds are genetic maps previosly published, such as the genetic map described in \citet{Wang2014}, which has the sequence of the markers available.
+The markers and the genes can be aligned to the scaffolds with a high percentage of identity (over $98\%$), to avoid them being assigned to an homoeologue or paralogue region in a different chromosome.
+The use of genetic maps to sort genomic sequence is frequently used to produce pseudo-chromosomes on genome wide projects, usually with ad-hoc tools \citep{Tang2015}.
+Since the \acrshort{css} assembly is quite fragmented the genetic maps don't have enough resolution to produce a pseudomolecule, however it is enough to sort the scaffolds in bins when several markers map to the same location. 
+In this way, it is possible to use the scaffolds as a proxy to map the genes to their genetic position (Figure \ref{fig:yr15:layersOfMapping}).
+The results of mapping the genes with SNPs to the CSS assembly and the genetic map are described in Section \ref{sub:yr15:inSilico}. 
+For a longer description of resources available for wheat see Section \ref{lit:wheatResourcers}. 
 
 Finally, the best candidate SNPs where selected to produce a genetic map which lead to a triplet of markers diagnostic to the target locus. 
 
@@ -62,7 +79,7 @@ The steps described in this chapter were first published in \citet{Ramirez-Gonza
 
 \section{Mapping population}
 
-
+%\begin{SCfigure}
 \begin{figure}
 %\begin{wrapfigure}[17]{R!}{7cm}
     \centering
@@ -79,7 +96,7 @@ The steps described in this chapter were first published in \citet{Ramirez-Gonza
         \label{fig:yr15:avsPhoto}
     \end{subfigure}
 
-     \begin{subfigure}[b]{0.8\textwidth}
+     \begin{subfigure}[b]{0.9\textwidth}
      \caption{}
         \includegraphics[width=1\textwidth]{Yr15/Figures/population/F2Population.pdf} 
     \label{fig:yr15:f2}
@@ -89,6 +106,7 @@ The steps described in this chapter were first published in \citet{Ramirez-Gonza
 
 %\end{wrapfigure}
 \end{figure}
+%\end{SCfigure}
 
 The population was developed by crossing the resistant line \gls{yr15} \citep{Wellings1998}, Figure \ref{fig:yr15.yr15Photo}, to the susceptible line \gls{avs}, Figure \ref{fig:yr15:avsPhoto}. 
 \acrshort{yr15} is a \gls{nil} of a 6th generation \gls{bc} and the \acrshort{avs} background is highly succeptible to yellow rust, hence the resistance is coffered by the \acrshort{yr15} locus. 
@@ -120,7 +138,6 @@ LIB1722 & AvocetS + \textit{Yr15} & N/A & 4 	& 3.99  \\
 \end{tabular}
 \end{table}
 
-
 RNA-Seq was used to avoid sequencing the non-coding regions and reduce the search space.  
 The sequencing of the bulks and the parents were done on a single Illumina Hi-Seq2000 each.
 The bulks were multiplexed and sequenced on a third of a lane each, as shown on Table \ref{tab:yr15:reads}. 
@@ -131,22 +148,20 @@ The quality of the reads is fairly consistent, in general dropping after the bas
 
 \input{Yr15/SupplementalTables/alignedCoverage}
 
-
 \begin{figure}
 \centering
-\begin{subfigure}{0.29\textwidth}
+\begin{subfigure}{0.38\textwidth}
     \caption{}
      \includegraphics[width=1\textwidth]{Yr15/Figures/CoveragePerGene.pdf} 
     \label{fig:yr15:covPerGene}
 \end{subfigure}
 ~
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.58\textwidth}
     \caption{}
     \includegraphics[width=1\textwidth]{Yr15/Figures/PercentageOfSnps.pdf} 
     
     \label{fig:yr15:SNPper}
 \end{subfigure}
-
 \caption{(\subref{fig:yr15:covPerGene}) Box plot distribution of the gene coverage of the parent reads (\acrshort{avs} and \acrshort{yr15}) across the UCW (blue) and the UniGene (red) gene models. The dashed line represents the 209 minimum coverage required for SNP calling. The full line represents the average coverage across all gene models. (\subref{fig:yr15:SNPper}) Percentage of genes exhibiting SNPs across references. The number of \acrshort{snp}s between the parent reads and the corresponding references was calculated (per 100 bp, rounded). The ‘between-parents’ category corresponds to putative SNPs when comparing the consensus sequence between \acrshort{avs} and \acrshort{yr15} Adapted from \citet{Ramirez-Gonzalez2015b} }
 \end{figure}
 
@@ -167,12 +182,6 @@ The difference in the number of relative monomorphic SNPs between references can
 
 \input{Yr15/SupplementalTables/snpsPer100bp}
 
-Both gene sets were done from varieties different to \acrshort{avs} and are likely to be incomplete, hence we set a low threshold of at least 20\% of the observed nucleotides on any position to call an \acrshort{snp}. 
-To represent cases were more than one consensus base is called we use \gls{iuapc} codes (\citet{Cornish-Bowden1985}; Section \ref{lit:ambiguity}; Figure \ref{fig:yr15:bfr}).  
-To focus the analysis on informative \acrshort{snp}s, the common varietal SNPs and variations between homoeologues were removed by finding the cases when the consensus call on both progenitors is the same. 
-The \acrshort{snp}s that are unique to a single parental were examined in detail. 
-There are 66,426 putative SNPs across 16,022 (17\%) \acrshort{ucw} genes and 52,262 \acrshort{snp}s on 11,056 UniGenes (19.4\%; Figure \ref{fig:yr15:geneCount}).  
-
 \begin{SCfigure}
     %\centering
     \includegraphics[width=0.4\textwidth]{Yr15/Figures/geneCounts.pdf} 
@@ -180,12 +189,18 @@ There are 66,426 putative SNPs across 16,022 (17\%) \acrshort{ucw} genes and 52,
     \label{fig:yr15:geneCount}
 \end{SCfigure}
 
+Both gene sets were done from varieties different to \acrshort{avs} and are likely to be incomplete, hence we set a low threshold of at least 20\% of the observed nucleotides on any position to call an \acrshort{snp}. 
+To represent cases were more than one consensus base is called we use \gls{iuapc} codes (\citet{Cornish-Bowden1985}; Section \ref{lit:ambiguity}; Figure \ref{fig:yr15:bfr}).  
+To focus the analysis on informative \acrshort{snp}s, the common varietal SNPs and variations between homoeologues were removed by finding the cases when the consensus call on both progenitors is the same. 
+The \acrshort{snp}s that are unique to a single parental were examined in detail. 
+There are 66,426 putative SNPs across 16,022 (17\%) \acrshort{ucw} genes and 52,262 \acrshort{snp}s on 11,056 UniGenes (19.4\%; Figure \ref{fig:yr15:geneCount}).  
+
+
 \input{Yr15/SupplementalTables/genesAssignedtoArm}
 
 The high number of genes with \acrshort{snp}s was unexpected as a \acrshort{bc}6 \acrshort{nil} used for an $F_2$ mapping population expects to have $<1\%$ of the genetic background segregating. 
 The both sets of gene models were aligned with BLAT \citep{Kent2002} to the Chinese Spring Chromosome arm survey sequence (CSS; \citealt{Mayer2014}); the alignment resulted on 80,031 (85.0\%) UCW gene models and 41,118 (72.2\%) UniGenes assigned to a chromosome arm (Table \ref{tab:yr15:genesToCSS}). 
 The SNPs found in the mapped genes are evenly distributed across all the chromosomes (Figure \ref{fig:yr15:bfr0}), suggesting that the \acrlong{avs} (JIC, UK) used as parent in the $F_{2}$ is different to the \acrlong{avs} used for the \acrshort{yr15} \acrshort{nil} development (University of Sydney, Australia).  
-
 
 To confirm that the \acrlong{avs} seed stocks from JIC are distinct to the stocks in Sydney  DNA from both stocks was procured and compared with the iSelect 90k wheat SNP chip. 
 Between two independent \acrlong{avs} seeds from JIC only 58 out of 71,972 (0.08\%) valid assays were polymorphic. 
@@ -194,14 +209,16 @@ The different was not expected originally, but considering that the \acrlong{avs
 
 
 \section{Bulk Frequency Ratios}
+\label{sec:yr15:bfr}
+
+\input{Yr15/SupplementalTables/scoredSNPs}
 
 The objective was find the \acrshort{snp}s enriched on each bulk and hence linked to the phenotype, variations from \acrshort{yr15} to resistance and from \acrshort{avs} to susceptibility in the segregating population. 
 Across individual bulks, it was possible to score between 15,261 (24.5\%) to 31,891(48.0\%) \acrshort{snp}s across both reference sets.
 On the \textit{in silico} mixes over $95\%$ of SNPs where scored (Table \ref{app:yr15:scoredSNPs}), suggesting that the coverage of individual bulks is not enough to score all the SNPs.  
 The scoring was done with the \acrlong{bfr} (\citealt{Trick2012};Figure \ref{fig:yr15:bfr}; Section \ref{yr15:sub:bfr}), which has a value that increases as the \acrshort{yr15} allele is observed more times relatively to the \acrshort{avs} allele.
 
-
-\input{Yr15/SupplementalTables/scoredSNPs}
+\input{Yr15/SupplementalTables/bfrThresholds}
 
 When increasing the minimum BFR threshold, enrichment of SNPs was observed in the short arm of the group 1 chromosomes (1S). 
 Without taking in account the BFR, $~3.6\%$ of the SNPs are located in the 1S group, similar to the number of SNPs located in other groups \ref{tab:yr15:genesToCSS}. 
@@ -211,37 +228,117 @@ For that reason, SNPs with a $BFR>6$ were selected for further validation.
 The method described by \citet{Trick2012} was extended by including cases where there is a complete lack of coverage in one of the samples ($BFR=\infty$), which is an ideal case where the linkage between the SNP and the phenotype is perfect. 
 A total of 1,582 SNPs across 1,173 genes had a $BFR>6$.
 
-\input{Yr15/SupplementalTables/bfrThresholds}
+
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{Yr15/Figures/bfrChanges.pdf}
-\caption{ Effect of BFR threshold on the number of SNPs across the short arm of chromosome group 1. Figure previously published in \citet{Ramirez-Gonzalez2015b} }
+\caption{ Effect of BFR threshold on the number of SNPs across the short arm of chromosome group 1. Figure previously published in \citet{Ramirez-Gonzalez2015b}. }
 \label{fig:yr15:bfrChange}
 \end{figure}
 
 \section{\textit{In silico} mapping}
-Mapping of the gene models to the IWGSC CSS \citet{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
+\label{sub:yr15:inSilico}
+%Mapping of the gene models to the IWGSC CSS \citet{Mayer2014} reference and the location of the SNPs using the genetic map from \citet{Wang2014}.
+From the mapped SNPs with a $BFR>6$, 872 of 1470 ($\sim60\%$) were assigned to the chromosomes in group 1 of hexaploid wheat, being the only group with more than $4\%$ of the SNPs assigned to it (Table \ref{app:yr15:bfr6Mapping}). 
+From the group 1, the B genome contained the higher proportion of SNPs mapped ($54\%$), having 255 ($54\%$) and 214 ($46\%$) assigned to the long and short arms respectively (Figure \ref{fig:yr15:snpsBFR6Group1}).  
+This results are expected since previous studies have located \acrshort{yr15} near the centromere in the short arm of chromosome 1B and, the \acrshort{yr15} introgression contains regions from the long and short arm from \textit{T. diccocoides} \citep{Murphy2009,Peng2000,Grama1997}. 
+
+\begin{SCfigure}
+  \centering
+    \includegraphics[width=0.5\textwidth]{Yr15/Figures/mapping/snpsBFR6Group1.pdf}
+  \caption{Location of SNPs with $BFR>6$ according to the best alignment of the UniGene (red) and UCW (blue) gene models to the flow-sorted group 1 chromosomes from the Chinese Spring Survey sequence (CSS) \citep{Mayer2014}. Figure adapted from \citet{Ramirez-Gonzalez2015b}.} 
+  \label{fig:yr15:snpsBFR6Group1}
+\end{SCfigure}
+
+\input{Yr15/SupplementalTables/bfr6Mapping}
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{0.6\textwidth}
+  \caption{}
+   \label{fig:yr15:snpsBFR6Chr1B}
+   \includegraphics[width=1\textwidth]{Yr15/Figures/mapping/snpsBFR6crh1B.pdf}
+  \end{subfigure}
+  ~
+  \begin{subfigure}{0.35\textwidth}
+  \caption{}
+   \label{fig:yr15:BFRValues1BS}
+   \includegraphics[width=1\textwidth]{Yr15/Figures/mapping/BFRValues1BS.pdf}
+  \end{subfigure}
+\caption{(\subref{fig:yr15:snpsBFR6Chr1B}) Number of SNPs with $BFR>6$ per cM in chromosome 1B. (\subref{fig:yr15:BFRValues1BS}) BFRs of mapped genes with SNPs on chromosome 1B. The area of the circle represents the number of SNPs clustered by location (windows size: 10 cM) and BFR (window size: 5cM). R11 is the only marker near the \acrshort{yr15} locus that had a corresponding position in the genetic map. The percentage of genes with SNPs per cM is also illustrated based on UCW (blue) and UniGene (red) gene models. The centromere is imputed by the centre of a window of 10 cM where the short arm switches to the long in the genetic map. BFRs correspond to those from the mixed in silico bulk S1 + S2 + S3/R1 + R2 + R3. Adapted from \citep{Ramirez-Gonzalez2015b}.} 
+\label{fig:yr15:chr1}
+\end{figure}
+
+The \acrshort{css} assembly was used as a common reference between the reference genes and the SNPs  40,266 SNP markers published at the time when this analysis was done \citep{Wang2014} to locate the SNPs with a $BFR>6$ (including $BFR=\inf$) in a genomic position (Figures \ref{fig:yr15:chr1}, \ref{fig:yr15:bfrs:0-6}).  
+From the 1,582 SNPS across 1,173 genes,  only 678 SNPs ($43\%$, 474 genes) were successfully located in the genetic map. 
+Since the \acrshort{css} assembly is quite fragmented, the low percentage of located SNPs can be because not all candidate SNPs had a corresponding scaffold that has at least one of the 40,266 markers in the genetic map. 
+Even if the number of located SNPs was not enough to give a position for over $50\%$ of the SNPs from the parental line, the resolution of the genetic position SNPs that were assigned improved over just having the chromosome arm information from the CSS assembly. 
+The mapping position further confirmed an enrichment of SNPs near the centromere of chromosome 1B with 325 out of 678 SNPs. 
+Furthermore, 311 of those where located within an interval of 30cM (Figures \ref{fig:yr15:bfr6}, \ref{fig:yr15:snpsBFR6Chr1B}). 
+
+Studies in diploid organismis using \acrshort{qtl}-Seq \citep{Takagi2013} or other \acrshort{ngs}-enable genetic approaches \citep{James2013} have shown smooth curves with a defined peak in the region linked to the studied trait. 
+In practice, we only observe clusters of SNPs with  enriched \acrshortpl{bfr} near the centromere of chromosome 1B (Figures \ref{fig:yr15:snpsBFR6Chr1B}, \ref{fig:yr15:bfr6}). 
 
 \begin{figure}
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 	\caption{}
 	\label{fig:yr15:bfr0}
-	\includegraphics[height=0.55\textheight]{/Users/ramirezr/Documents/public_code/PhdThesis/Yr15/Figures/mapping/snpsBFR0.pdf}
+	\includegraphics[height=0.55\textheight]{Yr15/Figures/mapping/snpsBFR0.pdf}
 	\end{subfigure}
 	~
 	\begin{subfigure}{0.45\textwidth}
 	\caption{}
 	\label{fig:yr15:bfr6}
-	\includegraphics[height=0.55\textheight]{/Users/ramirezr/Documents/public_code/PhdThesis/Yr15/Figures/mapping/snpsBFR6.pdf}
+	\includegraphics[height=0.55\textheight]{Yr15/Figures/mapping/snpsBFR6.pdf}
 	\end{subfigure}
 	\caption{Genetic location of genes with SNPs between AVS and Yr15. The colour scale indicates the percentage of genes with SNPs per centi-Morgan (cM) across the 21 wheat chromosomes. The location of the genes was determined by the best alignment to the CSS scaffolds, and the location of these was determined by their position on a genetic map \citep{Wang2014} (\subref{fig:yr15:bfr0}). All the SNPS between progenitors. Note the lack of enrichment across any individual chromosome. (\subref{fig:yr15:bfr6}) SNPs with BFR$>$6. Note the enrichment in Chromosome 1B }
 	\label{fig:yr15:bfrs:0-6}
 \end{figure}
 
+The location of the clusters with an enrichment of SNPs near the centromere is not expected on a random selection of genes, as the gene density increases with the distance to the centromere \citep{Akhunov2003}. 
+This suggests that the experiment was successful on finding \acrshortpl{snp} linked to \acrshort{yr15}. 
+There are several factor that prevent a clear peak; like the biases induced by the differential expression, the fragmented reference sequence with scaffolds that are not long enough to go across genetic positions. 
+Since there are several SNPs with a high BFR and the genetic map is not enough to locate a single region linked to \acrshort{yr15},  multiple criteria was needed to prioritise SNPs that were more likely to yield on successful genetic markers.
 
-\section{Assay selection}. 
-The selection criteria to decide which SNPs where selected to produce the genetic map: BFR$>$6, in the short arm of chromosome group 1 and from the \textit{Yr15} progenitor.
+\section{Assay selection} 
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{Yr15/Figures/selection/snpSets.pdf}
+\caption{Selection criteria for marker design. Venn diagrams based on the three selection criteria (SNP in the short arm of chromosome group 1; SNP has a $BFR>6$; and SNP is from the \acrshort{yr15} parent) for the UCW (blue) and UniGene (red) gene models. The centre diagram shows the intersection between common genes matching all three criteria across both data sets. Note that the numbers are not directly additive as in cases, multiple models from one reference set will relate to a single gene model in the other values. Published in \citep{Ramirez-Gonzalez2015b} }
+\label{fig:yr15:snpset}
+\end{figure}
+
+Three independent criteria were use to prioritize the SNPs for marker development and validation: 
+
+\begin{description}
+\item[High BFR.] SNPs with a $BFR>6$ in at least two independent bulk replicates or in either of the \textit{in silico} mixes were selected to ensure consistency and recover SNPs with a low coverage on a particular bulk. 
+\item[Group 1S.] SNPs that are in \acrshort{css} scaffolds in the short arm of chromosome group 1 were selected.
+This is to be consistent with the \textit{in silico} genetic map and with previous studies \citep{Murphy2009,Peng2000,Grama1997}.
+\item[\acrshort{yr15} parent.] The SNPs should originate from the \acrshort{yr15} parent to ensure that the SNP is coming from the \textit{T. diccocoides} introgression and not from a SNP in the \acrshort{avs} genetic background, who would be less useful in breeding programs with a different background.
+\end{description}
+
+Only SNPs meeting the three criteria were selected for further analysis. 
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{Yr15/Figures/selection/selectionDetals.pdf}
+\caption{Bulk frequency ratio (BFR) of selected SNPs across the individual bulks and in silico mixes (UCW, red; UniGene, blue). The dotted line represents the BFR threshold of 6 (logarithmic scale). Left: Distribution of the BFRs for each selection criteria and the selected SNPs for validation. The circles on the top of each plot represent the percentage of SNPs with $BFR=\inf$. The Selection may include SNPs with $BFR<6$ when the same SNP has a higher score on the complementing reference (ie. $BFR>6$ on UCW, but $BFR<6$ on UniGenes). Right: The BFR values of selected SNPs were sorted in descending order across the different bulks and according to their origin. Validated SNPs are indicated by open triangles, and SNPs corresponding to markers R5, R8 and R11 are labelled across different bulks and mixes. Note that some SNPs are below the threshold in a specific bulk as they meet the BFR criteria across others. }
+\label{fig:yr15:bfrDetailScore}
+\end{figure}
+
+With the multiple criteria the number of genes with a putative SNP went down from $>27,000$ to just 175; 77 and 98 from the UniGene and UCW gene sets respectively. 
+The selected genes from both references were aligned between references, as they come from independent sources an overlap in the selection between them is expected and, as expected, around half of the genes between gene sets overlap(Figure \ref{fig:yr15:snpset}). 
+The Fifty SNPs with the highest BFRs, out of the 175 genes, were selected for validation, 15 of them were redundant between references, resulting on 35 SNPs to validate. 
+
+
+
+%We next examined the behaviour of the SNPs across the individual bulks and in silico mixes to evaluate the usefulness of the multiple bulk strategy. We initially expected the number of SNPs with BFRs of infinity to drop in the in silico mixes as the additional coverage would reduce instances of calling for the absence of an allele. However, the opposite occurred as new genes with low expression and which were not represented in any single bulk comparison were rescued in the mix due to the higher combined coverage (Figure 5). Other SNPs were present consistently across all bulks and mixes, although their exact BFR values changed dependent on the bulk (Figure 5, marker R5). In other cases, individual SNPs would be missing from an individual bulk, but present in all others (marker R8). These results highlight the importance of adequate coverage across the bulks and argue for a strategy in which improved coverage is the main objective rather than having independent replications of the bulks them- selves. Although previous studies using genomic DNA found that relatively low coverage (<59) is sufficient to call for SNPs in model organisms (Schneeberger and Weigel, 2011), our results are in agreement with studies using populations for SNP calling (Abe et al., 2012; Takagi et al., 2013). The use of RNA-Seq data leads to a nonuniform distribution of the coverage across genes, and this is particularly evident on genes with low expression levels (Mortazavi et al., 2008). 
+
+%Approximately 60% of the reference gene models produced a unique hit with >99% sequence identity to a single IWGSC scaffold (Table S9). This suggests that in many cases, there is no unique homoeologue reference and hence the reads from at least two genomes will map to the same reference. We addressed this in the SNP calling by masking polymorphic positions within each parental line using the IUPAC ambiguity code. However, this also meant that a high coverage (209) was required to maintain a high confidence for SNP calling. We had previously shown in tetraploid wheat that increasing coverage from 89 to 169 reduces the total number of putative SNPs identified by 60%, but increases the validation rate from 57% to 83% (Trick et al., 2012). The balance between increased coverage, reduced number of SNPs and increased validation rates needs to be weighed in each situation according to the objectives of the study
+
+\input{Yr15/SupplementalTables/numberOfGenesWithUniqHit}
 
 \section{Genetic map} 
 \label{yr15:geneticMap}
@@ -271,6 +368,7 @@ The alignments where sorted and stored as single BAM files to have random access
 \lstinputlisting[language=Ruby,firstline=33, lastline=43, caption=Extensions to Bio::Blat::Report::Hit to get the percentage of coverage]{Yr15/code/find_best_blat_hit.rb}
 %The UniGenes, UCW gene models and the contigs containing the 46 977 genetically mapped SNPs from Wang et al. (2014) were aligned with BLAT (Kent, 2002) to the CSS scaffolds (IWGSC, 2014). To assign the genes to a specific scaffold, we selected the best hit from the BLAT alignment, provided that at least 60% of the gene was covered in the scaffold with at least 90% of identity. This selection criterion reduces the number of spurious hits in repetitive motifs in the gene and allows the assignment to a homoeologous chromosome even when the correct homoeologue is missing from the CSS scaffolds. The origin of the scaffold was used to assign a putative chromosome arm. In addition, the gene models were also aligned to the cDNA of Hordeum vulgare (International Barley Genome Sequencing Consortium, 2012) from Ensembl! Plants, release 16 (Kersey et al., 2012). The genetic position of the wheat contigs with SNPs was used to calculate the density of SNPs with a BFR > 6 and for all SNPs between AVS and Yr15. After selection using the criteria outlined in the results section, the selected genes were sorted by BFR in the mix between samples to select the top 50 SNPs for further validation via KASP markers.
 
+\subsection{Alignment between gene models}
 %\section{Assembly of the transcriptome} 
 %A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
 
@@ -279,9 +377,18 @@ Remarks on how this techinque can be used to do fine-mapping and that if I were 
 
 The references have changed since we started
 
+When the study started the study the \gls{css} was about to be released and, despite being fragmented, it served as a valuable resource to assign the SNPs to a chromosome arm. Currently the TGACv1 assembly is available in ensembl REF and,  the NRGene assembly, which promises to be on the level of pseudomolecules, is about to be released REF. 
+
+
 There are new annotations, now we don't necessarily need to use unigenes anymore. 
 
 Importance of genotyping everything used in an experiment
+
+In Silico mapping wasn't enough to locate all the SNPs, but we ciykd have found one of the SNPs. 
+
+Importance of uniform coverage across samples, new developments that could help. 
+
+The recombination in the population is not enough to make a finer map, even if we had found more markers. 
 
 Mention other people using a similar strategy since this was published. 
 

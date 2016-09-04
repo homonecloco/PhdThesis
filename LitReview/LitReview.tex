@@ -6,7 +6,7 @@
 \section{Wheat Breeding}
 An overview of how breeding is carried on currently, the different sources of genetic diversity and the relevance of fixing agriculturally important traits. 
 \section{Wheat Genetics}
-The section describes alleles an the concept of gene, both as a locus in the genome (Quantitative Trait Locus, QTL) and an specific transcript (central dogma of molecular biology). Finally, it discuses traditional Mendelian inheritance and the effect of polyploidy.  
+The section describes alleles an the concept of gene, both as a locus in the genome (Quantitative Trait Locus, QTL) and an specific transcript (central dogma of molecular biology). Finally, it discuses traditional Mendelian inheritance and the effect of polyploidy.  Some of this is described in the Yr15 chapter, maybe it is not needed anympore here. 
 \section{Wheat Genomics}
 A description of the current status of the wheat genome (\citet{Mayer2014}, \citet{Chapman2015}), the different available assemblies and and approaches to sort the scaffolds (Genome Zipper, the various genetic maps).  
 \section{Sequencing} 
@@ -66,6 +66,13 @@ DNA sequence alone is not alone to enough to understand the biology behind, a co
 
 From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman\cite{Smith1981} and Needleman-Wunsch\cite{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O(mn), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST index the references and use heuristics to make the search more manageable, with some penalty in the accuracy. This alignments tools are useful for long stretches of DNA (like cDNA or contigs)\cite{Altschul1990}.
 
+TODO: List of global aligners
+-BLAST
+-BLAT
+-Exonerate
+-nucmer
+
+
 When looking at a protein level, where the sequences may be only loosely similar, Hidden Markov Models (HMM) are used to search for protein families. This can be useful to annotate putative proteins and their functions. HMMs require a training dataset, where proteins are previously annotated and the reference is a model encoding the characteristics of a family, with associated probabilities. Hence, this technique is something between a sequences aligner and a classifier\cite{Eddy2004}. 
 
 When analysing high-throughput sequencing, having millions of short sequences make unfeasible to try to align the data to every possible reference. However, one can take in advantage the fact that you know which organism you are looking for and, if available, use a genomic reference. For this, tools like MAQ, BWA, Bowtie, among others, provide indexed search.  Once you have your reads aligned to a reference you can do more analysis, depending on the biological question being asked and the type of sequencing carried on.  Fortunately, most of the Short-Read sequence alignment produce similar outputs and the SAM format is becoming a de facto standard. This is allowing to make more modularised downstream analysis where you can test different aligners with different settings and pick the algorithm that better fits your experiment\cite{Liu2012,Li2009,Li2009a}. 
@@ -106,5 +113,34 @@ Once you have the alignments it is possible to evaluate the relative expression 
 
 
 
-\section{Wheat online resources}
+\section{Wheat specific resources resources}
+\label{lit:wheatResourcers}
+Gene models
+-UniGene
+-UCW Gene models
+-Gene annotation IWGSC
+-Gene annotation TGACv1
+
+Genetic maps
+-Wang
+-Chapman/PopSeq (is the same populaiton, improved)
+
+Markers
+-90k
+-820k
+-MASwheat/SRR
+
+Portal
+-CeralsDB
+-MASWheat
+-Ensembl
+-Wheat-expression
+
+Assemblies
+-Chapman
+-IWGSC
+-TGACv1
+-NRGene (unpublished?)
+-454 Liverpool
+
 A compilation of the currently available resource for whet genetics and genomics. MAS wheat, CeralsDB, Ensembl, etc.  
