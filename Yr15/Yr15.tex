@@ -72,6 +72,8 @@ Since the \acrshort{css} assembly is quite fragmented the genetic maps don't hav
 In this way, it is possible to use the scaffolds as a proxy to map the genes to their genetic position (Figure \ref{fig:yr15:layersOfMapping}).
 The results of mapping the genes with SNPs to the CSS assembly and the genetic map are described in Section \ref{sub:yr15:inSilico}. 
 For a longer description of resources available for wheat see Section \ref{lit:wheatResourcers}. 
+\unsure{To do: section talking about genetic map. }
+\unsure{To do: Microsatellites vs SNP markers. }
 
 Finally, the best candidate SNPs where selected to produce a genetic map which lead to a triplet of markers diagnostic to the target locus. 
 
@@ -117,7 +119,7 @@ From the 232 plants in the $F_{2}$ population that germinated, 187 were resistan
 Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{Randhawa2009}, however the decresed number of succeptible plants can be explained by escapes in the virulence essays (i.e. plants scored as resistant without the \textit{Yr15} locus).   For this study we extracted DNA from individual plants in the $F_{2}$ population and we bulked RNA on 6 different bulks: 3 resistant and, 3 succeptible ( Figure \ref{fig:yr15:f2}). 
 
 \section{Sequencing and mapping} 
-
+\label{yr15:sequencing}
 \begin{table}
 \centering
 \caption{Arrangement and number of sequenced base pairs per sample. }
@@ -175,6 +177,7 @@ Since each individual bulk has a lower coverage, the susceptible and resistant r
 The merged samples increased the percentage of genes with coverage over 20x  to 44\% and 50\% in the resistant and susceptible bulks (Table \ref{app:seqAlnCov}), which is close to the coverage from the progenitors.
 
 \section{SNP Calling}
+\label{yr15:snpCalling}
 
 The \acrshort{snp} calling was done on positions with a coverage of at least $20x$ on the progenitor lines against the gene reference. The \acrshort{avs} progenitor had roughly $3\%$ more genes with polymorphisms than \acrshort{yr15}, consistent with the difference in coverage, suggesting that with a higher coverage we could recover more \acrshort{snp}s from \acrshort{yr15}.
 The UniGenes have a higher number of \acrshort{snp}s because the \acrshort{ucw} gene models have a higher number of monomorphic genes when compared to the UniGenes. (Figure {\ref{fig:yr15:SNPper}}; Table \ref{app:yr15:cntSNP100bp}). 
@@ -302,7 +305,7 @@ There are several factor that prevent a clear peak; like the biases induced by t
 Since there are several SNPs with a high BFR and the genetic map is not enough to locate a single region linked to \acrshort{yr15},  multiple criteria was needed to prioritise SNPs that were more likely to yield on successful genetic markers.
 
 \section{Assay selection} 
-
+\label{yr15:assaySelection}
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{Yr15/Figures/selection/snpSets.pdf}
@@ -388,16 +391,57 @@ To validate if the 35 SNPs were polymorphic across the parents and, diagnostic t
 Two of the lines without \acrshort{yr15} have \textit{T. diccocoides} in their pedigree (Shamrock and Robigus), as it is the donor species of \textit{Yr15} \citep{mcintosh1995}. 
 This test panel allows to test if the SNPs are only diagnostic to \textit{T. diccocoides} instead of \acrshort{yr15}.
 On the test panel, 28 ($80\%$) SNPs were polymorphic across the parents and three of them where diagnostic to \textit{yr15} (R5, R8, R33).
-From the five homoeologous SNPs, three of them were monomorphic and two polymorphic, suggesting that PolyM{}arker is effective on detecting which assays are less likely to work (Table \ref{tab:yr15:markersToTest}; Figure \ref{fig:yr15:r2},\subref{fig:yr15:r8}).
+From the five homoeologous SNPs, three of them were monomorphic and two polymorphic, suggesting that PolyMarker is effective on detecting which assays are less likely to work (Table \ref{tab:yr15:markersToTest}; Figure \ref{fig:yr15:r2},\subref{fig:yr15:r8}).
 The segregation of the SNPs in the full $F_{2}$ population (Section \ref{sub:mappingPopulation}, Figure \ref{fig:yr15:r8f2}) and a genetic map was produced (Section \ref{yr15:geneticMap}).   
 
-
 \input{Yr15/SupplementalTables/markerDetails2}
-%From the 35 SNPs tested, 28 were polymorphic across the parents (80%), with three diagnostic for Yr15 in the panel (R5, R8 and R33, Figure 6b). We also identified five SNPs as homoeolo- gous, three of which were monomorphic across the parents and two polymorphic SNPs that were not diagnostic across the panel. To determine the genetic position of these SNPs relative to Yr15, we developed a genetic map using the phenotyped F2 individuals (Figure 1b,e).
 
 \section{Genetic map} 
 \label{yr15:geneticMap}
-The three versions of the genetic map: With a subset of the F\textsubscript{2} population
+
+
+Initially, the 28 polymorphic markers were used to genotype a subset of 66 plants from the $F_{2}$ population. 
+From those, 23 (82\%) were linked to \acrshort{yr15} and several markers fall in a small interval around \acrshort{yr15} (Figure \ref{fig:yr15:initialMap}; Table \ref{tab:yr15:markersToTest}), confirming that the multiple-criteria strategy(Section \ref{yr15:assaySelection}) for selecting candidate SNPs was effective. 
+Then, the complete $F_{2}$ population was assessed with:
+\begin{itemize}	
+	\item  the seven markers that were most linked to \acrshort{yr15}, including two of the diagnostic markers from the variety panel (R5 and R8),
+	\item The flanking \acrshort{ssr} microsatellite markers used by UK breeders for germoplasm selection (Xbarc8 and Xgwm413).  
+	\item A marker based on barley-wheat synteny (R43) which met the selection criteria, but wasn't on the original set of 50 markers with high BFR. 
+\end{itemize}
+
+The $F_{2}$ population consisted on 232 plants with phenotypic information, of those 196 where genotyped reliably (no more than one data point missing). 
+Using the eight SNP markers and 2 SRRs, the \acrshort{yr15} locus was mapped to an interval of 0.77cM, with R8/xgwm413 0.26cM distal, and R5/R11 0.77cM proximal from \acrshort{yr15} (Figure \ref{fig:yr15:finalMap},\subref{fig:yr15:mapDetails}). 
+
+
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+	\caption{}
+	\label{fig:yr15:initialMap}
+	\includegraphics[height=0.45\textheight]{Yr15/Figures/selection/initialMap.pdf}
+	\end{subfigure}
+	~
+	\begin{subfigure}{0.45\textwidth}
+	\caption{}
+	\label{fig:yr15:finalMap}
+	\includegraphics[height=0.45\textheight]{Yr15/Figures/selection/fineMap.pdf}
+	\end{subfigure}
+
+	\begin{subfigure}{1\textwidth}
+	\caption{}
+	\label{fig:yr15:mapDetails}
+	\includegraphics[width=1\textwidth]{Yr15/Figures/selection/mapDetails.pdf}
+	\end{subfigure}
+	
+
+	\caption{Genetic maps for \acrshort{yr15}. (\subref{fig:yr15:initialMap}) Genetic map of the test panel from 50 individuals. (\subref{fig:yr15:finalMap}) Genetic map from 196 individuals from the full population only with the 8 markers previously identified as closer to the \acrshort{yr15} locus. (\subref{fig:yr15:mapDetails})Graphical genotype of the 196 $F_{2}$ individuals used to develop the genetic map. The alleles are abbreviated according to their origin: A: AVS; B: \textit{Yr15} and H: Heterozygous. Missing calls are indicated by a hyphen.}
+\end{figure}
+
+The sub-cM resolution is expected on an $F_{2}$ population of 196 individuals, as 392 gametes provide a resolution of 0.26{}cM. 
+Despite the fact that none of the selected markers have perfect linkage to \acrshort{yr15}, the produce genetic map is an improvement in the resolution of the map for the locus and it enables the shift to SNP markers from microsatellites, which has become the preferred marker system in \acrshort{mas} pipelines in breeding programmes. 
+
 
 \section{Bioinformatic methods}
 
@@ -428,27 +472,64 @@ The alignments where sorted and stored as single BAM files to have random access
 %A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
 
 \section{Discussion} 
-Remarks on how this techinque can be used to do fine-mapping and that if I were to start the project now I would  use exome capture or Ren-Seq. 
+%Remarks on how this techinque can be used to do fine-mapping and that if I were to start the project now I would  use exome capture or Ren-Seq. 
 
-The references have changed since we started
+Resequencing the $\sim17$Gbp genome of hexaploid wheat is costly and approaches to reduce the required sequenced volume to effectively call for SNPs had been evolving since the conception of this project. 
+The RNA and DNA extraction and the sequencing for this project was carried on before the beginning of my PhD (before October 2012). 
+At that point the exome capture was already established for genotyping humans \citep{Ng2009}, however the first exome capture on wheat was just recently published, with probes coming from unassembled 454 reads \citep{Winfield2012}, and an probe designed from transcripts \citep{Henry2014} was not published after the analysis of this section was completed and validated.
+An even more targeted capture for resistance genes (RenSeq) was published while this study was executed \citep{Jupe2013}.
+On the other hand RNA-Seq was already tested for \acrlong{bsa} on tetraploid wheat \citep{Trick2012}.  
+Hence, the decision of reducing the sequenced space with RNA-Seq was appropriate at the time (Figure \ref{fig:intro:timeline}). 
+Unfortunately, one of the shortcomings of RNA-Seq used to call for SNPs is that the coverage is not uniform and the genes that have low expression don't have enough coverage to call for SNPs (Section  \ref{yr15:sequencing}).
+If a similar study is to be started today, a better alternative would be to use exome capture in general from a segregating population for any trait, or RenSeq if the target gene is a resistance gene.  
 
-When the study started the study the \gls{css} was about to be released and, despite being fragmented, it served as a valuable resource to assign the SNPs to a chromosome arm. Currently the TGACv1 assembly is available in ensembl REF and,  the NRGene assembly, which promises to be on the level of pseudomolecules, is about to be released REF. 
+The quality and completeness  of the reference genome or gene models directly affects the mapping \acrshort{ngs}. 
+This is particularly true on polyploid organisms: if one of the homoeologues is absent, the reads are likely to map to the wrong genome if the parameters of the aligner are relaxed or; not map at all if the the required identity is high.
+When the bioinformatic analysis of this project started, the only available genomic reference was the whole genome shotgun 454 sequencing, unassembled \citep{Brenchley2012}; the \gls{css} assembly was being finished\citep{Mayer2014}; the longer scaffolds from \citet{Chapman2015} were not public yet and; the efforts to make a whole genome shotgun assembly were being planned independently by the International Wheat Genome Sequencing consortium  \citep{Pozniak2016} and TGAC \citep{Clark2016}.  
+Because contiguous assembly with the corresponding annotation wasn't available at the time of the analysis and the fact that the data available was from a transcriptome, the use of gene models as a reference for the alignment was a suitable approach. 
+
+In terms of available of gene references when the analysis started, the canonical reference was the UniGenes from the NCBI \citep{PontiusJUWagnerL2002}. 
+The UniGenes are done with an automated pipeline that clusters all the \acrshortpl{est} deposited in the NCBI by identity and selects the longest transcript, which can yield in having homoeologous transcript merged as a single reference.
+Shortly after I started the bioinformatic analysis, two aditional gene models were available, the draft annotation for the \acrshort{css} assembly (MIPSv1) in January 2013 and the UCW gene models \citep{Krasileva2013} in May 2013. 
+I selected the UCW gene models, as they were already mature, were phased to distinguish between genomes and already published, over the the MIPSv1 genes that were still being refined as it was an initial approach lifting proteins from related organisms and a few RNA-Seq experiments.  
+The MIPS gene models were improved by removing duplications in the assembly in a later stage and the nomenclature before the release of the assembly \citep{Mayer2014}, but at that point the results of this project where already submitted for publication (Figure \ref{fig:intro:timeline}; \citealt{Ramirez-Gonzalez2015b}). 
+
+\unsure{Should I talk briefly about barley? If I have time I'll add a section of synteny, but I don't consider it critical.}
+To locate the gene models in the chromosome arms and see if there was an enrichment on the called SNPs the use of a high resolution consensus map is needed, as the genome assemblies available during the analysis are fragmented. 
+Timely, a genetic map with $>42,000$ markers was published \citep{Wang2014}. 
+I was able to use it to locate several \acrshort{css} scaffolds before it was published, as I collaborated in their assembly. 
+The located scaffolds were used as proxy to sort just under half of the reference genes in their chromosomal position (Section \ref{sub:yr15:inSilico}). 
+Despite the resolution not being enough to find a single point of enrichment, it was enough to confirm that the SNPs were in the expected location, including one of the SNP candidates flanking the \textit{Yr15} locus (SNP R11, Figure \ref{fig:yr15:BFRValues1BS}).  
+If the analysis was to be done today, the genetic map from \citet{Chapman2015} along with their longer scaffolds, or the scaffolds from TGACv1 or the NRGene should provide a better resolution. 
+Even without having all the \acrshort{css} scaffolds sorted, the fact that they come from individual chromosome arms they enabled the assignment of the genes to a chromosome. 
 
 
-There are new annotations, now we don't necessarily need to use unigenes anymore. 
+The original expectation was to have a \gls{nil} for the \acrshort{bsa}, however the number of SNPs called in the progenitors suggested that the background, \acrlong{avs}, was not the same.  
+This happened because despite both succeptible lines being called the same and having the same response to the pathogen, they are different lines from different countries (Section \ref{yr15:snpCalling}). 
+This highlights the importance of genotyping the material used when developing mapping populations, specially if the source of the seeds come from different seed banks. 
 
-Importance of genotyping everything used in an experiment
 
-In Silico mapping wasn't enough to locate all the SNPs, but we ciykd have found one of the SNPs. 
+Despite this shortcomings, the use of the \glspl{bfr} to score the putative SNPs was effective as most of the SNPs with a high score  mapped in chromosome 1B, as expected from previous studies ($BFR>6$, Section \ref{yr15:assaySelection}).
+Using the extra criteria of only selecting SNPs from the resistant progenitor and in the expected chromosome arm I was able to produce a high resolution genetic map (Section \ref{yr15:geneticMap}). 
+The genetic was of the expected resolution for the size of the population (0.26cM on 196 individuals).
+Since the mapping population contained only one critical recombinant between \textit{Yr15} and the flanking markers, the population couldn't yield to a better map. 
+From the two critical recombinants it should be possible to make an extra cross and repeat the analysis, but sequencing with either exome capture or RenSeq, to improve the genetic map. 
+\unsure{Talk about Why is R33 diagnostic on the varieties, but maps away?. }
 
-Importance of uniform coverage across samples, new developments that could help. 
+\begin{figure}
+\includegraphics[width=1\textwidth]{Yr15/Figures/breedersTest.pdf}
+\caption{Haplotype analysis and phenotypic evaluation of the 113 doubled haploid lines used in the study. The TGC haplotype corresponds to that originally identified in the \textit{Yr15} parent and which was diagnostic across 112 of the 113 lines studied.}
+\label{fig:yr15:breeders}
+\end{figure}
 
-The recombination in the population is not enough to make a finer map, even if we had found more markers. 
-
-Why is R33 diagnostic on the varieties, but maps away. 
-
-Mention other people using a similar strategy since this was published. 
-
-We can use different techniques now (exome capture, ren-seq)
-
-The markers are now used by our collaborators. 
+As described in \citet{Ramirez-Gonzalez2015b}, the markers
+ R11, R5 and R8 were tested "across 122 doubled haploid (DH) lines. 
+These DH lines were derived from crosses crosses between five different UK varieties/breeding lines to Yr15 derivatives known to carry the resistance gene. 
+The expected \textit{Yr15} haplotype corresponded to T, G and C alleles at markers R11, R5 and R8, respectively (TGC haplotype). 
+The DH lines were tested at seedling stage for reaction to \textit{P. striiformis}, with 84 showing complete resistance and 34 presenting an intermediate or completely susceptible reaction.
+The resistant lines all carried the complete \textit{Yr15} haplotype (TGC, Figure \ref{fig:yr15:breeders}) across the three SNP markers with the exception of five lines which had a single missing data point, but were otherwise consistent. 
+This compared favourably with the most diagnostic in-house SNP markers available within the breeding programmes. 
+Using the three in-house markers, 79 resistant lines carried the expected haplotype, but five completely resistant DH lines were scored as false negative due to the presence of the non-\textit{Yr15} haplotype. 
+Within the intermediate and susceptible DH lines, all but one had a non-\textit{Yr15} haplotype (CAT or TAT) across R11, R5 and R8 (Figure \ref{fig:yr15:breeders}). This single DH line was scored as a false positive as it carried the TGC \textit{Yr15} haplotype, but was found to have an intermediate (chlorotic) reaction to \textit{P. striiformis}. This line was also the only one scored as a false positive using the three in-house markers". 
+The fact that the developed markers perform better than the markers developed by breeders show the value of this particular experiment and further confirms that \acrshort{bsa} combined with \acrshort{ngs} is an effective way to develop novel markers. 
+\unsure{ Mention other people using a similar strategy since this was published. }
