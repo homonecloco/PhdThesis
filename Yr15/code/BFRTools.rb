@@ -411,22 +411,17 @@ module Bio::BFRTools
     def bfrs
       return @BFRs if @BFRs
       @BFRs = Hash.new
-      
       [:first, :second].each do | reference |
         @BFRs[reference] = Hash.new
         BASES.each do |base|
           @BFRs[reference][base] = Array.new
-        end
+        end§
       end
-      
-      p "BFRS empty"
-      p  @BFRs
 
       for i in (0..self.size-1)
         ratios_1 = @ratios_bulk_1[i]
         ratios_2 = @ratios_bulk_2[i]
-        BASES.each do |base|
-          
+        BASES.each do |base| 
           if ratios_1[base] == 0 and ratios_2[base] == 0
             bfr1 = 0
             bfr2  = 0

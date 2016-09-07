@@ -54,7 +54,7 @@ The allelic SNPs are then examined further with the alignments of the bulks to i
 The SNP index is the proportion of times an alternative allele is observed over the coverage at certain, in the example the the susceptible bulk has an SNP index of $1/8=0.125$ and $6/8=0.75$ for the resistant bulk \citep{Takagi2013a}. traditional
 The \acrshort{bfr} are then calculated by dividing the SNP Index of sample containing the target phenotype (resistance) over the sample without the trait (susceptible), on the example is $0.75/0.125=6$.  
 A high BFR suggests that the \acrshort{snp} is linked to the target trait \citep{Trick2012}. 
-The results of the BFR analysis on the $F_2$ population are discussed in Section \ref{sec:yr15:bfr}. 
+The implementation of the BFR analysis is detailed in Section \ref{yr15:sub:bfr} and the results on the $F_2$ population are discussed in Section \ref{sec:yr15:bfr}. 
 
 \begin{figure}
   \centering
@@ -441,36 +441,180 @@ The sub-cM resolution is expected on an $F_{2}$ population of 196 individuals, a
 Despite the fact that none of the selected markers have perfect linkage to \acrshort{yr15}, the produce genetic map is an improvement in the resolution of the map for the locus and it enables the shift to SNP markers from microsatellites, which has become the preferred marker system in \acrshort{mas} pipelines in breeding programmes. 
 
 
-\section{Bioinformatic methods}
+\section{Methods}
+\label{yr15:methods}
 
-\subsection{Alignment reads to gene models}
+\begin{figure}
+\includegraphics[width=1\textwidth]{Yr15/Figures/pipeline.pdf}
+\caption{Steps used to go from the $F_{2}$ population to the genetic map.}
+\end{figure}
 
+The data analysis for this PhD required the use of some standard tools and custom developed code. 
+All the code produced for this project is available and updated on the a github repository: \url{https://github.com/TGAC/bioruby-polyploid-tools}. 
+For clarity, the snippets of code on this section had been simplified by removing the exception handling, type checks and caching mechanism.
+
+\subsection{Base-call and Quality Control of sequencing reads}
 The raw output from the Illumina HiSeq 2000 was processed with Casava v1.8 \citep{casavaBCL}. 
 Lanes 1 and 2, containing multiplexed bulks (Table \ref{tab:yr15:reads}) was demultiplexed with a tolerance of 1 mismatch in the barcode. 
 Lanes 3 and 4 contained the parental sequences without a barcode. 
 The FastQ files where left compressed and in chunks of 40,000, as teh default for the BCL conversion pipeline from Casava to allow parallel processing in a cluster environment. 
 The quality of the sequencing lanes was assessed with FastQC v0.10.1 \citep{fastqc}. 
+
+\subsection{Alignment reads to gene models}
 The RNA-Seq reads were aligned with BWA 0.5.9 \citep{Li2009} to the wheat UniGene database v60 \citep{PontiusJUWagnerL2002} and to the UCW gene models \citep{Krasileva2013}, including the \textit{T. turgidum} and complementary ORFs \citep{MASWheat2013}.
 The alignments where sorted and stored as single BAM files to have random access \citep{Li2009a}. 
+\unsure{ Snippet with submission of the alignments. However I haven't got access to the old cluster files.}
 
-%TODO: Snippet with submission of the alignments. 
 
-\subsection{Bulk Frequency Ratios}
+\subsection{Bulk Frequency Ratios and SNP calling}
 \label{yr15:sub:bfr}
+To avoid the creation of several temporary files with the coverage information on all the bases I developed a \texttt{Ruby} pipeline based on the \texttt{bio-samtools} library \citep{Ramirez-Gonzalez2012}, and some of the improvements to work with pileups were published as a followup on the library \citep{Etherington2015}.
+To call for the consensus, the function \texttt{Bio::DB::Sam::mpileup} is called to generate the pileup of each gene. 
+As the pileups are used several times during the analysis, a function that caches the current pileup is implemented.
+The consensus is called by counting how many times each base appears, and if the number of bases is higher than \texttt{minumum\_ratio\_for\_iuap\_consensus} the base is added to the set of possible bases \citep{Cornish-Bowden1985} 
+If there is no coverage at a certain position, the reference base is used, and set as lowercase. 
+If the set of called bases is not empty, the ambiguity code for the observed bases is called, and set as upper case (Listing \ref{lst:yr15:consensus}).
+The minimum ratio was done on 0.2 (20\%), that allows for calling for a consensus even when more than one homoeologue is mapping to the same reference.
 
-%To identify variant candidates, the methodology described in Trick et al. (2012) was used and extended to work with BAM files and to consider cases when a variant is completely absent from the parental sequences. The consensus from the two parents is called, allowing for ambiguities to take into account possible homoeo- logues when at least 20% of the bases differ from the reference. The consensus is stored with standard IUPAC codes (Cornish- Bowden, 1985). On the bases where the consensus is different between the parents, the bulk frequency ratio (BFR) was calculated as in Trick et al. (2012). The algorithm was imple- mented using Ruby on the top of BioRuby (Goto et al., 2010) and extending the functionality of bio-samtools (Ramirez-Gonzalez et al., 2012). The BFRs were calculated independently on each of the three comparisons (Bulk 1: S1–R1, Bulk 2: S2–R2 and Bulk 3: S3–R3) and with in silico mixes of bulks 1 and 2; and bulks 1, 2 and 3 produced by merging the BAM files using samtools (Li et al., 2009). A list was produced with all the scores in a table format containing the BFR, coverage, ratio of the SNP base and the the parent containing the SNP (Data S2–S4).
+\begin{code}[language=Ruby,caption=Method to call for the consensus on progenitors from a pileup, label=lst:yr15:consensus]
+def consensus_iuap(minumum_ratio_for_iuap_consensus)
+  minumum_ratio_for_iup_consensus
+  @consensus_iuap = self.ref_base.downcase
+  bases = self.bases
+  tmp = String.new
+  bases.each do |k,v|
+    if v/self.coverage > minumum_ratio_for_iup_consensus
+      tmp << k[0].to_s
+    end 
+    if tmp.length > 0
+      @consensus_iuap = Bio::NucleicAcid.to_IUAPC(tmp)
+    end
+  end 
+  @consensus_iuap.upcase
+end
+\end{code}
 
-\lstinputlisting[language=Ruby,firstline=17, lastline=28, caption=Method to find best BLAT alignment]{Yr15/code/find_best_blat_hit.rb}
+Then, to calculate the \acrshortpl{bfr} as shown on Figure \ref{fig:yr15:bfr} extra extensions for the \texttt{Bio::DB::Pileup} were added to get the actual number of bases in the pile (to exclude short insertions and deletions; Listing \ref{lst:yr15:cov}), and to calculate the SNP-Index (Listing \ref{lst:yr15:ratio}).  
 
-\lstinputlisting[language=Ruby,firstline=33, lastline=43, caption=Extensions to Bio::Blat::Report::Hit to get the percentage of coverage]{Yr15/code/find_best_blat_hit.rb}
-%The UniGenes, UCW gene models and the contigs containing the 46 977 genetically mapped SNPs from Wang et al. (2014) were aligned with BLAT (Kent, 2002) to the CSS scaffolds (IWGSC, 2014). To assign the genes to a specific scaffold, we selected the best hit from the BLAT alignment, provided that at least 60% of the gene was covered in the scaffold with at least 90% of identity. This selection criterion reduces the number of spurious hits in repetitive motifs in the gene and allows the assignment to a homoeologous chromosome even when the correct homoeologue is missing from the CSS scaffolds. The origin of the scaffold was used to assign a putative chromosome arm. In addition, the gene models were also aligned to the cDNA of Hordeum vulgare (International Barley Genome Sequencing Consortium, 2012) from Ensembl! Plants, release 16 (Kersey et al., 2012). The genetic position of the wheat contigs with SNPs was used to calculate the density of SNPs with a BFR > 6 and for all SNPs between AVS and Yr15. After selection using the criteria outlined in the results section, the selected genes were sorted by BFR in the mix between samples to select the top 50 SNPs for further validation via KASP markers.
+\begin{code}[language=Ruby,caption=\texttt{base\_coverage} gets the number of bases called from a single pileup., label=lst:yr15:cov]
+def base_coverage
+  total = 0
+  @bases.each do |k,v|
+    total += v  
+  end
+  total
+end
+\end{code}
 
-\subsection{Alignment between gene models}
-%\section{Assembly of the transcriptome} 
-%A comparison between thef known unigenes and the transcript from the progenitors. Since \textit{Yr15} comes from an introgression with \textit{T. diccocoides}, some novel transcripts can be extracted. Analysis of the gels from Mitaly? 
+\begin{code}[language=Ruby,caption=\texttt{base\_ratios} gets the SNP-Index on a single pileup., label=lst:yr15:ratio]
+def base_ratios
+  return @base_ratios if @base_ratios
+  bases = self.bases
+  @base_ratios = Hash.new
+  bases.each do |k,v| 
+    @base_ratios[k] = v.to_f/self.base_coverage.to_f 
+  end
+  @base_ratios
+ end
+\end{code}
+
+To calculate \acrshortpl{bfr} the class \texttt{Bio::BFRTools::Container} was implemented to contain all the \texttt{BIO:DB:Sam} objects corresponding to the progenitors and the bulks. 
+The class \texttt{Bio::BFRTools::BFRRegion}  was implemented to contain the ratios and consensus sequences of each region. 
+The method \texttt{bfr} uses the calculated SNP-Indices on every position, from the point of view of both progenitors (lines 15-16: Listing \ref{lst:yr15:bfr}, and in the case of lack of coverage the value is set to 0 or \texttt{Infinity} (lines 8-13), depending on the progenitor where the base is not called at all. 
+Using this design were the values of each region are calculated at once increases reduces the number of times the pileup needs to be generated for each sample and, allows to have in a single place in memory all the elements to calculate the \acrshortpl{bfr} without having to write any temporary files on disc. 
+Also, the fact that the calculation of each region is independent to other regions, it is possible to use a computing cluster to distribute the analysis on several nodes.
+
+The code produces a table with the SNP-Indices and BFRs for all the SNPs found in the progenitors. 
+The program was used to calculate the BFRs on the independent conditions (Bulk 1: S1–R1, Bulk 2: S2–R2 and Bulk 3: S3–R3); the \textit{in silico} mixes of bulks 1 and 2; and bulks 1, 2 and 3. 
+
+
+\begin{code}[language=Ruby,caption=Section of the code that , label=lst:yr15:bfr]
+for i in (0..self.size-1)
+  ratios_1 = @ratios_bulk_1[i]
+  ratios_2 = @ratios_bulk_2[i]
+  BASES.each do |base| 
+    if ratios_1[base] == 0 and ratios_2[base] == 0
+      bfr1 = 0
+      bfr2  = 0
+    elsif ratios_1[base] == 0
+      bfr1  = 0
+      bfr2 = Float::INFINITY
+    elsif ratios_2[base] == 0
+      bfr1 = Float::INFINITY
+      bfr2 = 0
+    else
+      bfr1  =  ratios_1[base] / ratios_2[base]
+      bfr2 =  ratios_2[base] / ratios_1[base]
+    end
+    @BFRs[:first][base] << bfr1
+    @BFRs[:second][base] << bfr2
+  end
+end
+\end{code}
+
+\subsection{\textit{In Silico} mapping}
+\label{yr15:met:inSilico}
+
+To find the chromosomal position of the SNPs with a high BFR the sequence of the markers with a genetic position from \citet{Wang2014} were aligned with BLAT \citep{Kent2002} to the \acrshort{css} scaffolds \citep{Mayer2014}. 
+To find the best hit for each query was kept using a \texttt{Ruby script}. 
+Briefly, the class \texttt{Bio::Blat::Report} from \texttt{BioRuby} \citep{Goto2010} was extended to include an iterator only for the best alignment of each query: 
+First, the whole file is iterated (line 5); the alignment with the best score is stored in a hash (lines 7-9) and; the hash is iterated (line 11).
+The script found 46,977 scaffolds that contained at least one marker from the map. 
+
+\begin{code}[language=Ruby,caption=Extension to \texttt{Bio::Blat::Report} that selects the best alignment from a \texttt{psl file from BLAT} , label=lst:yr15:bestHit]
+def self.each_best_hit(text = '')
+  emptyHit = Bio::Blat::Report::Hit.new
+  emptyHit.score = 0
+  best_aln = Hash.new(emptyHit)
+  self.each_hit(text) do |hit|
+    current_score = hit.score
+    if current_score > best_aln[current_name].score
+      best_aln[current_name] = hit 
+    end
+  end
+  best_aln.each_value { |val| yield  val }
+end
+\end{code}
+
+Then, the UniGenes and the UCW gene models were also aligned with BLAT to the scaffolds that were located in the genetic map.  
+The class \texttt{Bio::Blat::Report::Hit}  was extended to calculate how many bases are covered in the alignment and the percentage of covered bases in both, the target and query sequences (Listing \ref{lst:yr15:hit}).
+Only the genes that align over 60\% of covered bases with an identity of at least 90\% were considered. 
+This removes spurious mappings from repetitive regions while retaining a location to an homoeologue in case that the correct scaffold is not in the genetic map. 
+The genes were also align to the full \acrshort{css} reference, to be able to locate the genes to a chromosome arm, even when it is not possible to assign a position in the genetic map and, to the cDNA of \textit{Hordeum vulgare} \citep{Mayer2011} as deposited in Ensembl! Plants, release 16 \citep{Kersey2012}. 
+The genetic position of the contigs was used to calculate the density of SNPs between \acrshort{avs} and \acrshort{yr15} in the genetic bins for Figure \ref{fig:yr15:bfrs:0-6}. 
+This information was used to select the SNPs with high BFR to validate.  
+
+\begin{code}[language=Ruby, caption=Extension from \texttt{Bio::Blat::Report::Hit} to improve the filtering of spurious alignments., label=lst:yr15:hit]
+class Bio::Blat::Report::Hit
+  def covered
+    match + mismatch
+  end
+  def query_percentage_covered
+    covered * 100.0 / query_len.to_f
+  end
+  def target_percentage_covered
+    covered * 100.0 / target_len.to_f
+  end
+end
+\end{code}
+
+\subsection{Primer design and KASP assays}
+The primer design for KASP were designed with PolyMarker as described in Chapter \ref{cha:polymarker}. 
+The only difference with the default settings is that instead of using a template sequence, the sequence for each allele is calculated from the consensus of the alignments. 
+The primers "were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standardFAMor HEX compatible tails (FAM tail: 50 GAAGGTGACCAAGTTCATGCT 30; HEX tail: 50 GAAGGTCGGAG TCAACGGATT30) with the target SNP at the 30 end. 
+Primer mix was set up as recommended by LGC [46 lL dH2O, 30 lL common primer (100 lM) and 12 lL of each tailed primer (100 lM)] \citep{LGC}
+Assays were tested in 384-well format and set up as 4-lL reactions [2-lL template (10–20 ng of DNA), 1.944 lL of V4 29 Kaspar mix and 0.056 lL primer mix]. 
+PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95 °C for 15 min, followed by ten touchdown cycles (95 °C for 20 s; touchdown 65 °C, ?1 °C per cycle, 25 s) then followed by 30 cycles of amplification (95 °C10 s; 57 °C 60 s). 
+As KASP amplicons are smaller than 120 bp, an extension step is unnecessary in the PCR protocol. 384-well optically clear plates (Cat. No. E10423000; Starlab Milton Keynes, UK) were read on a Tecan Safire plate reader. 
+Fluorescence was detected detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).", as described in \citet{Ramirez-Gonzalez2015b}.
+
+
+\subsection{Genetic map}
+As described in \citet{Ramirez-Gonzalez2015b},  "JoinMap version 3 \citep{vanOoijen2002} was used for linkage analysis and genetic map construction, using default settings. The linkage to \textit{Yr15} was determined using a divergent log-of-odds (LOD) threshold of 3.0, and genetic distances were computed based on recombination frequency.". 
+
 
 \section{Discussion} 
-%Remarks on how this techinque can be used to do fine-mapping and that if I were to start the project now I would  use exome capture or Ren-Seq. 
+
 
 Resequencing the $\sim17$Gbp genome of hexaploid wheat is costly and approaches to reduce the required sequenced volume to effectively call for SNPs had been evolving since the conception of this project. 
 The RNA and DNA extraction and the sequencing for this project was carried on before the beginning of my PhD (before October 2012). 
