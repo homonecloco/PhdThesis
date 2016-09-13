@@ -538,16 +538,16 @@ for i in (0..self.size-1)
   BASES.each do |base| 
     if ratios_1[base] == 0 and ratios_2[base] == 0
       bfr1 = 0
-      bfr2  = 0
+      bfr2 = 0
     elsif ratios_1[base] == 0
-      bfr1  = 0
+      bfr1 = 0
       bfr2 = Float::INFINITY
     elsif ratios_2[base] == 0
       bfr1 = Float::INFINITY
       bfr2 = 0
     else
-      bfr1  =  ratios_1[base] / ratios_2[base]
-      bfr2 =  ratios_2[base] / ratios_1[base]
+      bfr1 = ratios_1[base] / ratios_2[base]
+      bfr2 = ratios_2[base] / ratios_1[base]
     end
     @BFRs[:first][base] << bfr1
     @BFRs[:second][base] << bfr2

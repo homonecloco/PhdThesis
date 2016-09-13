@@ -9,7 +9,6 @@
 In modern breeding programs SNP markers are a prevalent technology to select seeds containing a particular locus linked to a trait (ie. a marker linked to a resistance gene, see Chapter \ref{yr15}). 
 SNP marker are an specific case of \gls{pcr} amplification with two competing sequences from different alleles are amplified. 
 
-
 In general, \acrshort{pcr} amplification is a technique that can be used to copy several times a fragment of DNA. 
 To start the amplification a pair of sequences (left and right primers) on each side of the target sequence is required. 
 The sequence between primers is copied thanks to the DNA polymerase, an enzyme that moves along the DNA strand making a copy (product). 
@@ -93,7 +92,8 @@ To ensure that all the constrains needed to produce pairs, the following steps n
 \item First, a global alignment of the target sequence is used to find all the homoeologues and paralogues in the reference genome.
 This is done with tools like \verb|blast| \citep{Altschul1990}, \verb|blat| \citep{Kent2002} or \verb|exonerate| \citep{Slater2005}.
 All this tools take a reference sequence and make some sort of index to speed up the search of the queried sequence  \ref{fig:poly:globalSearch}. 
-The results are aligned to the target, but not between them. 
+Since some of the sources of SNPs come from transcriptome data and gene references, the original sequence may go over the intron-exon junction (see Section \ref{lit:RNASeq}).  
+The results are aligned to the target and may include sequence only from one exon, but not the adjacent intron, hence it is necesary to make a local alignment. 
 \item To put all the sequences in the appropriate context, a local alignment is done (Figure \ref{fig:poly:globalAround}). 
 This is done by extracting all the hits to the target reference and using a program like \verb|mafft| \citep{Katoh2013} or \verb|clustal| \citep{Higgins1988}. 
 This tools are based on aligning all the possible sequences in pairs all the possible pairs.
@@ -127,62 +127,126 @@ On that premise, I developed PolyMarker, a pipeline that takes the reference gen
 \section{Pipeline}
 PolyMarker is an automated pipeline that takes as input a list of SNPs and a reference file and produces a list of primer triplets for SNP genotyping. 
 The list of SNPs is first converted to a \verb|FASTA| file with ambiguity codes \citep{Cornish-Bowden1985} 
-The template sequences are aligned with \verb|exonerate| \citep{Slater2005}  to find the homoeologous regions to the target sequence. 
+The template sequences are aligned with \verb|exonerate| \citep{Slater2005}  to find the homoeologous and paralogue regions to the target sequence.
+For my thesis, I implemented this using the IWGSC reference sequence (described in Chapter \ref{lit:wheatResourcers}).  
 Then, the alignment between homoeologues is refined using \verb|MAFFT| \citep{Katoh2013}. 
 A list of candidate variations is produced and used as input for \verb|Primer3| \citep{Rozen}. 
-Finally, the output of \verb|Primer3| is parsed to find the best primer pair that contains a the targeted SNP and a base that is specific to the target genome (Figure \ref{fig:poly:pipeline}).  
+Finally, the output of \verb|Primer3| is parsed to find the best primer pair that contains the targeted SNP and a base that is specific to the target genome (Figure \ref{fig:poly:pipeline}).  
 The pipeline is written as a Ruby script, using parsers and wrappers from BioRuby \citep{Goto2010} and bio-samtools \citep{Etherington2015,Ramirez-Gonzalez2012}. 
-The software is open source and released as a biogem \citep{Bonnal2012}, \verb|bio-polyploid-tools|, the source code is available in github: \verb|https://github.com/TGAC/bioruby-polyploid-tools|.
+The software is open source and released as a biogem \citep{Bonnal2012}, \verb|bio-polyploid-tools|, the source code is available in: \url{https://github.com/TGAC/bioruby-polyploid-tools}.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/pipeline.pdf}
-        \caption{Steps and tools called by PolyMarker. The colour of the boxes represent: the step is an action inside the script(red); actions of the script(light red); temporary files(yellow); inputs(blue) and; outpus(green)}
-        \label{fig:poly:pipeline}
+\caption{Steps and tools called by PolyMarker. The colour of the boxes represent: the step is an action inside the script(red); actions of the script(light red); temporary files(yellow); inputs(blue) and; outpus(green)}
+\label{fig:poly:pipeline}
 \end{figure}
 
 The PolyMarker input consists on SNP list with: unique name for the marker, the target chromosome and the sequence for the marker. 
-The alternative alleles are surrounded by square brackets within the sequence. PolyMarker can take a list of several markers and design them in batch (Figure \ref{fig:poly:input}). 
+The alternative alleles are flanked by square brackets within the sequence. PolyMarker can take a list of several markers and design them in batch (Figure \ref{fig:poly:input}). 
 A \verb|FASTA| file is produced with all the template sequences, with the alternative alleles substituted by the IUAPC ambiguity codes \citep{Cornish-Bowden1985}. 
 The flanking sequence surrounding the SNP is limited by default to 100bp to reduce the search time and avoid missing regions that diverge near the SNP, as when the variation is near an intron-exon junction. 
 %%TODO: Should we elaborate more here? 
-
 \begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.8\textwidth}
-        \caption{}
-        \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/input.pdf} 
-        \label{fig:poly:input}
-    \end{subfigure}
-
-    
-    \begin{subfigure}[b]{0.4\textwidth}
-        \caption{}
-        \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsFound.pdf}
-        \label{fig:poly:globalSequence}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.4\textwidth}
-        \caption{}
-        \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/localAlignment.pdf}
-        \label{fig:poly:localSequence}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{0.8\textwidth}
-        \caption{}
-        \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/mask.pdf} 
-        \label{fig:poly:mask}
-    \end{subfigure}
-    \caption{Alignments done by PolyMarker.(\subref{fig:poly:input}) input. The alternative alleles are sorrounded by brackets.(\subref{fig:poly:globalSequence}) Sequence of found regions around the SNP. (\subref{fig:poly:localSequence}) Local alignment on regions around the SNP detects indels. (\subref{fig:poly:mask}) Alignment with mask and primer candidates.}
-    \label{fig:global}
+    \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/input.pdf} 
+      \caption{PolyMarker input. The alternative alleles are sorrounded by brackets.}
+    \label{fig:poly:input}
 \end{figure}
 
 The template sequences are aligned to the reference using \verb|exonerate| (\citealt{Slater2005}; Figure \ref{fig:poly:globalSearch}). 
-The alignment is refined with the \verb|--model est2genome| option, to allow the search of sequences coming from transcripts, a common source of SNPs \citep{Allen2011}. 
-The exonerate output is formatted with the \verb|--ryo| (roll your own format) to get an output easy to parse. 
-All the hits that contain the SNP are extracted from the reference with a flanking sequence that extend out of the hit, by defualt, to 100bp on each side of the SNP, Figure \ref{fig:poly:globalAround}.
-The size of the flanking sequence can be set to different sizes to allow the design of different types of primers. 
-Different homoeologues may contain small indels, Figure \ref{fig:poly:globalSequence}. 
+The following parameters are used to optimise the output:
+
+\begin{description}
+
+\item[\texttt{--verbose 0 --show --alignment no --show vulgar no}.] To override the default output. 
+\item[\texttt{--bestn 20}.] By default, it increases the number of best hits to 20. Intuitively, it would be expected to have 3 copies, on for each homoeologue. However, the \acrshort{css} assembly has some duplication in the scaffolds and it is possible to find paralogues elsewhere in the genome. 
+\item[\texttt{--model est2genome}.] To allow the search of sequences coming from transcripts, such as the SNPs descriped in Chapter \ref{yr15}  and in the SNP chip described by \citep{Allen2011}
+\item[\texttt{--ryo 'RESULT:\char`\\t\%S\char`\\t\%pi\char`\\t\%ql\char`\\t\%tl\char`\\t\%g\char`\\t\%\char`\\n'}.]To set the output in a tabular format that is easy to parse as follow: \verb|\%S| the minimum information of the alignment, \verb|\%pi| percentage of identity, \verb|\%ql| query length, \verb|\%tl| target length and, \verb|\%g| orientation. 
+\end{description}
+
+
+All the hits that contain the SNP and have a percentage of identity over 90\% are extracted, this threshold allows to match homoeologs and paralogs. 
+The coordinate of the SNP is calculated and 100bp on each flank are extracted by default, a reasonable product size for KASP assays. 
+The flanking sequence may contain \acrshort{indels} and the sequences don't align naturally (Figure \ref{fig:poly:globalSequence}).
+The following parameters can be adjusted to extend the functionality of PolyMarker: Minimum Identity to designs for organisms with homoeologus regions that are more divergent; flanking sequence for different types of primers (ie. for sanger sequencing) and;  \verb|model| to adjust the search according to the source of the SNP (ie. if it is know that the SNP comes from DNA, \verb|affine:local| would be a better option as \verb|exonerate| won't pay attention to the intron-exon junctions).
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsFound.pdf}
+\caption{Sequence of found regions around the SNP. The \acrshort{indels} produce a slight shift on the sequence.}
+\label{fig:poly:globalSequence}
+\end{figure}
+
+
+\unsure{Maybe explain the architecture before getting to the pipeline, or after}
+Each SNP marker is represented on the \verb|BIO::PolyploidTools::SNP| class, containing the flakning sequence, the position of the SNP, multiple alignments and primers. 
+For each step step there is a container (See container definition in Section \ref{lit:patterns}) that holds the SNP set and parses each output for all the called programs. 
+The container for exonerate is \verb|BIO:PolyploidTools::ExonContainer|. 
+The hits with the SNP is called exon henceforth, as the original design was for SNPs in gene models which may contain intron-exon junctions. 
+The main job of the \verb|ExonContainer| is to parse the \verb|exonrate| output and add it to the corresponding SNP (Listing \ref{lst:poly:exonerateParsing}). 
+
+Each \verb|SNP| contains a Hash to the best alignment to each chromosome, based on identity. 
+When the \verb|ExonContainer| adds an alignment, the \verb|SNP| verifies that is the best hit for a given chromosome, to avoid scaffolds with duplicated sequence (Listing \ref{lst:poly:bestScaffold}).
+
+As it is common to have different conventions over different references on how the chromosomes are named, PolyMarker can be easily extended to parse different naming conventions. 
+To achieve this, when the \verb|ExonContainer| is initialized a parsing function is set up. 
+Then, when each alignment is added, the id if the target sequence is parsed using the custom function (Listing \ref{lst:poly:exonerateParsing}, line 12).
+Examples of parsing functions for the chromosome are in Listing \ref{lst:poly:chromsomeParsing})
+
+\begin{code}[language=Ruby,caption=Method that adds to each SNP object the alignments, label=lst:poly:exonerateParsing]
+def add_alignments(opts=Hash.new) 
+  opts = {:min_identity=>90 }.merge!(opts)
+  exonerate_filename = opts[:exonerate_file]
+  File.open(exonerate_filename) do |f|
+    f.each_line do | line |
+      record=Bio::DB::Exonerate::Alignment.parse_custom(line)
+      if record and record.identity>=opts[:min_identity]
+        snp_array = @snp_map[record.query_id]
+        snp_array.each do |snp|                            
+        if snp.position.between?( (record.query_start + 1) , record.query_end)
+          exon=record.exon_on_gene_position(snp.position)
+          snp.add_exon(exon, arm_selection.call(record.target_id))
+        end
+      end
+    end
+  end
+end
+\end{code}
+
+
+
+\begin{code}[language=Ruby,caption=Method that adds an alignment , label=lst:poly:bestScaffold]
+def add_exon(exon, arm)
+  @exon_list[arm] = exon unless @exon_list[arm]
+ @exon_list[arm] = exon if exon.record.score > @exon_list[arm].record.score
+end
+\end{code}
+
+\begin{code}[language=Ruby,caption=Example functions that assigns a chromosome from the scaffold name, label=lst:poly:chromsomeParsing]
+arm_selection_functions[:arm_selection_first_two] = lambda do | contig_name |
+  ret = contig_name[0,2]       
+  return ret
+end
+
+arm_selection_functions[:scaffold] = lambda do | contig_name |
+  ret = contig_name;       
+  return ret
+end
+\end{code}
+
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/localAlignment.pdf}
+\caption{Local alignment on regions around the SNP detects \acrshort{indels}.}
+\label{fig:poly:localSequence}
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/mask.pdf}
+\caption{Alignment with mask and primer candidates.}
+\label{fig:poly:mask}
+\end{figure}
+
+
 To enable a comparasion base-per-base, a local alignment with \verb|MAFFT| \citep{Katoh2013} is produced, Figure \ref{fig:poly:localSequence}. 
 
 PolyMarker searches across each base in the local alignment to identify the variations across homoeologues and the target marker.
