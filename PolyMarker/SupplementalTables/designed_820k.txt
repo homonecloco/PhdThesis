@@ -1,0 +1,1 @@
+:Homoeologous variant:Varietal SNP:PercentageNon-specific:20,189:56,516:12.44%Semi-specifc:167,018:132,145:48.52%Specific:139,202:92,487:37.58%Not designed:3,116:5,852:1.45%Total:329,525:287,000:616,525

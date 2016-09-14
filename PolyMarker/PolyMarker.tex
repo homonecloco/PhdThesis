@@ -25,9 +25,8 @@ This process is repeated several times to increase the representation of the tar
 \label{fig:poly:amplificationProduct}
 \end{figure}
 
-A technology used for SNP markers is KASP. 
+A technology used for SNP markers is KASP, the original target technology for PolyMarker. 
 The assays consists on triplets of primers, having a primer for each allele and a common primer that will amplify regardless of the allele. 
-
 The allelic primers have at the 5'-end a tail, HEX (5' GAAGGTCGGAGTCAACGGATT 3') or FAM (5' GAAGGTGACCAAGTTCATGCT 3'), which is used to distinguish between them (Figure \ref{fig:poly:kaspTriplet}). 
 The KASP mix contains complementing oligos to the HEX and FAM tail, which contain a dye that is only visible when the corresponding allele has amplified. 
 The intensity of each dye is used to measure relative amplification of each allele. 
@@ -107,15 +106,16 @@ The validation primers based on their intrinsic properties can be done with tool
 \end{enumerate}
 
 \begin{figure}
-\begin{subfigure}[b]{0.6\textwidth}
+\centering
+\begin{subfigure}[b]{1\textwidth}
 \caption{}
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsSearch.pdf}
 \label{fig:poly:globalSearch}
 \end{subfigure}
-~
-\begin{subfigure}[b]{0.35\textwidth}
+
+\begin{subfigure}[b]{0.8\textwidth}
 \caption{}
-\raisebox{12ex}{\includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsFoundAround.pdf}}
+\includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsFoundAround.pdf}
 \label{fig:poly:globalAround} 
 \end{subfigure}
 \caption{(\subref{fig:poly:globalSearch}) Global search of templates in the reference contigs. (\subref{fig:poly:globalAround}) Selected regions around the SNP on every chromosome. The blue line represents the position of the SNP.}
@@ -148,7 +148,7 @@ The flanking sequence surrounding the SNP is limited by default to 100bp to redu
 %%TODO: Should we elaborate more here? 
 \begin{figure}
     \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/input.pdf} 
-      \caption{PolyMarker input. The alternative alleles are sorrounded by brackets.}
+      \caption{PolyMarker input. The alternative alleles are surrounded by brackets. The rest of the figures are based on BS00112130, renamed as SNP-1.}
     \label{fig:poly:input}
 \end{figure}
 
@@ -171,7 +171,7 @@ The following parameters can be adjusted to extend the functionality of PolyMark
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsFound.pdf}
-\caption{Sequence of found regions around the SNP. The \acrshort{indels} produce a slight shift on the sequence.}
+\caption{Sequence of flanking regions around the SNP. The \acrshort{indels} produce a slight shift on the sequence.}
 \label{fig:poly:globalSequence}
 \end{figure}
 
@@ -183,15 +183,7 @@ The container for exonerate is \verb|BIO:PolyploidTools::ExonContainer|.
 The hits with the SNP is called exon henceforth, as the original design was for SNPs in gene models which may contain intron-exon junctions. 
 The main job of the \verb|ExonContainer| is to parse the \verb|exonrate| output and add it to the corresponding SNP (Listing \ref{lst:poly:exonerateParsing}). 
 
-Each \verb|SNP| contains a Hash to the best alignment to each chromosome, based on identity. 
-When the \verb|ExonContainer| adds an alignment, the \verb|SNP| verifies that is the best hit for a given chromosome, to avoid scaffolds with duplicated sequence (Listing \ref{lst:poly:bestScaffold}).
-
-As it is common to have different conventions over different references on how the chromosomes are named, PolyMarker can be easily extended to parse different naming conventions. 
-To achieve this, when the \verb|ExonContainer| is initialized a parsing function is set up. 
-Then, when each alignment is added, the id if the target sequence is parsed using the custom function (Listing \ref{lst:poly:exonerateParsing}, line 12).
-Examples of parsing functions for the chromosome are in Listing \ref{lst:poly:chromsomeParsing})
-
-\begin{code}[language=Ruby,caption=Method that adds to each SNP object the alignments, label=lst:poly:exonerateParsing]
+\begin{code}[language=Ruby,caption=Method in \texttt{BIO::PolyploidTools::ExonContainer} that adds to each SNP object the alignments, label=lst:poly:exonerateParsing]
 def add_alignments(opts=Hash.new) 
   opts = {:min_identity=>90 }.merge!(opts)
   exonerate_filename = opts[:exonerate_file]
@@ -211,27 +203,32 @@ def add_alignments(opts=Hash.new)
 end
 \end{code}
 
+Each \verb|SNP| contains a Hash to the best alignment to each chromosome, based on identity. 
+When the \verb|ExonContainer| adds an alignment, the \verb|SNP| verifies that is the best hit for a given chromosome, to avoid scaffolds with duplicated sequence (Listing \ref{lst:poly:bestScaffold}).
 
-
-\begin{code}[language=Ruby,caption=Method that adds an alignment , label=lst:poly:bestScaffold]
+\begin{code}[language=Ruby,caption=Method in \texttt{BIO::PolyploidTools::SNP} that adds an alignment , label=lst:poly:bestScaffold]
 def add_exon(exon, arm)
   @exon_list[arm] = exon unless @exon_list[arm]
  @exon_list[arm] = exon if exon.record.score > @exon_list[arm].record.score
 end
 \end{code}
 
-\begin{code}[language=Ruby,caption=Example functions that assigns a chromosome from the scaffold name, label=lst:poly:chromsomeParsing]
+As it is common to have different conventions over different references on how the chromosomes are named, PolyMarker can be easily extended to parse different naming conventions. 
+To achieve this, when the \verb|ExonContainer| is initialized a parsing function is set up. 
+Then, when each alignment is added, the id if the target sequence is parsed using the custom function (Listing \ref{lst:poly:exonerateParsing}, line 12).
+An example of parsing functions for a chromosome are in Listing \ref{lst:poly:chromsomeParsing}.
+
+
+\begin{code}[language=Ruby,caption=Example function that assigns a chromosome from the two first letters of the scaffold, label=lst:poly:chromsomeParsing]
 arm_selection_functions[:arm_selection_first_two] = lambda do | contig_name |
   ret = contig_name[0,2]       
   return ret
 end
-
-arm_selection_functions[:scaffold] = lambda do | contig_name |
-  ret = contig_name;       
-  return ret
-end
 \end{code}
 
+%\pagebreak 
+To ensure that the \acrshort{indels} between homoeologues don't produce spurious mismatches a local alignment is produced with \verb|MAFFT| (Figure \ref{fig:poly:localSequence}). 
+The arguments used are the recommended in the manual for small number of sequences:
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/localAlignment.pdf}
@@ -239,15 +236,27 @@ end
 \label{fig:poly:localSequence}
 \end{figure}
 
+\begin{description}
+\item[\texttt{--maxiterate 1000}.] The local alignment is fefined up to 1000 times.
+\item[\texttt{--localpair}.] Compares all the possible pairs of alignment to each other
+\item[\texttt{--quiet}.] To reduce the size of the logs.  
+\end{description}
 
-\begin{figure}
-\includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/mask.pdf}
-\caption{Alignment with mask and primer candidates.}
-\label{fig:poly:mask}
-\end{figure}
+The class \verb|BIO::PolyploidTools::SNP| has the method \verb|aligned_sequences| which execute \verb|MAFFT| for the best hit on each chromosome to the marker. 
+The first time it is invoked and it stores the result as an attribute (Listing \ref{lst:poly:mafft}).
+This approach hides the execution of the local alignment as an attribute and it avoids executing it several times when calculating the variations between homoeologues. 
 
+\begin{code}[language=Ruby,caption=Method in \texttt{BIO::PolyploidTools::SNP} that calculates the local alignment, label=lst:poly:mafft]
+def aligned_sequences
+  return @aligned_sequences if @aligned_sequences
+  options = ['--maxiterate', '1000', '--localpair', '--quiet']
+  mafft = Bio::MAFFT.new( 'mafft' , options)
+  report = mafft.query_align(sequences_to_align)
+  @aligned_sequences = report.alignment
+  @aligned_sequences
+end
+\end{code}
 
-To enable a comparasion base-per-base, a local alignment with \verb|MAFFT| \citep{Katoh2013} is produced, Figure \ref{fig:poly:localSequence}. 
 
 PolyMarker searches across each base in the local alignment to identify the variations across homoeologues and the target marker.
 A mask is produced to highlight the bases with a variations, Figure \ref{fig:poly:mask}, on the following categories:
@@ -256,49 +265,239 @@ A mask is produced to highlight the bases with a variations, Figure \ref{fig:pol
 \item [Specific] Homoeologous polymorphism which is only present in the target genome (upper case).
 \item [Semi-specific] Homoeologous polymorphism which is found in 2 of the 3 genomes, hence it discriminates against one of the off-target genomes or when not all the homoeologous sequences were found (lower case).
 \item [Non-specific] No variation is found across homoeologues (\texttt{-}).
-\item [Homoeologous] The target SNP is present across different chromosomes, so candidate SNP markers on this category are not expected to be reliably identify the allele (\texttt{:}).
-\item [Non-homoeologous] The target SNP is not present across chromosomes, so it can be used to identify an allele (\texttt{\&}).
+\item [Homoeologous] The target SNP is present across different chromosomes, so candidate SNP markers on this category are not expected to be reliably identify the allele as these are not necessarily varietal polymorphisms. (\texttt{:}).
+\item [Non-homoeologous] The target SNP is not present across chromosomes, so it is most likely a varietal polymorphism which can be used to identify alternative alleles in the position.(\texttt{\&}).
 %\end{description} 
 \end{labeling} 
 
-PolyMarker was designed to produce SNP assays for KASP genotyping \citep{LGC}, which requires a common primer and two allele-specific primers. 
-The common primer is selected to start on a position from a: Specific; Semi-specific or; Non-specific, on that priority. 
-This means that the common primer will be as specific as possible in the region. 
-For the allele-specific primers, the starting position of the primer is on the base with the SNP. 
-To ensure that the stability of the candidate primers will be met, the putative starting positions are tested with \texttt{Primer3} \citep{Rozen}. 
 
-%%TODO: check for 3primer/ 5 primer instead of starts 
-PolyMarker was designed and validated with the markers described in section \ref{yr15:geneticMap}. 
-For wheat, PolyMarker uses the contigs from \cite{Mayer2014}, as deposited in Ensembl. 
-As new releases of the wheat genome are made available, different parsers to assign the chromosome to each sequence can be added with little effort to PolyMarker. 
+\begin{figure}
+\includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/mask.pdf}
+\caption{Alignment with mask and primer candidates. The green and light red boxes highlight the allele specific primers. The blue box highlights a genome specific primer. }
+\label{fig:poly:mask}
+\end{figure}
+
+To generate the mask the following logic is followed:
+\begin{enumerate}
+\item The aligned sequence of the target chromosome is set up as the default mask (Listing \ref{fig:poly:mask}, line 5).
+\item Then each position in the mask is iterated base per base (Listing \ref{fig:poly:mask}, line 7).
+\item A count of how many bases are the same across the chromosome and how many from the same chromosome group (defined by the first letter in the parsed chromosome) and how many chromosomes have local alignment (excluding \acrshort{indels}; lines 9-18).
+\item  A position is labelled as uninformative (\verb|-|) when the position doesn't have any different bases, the sequence is only available from the target chromosome or there are unknown bases on that particular position (any chromosome has an \verb|N| on the given position; line 19).
+\item When no alignment is present at all, the mask is filled with \verb|*| (line 20). This allows to identify the cases where only the initial marker sequence is available.
+\item If the target chromosome has an unique variation, the base is converted to upper case (line 22). This implicitly leaves as a lower case the semi-specific variations. The \verb|genomes_count| is a variable set at initialization time and keeps track of the number of expected alignments from the target group. This allows to use the same code for any level of polyploidy.  
+\item At the position of the SNP, the special symbols are setup (lines 23-30)
+\begin{enumerate}
+\item By default, the SNP position is labelled as \verb|&| (line24).
+\item All the observed bases, except the one in the target chromosome, are collected and converted to an IAUP ambiguity code \citep{Cornish-Bowden1985} (lines 26-28). If the bases in the SNP are contained in the ambiguity code the SNP is marked as homoeologous (\verb|:|; line 29)
+\end{enumerate}
+\end{enumerate}
+
+When designing SNP markers the aim is to have the amplification as specific as possible. 
+To improve the specificity of the assays, polymarker categorises all the possible primers as Specific; Semi-specific or; Non-specific. 
+The candidate primer pairs are then evaluated with \texttt{Primer3} \citep{Rozen}. 
+\texttt{Primer3} receives a file with the preferences to design the markers, for PolyMarker the following preferences are set up: 
+
+\begin{description}
+\item[\texttt{PRIMER\_PRODUCT\_SIZE\_RANGE=50-150}.] This is a reasonable size for KASP markers, as the technology doesn't have an extension step. 
+\item[\texttt{PRIMER\_MAX\_SIZE=25}.] KASP primers are usually between 21 and 25 bases.
+\item[\texttt{PRIMER\_LIB\_AMBIGUITY\_CODES\_CONSENSUS=1}.] To ensure that bases with ambiguity code are matched between primer pairs. 
+\item[\texttt{PRIMER\_LIBERAL\_BASE=1}.] To allow the use of ambiguity codes in the sequence
+\item[\texttt{PRIMER\_NUM\_RETURN=5}.] The maximum number of primer candidates. 
+\end{description}
+To design a different kind of primers it is possible to have a different set of preferences by feeding a standard \texttt{Primer3} preferences file with the option \verb|--primer_3_preferences FILE|. 
+
+The input file for \verb|primer3| also include the template sequences with an ID. 
+To keep track of what kind of marker each position will produce the ID field has the name of the primer and the specificity of the starting position of the common primer. 
+The starting position of the primers is forced with the options \verb|SEQUENCE_FORCE_LEFT_END| and \verb|SEQUENCE_FORCE_RIGHT_END| on the specific and semis-specific positions. 
+For the non specific positions only the \verb|SEQUENCE_FORCE_LEFT_END| is given to make a full search of candidates. 
+
+\begin{code}[language=Ruby,caption=Method that calculates the mask of the alignment, label=lst:poly:mask]
+def mask_aligned_chromosomal_snp(chromosome)
+  names = exon_sequences.keys
+  parentals =  parental_sequences.keys
+  local_pos_in_gene = aligned_snp_position
+  masked_snps = aligned_sequences[chromosome].downcase
+  i = 0
+  while i < masked_snps.size
+    different = cov = from_group = Count = 0
+    names.each do | chr |
+      if aligned_sequences[chr] and aligned_sequences[chr][i]  != '-'
+        cov += 1 
+        nCount += 1 if aligned_sequences[chr][i] == 'N' or  aligned_sequences[chr][i] == 'n' 
+        from_group += 1 if chr[0] == chromosome_group
+        if chr != chromosome 
+          different += 1  if masked_snps[i].upcase != aligned_sequences[chr][i].upcase 
+        end
+      end
+    end
+    masked_snps[i] = '-' if different == 0 or if cov == 1 or nCount > 0
+    masked_snps[i] = '*' if cov == 0
+    expected_snps = names.size - 1 
+    masked_snps[i] = masked_snps[i].upcase if different == expected_snps and from_group == genomes_count
+    if i == local_pos_in_gene
+      masked_snps[i] = '&'
+      bases = ''
+      names.each do | chr | { bases << aligned_sequences[chr][i]  if aligned_sequences[chr] and aligned_sequences[chr][i]  != '-' }
+      code_reference = 'n'
+      code_reference = Bio::NucleicAcid.to_IUAPC(bases) unless bases == ''
+      masked_snps[i] = ':' if Bio::NucleicAcid.is_valid(code_reference,   original) and Bio::NucleicAcid.is_valid(code_reference,   snp)
+    end
+  i += 1
+  end
+  masked_snps
+end
+\end{code}
+
+The class \texttt{BIO::DB::Primer3::Primer3Record} is used to keep the details of all the primers generated by \verb|primer3| for each template. 
+In order to prioritize which primer is selected as the best primer on for each SNP, each \verb|Primer3Record| is scored according to their type and the product length (Listing \ref{lst:poly:score}).
+By default, more priority is given to the specific, semi-specific and non-specific primers, in that order. 
+In case of having more than one primer pair with the same specificity, the one with the shortest product length is chosen (Listing \ref{lst:poly:defScore}).  
 
 
+\begin{code}[language=Ruby,caption=Method that calculates the score of a primer \texttt{BIO::DB::Primer3::Primer3Record}, label=lst:poly:score]
+def score
+  ret = 0
+  ret += @scores[type]
+  ret -= product_length
+  ret
+end
+\end{code}
+
+\begin{code}[language=Ruby,caption=Initialization of the \texttt{BIO::DB::Primer3::Primer3Record} class\, including the default score weights, label=lst:poly:defScore]
+def initialize
+  @properties = Hash.new
+  @scores = Hash.new
+  @scores[:chromosome_specific] = 1000
+  @scores[:chromosome_semispecific] = 100
+  @scores[:chromosome_nonspecific] = 0
+end
+\end{code}
+
+Finally, the best primer for each marker is produced and a \acrshort{csv} file is produced with the following columns: 
+
+\begin{description}
+\item[Marker] The ID of the Marker
+\item[SNP] The position of the SNP in the original sequence and the kind of SNP
+\item[RegionSize] The size of the original sequence tested, up to the maximum size including the flanking sequence. 
+\item[chromosome] The target chromosome
+\item[total\_contigs] How many contigs mapped to the SNP. If it is more than the expected by the ploidy of the organism it can show paralogues or repetitive regions/
+\item[contig\_regions] The locations where the marker mapped. In the format Scaffold:start-end
+\item[SNP\_type] homoeologous or non-homoeologus. If it is homoeologous, the SNP is probably a variation between chromosomes. 
+\item[A] Primer for the first allele.
+\item[B] Primer for the second allele.
+\item[common] Common primer that gives the specificity to the assay.
+\item[primer\_type] specific, semi-specific or non-specific. Depending on the rules described previously. 
+\item[orientation] If it is forward, the allelic primers are in the same orientation as the original sequence. If it is reverse, the common primer is in the same orientation as the original sequence.
+\item[A\_TM] Melting temperature of the first allelic primer
+\item[B\_TM] Melting temperature of the secibd allelic primer
+\item[common\_TM] Melting temperature of the common primer
+\item[selected\_from] For internal purposes, points from which of the primers was used as template. 
+\item[product\_size] The size of the PCR product produced by the primers. 
+\end{description}
+
+PolyMarker also produces a text file with the local alignments that contain all the positions that can produce a genome-specific primer. 
+The file has the same format as Figure \ref{fig:poly:mask}, but without the highlights. 
+The mask is useful in case that the original assay failed, or to explore the details of the other homoeologs and paralogs which are similar to the assay. 
+
+\subsection{PolyMarker public web service}
+To make PolyMarker accessible to the community, a web server that allow the submission of SNPs was developed. 
+The web interface consists on two virtual machines, one with a web facing interface that stores the queries, and a dedicated node to submit jobs to an HPC cluster.
+The on-line interface further simplifies the design of KASP assays, a process that used to take between 15-45 minutes per marker is now automated. 
+Since the release of the public service in July 2014 until August 2016, 1,739 requests to PolyMarker have been done. 
+
+Besides the previously described output, the web interface of PolyMarker provides a graphical representation of the multiple sequence alignment and the mask used to design the primer (Figure \ref{fig:poly:website}). 
+The visualization consists on a table containing the primers and the BioJS component MSAViewer \citep{Yachdav2016}, that highlights the designed primers. 
+On an ideal case, you have an SNP that is in a non-homoeologus position with a genome-specific triplet (Figure \ref{fig:poly:non-hom-sp}). 
+However, sometimes the SNP is located in an homoeologous variation (Figure \ref{fig:poly:hom-sp}), which can signal a miscalled SNP. 
+In some extreme cases, a SNP is located in regions that have homoeologues and paralogs in several chromosomes (Figure \ref{fig:poly:hom-multi}), it is useful to highlight such kind of SNPs that can produce spurious amplification from non-target chromosomes. 
+The graphical representation is helpful to understand how the primers were designed.
+
+\begin{sidewaysfigure}
+\centering
+\begin{subfigure}{1\textwidth}
+\caption{}
+\label{fig:poly:non-hom-sp}
+\includegraphics[width=0.75\textwidth]{PolyMarker/Figures/website/non-hom-sp.png}
+\end{subfigure}
+\begin{subfigure}{1\textwidth}
+\caption{}
+\label{fig:poly:hom-sp}
+\includegraphics[width=0.75\textwidth]{PolyMarker/Figures/website/hom-sp.png}
+\end{subfigure}
+\begin{subfigure}{1\textwidth}
+\caption{}
+\label{fig:poly:hom-multi}
+\includegraphics[width=0.75\textwidth]{PolyMarker/Figures/website/hom-multi.png}
+\end{subfigure}
+\caption{Example outputs from the PolyMarker website. (\subref{fig:poly:non-hom-sp}) The primer triplet is genome specific. The original marker sequence had the SNP near the begining of the template, but PolyMarker used the genomic reference to complement the sequence. (\subref{fig:poly:hom-sp}) An specific primer, but the SNP is located on the same position than an homologous variation. (\subref{fig:poly:hom-multi}) A case where the marker sequence align to 10 different chromosomes. The SNP is also located on a position with variations between genomes.}
+\label{fig:poly:website}
+\end{sidewaysfigure}
 
 
 \section{Applications of PolyMarker}
+Besides the project described in Chapter \ref{yr15}, PolyMarker has been used to design KASP primers for the community. 
 
-PolyMarker is not restricted to wheat or to KASP assays, the source code is flexible and can be extended for other types of analysis. 
-On each of the following projects, PolyMarker has been adapted to design primers in species where KASP hasn't been used before, the primers are used for regular PCR amplification, or the use of KASP is not the conventional SNP calling. 
 
 \subsection{KASP assays for public sets of SNPs} 
 
-PolyMarker was used to design KASP assays for the 81,587 markers from \citep{Wang2014}, available on the PolyMarker website and in CeralsDB \citep{Wilkinson2012}. 
-Of those markers, 40,267 where designed using the target chromosome using the genetic map published by the genetic map. 
-Genes without a genetic position were aligned to scaffolds sorted by chromosome from the International Wheat Genome Sequencing Consortium \citep{Mayer2014} with BLAT \citep{Kent2002} and the best hit was selected as putative location. 
+PolyMarker was used to design KASP assays for the 81,587 markers from \citep{Wang2014}, available on the PolyMarker website and in CerealsDB \citep{Wilkinson2012}. 
+Of those markers, 40,267 where designed using the target chromosome using the genetic map provided in \citet{Wang2014}.  
+Genes without a genetic position were aligned to scaffolds sorted by chromosome from the International Wheat Genome Sequencing Consortium \citep{Mayer2014} with BLAT \citep{Kent2002} and the best hit was selected as the putative location. 
 97.5\% of the assays where designed and 76\% of them are semi-specific or specific, thereby improving their expected performance with respect to randomly designed primers (Table \ref{tab:poly:designed}). 
-A subset of the designed assay was used to genotype a mapping population to find resistance to Fusarium head blight \citep{Burt2015}. 
+The markers had been taken by the community, for example a subset of the designed assays was used to genotype a mapping population to find resistance to Fusarium head blight \citep{Burt2015}. 
+\input{PolyMarker/SupplementalTables/designed}
+
+Also, PolyMarker was used to design KASP assays for the 820K SNP Axiom array described in \citet{Winfield2016}. 
+Briefly, the original set contains 819,556 SNPs called from exome capture on 43 bread wheat accessions and wheat relatives. 
+Of those, 616,525 where mapped with \verb|exonerate| \citep{Slater2005} to the \acrshort{css} scaffolds. 
+Of those, 86.1\% have an specific or semi-specific assay (Table \ref{tab:poly:designed820k}. 
+This set of primers is also available in CerealsDB and it provides a valuable resource to groups that want to genotype using a subset of SNPs in the array, without the need to run the Axiom array. 
+
+\input{PolyMarker/SupplementalTables/designed_820k}
+
 
 \subsection{SNPs in a mutant population}
 
 PolyMarker was used to design primers to validate SNPs in a Targeted Induced Local Lesions in Genomes (TILLING) population, an approach to identify the function of genes by mutating them. 
-To calibrate the SNP calling, KASP assays were designed to get the mutations from $M_{2}$, $M_{3}$ and, $M_{5}$ mutants \citep{King2015}. 
+Briefly, wheat lines are mutated with ethyl methanesulphonate that produce G>A or C>T mutations. 
+The initial mutation is called $M_{1}$ and each plant is self crossed to fix the mutations. 
+The second generation is called $M_{2}$, and so on. 
+With each generation the originally heterozygous mutations get fixed and become homozygous. 
+In the process, some mutations are lost. 
+For this experiment, three $M_{5}$ lines were sequenced with exome capture. 
+The purpose of the experiment was to asses the feasibility of exome capture for call for SNPs.  
+
+To validate the SNPs detected at different levels of coverage and allele frequencies 150 assays were designed.
+The assays were tested on the $M_{5}$ used for SNP calling and on the progenitors at $M_{2}$, $M_{3}$. 
+Most of the SNP calls with more than 8 variant calls or an allele frequency over 0.8 were validated (Table \ref{tab:poly:mutSummary}). 
+At the same time, only 27\% of the SNPs with an allele frequency of 0.6 and 17\% of the cases with seven or less variant reads were successful. \citep{King2015}. 
+On this experiment PolyMarker was useful on validating and calibrating the minimum coverage to call SNPs reliably. 
+
+\input{PolyMarker/SupplementalTables/mutsSummary}
+
 %TODO: Add more details as suplemental?
-Then primers were designed for the whole mutant population, consisting of 1,200 Cadenza (Hexaploid) and 1,535 Kronos (Tetraploid) wheat lines \citep{Krasileva2016}. Genome-specific primers  172 and 80 SNP assays on 19 and 8 $M_{4}$ Cadenza and Kronos lines respectively. 
-Of those, 71(85.5\%) Kronos and 147(88.8\%) of the Cadenza primers where valid assays (Tables \ref{app:PolyMarkerM4ValidationCadenza} and \ref{app:PolyMarkerM4ValidationKronos}).  
+On a follow-up experiment consisting of 1,200 Cadenza (Hexaploid) and 1,535 Kronos (Tetraploid) wheat lines \citep{Krasileva2016} where also validated. Genome-specific primers  172 and 80 SNP assays on 19 and 8 $M_{4}$ Cadenza and Kronos lines respectively. 
+Of those, 71(85.5\%) Kronos and 147(88.8\%) of the Cadenza primers where valid assays, consistent with the pilot study (Tables \ref{app:PolyMarkerM4ValidationCadenza} and \ref{app:PolyMarkerM4ValidationKronos}).  
+
+\section{Modifications of PolyMarker}
+PolyMarker is not restricted to wheat or to KASP assays, the source code is flexible and can be extended for other types of analysis. 
+On each of the following projects, PolyMarker has been adapted to design primers in species where KASP hasn't been used before, the primers are used for regular PCR amplification, or the use of KASP is not the conventional SNP calling. 
 
 \subsection{Deletions on a mutant population}
 %Algorithm to produce KASP for deletions in polyploids. 
+  
 
+On some of the TILLING mutant lines long deletions were detected \citep{Krasileva2016}.
+To validate the deletions it is possible to use KASP assays to produce primers that amplify homoeologues.  
+PolyMarker was modified to search for variations across homoeologues to select a common primer that will amplify two genomes (Figure \ref{fig:poly:wt}, \subref{fig:poly:homM4}; reverse primer). 
+On lines without the targeted deletion, the amplification corresponds to an hetrerozygous assay with equal signal for both the A and the B allele. (Figure \ref{fig:poly:homFalse}).  
+When a deletion is present the results of the assay resemble the results for a homozygous individual, with the intensity of the assay towards the the conserved homoeologue (Figure \ref{fig:poly:homReal}).
+A set of KASP assays for the the deletions and mutations located on the same chromosome where designed to validate 11 homozygous deletions on $M_{4}$ plants. 
+In all cases the segregation of the mutations was as expected, except for a predicted heterozygous mutation that was called as homozygous. 
+Also, all the KASP assays that contained a deletion were called homozygous, as expected. 
+To ensure that the calls didn't come from a single cluster, 4 wildtype plants were genotyped and the markers for deletions where called as heterozygous. 
+An example of a validated deletion and the surrounding mutations, with the calls for each individual is shown on Table \ref{app:poly:homDelCad0423}. 
+  
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
@@ -323,45 +522,43 @@ Of those, 71(85.5\%) Kronos and 147(88.8\%) of the Cadenza primers where valid a
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/deletions/homReal.pdf}
         \label{fig:poly:homReal}
     \end{subfigure}
-    \caption{KASP assays to validate homozygous deletions. (\subref{fig:poly:wt}) Primer positions for wildtype. (\subref{fig:poly:homM4}) Primer positions on  homozygous deletion on $M_{4}$ (\subref{fig:poly:homFalse} Heterozygous amplification on wildtype, including both homoeologues. (\subref{fig:poly:homReal}) Homozygous amplification on deletion line, only the non-deletad homoeologue is amplified. }
+    \caption{KASP assays to validate homozygous deletions. (\subref{fig:poly:wt}) Primer positions for wildtype. Red and black indicate the A and B genome respectively. Primers are indicated by arrows with the target homoeologous SNP marked by an "X"(\subref{fig:poly:homM4}) Primer positions on  homozygous deletion on $M_{4}$ (\subref{fig:poly:homFalse}) Heterozygous amplification on wildtype DNA (no deletion), including both homoeologues. (\subref{fig:poly:homReal}) Homozygous amplification on deletion line, only the non-deleted homoeologue is amplified. }
 \end{figure}
 
-On some of the TILLING mutant lines long deletions were detected \citep{Krasileva2016}.
-To validate the deletions is possible to use KASP assays to produce primers that amplify homoeologues.  
-PolyMarker was modified to search for variations across homoeologues to select a common primer that will amplify two genomes (Figure \ref{fig:poly:wt}, \subref{fig:poly:homM4}). 
-On lines without the targeted deletion, the amplification correspond to an homozygous assay (Figure \ref{fig:poly:homFalse}).  
-When a deletion is present the results of the assay look like an homozygous sample, with the intensity of the assay towards the the conserved homoeologue (Figure \ref{fig:poly:homReal}).
-A set of KASP assays for the the deletions and mutations located on the same chromosome where designed to validate 11 homozygous deletions on $M_{4}$ plants. 
-In all cases the segregation of the mutations was as expected, except for a predicted heterozygous mutation that was called as homozygous. 
-Also, all the KASP assays that contained a deletion were called homozygous, as expected. 
-To ensure that the calls didn't come from a single cluster, 4 wildtype plants were genotyped and the markers for deletions where called as heterozygous. 
-An example of a validated deletion, with the calls for each individual is shown on Table \ref{app:poly:homDelCad0423}.
+\input{PolyMarker/SupplementalTables/CadenzaDeletions5BCad0423}
 
-\subsection{PolyMarker public web service}
-To make PolyMarker accessible to the community, a web server that allow the submission of SNPs was developed. 
-The web interface consists on two virtual machines, one with a web facing interface that stores the queries, and a dedicated node to submit jobs to an HPC cluster.
-The on-line interface further simplifies the design of KASP assays, a process that used to take a couple of weeks now is done in a couple of hours. 
-Since the release of the public service in July 2014 until August 2016, 1,739 requests to PolyMarker have been done. 
-%TODO: Does this sounds like too much marketing? 
-
-
-\subsection{Genotyping of \textit{Puccinia 
+\subsection{Genotyping \textit{Puccinia 
 striiformis} f. sp. \textit{tritici} isolates.}
 In \cite{Hubbard2015}, \textit{Puccinia striiformis} f. sp. \textit{tritici} (PST) isolates were sequenced and assigned to clusters, according to their genotype.
 The clusters are useful to monitor the changes in the pathogen population, which can be used to predict if certain wheat lines will be resistant to the isolates in the field. 
-PolyMarker was used to design primers for PST, using the assembly PST-130 \citep{Cantu2011}.
-Out of 15 assays 11 can be used to identify to which cluster of isolates a sample is likely to belong, Supplemental Table \ref{app:PolyMarkerPST}.
+PST is a dikaryon, an organism with two nuclei, each one containing a single haploid of chromosomes.
+For PolyMarker it can be treated as diploid, so the \verb|--genomes_count 1| argument was used.
+PolyMarker was used to design primers for PST, using the assembly PST-130 \citet{Cantu2011}.
+As the assembly is fragmented, an \textit{ad hoc} function was used to always get the name of the assembly (Listing \ref{lst:poly:pst130}). 
+Out of 15 assays, 11 can be used to identify to which cluster of isolates a sample is likely to belong, Table \ref{app:PolyMarkerPST}.
+Until this study, previous method to genotype of PST was \acrshort{ssr} markers.
 
+\begin{code}[language=Ruby,caption=Function that always returns PST130 as chromosome, label=lst:poly:pst130]
+arm_selection_functions[:pst130] = lambda do |contig_name|       
+  return "PST130"
+end
+\end{code}
+
+\input{PolyMarker/SupplementalTables/pst}
 
 \section{Discussion}
 
 PolyMarker is a tool that was born as part of the validation of the SNPs found in Chapter \ref{yr15}. 
-Originally, the primer design was ought to be done manually, a slow, error-prone and, repetitive process. 
+Originally, the primer design was done manually, a slow, error-prone and, repetitive process. 
 The steps require the use of several bioinformatics tools, but once I figured out the steps I decided to automate the process. 
 Since designing genome-specific primers is a common task in wheat research and breeding, the community showed interest on the tool and I decided to refine it and make it open source. 
 PolyMarker has been used successfully in several projects and it even allowed the novel use of KASP assays to validate long deletions in polyploids. 
+ 
+As a common source of SNPs are gene models, designing primers directly from the sequence flanking the SNP is not always correct, due the intron-exon junctions. 
+To be able to use DNA I had to identify on which hit the SNP was located, the internal coordinate and a mapping coordinate to the original sequence. 
+With this dual coordinate system I was able to design primers in the genome space, even when the origin was a transcript. 
 
-% The mask generated by PolyMarker enabled the identification of putative homoeologous variants (between genomes as opposed to varietal SNPs) which were present in the data set, but that were not identified previously. By exploiting the latest genomic resources in wheat, PolyMarker increases the likelihood of generating codominant SNP assays that are required for commercial MAS programmes and genotyping of F2 mapping populations like the one used in this study. 
+
 
 
 The ideas behind PolyMarker had been taken by other projects like the scripts described in \cite{Ma2015} and the corresponding web interface, GSP \citep{Wang2016}. 
@@ -370,14 +567,13 @@ It then allows the user to select a primer pair according to the constrains for 
 The advantage over PolyMarker is that it allows to pick arbitrary primers, at the cost of having a step for manual selection of the pair. 
 Recently, LGC also developed a program (MAGICBOX) that require a SNP sequence, does the alignment and selects primers with a genome specific anchor. 
 As PolyMarker, it produces a local alignment with the genome-specific bases \citep{Curry2016}. 
+On personal communications in conferences I had found out that LGC uses PolyMarker to design primers and that Bayer has an in house implementation of the algorithm. 
 
 %The ideas behind PolyMarker had 
 %Magic box from LGC https://www.lgcgroup.com/LGCGroup/media/PDFs/Our%20science/Genomics/PAG2016/improving-genome-specific-kasp-markers-for-hexaploid-wheat-magicbox-automated-design-pipeline.pdf
 
 
 The current web interface of PolyMarker is limited to KASP assays, however the command line version is more flexible and has been used to design primers for PCR amplicons, capillary sequencing and on other organisms. 
-
-
 As new references of wheat come available, PolyMarker should be updated to work with pseudomolecules and the web interface updated accordingly.  
 
 %Remarks on the importance of getting the primers right, and the time saved by automating the primer selection. Also mention other primer design tools that have been inspired by polymarker: \cite{Ma2015}, \cite{Wang2016}
