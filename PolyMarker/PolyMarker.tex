@@ -558,8 +558,9 @@ As a common source of SNPs are gene models, designing primers directly from the 
 To be able to use DNA I had to identify on which hit the SNP was located, the internal coordinate and a mapping coordinate to the original sequence. 
 With this dual coordinate system I was able to design primers in the genome space, even when the origin was a transcript. 
 
-
-
+In order to be able to represent more than one base at the same tame, the IUAPC ambiguity codes \citep{Cornish-Bowden1985} were useful in the development of PolyMarker. 
+With an ambiguity code, the template for the search can contain the SNP. 
+Also, the codes were useful when representing all the observed bases on each coordinate in the local alignment. 
 
 The ideas behind PolyMarker had been taken by other projects like the scripts described in \cite{Ma2015} and the corresponding web interface, GSP \citep{Wang2016}. 
 Briefly, GSP does a blast search to find all the homoeologus regions and provides a diagram with the bases that are genome specific. 
@@ -569,15 +570,13 @@ Recently, LGC also developed a program (MAGICBOX) that require a SNP sequence, d
 As PolyMarker, it produces a local alignment with the genome-specific bases \citep{Curry2016}. 
 On personal communications in conferences I had found out that LGC uses PolyMarker to design primers and that Bayer has an in house implementation of the algorithm. 
 
-%The ideas behind PolyMarker had 
-%Magic box from LGC https://www.lgcgroup.com/LGCGroup/media/PDFs/Our%20science/Genomics/PAG2016/improving-genome-specific-kasp-markers-for-hexaploid-wheat-magicbox-automated-design-pipeline.pdf
-
+As the code is open source, anyone can see the implementation details and extend the code for different types of primers. 
+A successful modification to PolyMarker was to be able to design primers to detect homozygous deletions with KASP assays, despite the fact that neither KASP or PolyMarker were designed for deletions. 
+The modularity of the code permits to swap components with relatively little effort. 
 
 The current web interface of PolyMarker is limited to KASP assays, however the command line version is more flexible and has been used to design primers for PCR amplicons, capillary sequencing and on other organisms. 
-As new references of wheat come available, PolyMarker should be updated to work with pseudomolecules and the web interface updated accordingly.  
-
-%Remarks on the importance of getting the primers right, and the time saved by automating the primer selection. Also mention other primer design tools that have been inspired by polymarker: \cite{Ma2015}, \cite{Wang2016}
-
- 
+However, to install the command requires a linux machine and some knowledge on the command line. 
 
 
+Overall, PolyMarker provides an useful resource to the wheat community, as the primer design process is now streamlined. 
+As new references of wheat come available, PolyMarker should be updated to work with pseudomolecules and the web interface updated accordingly. The source code of PolyMarker is open source and available on \url{https://github.com/TGAC/bioruby-polyploid-tools}. 
