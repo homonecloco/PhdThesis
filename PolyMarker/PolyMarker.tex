@@ -492,12 +492,7 @@ To validate the deletions it is possible to use KASP assays to produce primers t
 PolyMarker was modified to search for variations across homoeologues to select a common primer that will amplify two genomes (Figure \ref{fig:poly:wt}, \subref{fig:poly:homM4}; reverse primer). 
 On lines without the targeted deletion, the amplification corresponds to an hetrerozygous assay with equal signal for both the A and the B allele. (Figure \ref{fig:poly:homFalse}).  
 When a deletion is present the results of the assay resemble the results for a homozygous individual, with the intensity of the assay towards the the conserved homoeologue (Figure \ref{fig:poly:homReal}).
-A set of KASP assays for the the deletions and mutations located on the same chromosome where designed to validate 11 homozygous deletions on $M_{4}$ plants. 
-In all cases the segregation of the mutations was as expected, except for a predicted heterozygous mutation that was called as homozygous. 
-Also, all the KASP assays that contained a deletion were called homozygous, as expected. 
-To ensure that the calls didn't come from a single cluster, 4 wildtype plants were genotyped and the markers for deletions where called as heterozygous. 
-An example of a validated deletion and the surrounding mutations, with the calls for each individual is shown on Table \ref{app:poly:homDelCad0423}. 
-  
+
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
@@ -524,6 +519,23 @@ An example of a validated deletion and the surrounding mutations, with the calls
     \end{subfigure}
     \caption{KASP assays to validate homozygous deletions. (\subref{fig:poly:wt}) Primer positions for wildtype. Red and black indicate the A and B genome respectively. Primers are indicated by arrows with the target homoeologous SNP marked by an "X"(\subref{fig:poly:homM4}) Primer positions on  homozygous deletion on $M_{4}$ (\subref{fig:poly:homFalse}) Heterozygous amplification on wildtype DNA (no deletion), including both homoeologues. (\subref{fig:poly:homReal}) Homozygous amplification on deletion line, only the non-deleted homoeologue is amplified. }
 \end{figure}
+
+To be able to select primers that will amplify two homoeologues, the default scoring values (Listing \ref{lst:poly:defScore}) are changed. 
+The altered scoring gives priority in the following order semi-specific, non-specific and specific. 
+The rest of the pipeline is unaltered, showing that the modular design allows to add new functionality without breaking the pipeline. 
+
+\begin{code}[language=Ruby,caption=Score values to select semi-specifc primers, label=lst:poly:delsScore]
+kasp_container.scores[:chromosome_specific] = 0
+kasp_container.scores[:chromosome_semispecific] = 1000
+kasp_container.scores[:chromosome_nonspecific] = 100    
+\end{code}
+
+A set of KASP assays for the the deletions and mutations located on the same chromosome where designed to validate 11 homozygous deletions on $M_{4}$ plants. 
+In all cases the segregation of the mutations was as expected, except for a predicted heterozygous mutation that was called as homozygous. 
+Also, all the KASP assays that contained a deletion were called homozygous, as expected. 
+To ensure that the calls didn't come from a single cluster, 4 wildtype plants were genotyped and the markers for deletions where called as heterozygous. 
+An example of a validated deletion and the surrounding mutations, with the calls for each individual is shown on Table \ref{app:poly:homDelCad0423}. 
+  
 
 \input{PolyMarker/SupplementalTables/CadenzaDeletions5BCad0423}
 
@@ -554,7 +566,7 @@ The steps require the use of several bioinformatics tools, but once I figured ou
 Since designing genome-specific primers is a common task in wheat research and breeding, the community showed interest on the tool and I decided to refine it and make it open source. 
 PolyMarker has been used successfully in several projects and it even allowed the novel use of KASP assays to validate long deletions in polyploids. 
  
-As a common source of SNPs are gene models, designing primers directly from the sequence flanking the SNP is not always correct, due the intron-exon junctions. 
+As a common source of SNPs are gene models, designing primers directly from the sequence flanking the SNP may run over the intron-exon junctions, producing primers that won't amplify on genomic DNA. 
 To be able to use DNA I had to identify on which hit the SNP was located, the internal coordinate and a mapping coordinate to the original sequence. 
 With this dual coordinate system I was able to design primers in the genome space, even when the origin was a transcript. 
 
@@ -576,7 +588,6 @@ The modularity of the code permits to swap components with relatively little eff
 
 The current web interface of PolyMarker is limited to KASP assays, however the command line version is more flexible and has been used to design primers for PCR amplicons, capillary sequencing and on other organisms. 
 However, to install the command requires a linux machine and some knowledge on the command line. 
-
 
 Overall, PolyMarker provides an useful resource to the wheat community, as the primer design process is now streamlined. 
 As new references of wheat come available, PolyMarker should be updated to work with pseudomolecules and the web interface updated accordingly. The source code of PolyMarker is open source and available on \url{https://github.com/TGAC/bioruby-polyploid-tools}. 
