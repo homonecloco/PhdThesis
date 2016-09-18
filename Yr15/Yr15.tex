@@ -6,7 +6,7 @@
 %This section describes in detail than the paper of \citet{Ramirez-Gonzalez-2014}
  
 %Breeding importance of \textit{Yr15} and original source (an introgression of \textit{T. diccocoides}). 
-
+\section{Introduction}
 Wheat breeding programs aim to improve the wheat lines available for production.
 One of the traits desired in an elite line is the resistance to pathogens, such as \textit{Puccinia striiformis} f. sp.  \textit{tritici}, the fungi responsible of yellow rust.
 A source of resistance genes is are introgressions from other species, such as \textit{Triticum diccocides}. 
@@ -14,7 +14,7 @@ In the University of Sydney a collection of \glspl{nil} with introgressions to s
 On this chapter the NIL for the \textit{Yr15} locus is used to produce a mapping population to improve diagnostic markers. 
 
 %TODO: Paragraph explaining NILs
-
+\subsection{Segregation on $F_{2}$ populations}
 Line selection can be done with molecular markers that can be used to test if certain allele is present in a line, without the need to do a phenotype.
 To find which regions are linked to a trait the use of $F_{2}$ mapping populations is a common practice.
 The population is produced by crossing two homozygous parents ($P_1$ and $P_{2}$) with different alleles, A/A (dominant) and a/a (recessive).
@@ -25,11 +25,11 @@ This generates a population with a phenotype ratio of 3:1 (dominant:recessive), 
 \begin{SCfigure}
   \centering
     \includegraphics[width=0.4\textwidth]{Yr15/Figures/population/F2schematic.pdf}
-  \caption{The cross of two homozygous parents, $P_{1}$ and $P_{2}$, with a dominant and a recessive allele of a gene produce an heterozygous $F_{1}$. The $F_{1}$ crossed with itself produce a segregating $F_{2}$ population with a 1:2:1 ratio (A/A:A/a:a/a). The upper and lower cases represent dominant and recessive alleles  }. 
+  \caption[Alleles on $F_2$ population.]{The cross of two homozygous parents, $P_{1}$ and $P_{2}$, with a dominant and a recessive allele of a gene produce an heterozygous $F_{1}$. The $F_{1}$ crossed with itself produce a segregating $F_{2}$ population with a 1:2:1 ratio (A/A:A/a:a/a). The upper and lower cases represent dominant and recessive alleles  }. 
   \label{fig:yr15:f2schematic}
 \end{SCfigure}
 
-
+\subsection{SNP calling}
 \gls{bsa} consists on pooling the DNA of individuals with contrasting phenotypes \citep{Michelmore1991} on a segregating population. 
 The bulks show as heterozygous except for the region that is linked to the trait of interest. 
 This approach can be used to identify SNPs using High Throughput Sequencing, such as: exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome resquencing \citep{Schneeberger2009}, among others. 
@@ -50,10 +50,11 @@ The implementation of the BFR analysis is detailed in Section \ref{yr15:sub:bfr}
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{Yr15/Figures/bfr.pdf}
-\caption{Illustration of a non-informative homoeologous SNP (G181T) present in both parental lines, and an informative allelic SNP (G184A), only present in the resistant progenitor Avocet S + Yr15. The consensus sequences from the parental genotypes include this information in the form of ambiguity codes (K and R, respectively). In the bulks, the individual reads align across the reference sequence, with matches indicated by dots, and polymorphisms at positions 181 and 184 indicated by the corresponding nucleotide variants at those positions. The SNP index is calculated as the frequency of the informative allelic SNP in each bulk. The Bulk Frequency Ratio is the quotient of the resistant and susceptible bulk SNP Indexes. Figure previously published in \citet{Ramirez-Gonzalez2015c}. }
+\caption[BFR formula]{BFR formula. Illustration of a non-informative homoeologous SNP (G181T) present in both parental lines, and an informative allelic SNP (G184A), only present in the resistant progenitor Avocet S + Yr15. The consensus sequences from the parental genotypes include this information in the form of ambiguity codes (K and R, respectively). In the bulks, the individual reads align across the reference sequence, with matches indicated by dots, and polymorphisms at positions 181 and 184 indicated by the corresponding nucleotide variants at those positions. The SNP index is calculated as the frequency of the informative allelic SNP in each bulk. The Bulk Frequency Ratio is the quotient of the resistant and susceptible bulk SNP Indexes. Figure previously published in \citet{Ramirez-Gonzalez2015c}. }
 \label{fig:yr15:bfr}
 \end{figure}
 
+\subsection{\textit{In Silico} mapping}
 There are several layers of information that can be used to add a context to the SNPs. 
 When the SNPs are called from genes like the UniGenes \citep{PontiusJUWagnerL2002} or the UCW gene models \citep{Krasileva2013}, the location of the genes can be assigned by aligning them to a genomic reference, even if it is fragmented. 
 A source to get the order of the scaffolds are genetic maps previosly published, such as the genetic map described in \citet{Wang2014}, which has the sequence of the markers available.
@@ -69,13 +70,15 @@ For a longer description of resources available for wheat see Section \ref{lit:w
 \begin{figure}
   \centering
   \includegraphics[width=1\textwidth]{Yr15/Figures/mapping/layersOfMapping.pdf}
-  \caption{Layers of information to do \textit{In Silico} mapping. SNPs are called from gene models. The genes and markers from genetic maps are aligned to scaffolds. The order of the markers in a genetic map can be used to sort the scaffolds.} 
+  \caption[Layers of information to do \textit{In Silico} mapping.]{Layers of information to do \textit{In Silico} mapping. SNPs are called from gene models. The genes and markers from genetic maps are aligned to scaffolds. The order of the markers in a genetic map can be used to sort the scaffolds.} 
   \label{fig:yr15:layersOfMapping}
 \end{figure}
 
 Finally, the best candidate SNPs where selected to produce a genetic map which lead to a triplet of markers diagnostic to the target locus. 
 
 The steps described in this chapter were first published in \citet{Ramirez-Gonzalez2015c} and the results of this chapter are published in \citet{Ramirez-Gonzalez2015b}.
+
+\section{Mapping population}
 
 The population was developed by crossing the resistant line \gls{yr15} \citep{Wellings1998}, Figure \ref{fig:yr15.yr15Photo}, to the susceptible line \gls{avs}, Figure \ref{fig:yr15:avsPhoto}. 
 \acrshort{yr15} is a \gls{nil} of a 6th generation \gls{bc} and the \acrshort{avs} background is highly succeptible to yellow rust, hence the resistance is coffered by the \acrshort{yr15} locus. 
@@ -86,7 +89,6 @@ From the 232 plants in the $F_{2}$ population that germinated, 187 were resistan
 Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{Randhawa2009}, however the decresed number of succeptible plants can be explained by escapes in the virulence essays (i.e. plants scored as resistant without the \textit{Yr15} locus).   For this study we extracted DNA from individual plants in the $F_{2}$ population and we bulked RNA on 6 different bulks: 3 resistant and, 3 succeptible ( Figure \ref{fig:yr15:f2}). 
 
 
-\section{Mapping population}
 \label{sub:mappingPopulation}
 %\begin{SCfigure}
 \begin{figure}
@@ -111,7 +113,7 @@ Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{R
     \label{fig:yr15:f2}
   \end{subfigure}
 
-    \caption{Response of (\subref{fig:yr15.yr15Photo}) Avocet + \textit{Yr15} and (\subref{fig:yr15:avsPhoto}) Avocet when inoculated with \textit{Puccinia striiformis} f. sp.  \textit{tritici} at the three leaf stage. (\subref{fig:yr15:f2}) The phenotype of the $F_{2}$ population was used to produce 6 bulks, 3 resistant and 2 susceptible. The RNA was pooled in bulks accordingly. Adapted from \citep{Ramirez-Gonzalez2015b}}
+    \caption[Avocet + \textit{Yr15} $F_{2}$  mapping population.]{Avocet + \textit{Yr15} $F_{2}$  mapping population. Response of (\subref{fig:yr15.yr15Photo}) Avocet + \textit{Yr15} and (\subref{fig:yr15:avsPhoto}) Avocet when inoculated with \textit{Puccinia striiformis} f. sp.  \textit{tritici} at the three leaf stage. (\subref{fig:yr15:f2}) The phenotype of the $F_{2}$ population was used to produce 6 bulks, 3 resistant and 2 susceptible. The RNA was pooled in bulks accordingly. Adapted from \citep{Ramirez-Gonzalez2015b}}
 
 %\end{wrapfigure}
 \end{figure}
@@ -174,7 +176,7 @@ The merged samples increased the percentage of genes with coverage over 20x  to 
     
     \label{fig:yr15:SNPper}
 \end{subfigure}
-\caption{(\subref{fig:yr15:covPerGene}) Box plot distribution of the gene coverage of the parent reads (\acrshort{avs} and \acrshort{yr15}) across the UCW (blue) and the UniGene (red) gene models. The dashed line represents the 209 minimum coverage required for SNP calling. The full line represents the average coverage across all gene models. (\subref{fig:yr15:SNPper}) Percentage of genes exhibiting SNPs across references. The number of \acrshort{snp}s between the parent reads and the corresponding references was calculated (per 100 bp, rounded). The ‘between-parents’ category corresponds to putative SNPs when comparing the consensus sequence between \acrshort{avs} and \acrshort{yr15} Adapted from \citet{Ramirez-Gonzalez2015b} }
+\caption[Coverage and SNPs between progenitors]{Aoverage and SNPs between progenitors. (\subref{fig:yr15:covPerGene}) Box plot distribution of the gene coverage of the parent reads (\acrshort{avs} and \acrshort{yr15}) across the UCW (blue) and the UniGene (red) gene models. The dashed line represents the 209 minimum coverage required for SNP calling. The full line represents the average coverage across all gene models. (\subref{fig:yr15:SNPper}) Percentage of genes exhibiting SNPs across references. The number of \acrshort{snp}s between the parent reads and the corresponding references was calculated (per 100 bp, rounded). The ‘between-parents’ category corresponds to putative SNPs when comparing the consensus sequence between \acrshort{avs} and \acrshort{yr15} Adapted from \citet{Ramirez-Gonzalez2015b} }
 \end{figure}
 
 
@@ -198,7 +200,7 @@ There are 66,426 putative SNPs across 16,022 (17\%) \acrshort{ucw} genes and 52,
 \begin{SCfigure}
     %\centering
     \includegraphics[width=0.4\textwidth]{Yr15/Figures/geneCounts.pdf} 
-    \caption{Gene models with putative SNPs in common between the UCW and UniGenes reference. The intersection represnts the genes that are common in both sets. Adapted from \citet{Ramirez-Gonzalez2015b}}
+    \caption[Gene models with putative SNPs]{Gene models with putative SNPs in common between the UCW and UniGenes reference. The intersection represnts the genes that are common in both sets. Adapted from \citet{Ramirez-Gonzalez2015b}}
     \label{fig:yr15:geneCount}
 \end{SCfigure}
 
@@ -238,7 +240,7 @@ A total of 1,582 SNPs across 1,173 genes had a $BFR>6$.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{Yr15/Figures/bfrChanges.pdf}
-\caption{ Effect of BFR threshold on the number of SNPs across the short arm of chromosome group 1. Figure previously published in \citet{Ramirez-Gonzalez2015b}. }
+\caption[Effect of BFR threshold on the number of SNPs]{Effect of BFR threshold on the number of SNPs across the short arm of chromosome group 1. Figure previously published in \citet{Ramirez-Gonzalez2015b}. }
 \label{fig:yr15:bfrChange}
 \end{figure}
 
@@ -252,7 +254,7 @@ This results are expected since previous studies have located \acrshort{yr15} ne
 \begin{SCfigure}
   \centering
     \includegraphics[width=0.5\textwidth]{Yr15/Figures/mapping/snpsBFR6Group1.pdf}
-  \caption{Location of SNPs with $BFR>6$ according to the best alignment of the UniGene (red) and UCW (blue) gene models to the flow-sorted group 1 chromosomes from the Chinese Spring Survey sequence (CSS) \citep{Mayer2014}. Figure adapted from \citet{Ramirez-Gonzalez2015b}.} 
+  \caption[Location of SNPs with BFR\textgreater6.]{Location of SNPs with $BFR>6$ according to the best alignment of the UniGene (red) and UCW (blue) gene models to the flow-sorted group 1 chromosomes from the Chinese Spring Survey sequence (CSS) \citep{Mayer2014}. Figure adapted from \citet{Ramirez-Gonzalez2015b}.} 
   \label{fig:yr15:snpsBFR6Group1}
 \end{SCfigure}
 
@@ -271,7 +273,7 @@ This results are expected since previous studies have located \acrshort{yr15} ne
    \label{fig:yr15:BFRValues1BS}
    \includegraphics[width=1\textwidth]{Yr15/Figures/mapping/BFRValues1BS.pdf}
   \end{subfigure}
-\caption{(\subref{fig:yr15:snpsBFR6Chr1B}) Number of SNPs with $BFR>6$ per cM in chromosome 1B. (\subref{fig:yr15:BFRValues1BS}) BFRs of mapped genes with SNPs on chromosome 1B. The area of the circle represents the number of SNPs clustered by location (windows size: 10 cM) and BFR (window size: 5cM). R11 is the only marker near the \acrshort{yr15} locus that had a corresponding position in the genetic map. The percentage of genes with SNPs per cM is also illustrated based on UCW (blue) and UniGene (red) gene models. The centromere is imputed by the centre of a window of 10 cM where the short arm switches to the long in the genetic map. BFRs correspond to those from the mixed in silico bulk S1 + S2 + S3/R1 + R2 + R3. Adapted from \citep{Ramirez-Gonzalez2015b}.} 
+\caption[\textit{In silico} location of SNPs with BFR\textgreater6]{\textit{In silico} location of SNPs with $BFR>6$. (\subref{fig:yr15:snpsBFR6Chr1B}) Number of SNPs with $BFR>6$ per cM in chromosome 1B. (\subref{fig:yr15:BFRValues1BS}) BFRs of mapped genes with SNPs on chromosome 1B. The area of the circle represents the number of SNPs clustered by location (windows size: 10 cM) and BFR (window size: 5cM). R11 is the only marker near the \acrshort{yr15} locus that had a corresponding position in the genetic map. The percentage of genes with SNPs per cM is also illustrated based on UCW (blue) and UniGene (red) gene models. The centromere is imputed by the centre of a window of 10 cM where the short arm switches to the long in the genetic map. BFRs correspond to those from the mixed in silico bulk S1 + S2 + S3/R1 + R2 + R3. Adapted from \citep{Ramirez-Gonzalez2015b}.} 
 \label{fig:yr15:chr1}
 \end{figure}
 
@@ -298,7 +300,7 @@ In practice, we only observe clusters of SNPs with  enriched \acrshortpl{bfr} ne
 	\label{fig:yr15:bfr6}
 	\includegraphics[height=0.55\textheight]{Yr15/Figures/mapping/snpsBFR6.pdf}
 	\end{subfigure}
-	\caption{Genetic location of genes with SNPs between AVS and Yr15. The colour scale indicates the percentage of genes with SNPs per centi-Morgan (cM) across the 21 wheat chromosomes. The location of the genes was determined by the best alignment to the CSS scaffolds, and the location of these was determined by their position on a genetic map \citep{Wang2014} (\subref{fig:yr15:bfr0}). All the SNPS between progenitors. Note the lack of enrichment across any individual chromosome. (\subref{fig:yr15:bfr6}) SNPs with BFR$>$6. Note the enrichment in Chromosome 1B }
+	\caption[Genetic location of genes with SNPs between AVS and Yr15.]{Genetic location of genes with SNPs between AVS and Yr15. The colour scale indicates the percentage of genes with SNPs per centi-Morgan (cM) across the 21 wheat chromosomes. The location of the genes was determined by the best alignment to the CSS scaffolds, and the location of these was determined by their position on a genetic map \citep{Wang2014} (\subref{fig:yr15:bfr0}). All the SNPS between progenitors. Note the lack of enrichment across any individual chromosome. (\subref{fig:yr15:bfr6}) SNPs with BFR$>$6. Note the enrichment in Chromosome 1B }
 	\label{fig:yr15:bfrs:0-6}
 \end{figure}
 
@@ -312,7 +314,7 @@ Since there are several SNPs with a high BFR and the genetic map is not enough t
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{Yr15/Figures/selection/snpSets.pdf}
-\caption{Selection criteria for marker design. Venn diagrams based on the three selection criteria (SNP in the short arm of chromosome group 1; SNP has a $BFR>6$; and SNP is from the \acrshort{yr15} parent) for the UCW (blue) and UniGene (red) gene models. The centre diagram shows the intersection between common genes matching all three criteria across both data sets. Note that the numbers are not directly additive as in cases, multiple models from one reference set will relate to a single gene model in the other values. Published in \citep{Ramirez-Gonzalez2015b} }
+\caption[Selection criteria for marker design]{Selection criteria for marker design. Venn diagrams based on the three selection criteria (SNP in the short arm of chromosome group 1; SNP has a $BFR>6$; and SNP is from the \acrshort{yr15} parent) for the UCW (blue) and UniGene (red) gene models. The centre diagram shows the intersection between common genes matching all three criteria across both data sets. Note that the numbers are not directly additive as in cases, multiple models from one reference set will relate to a single gene model in the other values. Published in \citep{Ramirez-Gonzalez2015b} }
 \label{fig:yr15:snpset}
 \end{figure}
 

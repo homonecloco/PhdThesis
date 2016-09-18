@@ -1,4 +1,5 @@
 \documentclass[12pt,a4paper,oneside]{book}
+\usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage[sharp]{easylist}
 \usepackage{graphicx}
@@ -28,6 +29,7 @@
 \usepackage{hyperref}
 \usepackage{xargs}   
 \usepackage[all]{nowidow}
+\usepackage{pdfpages}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
 \newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
@@ -153,6 +155,9 @@
 \makeglossaries
 \begin{document}
 \tableofcontents
+\listoffigures
+\listoftables
+\lstlistoflistings
 \printglossaries
 
 \include{Introduction/Introduction}
@@ -164,10 +169,11 @@
 
 \appendix
 \chapter{Supplemental tables}
-\include{Yr15/Supplemental}
-\include{PolyMarker/Supplemental}
+\input{Yr15/Supplemental}
+\input{PolyMarker/Supplemental}
+\input{Appendices/qc}
 
-\include{Appendices/qc}
+\input{expVIP/tutorial}
 
 
 \bibliographystyle{plainnat_short}
