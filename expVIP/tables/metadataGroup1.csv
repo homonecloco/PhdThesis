@@ -1,0 +1,25 @@
+accession,description,factor,expriment_group
+DRR003148,24 days,Age,Group1
+DRR003149,24 days,Age,Group1
+DRR003150,24 days,Age,Group1
+DRR003148,vegetative,High level age,Group1
+DRR003149,vegetative,High level age,Group1
+DRR003150,vegetative,High level age,Group1
+DRR003148,no stress,High level stress-disease,Group1
+DRR003149,no stress,High level stress-disease,Group1
+DRR003150,no stress,High level stress-disease,Group1
+DRR003148,roots,High level tissue,Group1
+DRR003149,roots,High level tissue,Group1
+DRR003150,roots,High level tissue,Group1
+DRR003148,Chinese Spring,High level variety,Group1
+DRR003149,Chinese Spring,High level variety,Group1
+DRR003150,Chinese Spring,High level variety,Group1
+DRR003148,none,Stress-disease,Group1
+DRR003149,none,Stress-disease,Group1
+DRR003150,none,Stress-disease,Group1
+DRR003148,roots,Tissue,Group1
+DRR003149,roots,Tissue,Group1
+DRR003150,roots,Tissue,Group1
+DRR003148,Chinese Spring,Variety,Group1
+DRR003149,Chinese Spring,Variety,Group1
+DRR003150,Chinese Spring,Variety,Group1
