@@ -14,7 +14,7 @@ In the University of Sydney a collection of \glspl{nil} with introgressions to s
 On this chapter the NIL for the \textit{Yr15} locus is used to produce a mapping population to improve diagnostic markers. 
 
 %TODO: Paragraph explaining NILs
-\subsection{Segregation on $F_{2}$ populations}
+\subsection{Segregation on \texorpdfstring{$F_{2}$}{F2} populations}
 Line selection can be done with molecular markers that can be used to test if certain allele is present in a line, without the need to do a phenotype.
 To find which regions are linked to a trait the use of $F_{2}$ mapping populations is a common practice.
 The population is produced by crossing two homozygous parents ($P_1$ and $P_{2}$) with different alleles, A/A (dominant) and a/a (recessive).
@@ -332,7 +332,7 @@ Only SNPs meeting the three criteria were selected for further analysis.
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{Yr15/Figures/selection/selectionDetals.pdf}
-\caption{Bulk frequency ratio (BFR) of selected SNPs across the individual bulks and in silico mixes (UCW, red; UniGene, blue). The dotted line represents the BFR threshold of 6 (logarithmic scale). Left: Distribution of the BFRs for each selection criteria and the selected SNPs for validation. The circles on the top of each plot represent the percentage of SNPs with $BFR=\infty$. The Selection may include SNPs with $BFR<6$ when the same SNP has a higher score on the complementing reference (ie. $BFR>6$ on UCW, but $BFR<6$ on UniGenes). Right: The BFR values of selected SNPs were sorted in descending order across the different bulks and according to their origin. Validated SNPs are indicated by open triangles, and SNPs corresponding to markers R5, R8 and R11 are labelled across different bulks and mixes. Note that some SNPs are below the threshold in a specific bulk as they meet the BFR criteria across others. }
+\caption[BFRs of selected SNPs across bulks.]{BFRs of selected SNPs across the individual bulks and in silico mixes (UCW, red; UniGene, blue). The dotted line represents the BFR threshold of 6 (logarithmic scale). Left: Distribution of the BFRs for each selection criteria and the selected SNPs for validation. The circles on the top of each plot represent the percentage of SNPs with $BFR=\infty$. The Selection may include SNPs with $BFR<6$ when the same SNP has a higher score on the complementing reference (ie. $BFR>6$ on UCW, but $BFR<6$ on UniGenes). Right: The BFR values of selected SNPs were sorted in descending order across the different bulks and according to their origin. Validated SNPs are indicated by open triangles, and SNPs corresponding to markers R5, R8 and R11 are labelled across different bulks and mixes. Note that some SNPs are below the threshold in a specific bulk as they meet the BFR criteria across others. }
 \label{fig:yr15:bfrDetailScore}
 \end{figure}
 
@@ -380,7 +380,7 @@ Hence, a compromise between increasing the minimum coverage at the cost of reduc
 \includegraphics[width=1\textwidth]{Yr15/Figures/selection/R8f2.pdf}
 \end{subfigure}
 
-\caption{KASP output from the wheat variety panel with (Ochre, Boston, Cortez) and without (Robigus, Cadenza and Shamrock) \acrshort{yr15}. Marker  R2 (\subref{fig:yr15:r2}) is monomorphic while R8 (\subref{fig:yr15:r8})  is polymorphic between varieties know to carry the gene.  Marker R8 results for the F2 population (\subref{fig:yr15:r8f2}) showing three distinct clusters. The central cluster (light green) is comprised of heterozygous individuals, whereas clusters near the axes are homozygous for either AVS (VIC; orange) or \acrshort{yr15} (FAM; dark green).}
+\caption[KASP output from the wheat variety panel]{KASP output from the wheat variety panel with (Ochre, Boston, Cortez) and without (Robigus, Cadenza and Shamrock) \acrshort{yr15}. Marker  R2 (\subref{fig:yr15:r2}) is monomorphic while R8 (\subref{fig:yr15:r8})  is polymorphic between varieties know to carry the gene.  Marker R8 results for the F2 population (\subref{fig:yr15:r8f2}) showing three distinct clusters. The central cluster (light green) is comprised of heterozygous individuals, whereas clusters near the axes are homozygous for either AVS (VIC; orange) or \acrshort{yr15} (FAM; dark green).}
 \end{figure}
 
 KASP assays were designed to validate and generate a genetic map of the \acrshort{yr15} locus for the 35 selected SNPs. 
@@ -439,7 +439,7 @@ Using the eight SNP markers and 2 SRRs, the \acrshort{yr15} locus was mapped to 
 	\end{subfigure}
 	
 
-	\caption{Genetic maps for \acrshort{yr15}. (\subref{fig:yr15:initialMap}) Genetic map of the test panel from 50 individuals. (\subref{fig:yr15:finalMap}) Genetic map from 196 individuals from the full population only with the 8 markers previously identified as closer to the \acrshort{yr15} locus. (\subref{fig:yr15:mapDetails})Graphical genotype of the 196 $F_{2}$ individuals used to develop the genetic map. The alleles are abbreviated according to their origin: A: AVS; B: \textit{Yr15} and H: Heterozygous. Missing calls are indicated by a hyphen.}
+	\caption[Genetic maps for \acrshort{yr15}.]{Genetic maps for \acrshort{yr15}. (\subref{fig:yr15:initialMap}) Genetic map of the test panel from 50 individuals. (\subref{fig:yr15:finalMap}) Genetic map from 196 individuals from the full population only with the 8 markers previously identified as closer to the \acrshort{yr15} locus. (\subref{fig:yr15:mapDetails})Graphical genotype of the 196 $F_{2}$ individuals used to develop the genetic map. The alleles are abbreviated according to their origin: A: AVS; B: \textit{Yr15} and H: Heterozygous. Missing calls are indicated by a hyphen.}
 \end{figure}
 
 The sub-cM resolution is expected on an $F_{2}$ population of 196 individuals, as 392 gametes provide a resolution of 0.26{}cM. 
@@ -566,7 +566,7 @@ Briefly, the class \texttt{Bio::Blat::Report} from \texttt{BioRuby} \citep{Goto2
 First, the whole file is iterated (line 5); the alignment with the best score is stored in a hash (lines 7-9) and; the hash is iterated (line 11).
 The script found 46,977 scaffolds that contained at least one marker from the map. 
 
-\begin{code}[language=Ruby,caption=Extension to \texttt{Bio::Blat::Report} that selects the best alignment from a \texttt{psl file from BLAT} , label=lst:yr15:bestHit]
+\begin{code}[language=Ruby, caption={[\texttt{Bio::Blat::Report.each\_best\_hit}] Extension to \texttt{Bio::Blat::Report} that selects the best alignment from a \texttt{psl file from BLAT}}, label=lst:yr15:bestHit]
 def self.each_best_hit(text = '')
   emptyHit = Bio::Blat::Report::Hit.new
   emptyHit.score = 0
@@ -590,7 +590,7 @@ The genes were also align to the full \acrshort{css} reference, to be able to lo
 The genetic position of the contigs was used to calculate the density of SNPs between \acrshort{avs} and \acrshort{yr15} in the genetic bins for Figure \ref{fig:yr15:bfrs:0-6}. 
 This information was used to select the SNPs with high BFR to validate.  
 
-\begin{code}[language=Ruby, caption=Extension from \texttt{Bio::Blat::Report::Hit} to improve the filtering of spurious alignments., label=lst:yr15:hit]
+\begin{code}[language=Ruby, caption=Extension to \texttt{Bio::Blat::Report::Hit} for filtering of spurious alignments., label=lst:yr15:hit]
 class Bio::Blat::Report::Hit
   def covered
     match + mismatch
@@ -667,13 +667,13 @@ To improve the map, a cross from the two critical recombinants could be use to r
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{Yr15/Figures/breedersTest.pdf}
-\caption{Haplotype analysis and phenotypic evaluation of the 113 doubled haploid lines used in the study. The TGC haplotype corresponds to that originally identified in the \textit{Yr15} parent and which was diagnostic across 112 of the 113 lines studied.}
+\caption[Haplotype and phenotype of 113 doubled haploid lines]{Haplotype analysis and phenotypic evaluation of the 113 doubled haploid lines used in the study. The TGC haplotype corresponds to that originally identified in the \textit{Yr15} parent and which was diagnostic across 112 of the 113 lines studied.}
 \label{fig:yr15:breeders}
 \end{figure}
 
 As described in \citet{Ramirez-Gonzalez2015b}:  
 \begin{blockquote} The markers
- R11, R5 and R8 were testedacross 122 doubled haploid (DH) lines. 
+ R11, R5 and R8 were tested across 122 doubled haploid (DH) lines. 
 These DH lines were derived from crosses crosses between five different UK varieties/breeding lines to Yr15 derivatives known to carry the resistance gene. 
 The expected \textit{Yr15} haplotype corresponded to T, G and C alleles at markers R11, R5 and R8, respectively (TGC haplotype). 
 The DH lines were tested at seedling stage for reaction to \textit{P. striiformis}, with 84 showing complete resistance and 34 presenting an intermediate or completely susceptible reaction.
