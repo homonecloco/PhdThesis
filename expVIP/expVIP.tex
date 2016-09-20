@@ -3,15 +3,28 @@
 \chapter[expVIP]{expVIP: a customisable RNA-seq data analysis and visualisation platform}
 \label{cha:exp}
 
+
+
+The software developed in this section is published in \citep{Borrill2016}. 
+
 \section{Background.}
+
+
+
 Describe the list of previously published expression experiments and how they can potentially be used as a framework for new experiments.  
 
 Co-expression of homoeologus varies from triplet to triplet \citep{Pfeifer2014}
 The silencing is mostly regulated by epigenetic changes as the hybridization events are recent.  \citep{Bottley2006}
 
+%\begin{table}
+
+%\caption{Studies included in expVIP for wheat}
+%\label{tab:exp:studysDetails}
+
+%\end{table}
+
 Table of experiments to include 
 
-The software developed in this section is published in \citep{Borrill2016}. 
 
 \subsection{Expression quantification with Kallisto}
 
@@ -158,13 +171,27 @@ The \acrshort{mvc} metaphor allows the development of independent parts of the s
 It is based on the Rails language and provides several tasks designed to facilitate the development, such as automated tasks designed to create models with their corresponding views and controllers. 
 On the top of that, it provides the tools to manage the connection and queries to the \acrshort{rdbms}, allowing the developer to focus on the functionality \citep{RailsGuide2016}. 
 
+\subsection{Data visualisation}
+
+In the last couple of decades the amount of information available to any given field has been growing exponentially, in part thanks to the internet. 
+The challenge is to produce tools that help the interpretation of data. 
+An effective way to communicate large amount of data is trough visualisation, but it has to have the following properties to be usable \citep{Myatt2011}.
+
+\begin{description}
+\item[Time to learn.] The user needs to take little time to learn how to use the system to extract the information they need. Also, all the features should be easy to find.
+\item[Performance.] The tool needs to be quick to access and transform the visualisation as the user requests.
+\item[Accuracy.] The tool has to perform as the user expects, so if the tool is prone to make users commit mistakes, it is not accurate. 
+\item[Memorability.] Once the user learns to use the system, is it easy remember how to use it? Systems that change their interface often, or between windows are not as easy to remember. 
+\item[Satisfaction.] The user responds positively to the use of the system and the time is spend actually exploring the data, and not trying to make the system work. 
+\end{description}
+
 \subsection{Aims}
 
 The aims of expVIP are to:
 \begin{enumerate}
 \item Integrate RNA-Seq experiments from several sources in a single database (Section \ref{exp:DB}). 
 \item Automate the calculation of the expression values and load them in to the database (Section \ref{exp:pipeline}).
-\item Produce a visualization for said expression values (Section \ref{exp:gui}).
+\item Produce a usable visualisation for said expression values (Section \ref{exp:gui}).
 \item Make the system available to the community (Section \ref{exp:gui}).
 \end{enumerate}
 
@@ -178,12 +205,12 @@ The web server technology used for expVIP is \acrshort{ror}, as it abstracts the
 In order to display the expression data to the users, a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}). 
 All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is accessed trough models developed under  \acrshort{ror} (Figure \ref{fig:poly:archDesign}).  
 
-\begin{figure} 
+\begin{SCfigure} 
   \centering
-  \includegraphics[width=0.9\textwidth]{expVIP/Figures/archDesign.pdf}
-  \caption{General design of expVIP}.
+  \includegraphics[width=0.65\textwidth]{expVIP/Figures/archDesign.pdf}
+  \caption{General design of expVIP}
   \label{fig:poly:archDesign}
-\end{figure}
+\end{SCfigure}
 
 \section{Database design} 
 \label{exp:DB}
@@ -516,7 +543,157 @@ The fact that the loading is done in transactions ensures that the database is k
 
 \section{Graphical interface}
 \label{exp:gui}  
-How the expression can be displayed filtered, and sorted
+%How the expression can be displayed filtered, and sorted
+With the expression across experiments integrated in a single database, the next challenge is to make the data accessible to a wide audience. 
+\acrshort{ror} has tasks to automate the construction of controllers and views from the \acrshort{mvc} metaphor, helping on the retrieval and formatting of the raw data. 
+However, the main objective was to visualise the data from all the experiments as intuitively as possible. 
+To make the visualisation dynamic in a browser, the use of \verb|JavaScript| is necessary, as it is the only widely adopted programming language used for web content. 
+Among the tools built on the top of \verb|JavaScript|, \verb|D3| is a framework designed explicitly to do dynamic visualisations \citep{Bostock2011}. 
+
+Usability was a top priority on the design of the visualisation component for expVIP. 
+The time to lear, performance are accuracy were taking in account when designing expVIP. 
+As memorability and satisfaction are subjective, they weren't directly test them during development.  
+
+
+\begin{description}
+\item[Time to learn.] The controls are located in two blocks, one for global controls (ie. unit, save plot) and one to modify the factors, close to the factor they affect (Figure \ref{fig:exp:layout}). 
+\item[Performance.] All the data of the genes being displayed are loaded from the database in a single transaction. The data is available in the web browser and whenever the user change anything in the visualisation the new values are calculated locally. 
+\item[Accuracy.] As knowing what the users will do is not obvious, the visualisation was given to a panel of potential users (other members of the Uauy lab) for comments. In previous versions the legends were a confusing and the location of the buttons was too far away from the effect they had. After reviewing the feedback, the accuracy was improved.  Also, the position of the controls don't change, regardless of the representation of the data (bar plot or heatmap). 
+\end{description}
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/Figures/UIsketch.pdf}
+\caption[expVIP \acrshort{gui} layout]{expVIP \acrlong{gui} components components. The top bar shows a short description of what is displayed. The General and Visualisation controls contain the buttons and menus that enable the interaction with the figure. The Headers, Labels and Plot are the actual components of the visualisation}
+\label{fig:exp:layout}
+\end{figure}
+
+The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref{fig:exp:tutorial2} and \ref{fig:exp:tutorial3}, with a description of each element of the \acrshort{gui} listed bellow. 
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure1.png} 
+\caption{Features on expVIP}
+\label{fig:exp:tutorial1}
+\end{figure}
+\begin{enumerate}
+\item
+  \textbf{\lstinline!Search box!}: at any point it is possible to type a new gene name (based on Ensembl Plants nomenclature) and generate a new set of expression data.
+\item
+  \textbf{\lstinline!Compare box!}: it is possible to add a second gene and press the \lstinline!Compare! button to generate two expression graphs drawn at the same scale.
+\item
+  \textbf{\lstinline!Menu options!}: has several links on the details of the study and tutorial. The menu can be edited to customize instances of expVIP. 
+\item
+  \textbf{\lstinline!Gene!}: shows the currently displayed gene, with a link to Ensembl to the corresponding description. 
+\item
+  \textbf{\lstinline!Expression unit!}: selects the expression unit to visualise. This can be either \gls{tpm} or  estimated counts. If other units are loaded in the database, they will appear in this field. 
+\item
+  \textbf{\lstinline!Save graph!}: these two buttons allow users to save the current graphs in either \lstinline!SVG! (to work on Adobe Ilustrator) or as \lstinline!PNG! files. 
+  The export process selects the graphical elements from the visualization and binds them together on a single \verb|SVG| file. The reasons to follow this process are: to ensure that the plot reflects the user selection; remove the elements that do not have a meaning in a static context and; allow the user to format the image with publication quality (Figure \ref{fig:exp:exportImage}).
+
+\begin{figure}
+
+\begin{subfigure}{1\textwidth}
+\caption{}
+\label{fig:exp:exportLayout}
+\includegraphics[width=1\textwidth]{expVIP/Figures/Exportsketch.pdf}
+\end{subfigure}
+
+\begin{subfigure}{1\textwidth}
+\caption{}
+\label{fig:exp:exportImageSample}
+\includegraphics[width=1\textwidth]{expVIP/Figures/tutorialSampleOutput.png}
+\end{subfigure}
+
+\caption[expVIP export image]{expVIP export image. (\ref{fig:exp:exportLayout}) \acrshort{gui} components components exported in image} (\ref{fig:exp:exportImageSample}) The exported components from Figure \ref{fig:exp:tutorial1}) 
+\label{fig:exp:exportImage}.
+\end{figure}
+
+\item
+  \textbf{\lstinline!Save data!}: downloads a \lstinline!csv! file with the data with the current selection and
+  order of factors as displayed on the screen. The data will include the standard errors and the number of samples that make up each value. 
+  An example of how the output looks is in Listing \ref{lst:exp:exportSample}. 
+
+  \begin{code}[label=lst:exp:exportSample, caption={[Export data example] Export data example, corresponding to the data plot in Figure \ref{fig:exp:tutorial1}}]
+High level age	seedling, vegetative, reproductive, 
+High level stress-disease	no stress, disease, abiotic, transgenic, 
+High level tissue	spike, grain, leaves/shoots, roots, 
+High level variety	Chinese Spring, other, Nullitetra Chinese Spring, 
+	tpm	SEM	tpm	SEM	tpm	SEM	
+	Traes_2AL_173FE664B.2	Traes_2AL_173FE664B.2	Traes_2BL_2141AFC9E.1	Traes_2BL_2141AFC9E.1	Traes_2DL_099F54442.1	Traes_2DL_099F54442.1	
+roots, vegetative, no stress(n=62)	4.96	0.99	1.77	0.49	2.08	0.47
+roots, vegetative, abiotic(n=3)	7.26	1.95	3.00	0.13	2.85	0.66
+leaves/shoots, vegetative, no stress(n=65)	1.59	1.50	0.91	0.55	0.87	0.56
+leaves/shoots, vegetative, abiotic(n=3)	2.33	0.38	1.55	0.07	1.29	0.09
+spike, reproductive, disease(n=30)	6.85	0.90	1.19	0.22	2.99	0.38
+spike, reproductive, no stress(n=43)	6.01	1.67	1.32	0.43	2.58	0.81
+grain, reproductive, no stress(n=147)	3.47	1.69	0.76	0.55	1.51	0.77
+leaves/shoots, reproductive, transgenic(n=4)	2.15	0.40	0.88	0.18	1.11	0.25
+leaves/shoots, reproductive, no stress(n=7)	2.69	0.67	1.37	0.89	1.30	0.62
+leaves/shoots, seedling, disease(n=23)	3.25	1.50	0.85	0.71	1.64	0.72
+leaves/shoots, seedling, no stress(n=13)	2.10	0.67	0.55	0.23	1.07	0.29
+leaves/shoots, seedling, abiotic(n=12)	0.99	0.39	0.25	0.12	0.74	0.34
+roots, seedling, no stress(n=2)	4.96	0.32	1.49	0.17	2.07	0.11
+roots, reproductive, no stress(n=2)	5.06	1.46	1.62	0.32	2.10	0.14
+spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
+  \end{code}
+\item
+  \textbf{\lstinline!Homoeologues!}: this button displays the
+ graphs of known homoeologues of the original primary gene. This gene is highlighted in bold and the homoeologous graphs will be displayed according to A, B, D genome ordering. 
+ The scale of all the homoeologues is the same to facilitate the comparison between them. 
+\item
+  \textbf{\lstinline!Gene names!}: each displayed gene is labeled on this block.  
+  If the list of genes too long, the gene names are rotated for readability. 
+  In case that a gene name is too long to fit, the font is scaled to the largest size that will fit in the designated area. 
+\item
+  \textbf{\lstinline!Expression level!}: the expression level adjusts according to the expression of each set of gene homoeologues. The scale remains consistent across homoeologues to allow comparison. 
+  The values are based on the unit selected in the \lstinline!expression unit! box (see point 5 above).
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure2.png} 
+\caption{Features on expVIP (continued)}
+\label{fig:exp:tutorial2}
+\end{figure}
+
+\item
+  \textbf{\lstinline!Filter!}: opens a pop-up window revealing the levels of the selected category. 
+  By default, all the levels are selected, but the users can decide to exclude from the visualisation experiments containing any level. 
+  The order of the levels can be modified by dragging the levels on the the pop-up window. 
+\item
+  \textbf{\lstinline!Display/hide category!}: Each category
+  can be displayed or hidden by pressing the \lstinline!+/-! button.
+  As categories are added or removed the expression graphs show the new values for the new groups. 
+  Data is not removed when changing the displayed categories, instead the values are distributed according to the new groups (the number of samples remains the same). 
+  The colours bellow the category correspond to each level, and the plot is coloured according to the sorting category. 
+\item
+  \textbf{\lstinline!Expression bars!}: These bars represent the expression level for the \verb|n| grouped samples according to
+  the chosen categories (11 and 12 above).
+  When hovering over the bar with the mouse a small tooltip with the expression level (\lstinline!tpm! or \lstinline!counts!) and the standard error (sem) used for the error bars (see 14)
+\item
+  \textbf{\lstinline!Error bars!}: Standard error of the means for the \verb|n| expression values on which the bar graph is based.
+\item
+  \textbf{\lstinline!Factors!}: The colour of the rectangles represents the displayed categories, according to the selection criteria (11 and 12 above). 
+  To clarify the meaning of the colour, hovering above the rectangle displays a tooltip with the long name of the examined level. 
+\item
+  \textbf{\lstinline!Description!}: Textual description of the grouped factors, according to the selection criteria (11 and 12 above). 
+  The number of grouped samples is also displayed.
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure2a.png} 
+\caption{Features on expVIP for Multiple gene comparisons}
+\label{fig:exp:tutorial3}
+\end{figure}
+
+\item
+  \textbf{\lstinline!Expression unit!}: For heatmaps, the default unit log2(tpm) as the logarithmic scale provides a better context for comparisons acorss several genes.
+\item
+  \textbf{\lstinline!Heatmap!}: To compare several genes, the values are represented as a heatmap. The sorting and filtering is done with the same controls as for single genes.
+  Up to 50 genes are displayed in the heatmap, as more genes will degrade the performance of the database, and the visual clutter makes the plot hard to interpret. 
+  This view allows to visualise several candidate genes for a trait expressed under certain conditions and quickly asses which one is a good candidate for further research. 
+\item
+  \textbf{\lstinline!Scale!}: The scale is calculated according to the highest displaued value in the current heatmap. 
+  Since logarithmic values bellow 1 result in negative values and anything with a \acrshort{tpm} under 2 is considered as very low expressed, every value lower than 1 is plotted as 0.
+\end{enumerate}
+
+For a comprehensive user manual see Appendix \ref{exp:tutorial}. 
 
 %%\section{Virtual Machine}
 %%\label{exp:vm}
@@ -524,5 +701,18 @@ How the expression can be displayed filtered, and sorted
 
 \section{Discussion} 
 The use of previously published studies is a valuable resource. Also, mention that despite the fact that there are several expression/gene browsers, none of them allow comparisons between species and don't consider polyploids. 
+
+%We have not provided RPKM given the
+%  inconsistencies generated across samples when using this measure. A
+%  detailed discussion can be found in \citep{}
+%  \href{http://www.ncbi.nlm.nih.gov/pubmed/22872506}{Wagner \emph{et
+%  al}} (2012). It is important to mention that \lstinline!tpm! is
+%  preferred over RPKM since it allows an easier comparison for
+%  abundances between samples. However it is important to stress that
+%  while \lstinline!tpm! serves as a relative measure to compare genes
+%  across experiments, a proper normalisation and statistical analysis
+%  with differential gene expression programs must be performed.
+%  \lstinline!expVIP! generates outputs which allow easy implementation
+%  of \lstinline!sleuth!, \lstinline!DESeq! and \lstinline!EdgeR!.
 
 Things to do: add comparassions between corresponding genes between species
