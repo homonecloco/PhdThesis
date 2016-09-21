@@ -24,7 +24,8 @@ The silencing is mostly regulated by epigenetic changes as the hybridization eve
 %\end{table}
 
 Table of experiments to include 
-
+\subsection{Public wheat RNA-Seq experiments}
+\input{expVIP/tables/formated_studies}
 
 \subsection{Expression quantification with Kallisto}
 
@@ -34,11 +35,11 @@ When using RNA-Seq, the expression analysis usually consists on: aligning the re
 However, this process usually takes around 6 hours per sample. 
 Aligners such as \texttt{bwa} or \texttt{bowtie} produce a detailed alignment of each read, which is useful find polymorphisms (see Chapter \ref{yr15}) or to find novel alternative splices \citep{Trapnell2012}. 
 
-For expression analysis only the count of how many reads is required, calculating the best local alignment and the output of each read is unnecessary. 
-\verb|Kallisto| is a tool that generates an index based overlapping k-mers (sequences of size $k$), which are connected sequentially to represent each transcript (transcriptome de Bruijn Graph, T-DBG). 
+For expression analysis only the count of how many reads with a transcript is required, calculating the best local alignment and the output of each read is unnecessary. 
+\verb|Kallisto| is a tool that generates an index based on overlapping k-mers (sequences of size $k$), which are connected sequentially to represent each transcript (transcriptome de Bruijn Graph, T-DBG). 
 For alternative splicings of the same gene, were some sequence overlap between transcripts, the connections produce two different sets of connections between k-mers. 
 The k-mers on each read are then used to find the compatible transcripts across the T-DBG and those are counted. 
-Finally, an estimate of how many times each transcript appears is estimated (Figure \ref{fig:exp:kallisto}; \citealt{Bray2016}).  
+Finally, the program estimates the abundance of the transcript in the sample (Figure \ref{fig:exp:kallisto}; \citealt{Bray2016}).  
 
 
 \begin{figure}
@@ -55,8 +56,9 @@ The tables correspond to the data that is essential for the represented concept 
 For example, in a table representing several species, the common name and the scientific name belong to the same domain (ie name: Bread wheat; scientific name \textit{Triticum aestivum}). 
 Tables in the same relational database form relationships between each other. 
 Continuing with the example, an species can have several scientific studies related to them. 
-The domain of a study can be formed by the accession, a title, a corresponding manuscript and the species that concerns to it. 
-A set of columns that have unique values across the table is called a primary key, in our example an extra \texttt{id} column is added (Figure \ref{fig:expvip:miniER}; \citealt{Codd1970}).
+The domain of a study can be formed by the accession, a title, a corresponding manuscript and the it is concerned with. The two tables can be connected by the usage of a common ID signifying the species. It is therefore common practice to create an extra column containing unique integer values, to act as connecting keys between two or more tables. Such a column is defined as the primary key of the table; although, strictly speaking, any set of columns whose combination of values is unique for each row can act as primary key. 
+In our example an extra \texttt{id} column is added allowing to create a stable relationship between the \verb|Species| and the \verb|Studies| tables.
+ (Figure \ref{fig:expvip:miniER}; \citealt{Codd1970}).
 The tables \ref{exp:tab:species} and \ref{exp:tab:studies} have the content of their corresponding domains. 
 
 \begin{figure}
@@ -81,13 +83,13 @@ The tables \ref{exp:tab:species} and \ref{exp:tab:studies} have the content of t
 
 \subsection{SQL}
 \gls{sql} is a common language to retrieve information from relational databases. 
-\acrshort{sql} has operations to select columns and row, join tables, group repeated values and order the results. 
+\acrshort{sql} has operations to select columns and rows, join tables, group repeated values and order the results. 
 Those simple operations are enough to retrieve the information between tables \citep{Oracle2014}. 
-The following list shows a brief description of some commands build a query.  
+The following list shows a brief description of some commands  that can be used to build a query.  
 
 \begin{description}
-\item[\texttt{SELECT <EXPRESSIONS> }]. A list of columns or an expression that will be displayed, separated by commas (\texttt{,}). To display all the columns, the \texttt{*} character represents all the tables. The order of the columns will be the same as the order given in this part of the command
-\item[\texttt{FROM <TABLE>}]. follows the column names to add a list of tables to select.
+\item[\texttt{SELECT <EXPRESSIONS> }]. A list of columns or an expression that will be displayed, separated by commas (\texttt{,}). To display all the columns, the \texttt{*} character  all the columns in the table. The order of the columns will be the same as the order given in this part of the command
+\item[\texttt{FROM <TABLE>}]. follows the column names to add a list of tables to select from.
 \item[\texttt{JOIN <TABLE> ON <EXPRESSION> }]. is used to join the table from the left side of the statement with the \texttt{<EXPRESSION>} given after the \texttt{ON} clause.  
 \item[\texttt{WHERE <EXPRESSION>}] filters the rows by the \texttt{<EXPRESSION>}
 \item[\texttt{ORDER BY <COLUMNS>}]. The rows will be sorted by the natural order of the given \texttt{<COLUMNS>}.  
@@ -128,19 +130,18 @@ JOIN studies on species.id = studies.species_id;
 The relationships between tables can be of the following types:
 
 \begin{description}
-\item[one-to-one] When rows on a table can be related to a row in a second table. On the diagrams they are represented by a straight line
-\item[many-to-many] Rows on a table can have many corresponding rows in a second table, resented with lines with whiskers on both sides of the line.  
-\item[one-to-many] Rows on a table can be related to many rows on the second table, represented with whiskers only on one side of the line. 
+\item[one-to-one.] When rows on a table can be related to a row in a second table. On the diagrams they are represented by a straight line.
+\item[many-to-many.] Rows on a table can have many corresponding rows in a second table, resented with lines with whiskers on both sides of the line.  
+\item[one-to-many.] Rows on a table can be related to many rows on the second table, represented with whiskers only on one side of the line. 
 \end{description}
 
 An important feature of a database is the ability to store the 
 data consistently.
-A transaction is a set of related operations that need to be performed at the same time.  
-To ensure that a transaction needs to follow the principles of \gls{acid} \citep{Haerder1983}.
+A transaction is a set of related operations that need to be performed at the same time; as such, it needs to follow the principles of \gls{acid} \citep{Haerder1983}.
 
 
 \begin{description}
-\item[Atomicity.] All the operation or none have to be performed. If any of them fails or an error happens while the transaction is executed the data has to be restored to the original status before the transaction started. 
+\item[Atomicity.] All the operation or none have to be performed. If any of them fails or an error happens while the transaction is executed the data has to be restored to the original status. 
 \item[Consistency.] The changes in the database have to be valid before and after the transaction. 
 \item[Isolation.] If more than one transaction is being executed at the same time, the result must be the same as if the transactions were executed one after the other. 
 \item[Durability.] The result of the transaction is stored even if the server is restarted.
@@ -164,7 +165,7 @@ This characteristics made it popular on the web and it is currently the \gls{rdb
 The \gls{mvc} is a metaphor to isolate the user interactions from the underlying data. 
 The models hold the data on logical their domains.
 The views contain the layout on how the models are displayed to the user.
-The controllers receive the requests from the users and modify the models accordingly and send a view back for display. 
+The controllers receive the requests from the users and modify the models hold the data as mapped to their logical domains accordingly and send a view back for display. 
 The \acrshort{mvc} metaphor allows the development of independent parts of the system and helps to structure the underlying representation of the domains.  (Figure \ref{fig:poly:mvc}; \citealt{Krasner1988}).
 
 \gls{ror} is a framework to develop web applications heavily influenced by the \acrshort{mvc} metaphor. 
@@ -182,7 +183,7 @@ An effective way to communicate large amount of data is trough visualisation, bu
 \item[Performance.] The tool needs to be quick to access and transform the visualisation as the user requests.
 \item[Accuracy.] The tool has to perform as the user expects, so if the tool is prone to make users commit mistakes, it is not accurate. 
 \item[Memorability.] Once the user learns to use the system, is it easy remember how to use it? Systems that change their interface often, or between windows are not as easy to remember. 
-\item[Satisfaction.] The user responds positively to the use of the system and the time is spend actually exploring the data, and not trying to make the system work. 
+\item[Satisfaction.] The user responds positively to the use of the system and the time is spent actually exploring the data, and not trying to make the system work. 
 \end{description}
 
 \subsection{Aims}
@@ -198,11 +199,11 @@ The aims of expVIP are to:
 
 \section{General design}
 
-One of the main objectives of expVIP is to make the public expression datasets to the target community (currently wheat, but not limited to it). 
-A web interface is an effective is an effective way to reach a global audience. 
-A web service requires to have a server to run the application and a browser to connect to the server and display it (ie Internet Explorer, Chrome).
+One of the main objectives of expVIP is to make the public expression datasets easily accessible and explorable for the target community to the target community (currently wheat, but not limited to it). 
+A web interface is an effective way to reach a global audience. 
+A web service requires to have a server to run the application and a browser to connect to the server and display it (ie Internet Explorer, Chrome, Firefox).
 The web server technology used for expVIP is \acrshort{ror}, as it abstracts the \acrshort{mvc} metaphor and it is designed to speed the development \citep{RailsGuide2016}. 
-In order to display the expression data to the users, a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}). 
+In order to display the expression data to the users,  expVIP relies on a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}) developed for expVIP. 
 All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is accessed trough models developed under  \acrshort{ror} (Figure \ref{fig:poly:archDesign}).  
 
 \begin{SCfigure} 
@@ -236,17 +237,17 @@ The design comprises of two core groups of tables and two auxiliary tables that 
 \end{description}
 \item[Expression values.] The tables on this block contain the expression of each gene and the information for the genes. 
 \begin{description}
-\item[Types of value] keeps a list of different units that are stored. On the original design \acrshort{tpm} and raw counts are set up, but as the units are not hard coded it is possible to use \acrshort{fpkm}, \acrshort{rpkm} or, any other unit. 
-\item[Gene Set] contains the name of a reference gene set for the analysis. On the original version of expVIP, the gene models from the \acrshort{iwgsc} as deposited in Ensembl release 26 were used \citep{Mayer2014} However, the use of this table enable the use of several reference gene models on the same database. 
+\item[Types of value] keeps a list of different units that are stored. On the original design \acrshort{tpm} and raw counts are set up, but as the units are not hard coded it is possible to use \acrshort{fpkm}, \acrshort{rpkm} or any other unit. 
+\item[Gene Set] contains the name of a reference gene set for the analysis. On the original version of expVIP, the gene models from the \acrshort{iwgsc} as deposited in Ensembl release 26 were used \citep{Mayer2014} However, the use of this table enables the use of several reference gene models on the same database. 
 \item[Genes] are related to a \texttt{gene set}, so even if they have the same name coming from different datasets it is possible to distinguish them. This situation is unlikely to occur when using published references, but when joining several \textit{de Novo} gene models. 
 \item[Meta Experiment] allows to have the same data analysed with different tools. By default expVIP uses Kallisto \citep{Bray2016}. However other tools, or different versions of the same tool, can be used to repeat the analysis.   
 \item[Values] have a domain that includes the \texttt{meta experiment}, \texttt{gene} and, \texttt{type of value}.
 \end{description}
-\item[Homoeologues] contain the relationship between genes. This allows to get the expression values of several related genes. 
-\item[Species] contain the target species of a study. It is not linked to the gene models to allow the direct comparison between related species using the same gene models (ie, \texttt{T. aestivum} vs \texttt{T. turgidum}). 
+\item[Homoeologues] contains the relationship between genes. This allows to get the expression values of several related genes. 
+\item[Species] contains the target species of a study. It is not linked to the gene models to allow the direct comparison between related species using the same gene models (ie, \texttt{T. aestivum} vs \texttt{T. turgidum}). 
 \end{description}
 
-In the cases that a relationship between tables is not unique, such as \texttt{experiment\_groups} having many \texttt{factors} and the \texttt{factors} having many \texttt{experiment\_groups}, storing the relationships is done with an auxiliary table (ie. \texttt{ExperimentGroups\_Factors}, not explicitly shown in Figure \ref{fig:expvip:dbDesign}, but implicit by the lines with whiskers). 
+In the cases where a relationship between tables is not unique, such as \texttt{experiment\_groups} having many \texttt{factors} and the \texttt{factors} having many \texttt{experiment\_groups}, storing of relationships is done with an auxiliary table (ie. \texttt{ExperimentGroups\_Factors}, not explicitly shown in Figure \ref{fig:expvip:dbDesign}, but implicit by the lines with whiskers). 
 
 Once all the data is stored, the tables can be queried together to make clear the relationship between specific rows. 
 One of the core tasks of expVIP is to get all the factors that define each experiment, in order to be able to merge similar studies. 
@@ -322,7 +323,7 @@ Details on how to load the files in the database are in the expVIP tutorial (App
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{expVIP/Figures/loadDataPipeline.pdf}
-\caption[expVIP load data]{The pipeline of loading the data to expVIP. The black lines represent a border of tasks that can be run in parallel or don't require to be done in a particular order.}
+\caption[expVIP load data]{The pipeline for loading the data into expVIP. The black lines represent a border of tasks that are not required to be executed in a particular order.}
 \label{fig:exp:loadPipeline}
 \end{figure}
 
@@ -332,7 +333,7 @@ The required files for the metadata are:
 \begin{description}
 \item[factor] The category were the factor belongs. In the case of the initial dataset used in expVIP, the grouping factors are: Age, stress-disease, tissue and, a corresponding 'High level' for each factor. The metadata file must contain a cloumn corresponding to each one of this factors. 
 \item[order] The default order in which to display each factor. This ensures that the age of the plants are sorted chronologically. 
-\item[name] Long description of each factor. This are used as valid values in the metadata.  
+\item[name] Long description of each level for the category. The values in this column must match the values in the metadata file (see below).   
 \item[short] Is a short name, used when the space to display the full description of the factor is not enough.
 \end{description}
 \begin{table}
@@ -390,7 +391,7 @@ GTTTGGTTCGAGGCATGCCGGTTGGCTAGCCCAGATGAGTCAAAGGC
 AGTAATTGCCAGGGGTGTGAAGGCAATTCCCAACTCTGTGAAGCTGT
 GGCTGCA
 \end{code}
-\item[homoeologues] A file containing the homoeologues for the  A, B and D genomes. Currently this are the only supported default names. The file also include a column with the gene name and to which Group (ie 1, 2, 3 ... 7) and Genome (ie A, B or D) it belongs (Table \ref{tab:exp:hom}).  
+\item[homoeologues] A file containing the homoeologues for the  A, B and D genomes. Currently these are the only supported default names. The file also include a column with the gene name and to which Group (ie 1, 2, 3 ... 7) and Genome (ie A, B or D) it belongs (Table \ref{tab:exp:hom}).  
 
 \begin{sidewaystable}
 \centering
@@ -454,15 +455,15 @@ task :de_novo_genes, [:gene_set,:filename] => :environment do |t, args|
 end
 \end{code}
 
-There are two options to load the expression values from the database: A matrix with all the expression values and; run \verb|Kallisto| from expVIP. 
+There are two options to load the expression values from the database: a matrix with all the expression values and running \verb|Kallisto| from expVIP. 
 
-Tha task in Listing \ref{lst:exp:loadValues} loads the expression values from a tabular with the genes as rows and the values as columns. 
+The task in Listing \ref{lst:exp:loadValues} loads the expression values from a tabular file with the genes as rows and the values as columns. 
 The exception handling and messages are removed 
 The task requires the following arguments:
 
 \begin{description}
-\item[\texttt{meta\_experiment}.] A name for the analysis. This can be the name of the tool used to do the alignments and the reference as a single text. 
-\item[\texttt{gene\_set}.] The reference used for the analysisos. 
+\item[\texttt{meta\_experiment}.] A name for the analysis. This can be the name of the tool used for the expression quantification combined with the name of the reference, as a single text variable. 
+\item[\texttt{gene\_set}.] The reference used for the analysis. 
 \item[\texttt{value\_type}.] The unit of the file (ie.  \acrshort{tpm}, count)
 \item[\texttt{filename}.] The file that is going to be loaded in the database. 
 \end{description}
@@ -474,13 +475,13 @@ The steps to load the values are:
 \item The \verb|meta_experimet|, \verb|gene_set| and \verb|value_type| are loaded and stored to get the corresponding IDs in the insertion (line 4).
 \item All the \verb|Genes| and \verb|Experiments| are loaded in their corresponding hash table, to be able to get the IDs when the actual values are inserted (lines 7-11). 
 \item The file is read with the \verb|CSV| library from Ruby, keeping the headers to be able to assign the correct experiment (line 14). 
-\item The first column is named \verb|target_id|, which contain the gene name. The ID of the gene is retrieved from the previously loaded hash (lines 15-16)
+\item The first column is named \verb|target_id| and contains the gene name. The ID of the gene  in the database is retrieved from the previously loaded hash (lines 15-16)
 \item Each column is iterated and the values needed to execute the insertion to the database are concatenated. 
-\item Whenever the number of queued insertions reach 1,000, the command to execute the insertions is executed (line 25). 
+\item Whenever the number of queued insertions reaches 1,000, the command to perform the insertions is executed (line 25). 
 \item As the number of genes is not usually a multiple of 1,000, when the process finished reading the file an extra insertion is executed to empty the queue (line 30).
 \end{enumerate}
 
-The decision to make the insertions in batches of 1,000 is to reduce the number of processes running in the database, while keeping the memory usage of the application load. 
+The decision to execute the insertions in batches of 1,000 objects is to reduce the number of processes running in the database, while keeping low the memory usage of the application. 
 This approach is faster than using the functions for insertions \acrshort{ror} on multiple values. 
 For trivial operations, the functions from the framework are used, as they are easier to maintain (compare insertion in line 4 to the block of code from line 18 to 26). 
 
@@ -530,15 +531,15 @@ end
 \end{wrapfigure}
 
 Alternatively, expVIP can execute kallisto on all the samples loaded in the database. 
-For that, a directory with the reads in \verb|fastq|, organized in directories named with the same accessions as in the metadata (ie a directory named \verb|DRR003148| contains the reads for the metadata displayed in table \ref{tab:exp:queryMetadata}). 
-expVIP takes all the accession for the experiments in the database and search for the corresponding folder. 
+To this purpose, expVIP stores the raw reads in fastq format, organized in directories named with the same accessions as in the metadata (ie a directory named \verb|DRR003148| contains the reads for the metadata displayed in table \ref{tab:exp:queryMetadata}). 
+expVIP takes all the accessions for the experiments in the database and searches for the corresponding folder. 
 If the folder exists and if it contains the \verb|fastq| files, then it is deemed as valid. 
-If the folder already has the \verb|kallisto| output, the next folder is evaluated, otherwise expVIP is executed with its default settings and the results are loaded to the database. 
+If the folder already has the \verb|kallisto| output, the next folder is evaluated, otherwise \verb|kallisto| is executed with its default settings and the results are loaded into the database. 
 This process is repeated for all the accessions (Figure \ref{fig:exp:runKallisto}).  
 This pipeline allows to populate the database partially, in case that not all the experiments are ready from the beginning. 
 
-New experiments can be added to the metadata file, or tu a new file, and it can be loaded again to update the list of experiments. 
-This allows to keep the database updated as more experiments are available. 
+New experiments can be added to the existing metadata file  or to a new file; the expVIP loading procedure then can be run again to update the list of experiments and the corresponding expression values. 
+This design allows to keep the database updated as more experiments become available. 
 The fact that the loading is done in transactions ensures that the database is kept consistent, regardless of potential errors in the input files. 
 
 \section{Graphical interface}
@@ -551,14 +552,14 @@ To make the visualisation dynamic in a browser, the use of \verb|JavaScript| is 
 Among the tools built on the top of \verb|JavaScript|, \verb|D3| is a framework designed explicitly to do dynamic visualisations \citep{Bostock2011}. 
 
 Usability was a top priority on the design of the visualisation component for expVIP. 
-The time to lear, performance are accuracy were taking in account when designing expVIP. 
-As memorability and satisfaction are subjective, they weren't directly test them during development.  
+The time needed to learn, performance are accuracy were taken into account when designing expVIP. 
+As memorability and satisfaction are subjective, they were not directly tested for during development.  
 
 
 \begin{description}
 \item[Time to learn.] The controls are located in two blocks, one for global controls (ie. unit, save plot) and one to modify the factors, close to the factor they affect (Figure \ref{fig:exp:layout}). 
-\item[Performance.] All the data of the genes being displayed are loaded from the database in a single transaction. The data is available in the web browser and whenever the user change anything in the visualisation the new values are calculated locally. 
-\item[Accuracy.] As knowing what the users will do is not obvious, the visualisation was given to a panel of potential users (other members of the Uauy lab) for comments. In previous versions the legends were a confusing and the location of the buttons was too far away from the effect they had. After reviewing the feedback, the accuracy was improved.  Also, the position of the controls don't change, regardless of the representation of the data (bar plot or heatmap). 
+\item[Performance.] All the data for the genes being displayed is loaded from the database in a single transaction. The data is available in the cache of web browser and whenever the user changes anything in the visualisation, new values are calculated locally. 
+\item[Accuracy.] As knowing what the users will do is not obvious, the visualisation was given to a panel of potential users (other members of the Uauy lab) for comments. In previous versions the legends were a confusing and the location of the buttons was too distant from the aspect of visualisation that they controlled. After reviewing the feedback, the accuracy was improved.  Also, the position of the controls don't change, regardless of the representation of the data (bar plot or heatmap). 
 \end{description}
 
 \begin{figure}
@@ -567,7 +568,7 @@ As memorability and satisfaction are subjective, they weren't directly test them
 \label{fig:exp:layout}
 \end{figure}
 
-The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref{fig:exp:tutorial2} and \ref{fig:exp:tutorial3}, with a description of each element of the \acrshort{gui} listed bellow. 
+The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref{fig:exp:tutorial2} and \ref{fig:exp:tutorial3}, with a description of each element of the \acrshort{gui} listed below. 
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure1.png} 
@@ -612,36 +613,14 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
   order of factors as displayed on the screen. The data will include the standard errors and the number of samples that make up each value. 
   An example of how the output looks is in Listing \ref{lst:exp:exportSample}. 
 
-  \begin{code}[label=lst:exp:exportSample, caption={[Export data example] Export data example, corresponding to the data plot in Figure \ref{fig:exp:tutorial1}}]
-High level age	seedling, vegetative, reproductive, 
-High level stress-disease	no stress, disease, abiotic, transgenic, 
-High level tissue	spike, grain, leaves/shoots, roots, 
-High level variety	Chinese Spring, other, Nullitetra Chinese Spring, 
-	tpm	SEM	tpm	SEM	tpm	SEM	
-	Traes_2AL_173FE664B.2	Traes_2AL_173FE664B.2	Traes_2BL_2141AFC9E.1	Traes_2BL_2141AFC9E.1	Traes_2DL_099F54442.1	Traes_2DL_099F54442.1	
-roots, vegetative, no stress(n=62)	4.96	0.99	1.77	0.49	2.08	0.47
-roots, vegetative, abiotic(n=3)	7.26	1.95	3.00	0.13	2.85	0.66
-leaves/shoots, vegetative, no stress(n=65)	1.59	1.50	0.91	0.55	0.87	0.56
-leaves/shoots, vegetative, abiotic(n=3)	2.33	0.38	1.55	0.07	1.29	0.09
-spike, reproductive, disease(n=30)	6.85	0.90	1.19	0.22	2.99	0.38
-spike, reproductive, no stress(n=43)	6.01	1.67	1.32	0.43	2.58	0.81
-grain, reproductive, no stress(n=147)	3.47	1.69	0.76	0.55	1.51	0.77
-leaves/shoots, reproductive, transgenic(n=4)	2.15	0.40	0.88	0.18	1.11	0.25
-leaves/shoots, reproductive, no stress(n=7)	2.69	0.67	1.37	0.89	1.30	0.62
-leaves/shoots, seedling, disease(n=23)	3.25	1.50	0.85	0.71	1.64	0.72
-leaves/shoots, seedling, no stress(n=13)	2.10	0.67	0.55	0.23	1.07	0.29
-leaves/shoots, seedling, abiotic(n=12)	0.99	0.39	0.25	0.12	0.74	0.34
-roots, seedling, no stress(n=2)	4.96	0.32	1.49	0.17	2.07	0.11
-roots, reproductive, no stress(n=2)	5.06	1.46	1.62	0.32	2.10	0.14
-spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
-  \end{code}
+
 \item
   \textbf{\lstinline!Homoeologues!}: this button displays the
  graphs of known homoeologues of the original primary gene. This gene is highlighted in bold and the homoeologous graphs will be displayed according to A, B, D genome ordering. 
  The scale of all the homoeologues is the same to facilitate the comparison between them. 
 \item
-  \textbf{\lstinline!Gene names!}: each displayed gene is labeled on this block.  
-  If the list of genes too long, the gene names are rotated for readability. 
+  \textbf{\lstinline!Gene names!}: each displayed gene is labelled on this block.  
+  If the list of genes is too long, the gene names are rotated for readability. 
   In case that a gene name is too long to fit, the font is scaled to the largest size that will fit in the designated area. 
 \item
   \textbf{\lstinline!Expression level!}: the expression level adjusts according to the expression of each set of gene homoeologues. The scale remains consistent across homoeologues to allow comparison. 
@@ -662,11 +641,11 @@ spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
   can be displayed or hidden by pressing the \lstinline!+/-! button.
   As categories are added or removed the expression graphs show the new values for the new groups. 
   Data is not removed when changing the displayed categories, instead the values are distributed according to the new groups (the number of samples remains the same). 
-  The colours bellow the category correspond to each level, and the plot is coloured according to the sorting category. 
+  The colours below the category correspond to each level, and the plot is coloured according to the sorting category. 
 \item
   \textbf{\lstinline!Expression bars!}: These bars represent the expression level for the \verb|n| grouped samples according to
   the chosen categories (11 and 12 above).
-  When hovering over the bar with the mouse a small tooltip with the expression level (\lstinline!tpm! or \lstinline!counts!) and the standard error (sem) used for the error bars (see 14)
+  When hovering over the bar with the mouse a small tooltip will appear, containing the expression level (\lstinline!tpm! or \lstinline!counts!) and the standard error (sem) used for the error bars (see 14)
 \item
   \textbf{\lstinline!Error bars!}: Standard error of the means for the \verb|n| expression values on which the bar graph is based.
 \item
@@ -690,17 +669,48 @@ spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
   This view allows to visualise several candidate genes for a trait expressed under certain conditions and quickly asses which one is a good candidate for further research. 
 \item
   \textbf{\lstinline!Scale!}: The scale is calculated according to the highest displaued value in the current heatmap. 
-  Since logarithmic values bellow 1 result in negative values and anything with a \acrshort{tpm} under 2 is considered as very low expressed, every value lower than 1 is plotted as 0.
+  Since logarithmic values below 1 result in negative values and anything with a \acrshort{tpm} under 2 is considered as very low expressed, every value lower than 1 is plotted as 0.
 \end{enumerate}
-
 For a comprehensive user manual see Appendix \ref{exp:tutorial}. 
+
+\begin{landscape}
+\begin{code_2}[label=lst:exp:exportSample, caption={[Export data example] Export data example, corresponding to the data plot in Figure \ref{fig:exp:tutorial1}}]
+High level age	seedling, vegetative, reproductive, 
+High level stress-disease	no stress, disease, abiotic, transgenic, 
+High level tissue	spike, grain, leaves/shoots, roots, 
+High level variety	Chinese Spring, other, Nullitetra Chinese Spring, 
+	tpm	SEM	tpm	SEM	tpm	SEM	
+	Traes_2AL_173FE664B.2	Traes_2AL_173FE664B.2	Traes_2BL_2141AFC9E.1	Traes_2BL_2141AFC9E.1	Traes_2DL_099F54442.1	Traes_2DL_099F54442.1	
+roots, vegetative, no stress(n=62)	4.96	0.99	1.77	0.49	2.08	0.47
+roots, vegetative, abiotic(n=3)	7.26	1.95	3.00	0.13	2.85	0.66
+leaves/shoots, vegetative, no stress(n=65)	1.59	1.50	0.91	0.55	0.87	0.56
+leaves/shoots, vegetative, abiotic(n=3)	2.33	0.38	1.55	0.07	1.29	0.09
+spike, reproductive, disease(n=30)	6.85	0.90	1.19	0.22	2.99	0.38
+spike, reproductive, no stress(n=43)	6.01	1.67	1.32	0.43	2.58	0.81
+grain, reproductive, no stress(n=147)	3.47	1.69	0.76	0.55	1.51	0.77
+leaves/shoots, reproductive, transgenic(n=4)	2.15	0.40	0.88	0.18	1.11	0.25
+leaves/shoots, reproductive, no stress(n=7)	2.69	0.67	1.37	0.89	1.30	0.62
+leaves/shoots, seedling, disease(n=23)	3.25	1.50	0.85	0.71	1.64	0.72
+leaves/shoots, seedling, no stress(n=13)	2.10	0.67	0.55	0.23	1.07	0.29
+leaves/shoots, seedling, abiotic(n=12)	0.99	0.39	0.25	0.12	0.74	0.34
+roots, seedling, no stress(n=2)	4.96	0.32	1.49	0.17	2.07	0.11
+roots, reproductive, no stress(n=2)	5.06	1.46	1.62	0.32	2.10	0.14
+spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
+\end{code_2}
+\end{landscape}
+
+
 
 %%\section{Virtual Machine}
 %%\label{exp:vm}
 \unsure{If I have time, I'll add the section about the virtual machine, as I would also need to add something in the background on virtualisation, it can potentially be a sink of time}
 
 \section{Discussion} 
-The use of previously published studies is a valuable resource. Also, mention that despite the fact that there are several expression/gene browsers, none of them allow comparisons between species and don't consider polyploids. 
+
+
+The use of previously published studies is a valuable resource. 
+
+Also, mention that despite the fact that there are several expression/gene browsers, none of them allow comparisons between species and don't consider polyploids. 
 
 %We have not provided RPKM given the
 %  inconsistencies generated across samples when using this measure. A
