@@ -4,14 +4,58 @@
 %It describes the current status of the wheat genome, genetics and other resources.   
 
 \section{Wheat Breeding}
-An overview of how breeding is carried on currently, the different sources of genetic diversity and the relevance of fixing agriculturally important traits. 
+An overview of how breeding is carried on currently, the different sources of genetic diversity and the relevance of fixing agriculturally important traits.
+
+
+\section{Experimental lines}
+
+To 
+
+\begin{description}
+\item[Back cross (BC)]
+\item[Double Haploid Lines (DH)]
+\item[Recombinant Inbreed Lines (RIL)]
+\item[Near Isogenic Lines (NIL)]
+\end{description}
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.45\textwidth}
+\caption{}
+\label{fig:lit:f2}
+\includegraphics[height=0.25\textheight]{LitReview/Figures/crosses/F2.pdf}
+\end{subfigure}
+~
+\begin{subfigure}{0.45\textwidth}
+\caption{}
+\label{fig:lit:bc}
+\includegraphics[height=0.25\textheight]{LitReview/Figures/crosses/BC.pdf}
+\end{subfigure}
+
+\begin{subfigure}{0.45\textwidth}
+\caption{}
+\label{fig:lit:dh}
+\includegraphics[height=0.25\textheight]{LitReview/Figures/crosses/DH.pdf}
+\end{subfigure}
+~
+\begin{subfigure}{0.45\textwidth}
+\caption{}
+\label{fig:lit:ri}
+\includegraphics[height=0.25\textheight]{LitReview/Figures/crosses/RI.pdf}
+\end{subfigure}
+
+
+
+\caption[Types of experimental lines]{Types of experimental lines. 🌾 represent populations and 🌱 individual plants. $\otimes$ represent a cross between lines.$\otimes$ represent self-crosses. Ellipsis ($\ldots$) represent repetition. 💥🌰 represent a treatment to double the chromosomes from the gamete.}
+\end{figure}
+
+\subsection{Introgressions}
+
 \section{Wheat Genetics}
 The section describes alleles an the concept of gene, both as a locus in the genome (Quantitative Trait Locus, QTL) and an specific transcript (central dogma of molecular biology). Finally, it discuses traditional Mendelian inheritance and the effect of polyploidy.  Some of this is described in the Yr15 chapter, maybe it is not needed any more here. 
 
 
-
-
-\section{Polyploidy and Wheat}
+\subsection{Polyploidy and Wheat}
 \label{lit:polyploidy}
 
 A polyploid species contains more than one set of related genomes, that may come from a chromosomal duplication or from an hybridization with a related species. 
@@ -135,27 +179,28 @@ Once you have the alignments it is possible to evaluate the relative expression 
 
 \section{Wheat specific resources resources}
 \label{lit:wheatResourcers}
-Gene models
+
+
+\subsection{Gene models}
 -UniGene
 -UCW Gene models
 -Gene annotation IWGSC
 -Gene annotation TGACv1
 
-Genetic maps
--Wang
--Chapman/PopSeq (is the same population, improved)
+\subsection{Genetic markers}
+
 
 Markers
 -90k
 -820k
 -MASwheat/SRR
 
-Portal
--CeralsDB
--MASWheat
--Ensembl
--Wheat-expression
+\subsection{Genetic maps}
+Genetic maps
+-Wang
+-Chapman/PopSeq (is the same population, improved)
 
+\subsection{Genomic sequence}
 Assemblies
 -Chapman
 -IWGSC
@@ -163,20 +208,37 @@ Assemblies
 -NRGene (unpublished?)
 -454 Liverpool
 
-A compilation of the currently available resource for whet genetics and genomics. MAS wheat, CeralsDB, Ensembl, etc.  
+\subsection{Online resources}
+Portal
+-CeralsDB
+-MASWheat
+-Ensembl
+-Wheat-expression
+-Copo
 
-\section{Computer Programming}
-Why Ruby and javascript?
--Ruby
--BioRuby
--JavaScript
--BioJS
--Rails. 
--SQL
--D3
+The Collaborative Open Plant Omics (COPO; \citealt{Davey2015}) is a an initiative to integrate data from different databases. 
+The idea is to improve the interaction across repositories trough an \gls{api}, a standard way to ensure the interoperability between systems. 
+This approach keeps the responsibility of the system and data maintenance on the service providers. 
+Service providers must ensure the compliance to standard of curation and integration, which would simplify the data analysis and visualisation, and ultimately promote the use of the integrated resources.  
 
--lamda functions
--functions/methods
+
+
+%A compilation of the currently available resource for whet genetics and genomics. MAS wheat, CeralsDB, Ensembl, etc.  
+
+
+
+%\section{Computer Programming}
+%Why Ruby and javascript?
+%-Ruby
+%-BioRuby
+%-JavaScript
+%-BioJS
+%-Rails. 
+%-SQL
+%-D3%
+
+%-lamda functions
+%-functions/methods
 
 \subsection{Computer science used for this thesis}
 

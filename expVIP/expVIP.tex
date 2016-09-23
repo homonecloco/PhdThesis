@@ -1,6 +1,6 @@
 %!TEX root = ../Main.tex
 
-\chapter[expVIP]{expVIP: a customisable RNA-seq data analysis and visualisation platform}
+\chapter[expVIP]{expVIP: a customisable RNA-seq data analysis and visualisation platform.}
 \label{cha:exp}
 
 
@@ -16,6 +16,7 @@ Describe the list of previously published expression experiments and how they ca
 Co-expression of homoeologus varies from triplet to triplet \citep{Pfeifer2014}
 The silencing is mostly regulated by epigenetic changes as the hybridization events are recent.  \citep{Bottley2006}
 
+
 %\begin{table}
 
 %\caption{Studies included in expVIP for wheat}
@@ -23,11 +24,31 @@ The silencing is mostly regulated by epigenetic changes as the hybridization eve
 
 %\end{table}
 
+\subsection{Alternative expression browsers.}
+\label{exp:alternative}
+%Expression experiments are done routinely in model organisms, such as arabidopsis.
+
+To the best of my knowledge, the only alternative expression browser developed for specifically for wheat is WheatExp \citep{Pearce2015b}. 
+This expression browser contains information of 6 studies from diploid, tetraploid and hexaploid wheat. 
+The studies were selected to be complementary among them; " a broad study of five different tissues across multiple timepoints \citep{Choulet2014}, a study of seedling photomorphogenesis \citep{Fox2014}, a study of drought and heat stress in wheat seedlings \citep{Liu2015}, a study of wheat grain layers at a single timepoint \citep{Pearce2015}, a sen- escing leaf timecourse \citep{Pearce2014} and a timecourse of different grain tissue layers during development \citep{Pfeifer2014}".
+The expression quantification is produced by aligning to the gene transcripts using BWA \citep{Li2010}, and the counts are extracted with HTSeq \citep{Anders2015}. 
+
+The Expression Atlas from \acrshort{ebi} is a public resource that collects expression experiments of several species \citep{Petryszak2016}. 
+The samples are processed automatically from the reads deposited ArrayExpress \citep{Kolesnikov2015}, containing data from microarrays and RNA-Seq.
+The studies included are manually curataed and annotated with the relevant ontologies. 
+As of September 2016, 202 differential and 82 base experiments had been included. 
+The visualisation is designed to explore each gene individually, showing all the related ontologies and details on the expression by factor, or by pairs of factor on a heatmap. 
+The quantification is calculated with HTSeq \citep{Anders2015}, from alignments produced with Tophat \citep{Ling2013}.
+
+\unsure{introduce BioGPS. It is not wheat related, but is feature rich. }
+
+
+\subsection{Public wheat RNA-Seq experiments.}
+
 Table of experiments to include 
-\subsection{Public wheat RNA-Seq experiments}
 \input{expVIP/tables/formated_studies}
 
-\subsection{Expression quantification with Kallisto}
+\subsection{Expression quantification with Kallisto.}
 
 Differential expression experiments try to elucidate which genes change under different conditions. 
 To do that, a quantification of the levels of expressions is needed. 
@@ -50,7 +71,7 @@ nodes (v1, v2, v3, ... ) are k-mers, each transcript corresponds to a colored pa
 \end{figure}
 
 
-\subsection{Relational databases}
+\subsection{Relational databases.}
 A Relational databases is a set of structured tables that have relationships between each other. 
 The tables correspond to the data that is essential for the represented concept (domain).
 For example, in a table representing several species, the common name and the scientific name belong to the same domain (ie name: Bread wheat; scientific name \textit{Triticum aestivum}). 
@@ -81,7 +102,7 @@ The tables \ref{exp:tab:species} and \ref{exp:tab:studies} have the content of t
 \input{expVIP/tables/studies}
 \end{table}
 
-\subsection{SQL}
+\subsection{SQL.}
 \gls{sql} is a common language to retrieve information from relational databases. 
 \acrshort{sql} has operations to select columns and rows, join tables, group repeated values and order the results. 
 Those simple operations are enough to retrieve the information between tables \citep{Oracle2014}. 
@@ -703,12 +724,31 @@ spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
 \end{code_2}
 \end{landscape}
 
-\section{Discussion} 
+\section{Discussion.} 
 
 
 The use of previously published studies is a valuable resource. 
 
-Mention other expression databases and how they compare to expvip
+When I started the development of expVIP none of the expression browsers mentioned in Section \ref{exp:alternative} had data for wheat. 
+
+
+WheatExp was developed roughly at the same time of expVIP and it contains studies 6 studies (against 16 on expVIP; \citealt{Pearce2015b}). 
+Four of the studies in WheatExp are on hexaploid wheat and are included in expVIP. 
+In WheatExp, the expression for each gene is displayed on the context of the original experiment without a direct comparison between studies. 
+However, because the studies are kept independently the levels of the categories are a direct reflection of the original studies. 
+WheatExp allows to search genes by sequence, a feature not implemented in expVIP. 
+
+The Expression Atlas from \acrshort{ebi} has a more comprehensive list of experiments than WheatExp, most of them from 2016 \citep{Petryszak2016}. 
+ExpVIP contains studies released before \acrshort{ebi} started to upload expression experiments for wheat. 
+However, some of the most recent studies in the Expression Atlas are not included in expVIP yet, however we are in the process of updating expVIP to include studies published after the initial release.
+In terms of visualisation, the \acrshort{ebi} included a heatmap to compare to different factors at the same time for given gene (ie. tissue vs stress), the same information can be displayed on expVIP by sorting by two factors.
+
+Some features that could improve expVIP in the long term, already present in other expression browsers like searching by sequence, by gene ontology and, a heatmap of a particular gene displaying two different factors on each axis . 
+A feature that could leverage from other genomic resources is the retrival of genes flanking a gene of interest, or between genetic markers. 
+The upcoming assemblies , from the IWGSC \citep{Clark2016} and TGACv1 \citep{Pozniak2016}  with longer scaffolds in conjunction with the high resolution genetic maps from \citet{Wang2014} and \citet{Chapman2015} can enable such kind of queries (resources described in Section \ref{lit:wheatResourcers}). 
+
+
+
 
 Advantages of storing and making accessible the information of the homoeologues. 
 
@@ -734,3 +774,11 @@ Stats of how many users have used expVIP
 %  of \lstinline!sleuth!, \lstinline!DESeq! and \lstinline!EdgeR!.
 
 %Things to do: add comparassions between corresponding genes between species
+
+For the TGACv1 assembly an updated annotation has been released, and the \acrshort{iwgsc} will provide an updated annotation for their genome too. 
+In the near future, expVIP will be updated to include those annotations and some development will be needed to allow the comparison between annotations, at least while the community adopts a canonical reference. 
+
+The same mechanisms to compare expression between different references can be used to compare the expression between different organisms. 
+That will enable to find conserved patterns across species in the same family. 
+For example, 
+

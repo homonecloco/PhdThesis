@@ -59,7 +59,7 @@ If the experiment fails, because poor amplification or because all the samples h
     \includegraphics[width=1\textwidth]{PolyMarker/Figures/intro/kaspFail.pdf}
     \end{subfigure}
 
-\caption[KASP Assays]{KASP Assays (\subref{fig:poly:kaspTriplet}) A KASP assay consists on three primers. Primers A and B are specific for certain allele and the HEX and FAM tails are added at the 5'-end on each primer. The common primer amplifies both possible products. The SNP is an A/T, the only difference between alleles. (\subref{fig:poly:kaspHet}) Ideal KASP results are obtained with samples containing only homozygous samples. The samples containing A allele clusters on the top-left (blue), the B allele cluster on the bottom-right (red) and the heterozygous cluster between the homozygous clusters (green). Each dot represent a sample and the axes are the relative intensity of amplification of each allele. (\subref{fig:poly:kaspFail}) KASP results in a failed experiment were clear clusters between the samples are missing. }
+\caption[KASP Assays]{KASP Assays (\subref{fig:poly:kaspTriplet}) A KASP assay consists on three primers. Primers A and B are specific for certain allele and the HEX and FAM tails are added at the 5'-end on each primer. The common primer amplifies both possible products. The SNP is an A/T, the only difference between alleles. (\subref{fig:poly:kaspHet}) Ideal KASP results are obtained with samples containing only homozygous samples. The samples containing A allele clusters on the top-left (blue), the B allele cluster on the bottom-right (red) and the heterozygous cluster between the homozygous clusters (green). Each dot represent a sample and the axes are the relative intensity of amplification of each allele. (\subref{fig:poly:kaspFail}) KASP results in a failed experiment, clear clusters between samples  are missing. }
 \end{figure}
 
 
@@ -129,7 +129,7 @@ The validation primers based on their intrinsic properties can be done with tool
 Since most of the steps required to design genome-specific primers require different bioinformatic tools and the rules to improve the efficiency of the primers are established, I hypothesize that it is possible to automate the process. 
 On that premise, I developed PolyMarker, a pipeline that takes the reference genome and a list of \acrshortpl{snp} and produces genome-specific primers \citep{Ramirez-Gonzalez2015a}. 
 
-\section{Pipeline}
+\section{Pipeline. }
 PolyMarker is an automated pipeline that takes as input a list of SNPs and a reference file and produces a list of primer triplets for SNP genotyping. 
 The list of SNPs is first converted to a \verb|FASTA| file with ambiguity codes \citep{Cornish-Bowden1985} 
 The template sequences are aligned with \verb|exonerate| \citep{Slater2005}  to find the homoeologous and paralogue regions to the target sequence.
