@@ -738,21 +738,51 @@ In WheatExp, the expression for each gene is displayed on the context of the ori
 However, because the studies are kept independently the levels of the categories are a direct reflection of the original studies. 
 WheatExp allows to search genes by sequence, a feature not implemented in expVIP. 
 
-The Expression Atlas from \acrshort{ebi} has a more comprehensive list of experiments than WheatExp, most of them from 2016 \citep{Petryszak2016}. 
+The Expression Atlas from \acrshort{ebi}, as of September 2016, contains 10 studies, 4 baseline and 6 for differential expression \citep{Petryszak2016}. 
 ExpVIP contains studies released before \acrshort{ebi} started to upload expression experiments for wheat. 
 However, some of the most recent studies in the Expression Atlas are not included in expVIP yet, however we are in the process of updating expVIP to include studies published after the initial release.
 In terms of visualisation, the \acrshort{ebi} included a heatmap to compare to different factors at the same time for given gene (ie. tissue vs stress), the same information can be displayed on expVIP by sorting by two factors.
+
+
+Most of the RNA-Seq studies report their results in terms of \acrshort{rpkm}. 
+The normalisation is done for each feature $g$ in the reference $G$ requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and, the total number of mapped reads $F$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:rpkm} and  \ref{eq:exp:R} \citep{Mortazavi2008}.
+This normalisation works fine as long as the experiments are carried on in an uniform length, as the normalisation is done based on the total number of reads on the experiment.
+If the studies are done on different labs with different protocols, the total number of reads becomes a variable that affects the experiment, hindering the comparison between studies. 
+
+\begin{equation}
+\label{eq:exp:rpkm}
+  \textrm{RPKM}_{g} = \frac{r_{g}\times10^9}{\textrm{fl}_{g}\times R}
+\end{equation}
+
+\begin{equation}
+\label{eq:exp:R}
+R = \displaystyle\sum_{g \in G} r_{g} 
+\end{equation}
+
+\begin{equation}
+  \textrm{TPM}_{g} = \frac{r_{g} \times \textrm{rl}\times10^6}{\textrm{fl}_{g} \times T }
+\end{equation}
+
+$T$ is the sum of all the transcripts in the sample, which is calculated by proxy with equation \ref{eq:exp:T}. 
+\begin{equation}
+\label{eq:exp:T}
+T = \displaystyle\sum_{g \in G} \frac{r_{g} \times \textrm{rl}}{\textrm{fl}_{g}}
+\end{equation}
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/Figures/Units.pdf}
+\caption[Units used for expression normalisation]{Units used for expression normalisation}
+\label{fig:exp:units}
+\end{figure}
 
 Some features that could improve expVIP in the long term, already present in other expression browsers like searching by sequence, by gene ontology and, a heatmap of a particular gene displaying two different factors on each axis . 
 A feature that could leverage from other genomic resources is the retrival of genes flanking a gene of interest, or between genetic markers. 
 The upcoming assemblies , from the IWGSC \citep{Clark2016} and TGACv1 \citep{Pozniak2016}  with longer scaffolds in conjunction with the high resolution genetic maps from \citet{Wang2014} and \citet{Chapman2015} can enable such kind of queries (resources described in Section \ref{lit:wheatResourcers}). 
 
-
+Potential to use expVIP to comapre between species. 
 
 
 Advantages of storing and making accessible the information of the homoeologues. 
-
-Potential to use expVIP to comapre between species. 
 
 Use TPM instead of RPKM
 

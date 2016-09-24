@@ -84,28 +84,65 @@ To study particular locus experimental lines are developed, the following list d
 \includegraphics[height=0.20\textheight]{LitReview/Figures/crosses/DH.pdf}
 \end{subfigure}
 
-\caption[Types of experimental lines]{Types of experimental lines. 🌾 represent populations and 🌱 individual plants. $\otimes$ represent a cross between lines.$\otimes$ represent self-crosses. Ellipsis ($\ldots$) represent repetition. 💥🌰 represent a treatment to double the chromosomes from the gamete. (\subref{fig:lit:f2}) $F_{2} population$. (\subref{fig:lit:bc}) Back Cross population. (\subref{fig:lit:ri}) Recombinant Inbred Lines. (\subref{fig:lit:dh}) Double haploid}
+\caption[Types of experimental lines]{Types of experimental lines. 🌾 represent populations and 🌱 individual plants. $\otimes$ represent a cross between lines.$\otimes$ represent self-crosses. Ellipsis ($\ldots$) represent repetition. 💥🌰 represent a treatment to double the chromosomes from the gamete. (\subref{fig:lit:f2}) $F_{2}$ population. (\subref{fig:lit:bc}) Back Cross population. (\subref{fig:lit:ri}) Recombinant Inbred Lines. (\subref{fig:lit:dh}) Double haploid}
 \end{figure}
 
 \subsection{Introgressions}
 
 \section{Wheat Genomics}
 
-\begin{figure}
-\includegraphics[width=1\textwidth]{LitReview/Figures/typesOfSequencing.pdf}
-\caption{General types of sequencing ant their relationship with this PhD. PolyInDel is a project still in progress, not discussed in this Thesis. }
-\end{figure}
+\subsection{Molecular biology}
+The genome is the genetic material of an organism, and can be studied using HTS to determine the sequence. 
+However, only a small percentage of the genome is expressed in each cell in each condition, this differences in transcript production lead to differential gene expression between samples. 
+The transcriptome is the complete set of RNA molecules present in a biological system during specific conditions\citep{wang2009rna}.  
+The transcriptome of a sample and the differences in expression between samples can be studied using different methods. One of this is RNA-Seq, which is capable of capturing the dynamic range to quantify gene expression level\citep{Mortazavi2008}.
 
-A description of the current status of the wheat genome (\citet{Mayer2014}, \citet{Chapman2015}), the different available assemblies and and approaches to sort the scaffolds (Genome Zipper, the various genetic maps).  
+During transcription, a DNA sequence is transcribed into the primary RNA transcript (pre-mRNA) by the RNA polymerase. 
+The RNA polymerase, and associated transcription factor, binds to promoter DNA and creates an RNA complementary copy. 
+Depending on multiple factors, including gene regulation, this process can be repeated to create multiple copies of the sequence\citep{alberts2014molecular}.
+The pre-mRNA suffers various modifications like splicing and capping. 
+In a gene, there are  intragenic regions, called introns, that are removed from the pre-mRNA, while the remaining sequences, called exons, become part of the mature mRNA. 
+Splicing is catalyzed by the spliceosome, which recognizes the sequences of the splice donor, branch and acceptor sites in the intron, cuts the intron and pastes the remaining exons.
+In some cases, different introns and exons can be included or excluded, creating aternetive splicings of the RNA sequence\citep{alberts2014molecular}. 
+Then, the 5' and 3' ends of the RNA sequence are modified to generate a mature messenger RNA (mRNA). 
+A 7-methylguanosine cap is added to the 5' end. The 3' end is cleaved and polyadenidated, acquiring a poly(A) tail of approximately 200 adenines \citep{alberts2014molecular}. 
+The result of this process is a mature mRNA, which forms part of the transcriptome.
+
+
+\subsection{Primers and PCR}
+To generate new copies of DNA, biological systems requiere a DNA polymerase to copy DNA into DNA or a reverse transcriptase to translate RNA to DNA. During DNA replication, the DNA polymerase binds to the template strand and to a short strand of RNA that serves as a primer for DNA synthesis and replication, and then adds complementary nucleotides. Eventually, this results in two complementary DNA strands\cite{alberts2014molecular}.
+
+This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. PCR uses an heat-stable DNA polymerase to amplify the template sequence. The DNA polymerase requieres a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesized oligonucleotides of approximately 20 bases are added as primers. This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. The process is repeated multiple times to increase the number of DNA sequences exponentially\cite{alberts2014molecular}.
+
+
+
+%A description of the current status of the wheat genome (\citet{Mayer2014}, \citet{Chapman2015}), the different available assemblies and and approaches to sort the scaffolds (Genome Zipper, the various genetic maps).  
 \section{Sequencing} 
 %The importance of the selection of the library preparation and the sequencing platforms available. A brief summary of RNA-Seq, Exome capture, Whole Genome Shotgun, etc. and on which cases are more suitable for different experiments.  Mention the new technologies developed during the years of the PhD (Ren-Seq, PacBio?)
 
 
 
- Sanger sequencing \cite{Lander2001} is the current gold standard in terms of quality of the sequence. It evolved from electrophoresis gels where the bands represented bases to a fully automated technique. However, the throughput is limited and doing genome wide analysis has prohibitive costs. In the second half of the 2000s high-throughput sequencing technologies emerged which had reduced the cost of sequencing. The main principle of the second-generation sequencing is to produce clusters of clones (i.e. ePCR), fix them in a plate and then add bases with a fluorescent marker. The reaction happens in parallel in millions of clusters at the same time. With each cycle, a picture is taken, showing the fluorescence of each base. Then, image processing algorithms find where in the image the clusters are and the bases are called. At this scale, the volume and complexity of the information is not trivial to manipulate, hence computing is required. 
+ %Sanger sequencing \cite{Lander2001} is the current gold standard in terms of quality of the sequence. It evolved from electrophoresis gels where the bands represented bases to a fully automated technique. However, the throughput is limited and doing genome wide analysis has prohibitive costs. In the second half of the 2000s high-throughput sequencing technologies emerged which had reduced the cost of sequencing. The main principle of the second-generation sequencing is to produce clusters of clones (i.e. ePCR), fix them in a plate and then add bases with a fluorescent marker. The reaction happens in parallel in millions of clusters at the same time. With each cycle, a picture is taken, showing the fluorescence of each base. Then, image processing algorithms find where in the image the clusters are and the bases are called. At this scale, the volume and complexity of the information is not trivial to manipulate, hence computing is required. 
 
 
-According to the objectives of the experiment and the quality and volume of the available DNA, the library can be prepared on fragments of different sizes, the classification of the available sequencing for the fragments is the following\cite{Myllykangas2012,Metzker2010,Shendure2008,Hutchison2007}:
+%There are several types of experiments that can be analysed with hight throughput sequencing, accordingly, different  protocols for the sample preparation exist. The following is a short list of some of them 
+
+
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{LitReview/Figures/typesOfSequencing.pdf}
+\caption{General types of sequencing ant their relationship with this PhD. PolyInDel is a project still in progress, not discussed in this Thesis. }
+\end{figure}
+\subsection{DNA sequencing with Illumina}
+
+In the Illumina sequencer, the DNA library is loaded into a flow cell, where the fragments are captured by their adapters. 
+Each fragment is amplified into clonal clusters, resulting in multiple copies of the sequence bounded to the surface in close proximity. 
+Then, the sequencer detects the fluorescent dye-labelled oligonucleotides that are added one by one to the bound sequences by taking multiple images. 
+This process can be repeated for each pair of the DNA. 
+copies of the same sequence are clustered together, it is possible to analyse the images and detect which base is added to each cluster, determining multiple sequences with high fidelity, and exporting them as a FASTQ file \cite{RNAseqlopedia, truseq}.
+
+
+According to the objectives of the experiment and the quality and volume of the available DNA, the library can be prepared on fragments of different sizes, the classification of the available sequencing for the fragments is the following \cite{Myllykangas2012,Metzker2010,Shendure2008,Hutchison2007}:
 
 \begin{description}
 \item[Single end] When the fragments are short, it is possible to just sequence from the 5'-end the read.
@@ -115,35 +152,50 @@ According to the objectives of the experiment and the quality and volume of the 
 \end{description}
 
 
-There are several types of experiments that can be analysed with hight throughput sequencing, accordingly, different  protocols for the sample preparation exist. The following is a short list of some of them 
+\subsection{RNA-Seq}
+\label{lit:rna-seq}
 
-\begin{description}
-\item[Whole genome shotgun]  When a sample is prepared for WGS, the DNA is extracted and chopped in fragments  and sequenced. The reads obtained are, in principle, randomly distributed across the whole genome
-\item[RNA-Seq].  Instead of sequencing DNA, mRNA is captured and sequenced. The fragments are not amplified in any way, to enable a portrait of the gene expression levels. 
-\item[ChIP-SEQ]. Chromatin Immunopresipitation is used to find relationships between proteins and DNA sequence. It is useful to find transcription factors and replication-related proteins.
-\item[Amplicon sequencing]. Used primary to do barcoding of species. A known gene is amplified (i.e. 16S) with the intention of characterising the species present in the sample. 
-\item[Metagenomic capture] From a mixed sample (soil, root, animal fluids) all the DNA is extracted and sequenced, this gives a snapshot of the microbial community in the sample
-\item[RAD-seq] Restriction site associated DNA markers are useful to do population analysis. The technique focus on sequencing regions around restriction sites and the variations around them can be used to genotype individuals. 
-\item[Exon capture] The DNA is extracted and baits are used to attract the regions with motif common around exons. This allows to sequence only the genes and regions near them.  
-\end{description}
+%T is also possible to sequence the transcriptome of an organism. RNA-seq is a technology  where a set of mRNAs <ignoring other types> are sequenced to study the transcriptome of an organism. As current sequencing technologies, as Illumina, require a double-stranded complementary DNA (cDNA) template with  "adaptor" sequences and provide relatively short sequence reads (~75-250bp)\cite{} while  mRNAs are longer (gene models for wheat from \citealt{krasileva2013} are in a range between ~100 and 15,000bp), the RNA needs to be fragmented, converted to cDNA, and amplified so that the transcriptome can be analysed.
+
+Both DNA and RNA can be sequenced using available HTS technologies
+Originally, sequencers where designed with DNA in mind, so that analysing RNA requieres converting the transcriptome into a cDNA library\cite{RNAseqlopedia, truseq}.
+To begin with, RNA is first isolated, purified and enriched for mature mRNA.  
+For some sequencers, the resulting mRNAs need to be fragmented to improve sequence coverage, as current sequencers can only read sequences shorter than the transcripts. 
+Once the quality of the RNA has been verified, it is converted into cDNA and adaptor sequences are added. 
+First, the RNA strand is copied into first strand cDNA using the reverse transcriptase, as traditional polymerases cannot convert from RNA to DNA\cite{alberts2014molecular}.
+Reverse transcriptase, as other polymerase, requires a primer annealed to begin the polimerization, so random primer are used to avoid 3' bias and improve coverage\cite{RNAseqlopedia, truseq}.
+To obtain the second strand, RNase H is used to cleave the original RNA. 
+The remaining fragments serve as primers for DNA polymerase I, creating a double-stranded complementary DNA. 
+The cDNA fragments then go through an end repair process, the addition of a single ‘A’ base, and then ligation of the adapters, which will be used by the sequencer to read the sequence. 
+The products are then purified, to remove artefact and their quality is verified\cite{RNAseqlopedia, truseq}.
+The remaining sequences are enriched using the polymerase chain reaction (PCR),  which can generate thousands to millions of copies of a particular DNA sequence\cite{RNAseqlopedia, truseq}.
+The resulting cDNA library is sequenced using available high throughput sequencing technologies. 
+\unsure{Figure of This process}
 
 
-The different sequencing technologies available as of 2013 have different yields, advantages and disadvantages, as described bellow:
+%\begin{description}
+%\item[Whole genome shotgun]  When a sample is prepared for WGS, the DNA is extracted and chopped in fragments  and sequenced. The reads obtained are, in principle, randomly distributed across the whole genome
+%\item[RNA-Seq].  Instead of sequencing DNA, mRNA is captured and sequenced. The fragments are not amplified in any way, to enable a portrait of the gene expression levels. 
+%\item[ChIP-SEQ]. Chromatin Immunopresipitation is used to find relationships between proteins and DNA sequence. It is useful to find transcription factors and replication-related proteins.
+%\item[Amplicon sequencing]. Used primary to do barcoding of species. A known gene is amplified (i.e. 16S) with the intention of characterising the species present in the sample. 
+%\item[Metagenomic capture] From a mixed sample (soil, root, animal fluids) all the DNA is extracted and sequenced, this gives a snapshot of the microbial community in the sample
+%\item[RAD-seq] Restriction site associated DNA markers are useful to do population analysis. The technique focus on sequencing regions around restriction sites and the variations around them can be used to genotype individuals. 
+%\item[Exon capture] The DNA is extracted and baits are used to attract the regions with motif common around exons. This allows to sequence only the genes and regions near them.  
+%\end{description}
 
-\begin{description}
-\item[Illumina] Each fragment is amplified using bridge amplification over and over in the same place in the plate to form clusters. After the clusters are formed, a last cycle of amplification is carried on with the bases being added to the template, with the intervention of a polymerase, have a fluorescent marker which make the cluster glow depending on the added base. It adds one base per cycle.     With a read length between 75bp and 250bp is currently the most widely adopted platform. The As a de facto standard, many tools exist to cope bioinformatically with the biases of the machine.  The run takes 4 or 9 days, depending on days, depending if one or two reads are generated for each fragment. It produces up to 35 gigabases per run. 
 
-\item[SOLiD] The preparation of the fragments is similar to Illumina, however, when adding the bases they are added in pairs. This technique is called sequencing by ligation as it use a DNA Ligase, as opposed to a polymerase, to determine the transition between bases. The resulting sequence is not in base space, but in colour space, which represents the transition state between bases. This technique is robust for finding SNPs when you have a good reference where to align the reads. However, the number of tools available and the research done to analyse sequences in colour space is low compared to the tools using base space. The runs take between one and two weeks to complete, with a yield of up to 50 gig abases per run. The read length can be up to 50 bases
+%The different sequencing technologies available as of 2013 have different yields, advantages and disadvantages, as described bellow:
 
-\item[Roche/454] The fragments are cloned in beads, which then fall in wells in the slide. The sequencing is done by adding nucleotides in a determined order. The next nucleotides to be added in the reaction contain a fluorescent marker. The bases are not added one by one, but all the bases that are the same are added together. The amount of glow on each well can tell how many times a base is added. As the glow is not a discrete number, when a long homopolymer appear (above 5 bases) the likelihood of having a wrong count of the homopolymer is increased.  The average read length varies between 300 and 700bp. A run usually takes half a day, but it only yleds 0.45 gigabases. The cost of the reagents is relatively expensive, but if the experiment requires longer reads it is a good option. 
+%\begin{description}
+%\item[Illumina] Each fragment is amplified using bridge amplification over and over in the same place in the plate to form clusters. After the clusters are formed, a last cycle of amplification is carried on with the bases being added to the template, with the intervention of a polymerase, have a fluorescent marker which make the cluster glow depending on the added base. It adds one base per cycle.     With a read length between 75bp and 250bp is currently the most widely adopted platform. The As a de facto standard, many tools exist to cope bioinformatically with the biases of the machine.  The run takes 4 or 9 days, depending on days, depending if one or two reads are generated for each fragment. It produces up to 35 gigabases per run. 
 
-\item[PacBio] Opposed to all the previous technologies, Pacific Biosciences has developed a sequencing technology where the molecules doesn't need to be PCR amplified before the sequencing. The glass slide used contains wells with a depth of 100nm where a polymerase lays at the bottom. The nucleotides to be added have a fluorescent marked that is freed when the polymerase adds the nucleotide, releasing a light signal, which then can be captured from the bottom of the glass. The error rate for this technology is still high (about 10\% of the bases are miscalled), however reading several times the same molecule reduce the error rate. The main advantage is that the reads can be over 1kbp. 
+%\item[SOLiD] The preparation of the fragments is similar to Illumina, however, when adding the bases they are added in pairs. This technique is called sequencing by ligation as it use a DNA Ligase, as opposed to a polymerase, to determine the transition between bases. The resulting sequence is not in base space, but in colour space, which represents the transition state between bases. This technique is robust for finding SNPs when you have a good reference where to align the reads. However, the number of tools available and the research done to analyse sequences in colour space is low compared to the tools using base space. The runs take between one and two weeks to complete, with a yield of up to 50 gig abases per run. The read length can be up to 50 bases
 
-\item[OpGen] Additionally, high-througput optical mapping technologies, like OpGen, are becoming accessible.  The maps are done by fixing single molecules of DNA are held on a slide. Then,  restriction enzimes targeted to specific digestion sites cut the fragment and fluorescent markers are added to the ends of the fragments. Finally, the fragments are visualised and the size of the molecules is measured by the distance between fluorescent points in the slide. This is done with several fragments at the same time. Then, the distances between restriction sizes can be compared across all the fragments to generate a consensus. Finally, if you have contigs from other technologies, it is possible to complement the information and get better assemblies. Even without the contigs, the data can be used to compare translocations within strains of different bacteria or homologous species at a chromosome level. 
+%\item[Roche/454] The fragments are cloned in beads, which then fall in wells in the slide. The sequencing is done by adding nucleotides in a determined order. The next nucleotides to be added in the reaction contain a fluorescent marker. The bases are not added one by one, but all the bases that are the same are added together. The amount of glow on each well can tell how many times a base is added. As the glow is not a discrete number, when a long homopolymer appear (above 5 bases) the likelihood of having a wrong count of the homopolymer is increased.  The average read length varies between 300 and 700bp. A run usually takes half a day, but it only yleds 0.45 gigabases. The cost of the reagents is relatively expensive, but if the experiment requires longer reads it is a good option. 
 
-\item[ION Torrent] (Do some research on newer sequencing things)
+%\item[PacBio] Opposed to all the previous technologies, Pacific Biosciences has developed a sequencing technology where the molecules doesn't need to be PCR amplified before the sequencing. The glass slide used contains wells with a depth of 100nm where a polymerase lays at the bottom. The nucleotides to be added have a fluorescent marked that is freed when the polymerase adds the nucleotide, releasing a light signal, which then can be captured from the bottom of the glass. The error rate for this technology is still high (about 10\% of the bases are miscalled), however reading several times the same molecule reduce the error rate. The main advantage is that the reads can be over 1kbp. 
 
-\end{description}
+%\end{description}
 
 \section{Sequence analysis}
 This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
