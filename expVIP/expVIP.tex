@@ -32,7 +32,7 @@ To the best of my knowledge, the only alternative expression browser developed f
 This expression browser contains information of 6 studies from diploid, tetraploid and hexaploid wheat. 
 The studies were selected to be complementary among them; " a broad study of five different tissues across multiple timepoints \citep{Choulet2014}, a study of seedling photomorphogenesis \citep{Fox2014}, a study of drought and heat stress in wheat seedlings \citep{Liu2015}, a study of wheat grain layers at a single timepoint \citep{Pearce2015}, a sen- escing leaf timecourse \citep{Pearce2014} and a timecourse of different grain tissue layers during development \citep{Pfeifer2014}".
 The expression quantification is produced by aligning to the gene transcripts using BWA \citep{Li2010}, and the counts are extracted with HTSeq \citep{Anders2015}. 
-
+su
 The Expression Atlas from \acrshort{ebi} is a public resource that collects expression experiments of several species \citep{Petryszak2016}. 
 The samples are processed automatically from the reads deposited ArrayExpress \citep{Kolesnikov2015}, containing data from microarrays and RNA-Seq.
 The studies included are manually curataed and annotated with the relevant ontologies. 
@@ -49,7 +49,7 @@ Table of experiments to include
 \input{expVIP/tables/formated_studies}
 
 \subsection{Expression quantification with Kallisto.}
-
+\label{exp:kallisto}
 Differential expression experiments try to elucidate which genes change under different conditions. 
 To do that, a quantification of the levels of expressions is needed. 
 When using RNA-Seq, the expression analysis usually consists on: aligning the reads to the genome or transcriptome reference and; quantify the expression according to how many reads map to a region. 
@@ -57,7 +57,7 @@ However, this process usually takes around 6 hours per sample.
 Aligners such as \texttt{bwa} or \texttt{bowtie} produce a detailed alignment of each read, which is useful find polymorphisms (see Chapter \ref{yr15}) or to find novel alternative splices \citep{Trapnell2012}. 
 
 For expression analysis only the count of how many reads with a transcript is required, calculating the best local alignment and the output of each read is unnecessary. 
-\verb|Kallisto| is a tool that generates an index based on overlapping k-mers (sequences of size $k$), which are connected sequentially to represent each transcript (transcriptome de Bruijn Graph, T-DBG). 
+\verb|Kallisto| is a tool that generates an index based on overlapping k-mers (sequences of size $k$), which are connected sequentially to represent each transcript  on a \gls{tdbg}. 
 For alternative splicings of the same gene, were some sequence overlap between transcripts, the connections produce two different sets of connections between k-mers. 
 The k-mers on each read are then used to find the compatible transcripts across the T-DBG and those are counted. 
 Finally, the program estimates the abundance of the transcript in the sample (Figure \ref{fig:exp:kallisto}; \citealt{Bray2016}).  
@@ -208,7 +208,7 @@ An effective way to communicate large amount of data is trough visualisation, bu
 \end{description}
 
 \subsection{Aims}
-
+\label{exp:aims}
 The aims of expVIP are to:
 \begin{enumerate}
 \item Integrate RNA-Seq experiments from several sources in a single database (Section \ref{exp:DB}). 
@@ -727,9 +727,19 @@ spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
 \section{Discussion.} 
 
 
-The use of previously published studies is a valuable resource. 
+%The use of previously published studies is a valuable resource. 
 
-When I started the development of expVIP none of the expression browsers mentioned in Section \ref{exp:alternative} had data for wheat. 
+In model organisms there are several on-line resources that aggregate the raw data and meta analysis of several studies. 
+For example, the Expression Atlas \acrshort{ebi}  include over 2,000 studies for \textit{Arabaidopsis thailiana} with other technologies besides RNA-Seq (ie Affymetix expression arrays). 
+However, when I started the development of expVIP the Expression Atlas only included a couple of baseline experiments and WheatExp wasn't published (Figure \ref{fig:exp:timeline}).  
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/Figures/Timeline.pdf}
+\caption[expVIP resources time line]{expVIP resources time line. In bold the line of the time for development of expVIP and the annotation used. The Expression Atlas has a line starting on the initial study deposited on it till the last update, as of September 2016.}
+\label{fig:exp:timeline}
+\end{figure}
+
+%When I started the development of expVIP none of the expression browsers mentioned in Section \ref{exp:alternative} had data for wheat. 
 
 
 WheatExp was developed roughly at the same time of expVIP and it contains studies 6 studies (against 16 on expVIP; \citealt{Pearce2015b}). 
@@ -744,15 +754,15 @@ However, some of the most recent studies in the Expression Atlas are not include
 In terms of visualisation, the \acrshort{ebi} included a heatmap to compare to different factors at the same time for given gene (ie. tissue vs stress), the same information can be displayed on expVIP by sorting by two factors.
 
 
+\begin{wrapfigure}[9]{R}{0.5\textwidth}
+\includegraphics[width=0.5\textwidth]{expVIP/Figures/Units.pdf}
+\caption[Units used for expression normalisation]{Units used for expression normalisation}
+\label{fig:exp:units}
+\end{wrapfigure}
 Most of the RNA-Seq studies report their results in terms of \acrshort{rpkm}. 
-The normalisation is done for each feature $g$ in the reference $G$ requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and, the total number of mapped reads $F$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:rpkm} and  \ref{eq:exp:R} \citep{Mortazavi2008}.
+The normalisation is done for each feature $g$ in the reference $G$ requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and, the total number of mapped reads $F$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
 This normalisation works fine as long as the experiments are carried on in an uniform length, as the normalisation is done based on the total number of reads on the experiment.
 If the studies are done on different labs with different protocols, the total number of reads becomes a variable that affects the experiment, hindering the comparison between studies. 
-
-\begin{equation}
-\label{eq:exp:rpkm}
-  \textrm{RPKM}_{g} = \frac{r_{g}\times10^9}{\textrm{fl}_{g}\times R}
-\end{equation}
 
 \begin{equation}
 \label{eq:exp:R}
@@ -760,55 +770,138 @@ R = \displaystyle\sum_{g \in G} r_{g}
 \end{equation}
 
 \begin{equation}
-  \textrm{TPM}_{g} = \frac{r_{g} \times \textrm{rl}\times10^6}{\textrm{fl}_{g} \times T }
+\label{eq:exp:rpkm}
+  \textrm{RPKM}_{g} = \frac{r_{g}\times10^9}{\textrm{fl}_{g}\times R}
 \end{equation}
 
-$T$ is the sum of all the transcripts in the sample, which is calculated by proxy with equation \ref{eq:exp:T}. 
+The \acrshort{tpm} is an alternative to \acrshort{rpkm} that approximates the total number of transcripts $T$ as a normalisation factor (equation \ref{eq:exp:T}). 
+Besides the previously described parameters, the \acrshort{tpm} also includes the read length $\textrm{rl}$, which is dependant on the study. 
+This formula assumes that every read correspond to a full observed transcript (equation \ref{eq:exp:tpm}; \citealt{Wagner2012}. 
+
 \begin{equation}
 \label{eq:exp:T}
 T = \displaystyle\sum_{g \in G} \frac{r_{g} \times \textrm{rl}}{\textrm{fl}_{g}}
 \end{equation}
 
+\begin{equation}
+\label{eq:exp:tpm}
+  \textrm{TPM}_{g} = \frac{r_{g} \times \textrm{rl}\times10^6}{\textrm{fl}_{g} \times T }
+\end{equation}
+
+
+
+One of the aims was to be able to compare samples from different studies. 
+Since TPM is more stable across different experiments, we decided to use it as the main unit of comparison. 
+After we took the decision of which unit to use in expVIP, we found that a couple of tools, Kallisto \citep{Bray2016} and Sailfish \citep{Patro2014}, that could calculate the TPMs directly from mapping the reads to a reference, without producing a precise alignment.
+The main advantage of only doing mapping, without aligning is a significant reduction in the resources needed. 
+
+The traditional pipeline to quatify expression from RNA-Seq consists on the following steps:
+\begin{enumerate*}
+  \item Index the reference. Only done once, as the same index can be used for all the samples. 
+  \item Align the reads to the reference. 
+  \item Sort the alignment and remove duplicates. 
+  \item Quantify the expression.  
+\end{enumerate*}
+This is the prevailing pipeline for expression analysis. 
+In my experience, on a computing cluster it takes between 6 to 8 hours to process each wheat sample on a computing cluster, using multiprocessing and up to 24 Gb of RAM (Figure \ref{fig:exp:alnPipeline}). 
+This pipeline is usually implemented by alignig the reads with \verb|BWA| \citep{Li2009}, \verb|tophat|  \citep{Trapnell2012} and the quantification is done with tools like \verb|HTSeq| \citep{Anders2015} or \verb|cufflinks| \citep{Trapnell2012}.
+
+An advantage of using a mapper is that the quantification pipeline is shorter:
+\begin{enumerate*}
+  \item Index the reference. Only done once, as the same index can be used for all the samples. 
+  \item Map the reads to the reference and quantify the expression in a single program.   
+\end{enumerate*}
+Since the mapping doesn't require the precise alignment of every single base on the read and the output is only the quantification for each gene, as opposed to the alignment of each read, the programs implementing mapping take around 15 minutes to run. 
+Mapping algoirthms are implemented by \verb|Kallisto|  \citep{Bray2016} and \verb|Sailfish| \citep{Patro2014}.
+
 \begin{figure}
-\includegraphics[width=1\textwidth]{expVIP/Figures/Units.pdf}
-\caption[Units used for expression normalisation]{Units used for expression normalisation}
-\label{fig:exp:units}
-\end{figure}
+\begin{subfigure}{1\textwidth}
+\caption{}
+\label{fig:exp:alnPipeline}
+\includegraphics[width=1\textwidth]{expVIP/Figures/alnpipeline.pdf}
+\end{subfigure}
+
+\begin{subfigure}{1\textwidth}
+\caption{}
+\label{fig:exp:mapPipeline}
+\includegraphics[width=1\textwidth]{expVIP/Figures/mappipeline.pdf}
+\end{subfigure}
+
+\caption[Alignment vs mapping pipelines]{Alignment vs mapping pipelines for RNA quantification. (\subref{fig:exp:alnPipeline}) Alignment pipeeline. (\subref{fig:exp:mapPipeline}) Mapping pipeline.}
+\label{fig:exp:alnVSmap}
+\end{figure} 
+
+I decided to integrate \verb|Kallisto|  to expVIP because the algothm is able to walk trough different splicing junctions via a \acrshort{tdbg} (see Section \ref{exp:kallisto}; \citealt{Bray2016}), as opposed to Sailfish that is based on counting k-mers \citep{Patro2014}. 
+Since homoeologues with a high level of identity may be form a bubble in the graph, in a similar way as small indels or SNPs \citep{Leggett2013}, \verb|Kallisto|  should be able to assign the reads to the correct k-compatibility class for their corresponding homoeologue.  
+\unsure{Make a diagrame with the graph. Unfortunatly, I don't have in hand my diagrams for cortex an Richard did the diagrams for Legget et al.}
 
 Some features that could improve expVIP in the long term, already present in other expression browsers like searching by sequence, by gene ontology and, a heatmap of a particular gene displaying two different factors on each axis . 
-A feature that could leverage from other genomic resources is the retrival of genes flanking a gene of interest, or between genetic markers. 
+A feature that could leverage from other genomic resources is the retrieval of genes flanking a gene of interest, or between genetic markers. 
 The upcoming assemblies , from the IWGSC \citep{Clark2016} and TGACv1 \citep{Pozniak2016}  with longer scaffolds in conjunction with the high resolution genetic maps from \citet{Wang2014} and \citet{Chapman2015} can enable such kind of queries (resources described in Section \ref{lit:wheatResourcers}). 
 
-Potential to use expVIP to comapre between species. 
-
-
-Advantages of storing and making accessible the information of the homoeologues. 
-
-Use TPM instead of RPKM
-
-Stats of how many users have used expVIP
-
-%Also, mention that despite the fact that there are several expression/gene browsers, none of them allow comparisons between species and don't consider polyploids. 
-
-%We have not provided RPKM given the
-%  inconsistencies generated across samples when using this measure. A
-%  detailed discussion can be found in \citep{}
-%  \href{http://www.ncbi.nlm.nih.gov/pubmed/22872506}{Wagner \emph{et
-%  al}} (2012). It is important to mention that \lstinline!tpm! is
-%  preferred over RPKM since it allows an easier comparison for
-%  abundances between samples. However it is important to stress that
-%  while \lstinline!tpm! serves as a relative measure to compare genes
-%  across experiments, a proper normalisation and statistical analysis
-%  with differential gene expression programs must be performed.
-%  \lstinline!expVIP! generates outputs which allow easy implementation
-%  of \lstinline!sleuth!, \lstinline!DESeq! and \lstinline!EdgeR!.
-
-%Things to do: add comparassions between corresponding genes between species
-
-For the TGACv1 assembly an updated annotation has been released, and the \acrshort{iwgsc} will provide an updated annotation for their genome too. 
+For the TGACv1 assembly an improve wheat annotation was made available after the initial release of expVIP (Figure \ref{fig:exp:timeline}). The \acrshort{iwgsc} will provide an updated annotation for their genome too. 
 In the near future, expVIP will be updated to include those annotations and some development will be needed to allow the comparison between annotations, at least while the community adopts a canonical reference. 
 
 The same mechanisms to compare expression between different references can be used to compare the expression between different organisms. 
-That will enable to find conserved patterns across species in the same family. 
-For example, 
+However, the current implementation uses the homology table with one column for each genome group in hexaploid wheat (A, B, and D; Figure \ref{fig:exp:currentGeneRelations}). 
+To be able to allow the inclusion of different polyploids with different genome names, to compare homologoues and paralogues effective and, to add any arbitrary relationship between genes the homoeologues table needs to be updated. 
+Instead of representing triplets, the table should contain binary relationships. 
+Each gene pair will have a type to be able to distinguish between relationships. 
+Furthermore, each gene set should be linked to an species. 
+With that explicit relationship, equivalent genes from the same species, but coming from different gene models can be identified. 
+Likewise, genes known to be conserved across relatives (ie Barley vs Wheat genes) can be compared with this modifications to the database (Figure \ref{fig:exp:futureGeneRelations}).  
 
+\begin{figure}
+\centering
+\begin{subfigure}{0.45\textwidth}
+\centering
+\caption{}
+\label{fig:exp:currentGeneRelations}
+\includegraphics[width=0.85\textwidth]{expVIP/Figures/currentGeneRelations.pdf}
+\end{subfigure}
+~
+\begin{subfigure}{0.45\textwidth}
+\centering
+\caption{}
+\label{fig:exp:futureGeneRelations}
+\includegraphics[width=0.85\textwidth]{expVIP/Figures/futureGeneRelations.pdf}
+\end{subfigure}
+\caption[Changes to improve gene comparasions]{Changes to improve gene comparasions. (\subref{fig:exp:currentGeneRelations}) Current implementation of homoeology. (\subref{fig:exp:currentGeneRelations}) Proposed implementation to extend the types of relationships between genes.  }
+\end{figure}
+
+To the best of my knowledge, none of the expression browsers available for wheat, or other polyploid species, allow the direct comparation between homoeologues. 
+The effect of different related genes is a topic of active research in polyploids. 
+Having easily accessible the relationship of the expression between related genes can give some initial evidence of having an uniform expression across homoeologues or a triplet with a dominant gene. 
+Likewise, when the update to the table that keeps arbitrary relationships between genes is done, it will be possible to find if related genes have a conserved expression patern. 
+
+Since its conception, I wanted expVIP to be open source and available to the comunity. 
+As part of the project, I released the visualisation component as a biojs component  (\texttt{bio-vis-expression-bar}; \url{http://biojs.io/d/bio-vis-expression-bar}; \citealt{Yachdav2015}).
+In a collaboration with the Earlham Institute and eLife, another PhD student is working to integrate the visualisation plugin as a live figure. 
+If I had kept the code closed, this potential use of the component would have never happened. 
+
+The webserver is also open and hosted on github (\url{https://github.com/homonecloco/expvip-web}), with a tutorial on how to load the data on a personal server (Appendix \ref{exp:tutorial}). 
+As the quantification tool used by expVIP has a relatively low memory requirement, I was able to prepare a preconfigure two virtual machines, one without any data loaded and one with all the data on \url{http://www.wheat-expression.com}. 
+This allows the comparasion of private projects in the context of previous studies. 
+On the Norwich Research Park, at least two groups have shown interest on using expVIP to make their data available to the community on other species.
+We had also been contacted by both, the team behind the annotation of TGACv1 and the IWGSC to include the upcoming annotations to the public instance of expVIP. 
+
+The public server has recived visitors from several research institutes around the globe (Figure \ref{fig:exp:users}). 
+Since April, when the google analytics tracker was setup in the website, over 1,500 users have visited the site. 
+Most of the users are based in the UK (34\%), and within norwich the majority of the trafic is coming from Norwich, Cambridge, Harpenden, London and Dundee. 
+Those cities have research institutes that work on wheat, so it is very likely that the users are real. 
+Most of the international users are coming from the US, China, Austrial India, Germany and Canada. 
+In those countries, most of the visitors are also from cities were wheat institutes are based. 
+Further more, around half of the sessions stay on the website to access either the the individual genes or the heatmap. 
+Around 25\% of the sessions consult their genes using the heatmap, suggesting that they have a list of candidate genes for a trait of interest to select by comparing their expression.
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/Figures/WorldSessions.png}
+\caption{Heatmap of the number of unique sessions of expVIP in the world. }
+\label{fig:exp:users}
+\end{figure}
+
+Overall, expVIP has met its aims (Section \ref{exp:aims}). 
+I designed a relational database capable of storing several RNA-Seq experiments with their corresponding metadata. 
+The expression analysis has been automated, to facilitate the process of running Kallisto, the selected quantification tool. 
+The stored data can be visualised to compare the expression across several conditions, and the visualisation tool allows the arbitrary grouping and selection of studies. 
+Finally, the open source code and the virtual machines facilitate the adoption of expVIP on other communities, not necessarily working on wheat. 
