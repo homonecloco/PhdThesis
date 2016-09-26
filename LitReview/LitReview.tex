@@ -1,11 +1,9 @@
 %!TEX root = ../Main.tex
 
-%\chapter{Literature review}
-%It describes the current status of the wheat genome, genetics and other resources.   
 
-%\subsection{Wheat Breeding}
-%An overview of how breeding is carried on currently, the different sources of genetic diversity and the relevance of fixing agriculturally important traits.
+\chapter{Introduction}
 
+%It defines the objectives and the importance of the research. It focus on the the application of Next Generation Sequencing to molecular biology, wheat genetics and ultimately to breeding programs. It also mentions the current status of the wheat reference genome and other resources (genetic maps, markers) the need of tools to query them effectively. 
 
 
 \section{Wheat Genetics}
@@ -115,18 +113,8 @@ To generate new copies of DNA, biological systems requiere a DNA polymerase to c
 This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. PCR uses an heat-stable DNA polymerase to amplify the template sequence. The DNA polymerase requieres a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesized oligonucleotides of approximately 20 bases are added as primers. This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. The process is repeated multiple times to increase the number of DNA sequences exponentially\cite{alberts2014molecular}.
 
 
-
-%A description of the current status of the wheat genome (\citet{Mayer2014}, \citet{Chapman2015}), the different available assemblies and and approaches to sort the scaffolds (Genome Zipper, the various genetic maps).  
+  
 \section{Sequencing} 
-%The importance of the selection of the library preparation and the sequencing platforms available. A brief summary of RNA-Seq, Exome capture, Whole Genome Shotgun, etc. and on which cases are more suitable for different experiments.  Mention the new technologies developed during the years of the PhD (Ren-Seq, PacBio?)
-
-
-
- %Sanger sequencing \cite{Lander2001} is the current gold standard in terms of quality of the sequence. It evolved from electrophoresis gels where the bands represented bases to a fully automated technique. However, the throughput is limited and doing genome wide analysis has prohibitive costs. In the second half of the 2000s high-throughput sequencing technologies emerged which had reduced the cost of sequencing. The main principle of the second-generation sequencing is to produce clusters of clones (i.e. ePCR), fix them in a plate and then add bases with a fluorescent marker. The reaction happens in parallel in millions of clusters at the same time. With each cycle, a picture is taken, showing the fluorescence of each base. Then, image processing algorithms find where in the image the clusters are and the bases are called. At this scale, the volume and complexity of the information is not trivial to manipulate, hence computing is required. 
-
-
-%There are several types of experiments that can be analysed with hight throughput sequencing, accordingly, different  protocols for the sample preparation exist. The following is a short list of some of them 
-
 
 
 \begin{figure}
@@ -173,29 +161,12 @@ The resulting cDNA library is sequenced using available high throughput sequenci
 \unsure{Figure of This process}
 
 
-%\begin{description}
-%\item[Whole genome shotgun]  When a sample is prepared for WGS, the DNA is extracted and chopped in fragments  and sequenced. The reads obtained are, in principle, randomly distributed across the whole genome
-%\item[RNA-Seq].  Instead of sequencing DNA, mRNA is captured and sequenced. The fragments are not amplified in any way, to enable a portrait of the gene expression levels. 
-%\item[ChIP-SEQ]. Chromatin Immunopresipitation is used to find relationships between proteins and DNA sequence. It is useful to find transcription factors and replication-related proteins.
-%\item[Amplicon sequencing]. Used primary to do barcoding of species. A known gene is amplified (i.e. 16S) with the intention of characterising the species present in the sample. 
-%\item[Metagenomic capture] From a mixed sample (soil, root, animal fluids) all the DNA is extracted and sequenced, this gives a snapshot of the microbial community in the sample
-%\item[RAD-seq] Restriction site associated DNA markers are useful to do population analysis. The technique focus on sequencing regions around restriction sites and the variations around them can be used to genotype individuals. 
-%\item[Exon capture] The DNA is extracted and baits are used to attract the regions with motif common around exons. This allows to sequence only the genes and regions near them.  
-%\end{description}
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{Introduction/RicardoThesisTopics.pdf}
+\caption{Topics of this Thesis}
+\end{figure}
 
-
-%The different sequencing technologies available as of 2013 have different yields, advantages and disadvantages, as described bellow:
-
-%\begin{description}
-%\item[Illumina] Each fragment is amplified using bridge amplification over and over in the same place in the plate to form clusters. After the clusters are formed, a last cycle of amplification is carried on with the bases being added to the template, with the intervention of a polymerase, have a fluorescent marker which make the cluster glow depending on the added base. It adds one base per cycle.     With a read length between 75bp and 250bp is currently the most widely adopted platform. The As a de facto standard, many tools exist to cope bioinformatically with the biases of the machine.  The run takes 4 or 9 days, depending on days, depending if one or two reads are generated for each fragment. It produces up to 35 gigabases per run. 
-
-%\item[SOLiD] The preparation of the fragments is similar to Illumina, however, when adding the bases they are added in pairs. This technique is called sequencing by ligation as it use a DNA Ligase, as opposed to a polymerase, to determine the transition between bases. The resulting sequence is not in base space, but in colour space, which represents the transition state between bases. This technique is robust for finding SNPs when you have a good reference where to align the reads. However, the number of tools available and the research done to analyse sequences in colour space is low compared to the tools using base space. The runs take between one and two weeks to complete, with a yield of up to 50 gig abases per run. The read length can be up to 50 bases
-
-%\item[Roche/454] The fragments are cloned in beads, which then fall in wells in the slide. The sequencing is done by adding nucleotides in a determined order. The next nucleotides to be added in the reaction contain a fluorescent marker. The bases are not added one by one, but all the bases that are the same are added together. The amount of glow on each well can tell how many times a base is added. As the glow is not a discrete number, when a long homopolymer appear (above 5 bases) the likelihood of having a wrong count of the homopolymer is increased.  The average read length varies between 300 and 700bp. A run usually takes half a day, but it only yleds 0.45 gigabases. The cost of the reagents is relatively expensive, but if the experiment requires longer reads it is a good option. 
-
-%\item[PacBio] Opposed to all the previous technologies, Pacific Biosciences has developed a sequencing technology where the molecules doesn't need to be PCR amplified before the sequencing. The glass slide used contains wells with a depth of 100nm where a polymerase lays at the bottom. The nucleotides to be added have a fluorescent marked that is freed when the polymerase adds the nucleotide, releasing a light signal, which then can be captured from the bottom of the glass. The error rate for this technology is still high (about 10\% of the bases are miscalled), however reading several times the same molecule reduce the error rate. The main advantage is that the reads can be over 1kbp. 
-
-%\end{description}
 
 \section{Sequence analysis}
 This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
@@ -334,18 +305,50 @@ Service providers must ensure the compliance to standard of curation and integra
 %-lamda functions
 %-functions/methods
 
-\subsection{Computer science used for this thesis}
+%\subsection{Computer science used for this thesis}
 
-The following subsections give a brief overview of computer science concepts used in the thesis for the development of PolyMarker (Chapter \ref{cha:polymarker}), expVIP (Chapter \ref{cha:exp}) and, the algorithms for the data analysis for the marker development for \acrshort{yr15} (Chapter \ref{yr15}).  
+%The following subsections give a brief overview of computer science concepts used in the thesis for the development of PolyMarker (Chapter \ref{cha:polymarker}), expVIP (Chapter \ref{cha:exp}) and, the algorithms for the data analysis for the marker development for \acrshort{yr15} (Chapter \ref{yr15}).  
 
-\subsubsection{Functions}
+%\subsubsection{Functions}
 
-\subsubsection{Hash tables}
+%\subsubsection{Hash tables}
 
-\subsubsection{Object Orientated}
+%\subsubsection{Object Orientated}
 
-\subsubsection{Web development vs desktop development}
+%\subsubsection{Web development vs desktop development}
 
 
--Containers, as in AWT. 
- \label{lit:patterns}
+%-Containers, as in AWT. 
+% \label{lit:patterns}
+
+\section{Aim and objectives}
+
+
+The main aim of this PHD is to make accessible the resources bioinformatic tools able to cope with the size and complexity of the wheat genome need to be developed.
+The tools can only be effective if they are designed taking in account the biological questions they will address. The tools developed in this PhD take advantage of the wheat resources as they were made public (Figure \ref{fig:intro:timeline}).  
+
+As this thesis is about the development tools that deal with polyploidy in wheat, the purpose is better reflective as objectives, rather than a constrained hypothesis.
+
+
+\begin{enumerate}
+
+\item Simplify the design of primers for marker assisted selection in polyploid wheat (Chapter \ref{cha:polymarker}).
+\item Develop a pipeline that can be used find genetic markers for breeding, using bulk segregant analysis and reduced representation sequencing (Chapter \ref{yr15}).
+\item Integrate and display expression experiments (Chapter \ref{cha:exp})
+\item Set a framework to integrate different resources (Chapter \ref{cha:discussion}).
+\end{enumerate}
+
+All the pipelines and data produced by this project is publicly available.  
+
+
+
+\begin{landscape}
+ \begin{figure}
+  \centering
+  \includegraphics[height=0.9\textheight]{Introduction/RicardoPhdTimelineV1.pdf}
+  \caption[PhD timeline.]{Timeline of the projects carried on during this PhD and the wheat resources that were released in the same period of time. }
+  \label{fig:intro:timeline}
+ \end{figure}
+\end{landscape}
+
+

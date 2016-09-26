@@ -608,18 +608,20 @@ end
 \subsection{Primer design and KASP assays}
 The primer design for KASP were designed with PolyMarker as described in Chapter \ref{cha:polymarker}. 
 The only difference with the default settings is that instead of using a template sequence, the sequence for each allele is calculated from the consensus of the alignments. 
-The primers "were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standardFAMor HEX compatible tails (FAM tail: 50 GAAGGTGACCAAGTTCATGCT 30; HEX tail: 50 GAAGGTCGGAG TCAACGGATT30) with the target SNP at the 30 end. 
+As described in as described in \citet{Ramirez-Gonzalez2015b}, the primers 
+\begin{blockquote} were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standard FAM or HEX compatible tails (FAM tail: 5' GAAGGTGACCAAGTTCATGCT 3'; HEX tail: 5' GAAGGTCGGAG TCAACGGATT 3') with the target SNP at the 30 end. 
 Primer mix was set up as recommended by LGC [46 lL dH2O, 30 lL common primer (100 lM) and 12 lL of each tailed primer (100 lM)] \citep{LGC}
 Assays were tested in 384-well format and set up as 4-lL reactions [2-lL template (10–20 ng of DNA), 1.944 lL of V4 29 Kaspar mix and 0.056 lL primer mix]. 
-PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95 °C for 15 min, followed by ten touchdown cycles (95 °C for 20 s; touchdown 65 °C, ?1 °C per cycle, 25 s) then followed by 30 cycles of amplification (95 °C10 s; 57 °C 60 s). 
+PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95 °C for 15 min, followed by ten touchdown cycles (95 °C for 20 s; touchdown 65 °C, ?1 °C per cycle, 25 s) then followed by 30 cycles of amplification (95 °C10 s; 57 °C 60 s). \unsure{Fix methods}
 As KASP amplicons are smaller than 120 bp, an extension step is unnecessary in the PCR protocol. 384-well optically clear plates (Cat. No. E10423000; Starlab Milton Keynes, UK) were read on a Tecan Safire plate reader. 
-Fluorescence was detected detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).", as described in \citet{Ramirez-Gonzalez2015b}.
+Fluorescence was detected detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).
+\end{blockquote}
 
 
 \subsection{Genetic map}
 As described in \citet{Ramirez-Gonzalez2015b}:
 \begin{blockquote}
- JoinMap version 3 \citep{vanOoijen2002} was used for linkage analysis and genetic map construction, using default settings. The linkage to \textit{Yr15} was determined using a divergent log-of-odds (LOD) threshold of 3.0, and genetic distances were computed based on recombination frequency.. 
+ JoinMap version 3 \citep{vanOoijen2002} was used for linkage analysis and genetic map construction, using default settings. The linkage to \textit{Yr15} was determined using a divergent log-of-odds (LOD) threshold of 3.0, and genetic distances were computed based on recombination frequency. 
 \end{blockquote}
 
 \section{Discussion} 

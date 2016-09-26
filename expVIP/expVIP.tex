@@ -4,17 +4,14 @@
 \label{cha:exp}
 
 
-
-The software developed in this section is published in \citep{Borrill2016}. 
-
 \section{Background.}
 
 
 
-Describe the list of previously published expression experiments and how they can potentially be used as a framework for new experiments.  
+%Describe the list of previously published expression experiments and how they can potentially be used as a framework for new experiments.  
 
-Co-expression of homoeologus varies from triplet to triplet \citep{Pfeifer2014}
-The silencing is mostly regulated by epigenetic changes as the hybridization events are recent.  \citep{Bottley2006}
+%Co-expression of homoeologus varies from triplet to triplet \citep{Pfeifer2014}
+%The silencing is mostly regulated by epigenetic changes as the hybridization events are recent.  \citep{Bottley2006}
 
 
 %\begin{table}
@@ -215,6 +212,7 @@ The aims of expVIP are to:
 \item Make the system available to the community (Section \ref{exp:gui}).
 \end{enumerate}
 
+The software developed in this chapter is published in \cite*{Borrill2016}. 
 
 \section{General design}
 
@@ -225,12 +223,12 @@ The web server technology used for expVIP is \acrshort{ror}, as it abstracts the
 In order to display the expression data to the users,  expVIP relies on a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}) developed for expVIP. 
 All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is accessed trough models developed under  \acrshort{ror} (Figure \ref{fig:poly:archDesign}).  
 
-\begin{SCfigure} 
+\begin{figure}[b] 
   \centering
-  \includegraphics[width=0.65\textwidth]{expVIP/Figures/archDesign.pdf}
+  \includegraphics[width=0.8\textwidth]{expVIP/Figures/archDesign.pdf}
   \caption{General design of expVIP}
   \label{fig:poly:archDesign}
-\end{SCfigure}
+\end{figure}
 
 \section{Database design} 
 \label{exp:DB}
@@ -753,15 +751,17 @@ Even if some of the most recent studies in the Expression Atlas are not included
 In terms of visualisation, the \acrshort{ebi} included a heatmap to compare to different factors at the same time for given gene (ie. tissue vs stress); the same information can be displayed on expVIP by sorting by two factors.
 
 
-\begin{wrapfigure}[9]{R}{0.5\textwidth}
-\includegraphics[width=0.5\textwidth]{expVIP/Figures/Units.pdf}
-\caption[Units used for expression normalisation]{Units used for expression normalisation}
-\label{fig:exp:units}
-\end{wrapfigure}
 Most of the RNA-Seq studies report their results in terms of \acrshort{rpkm}. 
-This normalisation, which is computed for done for each feature $g$ in the reference $G$, requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and the total number of mapped reads $F$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
+This normalisation, which is computed for done for each feature $g$ in the reference $G$, requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and the total number of mapped reads $R$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
 As the denominator of \ref{eq:exp:rpkm} is based on the number of mapped reads rather than the number of nucleotides covered, RPKM does not allow to compare correctly results obtained between different samples, or even results from the same sample when the average read length changes due to variations in the experimental protocol \citealt{Wagner2012}.
 %\unsure{The original sentence was not completely clear; I hope this version elucidates more}
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/Figures/Units.pdf}
+\caption[Units used for expression normalisation]{Units used for expression normalisation}
+\label{fig:exp:units}
+\end{figure} 
+
 
 \begin{equation}
 \label{eq:exp:R}
