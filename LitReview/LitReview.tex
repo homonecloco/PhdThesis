@@ -246,12 +246,47 @@ Once you have the alignments it is possible to evaluate the relative expression 
 \section{Wheat specific resources resources}
 \label{lit:wheatResourcers}
 
+During the course of this PhD, several resources were released in the wheat community. 
+
+\subsection{Genomic sequence}
+Assemblies 
+
+-454 Liverpool
+-Chapman
+-IWGSC
+-TGACv1
+%-NRGene (unpublished?)
+
 
 \subsection{Gene models}
--UniGene
--UCW Gene models
--Gene annotation IWGSC
--Gene annotation TGACv1
+
+For this thesis, a set of gene models correspond to the coding sequence of a gene. 
+The following sets of gene models are used in this thesis. 
+
+\begin{description}
+\item[UniGenes.] This is an effort of the \gls{ncbi} to unify several \acrshortpl{est} deposited on their databases, per species.
+The set is generated automatically by aligning all the ESTs to each other and clustering them by identity. 
+The longest EST is selected as the canonical representation of the gene \citep{PontiusJUWagnerL2002}. 
+Because this approach is not aware of the different genomes, and the set of ESTs may not include them, the algorithm  collapses homoeologous genes. 
+This needs to be taken in account when doing down stream analysis. 
+\item[\acrshort{ucw} gene models.] This set of gene models come for tetraploid wheat come from a \textit{de novo} assembly of \textit{T. turgidum} (AABB) a \textit{T. urartu}. 
+In both cases RNA-Seq was assembled with several parameters and the resulting assemblies where merged. 
+To separate homoeologues genes that were assembled as a single gene, the reads were aligned to the assembly.
+Then, the phasing of the reads was used to separate the gene in the two homoeologues \citep{Krasileva2013}.
+This gene models are useful for tetraploid wheat. 
+When using this reference with hexaploid wheat, care must be taken of reads coming from the D genome that will map to one of the alternative homoeologues. 
+\item[Genome annotation IWGSC.] To complement the \acrshort{css} genome assembly, the genome was annotated using related grasses ( \textit{Brachypodium distachyon}, \textit{Oryza sativa}, \textit{Sorghum bicolor}, and \textit{Hordeum vulgare}. 
+The annotation was supported by RNA-Seq data from five samples from different tissues at three developmental stages \citep{Mayer2014}. 
+This was the first genome-scale annotation effort including the three genomes independently. 
+The main caveat of this annotation is that due the relatively small size of the scaffolds used as reference, several genes are splitted in two different gene models. 
+\item[Genome annotation TGACv1.] This is the companion annotatuin for the TGACv1 assembly. 
+The annotation was produced with a novel approach, by merging four alternative assemblies from three RNA-Seq datasets. 
+Also, long reads from PacBio where used to validate the gene models (ie. Full length, alternative splicing, cannonical sequence) \citep{Venturini2016}. 
+This gene models were made public during the last year of this PhD, hence they were not used for the analysis. 
+However the tools described in Chapters \ref{cha:polymarker} and \ref{cha:exp} can work with the updated gene models. 
+\end{description}
+
+
 
 \subsection{Genetic markers}
 
@@ -266,13 +301,6 @@ Genetic maps
 -Wang
 -Chapman/PopSeq (is the same population, improved)
 
-\subsection{Genomic sequence}
-Assemblies
--Chapman
--IWGSC
--TGACv1
--NRGene (unpublished?)
--454 Liverpool
 
 \subsection{Online resources}
 Portal
@@ -319,8 +347,5 @@ The following subsections give a brief overview of computer science concepts use
 \subsubsection{Web development vs desktop development}
 
 
-
-
 -Containers, as in AWT. 
-
-% \label{lit:patterns}
+ \label{lit:patterns}
