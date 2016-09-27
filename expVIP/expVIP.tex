@@ -192,7 +192,7 @@ On the top of that, it provides the tools to manage the connection and queries t
 
 In the last couple of decades the amount of information available in any given field has been growing exponentially, in part thanks to the internet. 
 A standing challenge is therefore to produce tools that help interpretation. 
-An effective way to communicate large amount of data is trough visualisation, but it has to have the following properties to be usable \citep{Myatt2011}:
+An effective way to communicate large amount of data is through visualisation, but it has to have the following properties to be usable \citep{Myatt2011}:
 
 \begin{description}
 \item[Time to learn.] The user needs to take little time to learn how to use the system to extract the information they need. Also, all the features should be easy to find.
@@ -221,7 +221,7 @@ A web interface is an effective way to reach a global audience.
 A web service requires to have a server to run the application, and a browser to connect to the server and display the application to the user (ie Internet Explorer, Chrome, Firefox).
 The web server technology used for expVIP is \acrshort{ror}, as it abstracts the \acrshort{mvc} metaphor and it is designed to speed development \citep{RailsGuide2016}. 
 In order to display the expression data to the users,  expVIP relies on a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}) developed for expVIP. 
-All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is accessed trough models developed under  \acrshort{ror} (Figure \ref{fig:poly:archDesign}).  
+All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is accessed through models developed under  \acrshort{ror} (Figure \ref{fig:poly:archDesign}).  
 
 \begin{figure}[b] 
   \centering
@@ -831,7 +831,7 @@ RNA-Seq mapping algorithms are implemented by \verb|Kallisto|  \citep{Bray2016} 
 \label{fig:exp:alnVSmap}
 \end{figure} 
 
-I decided to integrate \verb|Kallisto|  into expVIP because the algorithm is able to walk trough different splicing junctions via a \acrshort{tdbg} (see Section \ref{exp:kallisto}; \citealt{Bray2016}), as opposed to Sailfish, which is based on counting k-mers only \citep{Patro2014}. 
+I decided to integrate \verb|Kallisto|  into expVIP because the algorithm is able to walk through different splicing junctions via a \acrshort{tdbg} (see Section \ref{exp:kallisto}; \citealt{Bray2016}), as opposed to Sailfish, which is based on counting k-mers only \citep{Patro2014}. 
 Since homoeologues with a high level of identity may form a bubble in the graph, in a similar way to small indels or SNPs \citep{Leggett2013}, \verb|Kallisto|  should be able to assign the reads to the correct k-compatibility class for their corresponding homoeologue.  
 \unsure{Make a diagrame with the graph. Unfortunatly, I don't have in hand my diagrams for cortex an Richard did the diagrams for Legget et al.}
 
