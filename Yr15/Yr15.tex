@@ -608,18 +608,20 @@ end
 \subsection{Primer design and KASP assays}
 The primer design for KASP were designed with PolyMarker as described in Chapter \ref{cha:polymarker}. 
 The only difference with the default settings is that instead of using a template sequence, the sequence for each allele is calculated from the consensus of the alignments. 
-The primers "were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standardFAMor HEX compatible tails (FAM tail: 50 GAAGGTGACCAAGTTCATGCT 30; HEX tail: 50 GAAGGTCGGAG TCAACGGATT30) with the target SNP at the 30 end. 
+As described in as described in \citet{Ramirez-Gonzalez2015b}, the primers 
+\begin{blockquote} were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standard FAM or HEX compatible tails (FAM tail: 5' GAAGGTGACCAAGTTCATGCT 3'; HEX tail: 5' GAAGGTCGGAG TCAACGGATT 3') with the target SNP at the 30 end. 
 Primer mix was set up as recommended by LGC [46 lL dH2O, 30 lL common primer (100 lM) and 12 lL of each tailed primer (100 lM)] \citep{LGC}
 Assays were tested in 384-well format and set up as 4-lL reactions [2-lL template (10–20 ng of DNA), 1.944 lL of V4 29 Kaspar mix and 0.056 lL primer mix]. 
-PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95 °C for 15 min, followed by ten touchdown cycles (95 °C for 20 s; touchdown 65 °C, ?1 °C per cycle, 25 s) then followed by 30 cycles of amplification (95 °C10 s; 57 °C 60 s). 
+PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95 °C for 15 min, followed by ten touchdown cycles (95 °C for 20 s; touchdown 65 °C, ?1 °C per cycle, 25 s) then followed by 30 cycles of amplification (95 °C10 s; 57 °C 60 s). \unsure{Fix methods}
 As KASP amplicons are smaller than 120 bp, an extension step is unnecessary in the PCR protocol. 384-well optically clear plates (Cat. No. E10423000; Starlab Milton Keynes, UK) were read on a Tecan Safire plate reader. 
-Fluorescence was detected detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).", as described in \citet{Ramirez-Gonzalez2015b}.
+Fluorescence was detected detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).
+\end{blockquote}
 
 
 \subsection{Genetic map}
 As described in \citet{Ramirez-Gonzalez2015b}:
 \begin{blockquote}
- JoinMap version 3 \citep{vanOoijen2002} was used for linkage analysis and genetic map construction, using default settings. The linkage to \textit{Yr15} was determined using a divergent log-of-odds (LOD) threshold of 3.0, and genetic distances were computed based on recombination frequency.. 
+ JoinMap version 3 \citep{vanOoijen2002} was used for linkage analysis and genetic map construction, using default settings. The linkage to \textit{Yr15} was determined using a divergent log-of-odds (LOD) threshold of 3.0, and genetic distances were computed based on recombination frequency. 
 \end{blockquote}
 
 \section{Discussion} 
@@ -635,7 +637,7 @@ Unfortunately, one of the shortcomings of RNA-Seq used to call for SNPs is that 
 If a similar study is to be started today, a better alternative would be to use exome capture in general from a segregating population for any trait, or RenSeq if the target gene is a resistance gene. 
 
 
-The quality and completeness  of the reference genome or gene models directly affects the mapping \acrshort{ngs} reads∫. 
+The quality and completeness  of the reference genome or gene models directly affects the mapping \acrshort{ngs} reads. 
 This is particularly true on polyploid organisms: if one of the homoeologues is absent, the reads are likely to map to the wrong genome if the parameters of the aligner are relaxed or; not map at all if the the required identity is high.
 When the bioinformatic analysis of this project started, the only available wheat genomic reference was a whole genome shotgun 454 sequencing, unassembled \citep{Brenchley2012}; the \gls{css} assembly was being finished \citep{Mayer2014}; the longer scaffolds from \citet{Chapman2015} were not public yet and; the efforts to make a whole genome shotgun assembly were being planned independently by the International Wheat Genome Sequencing consortium  \citep{Pozniak2016} and TGAC \citep{Clark2016}.  
 Because a contiguous assembly with the corresponding annotation wasn't available at the time of the analysis and the fact that the data available was from a transcriptome, the use of gene models as a reference for the alignment was a suitable approach. 
@@ -685,3 +687,10 @@ Within the intermediate and susceptible DH lines, all but one had a non-\textit{
 \unsure{This is a very long quote, but I'm finding hard to shorten it. } 
 The fact that the developed markers perform better than the markers developed by breeders show the value of this particular experiment and further confirms that \acrshort{bsa} combined with \acrshort{ngs} is an effective way to develop novel markers. 
 \unsure{ Mention other people using a similar strategy since this was published. }
+
+In this chapter the integration of different levels of data helped to improve the selection of the candidate SNPs. 
+The main criteria for selecting \acrshortpl{snp}  was the\acrshort{bfr} score.
+However, thanks to the genetic map from \citet{Wang2014} and the \acrshort{css} scaffolds \citep{Mayer2014}) enabled to confirm that the high scores were in the expected region. 
+As the reference genome for wheat improves, the location of SNPs linked to a trait will be easier. 
+With a continous reference between two markers flanking a locus and an improve annotation, a more focused set of gene candidates will be possible. 
+

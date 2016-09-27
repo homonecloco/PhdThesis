@@ -124,10 +124,11 @@ The validation primers based on their intrinsic properties can be done with tool
 \unsure{If possible, expand and add diagram}
 \end{enumerate}
 
-\subsection{Hypothesis.}
+\subsection{Objective.}
 
-Since most of the steps required to design genome-specific primers require different bioinformatic tools and the rules to improve the efficiency of the primers are established, I hypothesize that it is possible to automate the process. 
-On that premise, I developed PolyMarker, a pipeline that takes the reference genome and a list of \acrshortpl{snp} and produces genome-specific primers \citep{Ramirez-Gonzalez2015a}. 
+Most of the steps required to design genome-specific primers require different bioinformatic tools and the rules to improve the efficiency of the primers are established.
+The objective of PolyMarker is to automate the primer design process, from a reference genome and a list of \acrshortpl{snp} and produces genome-specific primers.
+The pipeline has been published in \citet{Ramirez-Gonzalez2015a}.
 
 \section{Pipeline. }
 PolyMarker is an automated pipeline that takes as input a list of SNPs and a reference file and produces a list of primer triplets for SNP genotyping. 
@@ -183,7 +184,7 @@ The following parameters can be adjusted to extend the functionality of PolyMark
 
 \unsure{Maybe explain the architecture before getting to the pipeline, or after}
 Each SNP marker is represented on the \verb|Bio::PolyploidTools::SNP| class, containing the flakning sequence, the position of the SNP, multiple alignments and primers. 
-For each step step there is a container (See container definition in Section \ref{lit:patterns}) that holds the SNP set and parses each output for all the called programs. 
+For each step step there is a container that holds the SNP set and parses each output for all the called programs. 
 The container for exonerate is \verb|BIO:PolyploidTools::ExonContainer|. 
 The hits with the SNP are called exon henceforth, as the original design was for SNPs in gene models which may contain intron-exon junctions. 
 The main job of the \verb|ExonContainer| is to parse the \verb|exonrate| output and add it to the corresponding SNP (Listing \ref{lst:poly:exonerateParsing}). 

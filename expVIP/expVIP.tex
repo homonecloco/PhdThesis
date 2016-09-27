@@ -4,17 +4,14 @@
 \label{cha:exp}
 
 
-
-The software developed in this section is published in \citep{Borrill2016}. 
-
 \section{Background.}
 
 
 
-Describe the list of previously published expression experiments and how they can potentially be used as a framework for new experiments.  
+%Describe the list of previously published expression experiments and how they can potentially be used as a framework for new experiments.  
 
-Co-expression of homoeologus varies from triplet to triplet \citep{Pfeifer2014}
-The silencing is mostly regulated by epigenetic changes as the hybridization events are recent.  \citep{Bottley2006}
+%Co-expression of homoeologus varies from triplet to triplet \citep{Pfeifer2014}
+%The silencing is mostly regulated by epigenetic changes as the hybridization events are recent.  \citep{Bottley2006}
 
 
 %\begin{table}
@@ -215,6 +212,7 @@ The aims of expVIP are to:
 \item Make the system available to the community (Section \ref{exp:gui}).
 \end{enumerate}
 
+The software developed in this chapter is published in \cite*{Borrill2016}. 
 
 \section{General design}
 
@@ -225,12 +223,12 @@ The web server technology used for expVIP is \acrshort{ror}, as it abstracts the
 In order to display the expression data to the users,  expVIP relies on a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}) developed for expVIP. 
 All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is accessed trough models developed under  \acrshort{ror} (Figure \ref{fig:poly:archDesign}).  
 
-\begin{SCfigure} 
+\begin{figure}[b] 
   \centering
-  \includegraphics[width=0.65\textwidth]{expVIP/Figures/archDesign.pdf}
+  \includegraphics[width=0.8\textwidth]{expVIP/Figures/archDesign.pdf}
   \caption{General design of expVIP}
   \label{fig:poly:archDesign}
-\end{SCfigure}
+\end{figure}
 
 \section{Database design} 
 \label{exp:DB}
@@ -431,13 +429,13 @@ Traes\_2AL\_1368BE0AD & & Traes\_2AL\_1368BE0AD & Traes\_2BL\_CD459994C1 & 2 & A
 \end{description} 
 
 expVIP includes several tasks to load the different files. 
-For example, to load the factors the \verb|load_data:factor| starts a transaction (Listing \ref{lst:exp:laodFactor}; line 2) to ensure that all the data is loaded, and if for some reason the load fails, the database is restored to the previous status.
+For example, to load the factors the \verb|load_data:factor| starts a transaction (Listing \ref{lst:exp:loadFactor}; line 2) to ensure that all the data is loaded, and if for some reason the load fails, the database is restored to the previous status.
 In the transaction, the file is read row by row using the \verb|csv| library (line 3).
 The function \verb|find_or_create_by| is a function that \acrshort{ror} provides on models to create an entry in the table, or update it if already exists.
 Each row is used to create or update a \verb|Factor| (lines 374-376). 
 A similar strategy is used for all the files that are regular tables. 
 
-\begin{code}[language=ruby, caption={[Load factors]Task that loads factors}, label=lst:exp:loadFactor]
+\begin{code}[label=lst:exp:loadFactor, language=ruby, caption={[Load factors]Task that loads factors}]
 task :factor, [:filename] => :environment do |t, args|
   ActiveRecord::Base.transaction do 
     CSV.foreach(args[:filename], :headers => true, :col_sep => "\t") do |row|
@@ -455,7 +453,7 @@ Since expVIP only records the name of the genes, only the id of the fasta sequen
 The name is stored in the name and cDNA columns. 
 The parser for entries from ensembl, such the one in Listing \ref{lst:poly:geneFa} include code to load the \acrshort{cdna} and transcript fields correctly. 
 
-\begin{code}[language=ruby, caption={[Load genes from Fasta]Task that load genes from a \verb|fasta| file}, label=lst:exp:loadGenes]
+\begin{code}[language=ruby, caption={[Load genes from Fasta]Task that load genes from a fasta file}, label=lst:exp:loadGenes]
 task :de_novo_genes, [:gene_set,:filename] => :environment do |t, args|
   ActiveRecord::Base.transaction do
     gene_set = GeneSet.find_or_create_by(:name=>args[:gene_set])
@@ -545,7 +543,7 @@ end
 \centering
 %\rule{3cm}{7cm}
 \includegraphics[width=0.45\textwidth]{LitReview/Figures/runKallisto.pdf}
-\caption{Steps to run and load \verb|Kallisto|}
+\caption  {Steps to run and load Kallisto}
 \label{fig:exp:runKallisto}
 \end{wrapfigure}
 
@@ -744,7 +742,7 @@ WheatExp was developed roughly at the same time of expVIP and contains 6 studies
 Four of the studies in WheatExp are on hexaploid wheat and are included in expVIP as well. 
 In WheatExp, the expression for each gene is displayed on the context of the original experiment without a direct comparison between studies. 
 However, because the studies are kept independently the levels of the categories are a direct reflection of the original studies. 
-\unsure{Why is this fact a detriment for WheatEXP?}
+%\unsure{Why is this fact a detriment for WheatEXP?}
 WheatExp allows to search genes by sequence, a feature not implemented in expVIP. 
 
 The Expression Atlas from \acrshort{ebi}, as of September 2016, contains 10 studies, 4 baseline and 6 for differential expression \citep{Petryszak2016}. 
@@ -753,15 +751,17 @@ Even if some of the most recent studies in the Expression Atlas are not included
 In terms of visualisation, the \acrshort{ebi} included a heatmap to compare to different factors at the same time for given gene (ie. tissue vs stress); the same information can be displayed on expVIP by sorting by two factors.
 
 
-\begin{wrapfigure}[9]{R}{0.5\textwidth}
-\includegraphics[width=0.5\textwidth]{expVIP/Figures/Units.pdf}
+Most of the RNA-Seq studies report their results in terms of \acrshort{rpkm}. 
+This normalisation, which is computed for done for each feature $g$ in the reference $G$, requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and the total number of mapped reads $R$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
+As the denominator of \ref{eq:exp:rpkm} is based on the number of mapped reads rather than the number of nucleotides covered, RPKM does not allow to compare correctly results obtained between different samples, or even results from the same sample when the average read length changes due to variations in the experimental protocol \citealt{Wagner2012}.
+%\unsure{The original sentence was not completely clear; I hope this version elucidates more}
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/Figures/Units.pdf}
 \caption[Units used for expression normalisation]{Units used for expression normalisation}
 \label{fig:exp:units}
-\end{wrapfigure}
-Most of the RNA-Seq studies report their results in terms of \acrshort{rpkm}. 
-This normalisation, which is computed for done for each feature $g$ in the reference $G$, requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and the total number of mapped reads $F$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
-As the denominator of \ref{eq:exp:rpkm} is based on the number of mapped reads rather than the number of nucleotides covered, RPKM does not allow to compare correctly results obtained between different samples, or even results from the same sample when the average read length changes due to variations in the experimental protocol \citealt{Wagner2012}.
-\unsure{The original sentence was not completely clear; I hope this version elucidates more}
+\end{figure} 
+
 
 \begin{equation}
 \label{eq:exp:R}
@@ -776,7 +776,7 @@ R = \displaystyle\sum_{g \in G} r_{g}
 The \acrshort{tpm} is an alternative to \acrshort{rpkm} that approximates the total number of transcripts $T$ as a normalisation factor (equation \ref{eq:exp:T}). 
 Besides the previously described parameters, the \acrshort{tpm} also includes the read length $\textrm{rl}$, which is dependent on the study. 
 This formula assumes that each read corresponds to a full observed transcript (equation \ref{eq:exp:tpm}; \citealt{Wagner2012}). 
-\unsure{Do you mean here that the formula assumes that each read has been assigned *unambiguously* to a single transcript? The sentence is unclear.}
+%\unsure{Do you mean here that the formula assumes that each read has been assigned *unambiguously* to a single transcript? The sentence is unclear.}
 
 \begin{equation}
 \label{eq:exp:T}
@@ -793,24 +793,24 @@ One of the aims in developing TPM was to be able to compare samples from differe
 After we took the decision of which unit to use, we found a couple of tools, Kallisto \citep{Bray2016} and Sailfish \citep{Patro2014}, that could calculate the TPMs directly from mapping the reads to a reference, without producing a precise alignment.
 The main advantage of only doing mapping, without aligning is a significant reduction in both the computational resources and the time needed to analyse a sample.
 
-\unsure{These lists would really benefit from being multi-line, not all inline like they are displayed at the moment.}
+%\unsure{These lists would really benefit from being multi-line, not all inline like they are displayed at the moment.}
 The traditional pipeline to quantify expression from RNA-Seq consists on the following steps:
-\begin{enumerate*}
+\begin{enumerate}
   \item Index the reference. Only done once, as the same index can be used for all the samples. 
   \item Align the reads to the reference. 
   \item Sort the alignment and remove duplicates. 
   \item Quantify the expression.  
-\end{enumerate*}
+\end{enumerate}
 This is the prevailing pipeline for expression analysis. 
 In my experience, on a computing cluster it takes between 6 to 8 hours to process each wheat sample on a computing cluster, using multiprocessing and up to 24 Gb of RAM (Figure \ref{fig:exp:alnPipeline}). 
 This pipeline is usually implemented by aligning the reads with \verb|BWA| \citep{Li2009} or \verb|tophat|  \citep{Trapnell2012} and the quantification is performed with tools like \verb|HTSeq| \citep{Anders2015} or \verb|cufflinks| \citep{Trapnell2012}.
 
-\unsure{Again, this list would be clearer as one item per line rather than inline.}
+%\unsure{Again, this list would be clearer as one item per line rather than inline.}
 An advantage of using a mapper is that the quantification pipeline is shorter:
-\begin{enumerate*}
+\begin{enumerate}
   \item Index the reference. Only done once, as the same index can be used for all the samples. 
   \item Map the reads to the reference and quantify the expression in a single program.   
-\end{enumerate*}
+\end{enumerate}
 Since mapping does not require the precise alignment of every single base on the read and the output is only the quantification for each gene, as opposed to the alignment of each read, the programs implementing mapping take around 15 minutes to run. 
 RNA-Seq mapping algorithms are implemented by \verb|Kallisto|  \citep{Bray2016} and \verb|Sailfish| \citep{Patro2014}.
 
