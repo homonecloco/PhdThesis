@@ -39,7 +39,7 @@ This generates a population with a phenotypic ratio of 3:1 (resistant:susceptibl
    \centering
    \includegraphics[height=0.3\textheight]{Yr15/Figures/BSA.pdf}
   \end{subfigure}
-   \caption[Alleles on $F_2$ population and Bulk Segregant Analysis.]{Alleles on $F_2$ population and Bulk Segregant Analysis. The $\otimes$ represent self-pollination. (\subref{fig:yr15:f2schematic}) The cross of two homozygous parents, $P_{1}$ and $P_{2}$, with a dominant and a recessive allele of a gene produces an heterozygous $F_{1}$. The $F_{1}$ crossed with itself produce a segregating $F_{2}$ population with a 1:2:1 ratio (A/A:A/a:a/a). The upper and lower cases represent dominant and recessive alleles, respectively. (\subref{fig:yr15:BSAschematic}) Bulk segregant Analysis consist on pooling DNA from the $F_{2}$ population. The DNA is mixed in bulks coming from plants with a shared phenotype. For a dominant resistance gene, an R sulk contains only resistant individuals (with A/A and A/ genotype) and, an S bulk with the succeptible individuals (with a/a genotype). } 
+   \caption[Alleles on $F_2$ population and Bulk Segregant Analysis.]{Alleles on $F_2$ population and Bulk Segregant Analysis. The $\otimes$ represent self-pollination. (\subref{fig:yr15:f2schematic}) The cross of two homozygous parents, $P_{1}$ and $P_{2}$, with a dominant and a recessive allele of a gene produces an heterozygous $F_{1}$. The $F_{1}$ crossed with itself produce a segregating $F_{2}$ population with a 1:2:1 ratio (A/A:A/a:a/a). The upper and lower cases represent dominant and recessive alleles, respectively. (\subref{fig:yr15:BSAschematic}) Bulk Segregant Analysis consist on pooling DNA from the $F_{2}$ population. The DNA is mixed in bulks coming from plants with a shared phenotype. For a dominant resistance gene, an R sulk contains only resistant individuals (with A/A and A/ genotype) and, an S bulk with the susceptible individuals (with a/a genotype). } 
   
 \end{figure}
 
@@ -49,49 +49,47 @@ By combining multiple independent individuals with similar phenotypes, one can i
 Regions which are not linked to the trait of interest show up as heterozygous in the bulks, whereas regions which are linked to the trait of interest will be enriched for either parental allele.
 Here one would expect an enrichment of the resistant allele A with respect to the susceptible allele a in the resistant bulk. 
 Analogously, one would expect the absence of the resistant allele A in the susceptible bulk (Figure \ref{fig:yr15:BSAschematic}). 
-This approach can be used to identify SNPs using \gls{ngs}, such as: exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome resequencing \citep{Schneeberger2009}, among others. 
+This approach can be used to identify SNPs using \gls{ngs}-based methods, such as exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome resequencing \citep{Schneeberger2009}, among others. 
 
-To find SNPs linked to the trait segregating in an $F_{2}$ population from \gls{ngs} there several options. 
-In organisms with a contiguous reference genome a normalized count of the times each allele is observed is enough to find the region linked to the trait, this simple ratio is called SNP-Index \citep{Takagi2013a}.
-However, wheat is a poliploid organisms, with an identity between homoeologues over 98\%. 
-Because of the high identity, and in cases where the reference for some of the homoeologues is absent, reads coming from different homoeologues may map to the same reference. 
-The \gls{bfr} \citep{Trick2012} methodology can work on organisms that have more than one pseudo genome with not all the genes, homoeologues or paralogues, characterised independently; it works with a single reference collapsing similar regions. 
-Both methodologies relay on an enrichment of the alleles linked to the trait in the corresponding locus. 
+To find SNPs linked to the trait segregating in an $F_{2}$ population using \gls{ngs} data there are several options. 
+In organisms with a contiguous reference genome, a normalized count of the times each allele is observed is enough to find the region linked to the trait; this simple ratio is called SNP-Index \citep{Takagi2013a}.
+However, wheat is a polyploid organism, with an average identity between homoeologues of over 98\%. 
+Because of the high identity, reads coming from different homoeologues may map to the same position; and this problem is exacerbated in cases where a reference sequence for some of the homoeologues is absent. 
+The \gls{bfr} \citep{Trick2012} methodology can work on organisms that have more than one pseudo genome and where not all of the genes, either homoeologues or paralogues, have been characterised independently; it works with a single reference by collapsing similar regions. 
+Both methodologies rely on an enrichment of the alleles linked to the trait in the corresponding locus. 
 
-
-Homoeologous variants between two sub-genomes of wheat are exemplified by the G$>$T variant at position 181; K in consensus (Figure \ref{fig:yr15:bfr}) and will produce the same ambiguity code for both parental consensus sequences and can therefore be excluded. 
-Real allelic varietal SNPs between the parental genotypes, exemplified by the G$>$A variant at position 184; R in consensus, are distinguished by the presence in one, but not the other parental consensus sequence. 
+An example of homoeologous variants between two sub-genomes of wheat is the G$>$T variant at position 181; K in consensus (Figure \ref{fig:yr15:bfr}). This variant will produce the same ambiguity code for both parental consensus sequences and can therefore be excluded. 
+An example of real allelic varietal SNPs between the parental genotypes is exemplified by the G$>$A variant at position 184; R in consensus. These variants are distinguished by the presence in only one of the consensus sequences. 
 The allelic SNPs are then examined further with the alignments of the bulks to identify the SNPs that are enriched on the resistant plants.
-The SNP index is the proportion of times an alternative allele is observed over the coverage at certain position, in the example the susceptible bulk has an SNP index of $1/8=0.125$ and $6/8=0.75$ for the resistant bulk \citep{Takagi2013a}. 
-The \glspl{bfr} are then calculated by dividing the SNP Index of the sample containing the target phenotype (resistance) over the sample without the trait (susceptible), For this example it would be $0.75/0.125=6$.  
+The SNP index is the proportion of times an alternative allele is observed over the coverage at certain position, in the example the susceptible bulk has an SNP index of $1/8=0.125$ while the resistant bulk has an index of $6/8=0.75$ \citep{Takagi2013a}. 
+The \glspl{bfr} are then calculated by dividing the SNP Index of the sample containing the target phenotype (resistance) over the sample without the trait (susceptible). For this example, it would be $0.75/0.125=6$.  
 A high BFR suggests that the \acrshort{snp} is linked to the target trait \citep{Trick2012}. 
 The implementation of the BFR analysis is detailed in Section \ref{yr15:sub:bfr} and the results on the $F_2$ population are discussed in Section \ref{sec:yr15:bfr}. 
-The Bulk Frequency Ratio (BFR) methodology
-can work on organisms that have more than one pseudo genome
-with not all the genes, homoeologues or paralogues, characterised independently;
-it works with a single reference collapsing similar regions.
+%Repeated
+%The Bulk Frequency Ratio (BFR) methodology can work on organisms that have more than one pseudo genome with not all the genes, either homoeologues or paralogues, characterised independently; it works with a single reference collapsing similar regions.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{Yr15/Figures/bfr.pdf}
-\caption[BFR formula]{BFR formula. Illustration of a non-informative homoeologous SNP (G181T) present in both parental lines, and an informative allelic SNP (G184A), only present in the resistant progenitor Avocet S + Yr15. The consensus sequences from the parental genotypes include this information in the form of ambiguity codes (K and R, respectively). In the bulks, the individual reads align across the reference sequence, with matches indicated by dots, and polymorphisms at positions 181 and 184 indicated by the corresponding nucleotide variants at those positions. The SNP index is calculated as the frequency of the informative allelic SNP in each bulk. The Bulk Frequency Ratio is the quotient of the resistant and susceptible bulk SNP Indexes. Figure previously published in \citet{Ramirez-Gonzalez2015c}. }
+\caption[BFR formula]{BFR formula. Illustration of a non-informative homoeologous SNP (G181T) present in both parental lines, and an informative allelic SNP (G184A), only present in the resistant progenitor Avocet S + Yr15. The consensus sequences from the parental genotypes include this information in the form of ambiguity codes (K and R, respectively). In the bulks, the individual reads align across the reference sequence, with matches indicated by dots, and polymorphisms at positions 181 and 184 indicated by the corresponding nucleotide variants. The SNP index is calculated as the frequency of the informative allelic SNP in each bulk. The Bulk Frequency Ratio is the quotient of the resistant and susceptible bulk SNP Indexes. Figure previously published in \citet{Ramirez-Gonzalez2015c}. }
 \label{fig:yr15:bfr}
 \end{figure}
 
-To call for SNPs from RNA-Seq a reference transcriptome is used as target to align the reads. 
-The UniGenes database, from NCBI, contains the genes of each species with all the variations of each gene automatically collapsed and represented with the longest \acrshort{cdna} \citep{PontiusJUWagnerL2002}. 
-The \acrshort{ucw}  genes described in \citet{Krasileva2013} contains 94,177 models from tetraploid and hexaploid wheat, assembled and phased to separate different homoeologues. 
-Both gene sets complement each other, however, the \acrshort{ucw} gene models should provide an improved alignment, since the different homoeologues aren't merged in a single model, a possible side effect of the UniGene pipeline. 
+To call SNPs from RNA-Seq, a reference transcriptome rather than a reference genome sequence is used as target to align the reads. 
+The UniGenes database, from NCBI, contains the known genes of each species with all the variations of each gene automatically collapsed and represented with the longest available \acrshort{cdna} \citep{PontiusJUWagnerL2002}. 
+The \acrshort{ucw}  gene set described in \citet{Krasileva2013} contains 94,177 models from tetraploid and hexaploid wheat, assembled and phased to separate different homoeologues. 
+Both gene sets complement each other, however, the \acrshort{ucw} gene models should provide an improved alignment, since the different homoeologues have not merged in a single model - a possible side effect of the UniGene pipeline. 
 
 \subsection{\textit{In Silico} mapping.}
 There are several layers of information that can be used to add a context to the SNPs. 
 When the SNPs are called from genes like the UniGenes \citep{PontiusJUWagnerL2002} or the UCW gene models \citep{Krasileva2013}, the location of the genes can be assigned by aligning them to a genomic reference, even if it is fragmented. 
-A source to get the order of the scaffolds are previously published genetic maps, such as the genetic map described in \citet{Wang2014}, which has the sequence of the markers available.
-The markers and the genes can be aligned to the scaffolds with a high percentage of identity (over $98\%$), to avoid them being assigned to a homoeologue or paralogue on a different chromosome.
-The use of genetic maps to sort genomic sequence is frequently used to produce pseudo-chromosomes on genome wide projects, usually with ad-hoc tools \citep{Tang2015}.
-Since the \acrshort{css} assembly is quite fragmented the genetic maps don't have enough resolution to produce a pseudomolecule, however it is enough to sort the scaffolds in bins when several markers map to the same location. 
+A source to get the order of the scaffolds are previously published genetic maps, such as the one described in \citet{Wang2014}, which has the sequence of the markers available.
+The markers and the genes can be aligned to the scaffolds with a high identity cutoff (over $98\%$), to avoid them being assigned to a homoeologue or paralogue on a different chromosome.
+The practice of using genetic maps to sort genomic sequence and produce pseudo-chromosomes is common in genome wide projects, and is usually performed with \textit{ad-hoc} tools \citep{Tang2015}.
+The highly fragmented state of the \acrshort{css} assembly prevents the use of genetic maps to produce pseudomolecules, as those maps which are currently available do not have enough resolution.
+However, they are dense enough to sort the scaffolds in bins when several markers map to the same location. 
 In this way, it is possible to use the scaffolds as a proxy to map the genes to their genetic position (Figure \ref{fig:yr15:layersOfMapping}).
 The results of mapping the genes with SNPs to the CSS assembly and the genetic map are described in Section \ref{sub:yr15:inSilico}. 
-For a longer description of resources available for wheat see Section \ref{lit:wheatResourcers}. 
+For a longer description of resources available for wheat see Section \ref{lit:wheatResourcers}.
 %\unsure{To do: section talking about genetic map. }
 %\unsure{To do: Microsatellites vs SNP markers. }
 
@@ -102,20 +100,21 @@ For a longer description of resources available for wheat see Section \ref{lit:w
   \label{fig:yr15:layersOfMapping}
 \end{figure}
 
-Finally, the best candidate SNPs where selected to produce a genetic map which lead to a triplet of markers diagnostic to the target locus. 
+Finally, the best candidate SNPs were selected to produce a genetic map which lead to a triplet of markers diagnostic for the target locus. 
 
 The steps described in this chapter were first published in \citet{Ramirez-Gonzalez2015c} and the results of this chapter are published in \citet{Ramirez-Gonzalez2015b}.
 
 \section{Mapping population.}
 
 The population was developed by crossing the resistant line \gls{yr15} \citep{Wellings1998}, Figure \ref{fig:yr15.yr15Photo}, to the susceptible line \gls{avs}, Figure \ref{fig:yr15:avsPhoto}. 
-\gls{yr15} is a \gls{nil} of a 6th generation \gls{bc} and the \gls{avs} background is highly succeptible to yellow rust, hence the resistance is coffered by the \gls{yr15} locus. 
-$F_{2}$ seeds from three independent $F_{1}$ plants where sown and tissue was collected, before the fungal inoculation to avoid the effect of the disease resistance response on the gene expression. 
+\gls{yr15} is a \gls{nil} of a 6th generation \gls{bc} and the \gls{avs} background is highly susceptible to yellow rust, hence the resistance is conferred by the \gls{yr15} locus. 
+$F_{2}$ seeds from three independent $F_{1}$ plants where sown and tissue was collected before fungal inoculation to avoid the effect of the disease resistance response on gene expression. 
 Sampling after inoculation could have led to associations in the bulks due to expression of genes downstream of \gls{yr15} and not due to the gene itself.
-Seedlings were challenged at the three leaf stage as it is know that \textit{Yr15} confers resistance in seedlings \citep{Gerechter-Amitai1989}.
-The expected segregation on an $F_{2}$ population is 3:1 (resistant:susceptible), since \textit{Yr15} is a dominant gene.
+Seedlings were challenged at the three leaf stage as it is known that \textit{Yr15} confers resistance in seedlings \citep{Gerechter-Amitai1989}.
+The expected segregation of a $F_{2}$ population is 3:1 (resistant:susceptible), since \textit{Yr15} is a dominant gene.
 From the 232 plants in the $F_{2}$ population that germinated, 187 were resistant and 45 were susceptible, which deviates slightly from the expected ratio ($\chi^{2}=0.049$).
-Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{Randhawa2009}, however the decresed number of succeptible plants can be explained by escapes in the virulence essays (i.e. plants scored as resistant without the \textit{Yr15} locus).   For this study we extracted DNA from individual plants in the $F_{2}$ population and we bulked RNA on 6 different bulks: 3 resistant and, 3 succeptible ( Figure \ref{fig:yr15:f2}). 
+Segregation distortion has been shown for the same \textit{Yr15} donor \citep{Randhawa2009}, however the decreased number of susceptible plants can be explained by escapes in the virulence essays (i.e. plants scored as resistant without the \textit{Yr15} locus).
+For this study, we extracted DNA from individual plants in the $F_{2}$ population and we bulked RNA on 6 different bulks: 3 resistant and 3 susceptible ( Figure \ref{fig:yr15:f2}). 
 
 
 \label{sub:mappingPopulation}
@@ -151,12 +150,13 @@ Segregation distortion has been shown for the same \textit{Yr15} donnor \citep{R
 
 \section{Sequencing and mapping.} 
 
-RNA-Seq was used as a reduced representation method and thus avoid sequencing the non-coding regions and reduce the search space.  
-The sequencing of the bulks and the parents were done on a single Illumina Hi-Seq2000 each.
+RNA-Seq was used as a reduced representation method, and thus avoided sequencing the non-coding regions.
+This effectively reduces the search space, which is especially important in a species with a genome as rich in repeat content as wheat.
+The sequencing of the bulks and the parents was done on a single Illumina Hi-Seq2000.
 The bulks were multiplexed and sequenced on a third of a lane each, as shown on Table \ref{tab:yr15:reads}. 
-To ensure that the quality of the sequencencing was good, \verb|fastqc-0.10| \citep{fastqc}  was run with its default parameters in each one of the fastq files.  
-The GC content was around 52\% in all the samples (Appendix \ref{App:AppendixQCGC}), which is expected as the sample should be of coding regions, and for wheat the reported GC content in genes is around 55\%.  
-The quality of the reads is fairly consistent, in general dropping after the base 80 across the samples (Appendix \ref{App:AppendixQCRead}). 
+To ensure that quality of sequencing, \verb|fastqc-0.10| \citep{fastqc}  was run with its default parameters for each of the FASTQ files.  
+The GC content was around 52\% in all the samples (Appendix \ref{App:AppendixQCGC}), which is as expected as the sample should be of coding regions, and for wheat the reported GC content in genes is around 55\%.  
+The quality of the reads is fairly consistent, in general dropping after base 80 across samples (Appendix \ref{App:AppendixQCRead}). 
 \label{yr15:sequencing}
 
 \begin{table}
@@ -183,11 +183,11 @@ LIB1722 & AvocetS + \textit{Yr15} & N/A & 4   & 3.99  \\
 
 \input{Yr15/SupplementalTables/alignedCoverage}
 
-When the analysis was started, the draft genome and the corresponding annotation where not not release yet, hence gene models where used. 
-All the samples where aligned to the UniGenes v60 (56,954 genes) and the gene models from UCW \citep{Krasileva2013} using \verb|BWA 0.5.9| \citep{Li2009}. 
-The alignment  showed that a few genes were very highly expressed, howeverthere was still sufficient coverage of over 20x in \gls{yr15} across 22,107 and 36,808 genes, on the UniGenes and the UCW gene , respectively. 
+When the analysis was started, the draft genome and the corresponding annotation had not been released yet, hence gene models were used instead of a genome reference. 
+All the samples were aligned to the UniGenes v60 (56,954 genes) and the gene models from UCW \citep{Krasileva2013} using \verb|BWA 0.5.9| \citep{Li2009}. 
+The alignment showed that few genes were very highly expressed, however, there was still sufficient coverage of over 20x in \gls{yr15} across 22,107 and 36,808 genes, on the UniGenes and the UCW gene set, respectively. 
 Both gene sets performed similarly in terms of the percentage of genes with reads and percentage of aligned reads. 
-For \gls{avs} and \gls{yr15}, the percentage of genes with a coverage of at least $20x$ is $45\%$ and $39\%$, respectively, across both references (Figure \ref{fig:yr15:covPerGene}).
+The percentage of genes with a coverage of at least $20x$ is $45\%$ and $39\%$ for \gls{avs} and \gls{yr15}, irrespective of the reference gene set chosen (Figure \ref{fig:yr15:covPerGene}).
 Since each individual bulk has a lower coverage, the susceptible and resistant reads were merged \textit{in silico} as: (i) susceptible bulks 1 with 2 (S1+S2) and resistant bulks 1 with 2 (R1+R2) and (ii) all the susceptible (S1+S2+S3) and resistant bulks (R1+R2+R3). 
 The merged samples increased the percentage of genes with coverage over 20x  to 44\% and 50\% in the resistant and susceptible bulks (Table \ref{app:seqAlnCov}), which is close to the coverage from the progenitors.
 We treated bulk 3 slightly differently since these bulks included a few lines which were borderline with respect to their phenotype. 
@@ -207,7 +207,7 @@ Therefore exclusion of bulk 3 plants in the S1+S2 and R1+R2 bulk would provide t
     
     \label{fig:yr15:SNPper}
 \end{subfigure}
-\caption[Coverage and SNPs between progenitors]{Aoverage and SNPs between progenitors. (\subref{fig:yr15:covPerGene}) Box plot distribution of the gene coverage of the parent reads (\gls{avs} and \gls{yr15}) across the UCW (blue) and the UniGene (red) gene models. The dashed line represents the 209 minimum coverage required for SNP calling. The full line represents the average coverage across all gene models. (\subref{fig:yr15:SNPper}) Percentage of genes exhibiting SNPs across references. The number of \gls{snp}s between the parent reads and the corresponding references was calculated (per 100 bp, rounded). The ‘between-parents’ category corresponds to putative SNPs when comparing the consensus sequence between \gls{avs} and \gls{yr15} Adapted from \citet{Ramirez-Gonzalez2015b} }
+\caption[Coverage and SNPs between progenitors]{Coverage and SNPs between progenitors. (\subref{fig:yr15:covPerGene}) Box plot distribution of the gene coverage of the parent reads (\gls{avs} and \gls{yr15}) across the \acrshort{ucw} (blue) and the UniGene (red) gene models. The dashed line represents the 20x minimum coverage required for SNP calling. The full line represents the average coverage across all gene models. (\subref{fig:yr15:SNPper}) Percentage of genes exhibiting SNPs across references. The number of \gls{snp}s between the parent reads and the corresponding references was calculated (per 100 bp, rounded). The ‘between-parents’ category corresponds to putative SNPs when comparing the consensus sequence between \gls{avs} and \gls{yr15} Adapted from \citet{Ramirez-Gonzalez2015b} }
 \end{figure}
 
 
@@ -217,21 +217,23 @@ Therefore exclusion of bulk 3 plants in the S1+S2 and R1+R2 bulk would provide t
 
 The \gls{snp} calling was done on positions with a coverage of at least $20x$ on the progenitor lines against the gene reference. The \gls{avs} progenitor had roughly $3\%$ more genes with polymorphisms than \gls{yr15}, consistent with the difference in coverage, suggesting that with a higher coverage we could recover more \gls{snp}s from \gls{yr15}.
 The UniGenes have a higher number of \gls{snp}s because the \gls{ucw} gene models have a higher number of monomorphic genes when compared to the UniGenes (Figure \ref{fig:yr15:SNPper}; Table \ref{app:yr15:cntSNP100bp}). 
-The difference in the number of relative monomorphic SNPs between references can be explained by the fact that the UniGenes have homoeologues that can be represented as a single sequence, as opposed to the UCW set which are homoeologue-specific, improving the mapping to the correct homoeologue in the genes from the UCW set over the UniGenes.
+The difference in the number of relative monomorphic SNPs between reference can be explained by the fact that in the UniGenes set many homeologoues might have been collapsed into a single representative sequence, whereas the \acrshort{ucw} gene set is homoeologue-specific.
+Therefore, mapping to the correct homeologue is improved in the \acrshort{ucw} gene set over the UniGenes.
+
 
 \input{Yr15/SupplementalTables/snpsPer100bp}
 
 
-Both gene sets were done from varieties different to \gls{avs} and are likely to be incomplete, hence we set a low threshold of at least 20\% of the observed nucleotides on any position to call an \gls{snp}. 
-To represent cases were more than one consensus base is called we use \gls{iuapc} codes (\citet{Cornish-Bowden1985}; Section \ref{lit:ambiguity}; Figure \ref{fig:yr15:bfr}).  
-To focus the analysis on informative \gls{snp}s, the common varietal SNPs and variations between homoeologues were removed by finding the cases when the consensus call on both progenitors is the same. 
+Both gene sets were derived from varieties different to \gls{avs} and are likely to be incomplete, hence we set a low threshold of at least 20\% of the observed nucleotides on any position to call a \gls{snp}. 
+To represent cases where more than one consensus base is called we use \gls{iuapc} codes (\citet{Cornish-Bowden1985}; Section \ref{lit:ambiguity}; Figure \ref{fig:yr15:bfr}).  
+To focus the analysis on informative \gls{snp}s, the common varietal SNPs and variations between homoeologues were removed by finding cases where the consensus call on both progenitors was the same. 
 The \gls{snp}s that are unique to a single parental were examined in detail. 
-There are 66,426 putative SNPs across 16,022 (17\%) \gls{ucw} genes and 52,262 \acrshortpl{snp} on 11,056 UniGenes (19.4\%; Figure \ref{fig:yr15:geneCount}).  
+There are 66,426 putative \gls{SNP}s across 16,022 (17\%) \gls{ucw} genes and 52,262 \acrshortpl{snp} on 11,056 UniGenes (19.4\%; Figure \ref{fig:yr15:geneCount}).  
 
 \begin{SCfigure}
     %\centering
     \includegraphics[width=0.4\textwidth]{Yr15/Figures/geneCounts.pdf} 
-    \caption[Gene models with putative SNPs]{Gene models with putative SNPs in common between the UCW and UniGenes reference. The intersection represnts the genes that are common in both sets. Adapted from \citet{Ramirez-Gonzalez2015b}}
+    \caption[Gene models with putative SNPs]{Gene models with putative \gls{SNP}s in common between the UCW and UniGenes reference. The intersection represents the genes that are common in both sets. Adapted from \citet{Ramirez-Gonzalez2015b}}
     \label{fig:yr15:geneCount}
 \end{SCfigure}
 
@@ -445,7 +447,7 @@ Then, the complete $F_{2}$ population was assessed with:
 \begin{itemize}	
 	\item  the seven markers that were most closely linked to \acrshort{yr15}, including two of the diagnostic markers from the variety panel (R5 and R8),
 	\item The flanking \acrshort{ssr} microsatellite markers used by UK breeders for germoplasm selection (\textit{Xbarc8} and \textit{Xgwm413}).  These correspond to the best markers available to breeders at the time of the study.
-	\item A marker based on barley-wheat synteny (R43) which met the selection criteria, but wasn't on the original set of 50 markers with high BFR. 
+	\item A marker based on barley-wheat synteny (R43) which met the selection criteria, but was not on the original set of 50 markers with high BFR. 
 \end{itemize}
 
 The $F_{2}$ population consisted on 232 plants with phenotypic information, of those 196 where genotyped reliably (no more than one data point missing). 
@@ -504,7 +506,7 @@ The quality of the sequencing lanes was assessed with FastQC v0.10.1 \citep{fast
 \subsection{Alignment reads to gene models}
 The RNA-Seq reads were aligned with BWA 0.5.9 \citep{Li2009} to the wheat UniGene database v60 \citep{PontiusJUWagnerL2002} and to the UCW gene models \citep{Krasileva2013}, including the \textit{T. turgidum} and complementary ORFs \citep{MASWheat2013}.
 The alignments where sorted and stored as single BAM files to have random access \citep{Li2009a}. 
-%\unsure{ Snippet with submission of the alignments. However I haven't got access to the old cluster files.}
+%\unsure{ Snippet with submission of the alignments. However I have not got access to the old cluster files.}
 
 
 \subsection{Bulk Frequency Ratios and SNP calling}
@@ -668,7 +670,7 @@ At that time exome capture was already established for genotyping humans \citep{
 An even more targeted capture for resistance genes (RenSeq), by capturing genes with the NBS-LRR motif, was published while this study was executed \citep{Jupe2013}.
 On the other hand RNA-Seq was already tested for \acrlong{bsa} on tetraploid wheat \citep{Trick2012}.  
 Hence, the decision of reducing the sequenced space with RNA-Seq was appropriate at the time (Figure \ref{fig:yr15:timeline}). 
-Unfortunately, one of the shortcomings of RNA-Seq used to call for SNPs is that the coverage is not uniform and the genes that have low expression don't have enough coverage to call for SNPs (Section  \ref{yr15:sequencing}).
+Unfortunately, one of the shortcomings of RNA-Seq used to call for SNPs is that the coverage is not uniform and the genes that have low expression do not have enough coverage to call for SNPs (Section  \ref{yr15:sequencing}).
 If a similar study was to be started today, a better alternative would be to use exome capture in general from a segregating population for any trait, or RenSeq if the target gene is a resistance gene. 
 
 \begin{figure}
@@ -680,7 +682,7 @@ If a similar study was to be started today, a better alternative would be to use
 The quality and completeness  of the reference genome or gene models directly affects the mapping of \gls{ngs} reads. 
 This is particularly true on polyploid organisms: if one of the homoeologues is absent, the reads are likely to map to the wrong genome if the parameters of the aligner are relaxed or; not map at all if the required identity is too high.
 When the bioinformatic analysis of this project started, the only available wheat genomic reference was a whole genome shotgun 454 sequencing, unassembled \citep{Brenchley2012}; the \gls{css} assembly was being finished \citep{Mayer2014}; the longer scaffolds from \citet{Chapman2015} were not public yet and; the efforts to make a whole genome shotgun assembly were being planned independently by the International Wheat Genome Sequencing consortium  \citep{Pozniak2016} and TGAC (\citealt{Clark2016} ;Figure \ref{fig:yr15:timeline}).  
-Because a contiguous assembly with the corresponding annotation wasn't available at the time of the analysis and the fact that the data available was from a transcriptome, the use of gene models as a reference for the alignment was a suitable approach. 
+Because a contiguous assembly with the corresponding annotation was not available at the time of the analysis and the fact that the data available was from a transcriptome, the use of gene models as a reference for the alignment was a suitable approach. 
 
 In terms of available gene sets when the analysis started, the canonical reference was the UniGenes from the NCBI \citep{PontiusJUWagnerL2002}. 
 The UniGenes are produced with an automated pipeline that clusters all the \glspl{est} deposited in the NCBI by identity and selects the longest transcript, which can merge homoeologous transcripts as a single reference.
