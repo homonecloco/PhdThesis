@@ -13,23 +13,23 @@ The section describes alleles an the concept of gene, both as a locus in the gen
 \subsection{Polyploidy and Wheat}
 \label{lit:polyploidy}
 
-A polyploid species contains more than one set of related genomes, that may come from a chromosomal duplication or from an hybridization with a related species. 
-\textit{Triticum aestivum} (bread wheat) has gone trough an specialisation event and two major hybridization events. 
-Initially, an unknown species first evolved in two different species around 7 million years ago to form the A and B genomes, whose closest known relative are \textit{Triticum urartu} and \textit{Aegelopolis speltoides}. 
-As both ancestral wheat were able to cross, at some point around 5.5 million years ago the D genome arouse, \textit{Aegelopolis tauschii}. 
-Then, less than 800 thousand years ago the ancient species carrying the  A and B genomes hybridized and formed a tetraploid wheat, \textit{Triticum turgidum} (pasta wheat). 
-A final event occurred less than 400 thousand years ago, when pasta wheat hybridized with the carrier of the D genome, leading to bread wheat (Figure \ref{lit:polyploidy}, \citealt{Marcussen2014}).  
+A polyploid species contains more than one set of related genomes, that may come from a chromosomal duplication (autopolyploid) or from an hybridization with a related species (allopolyploid; \citealt{Shewry2009}) . 
+\textit{Triticum aestivum} (bread wheat) has gone through an speciation event and two major hybridization events. 
+Initially, a common progenitor evolved into two different species around 7 million years ago to form the A and B genomes, whose closest known relatives are \textit{Triticum urartu} and \textit{Aegelopolis speltoides}, respectively. 
+At some point around 5.5 million years ago the D genome arouse, \textit{Aegilops tauschii}. 
+Then, less than 800 thousand years ago the ancient A and B genome species hybridised and formed a tetraploid wheat, \textit{Triticum turgidum} ssp. \textit{dicoccoides} (wild emmer). 
+A final event occurred less than 400 thousand years ago, when emmer wheat hybridized with \textit{Ae. tauschii}, leading to bread wheat (Figure \ref{lit:polyploidy}, \citealt{Marcussen2014}).  
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{LitReview/Figures/WheatPolyplodization.pdf}
   \caption{Hibridizations that lead to bread wheat \textit{T. aestivum}.  }
   \label{fig:lit:polyplody}
 \end{figure}
-Because bread wheat contains three independent copies of its genome, the expectation is to have three homoeologues for each gene. 
+Because bread wheat contains three related, yet independent copies of its genome, the expectation is that it has three copies of each genes, which are referred to as homoeologs. 
 
-\unsure{Talk about paralogues. }
+%\unsure{Talk about paralogues. }
 
-\subsection{Genetic Linkage}
+%\subsection{Genetic Linkage}
 
 
 \subsection{Experimental lines}
@@ -85,7 +85,7 @@ To study particular locus experimental lines are developed, the following list d
 \caption[Types of experimental lines]{Types of experimental lines. 🌾 represent populations and 🌱 individual plants. ($\times$ represent a cross between lines. ($\otimes$) represent self-crosses. Ellipsis ($\ldots$) represent repetition. 💥🌰 represent a treatment to double the chromosomes from the gamete. (\subref{fig:lit:f2}) $F_{2}$ population. (\subref{fig:lit:bc}) Back Cross population. (\subref{fig:lit:ri}) Recombinant Inbred Lines. (\subref{fig:lit:dh}) Double haploid}
 \end{figure}
 
-\subsection{Introgressions}
+%\subsection{Introgressions}
 
 \section{Wheat Genomics}
 
@@ -161,19 +161,15 @@ The resulting cDNA library is sequenced using available high throughput sequenci
 \unsure{Figure of This process}
 
 
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth]{Introduction/RicardoThesisTopics.pdf}
-\caption{Topics of this Thesis}
-\end{figure}
+
 
 
 \section{Sequence analysis}
-This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
+%This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
 
 
 
-DNA sequence alone is not alone to enough to understand the biology behind, a context is required. There are databases like Ensembl and NCBI that act as repositories of the known public sequences. 
+%DNA sequence alone is not alone to enough to understand the biology behind, a context is required. There are databases like Ensembl and NCBI that act as repositories of the known public sequences. 
 
 From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman\cite{Smith1981} and Needleman-Wunsch\cite{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O(mn), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST index the references and use heuristics to make the search more manageable, with some penalty in the accuracy. This alignments tools are useful for long stretches of DNA (like cDNA or contigs)\cite{Altschul1990}.
 
@@ -263,8 +259,8 @@ However the tools described in Chapters \ref{cha:polymarker} and \ref{cha:exp} c
 
 
 Markers
--90k
--820k
+-90k \citep{Wang2014}
+-820k \citep{Winfield2016}
 -MASwheat/SRR
 -Chapman 
 
@@ -283,7 +279,7 @@ Portal
 -Copo
 
 The Collaborative Open Plant Omics (COPO; \citealt{Davey2015}) is a an initiative to integrate data from different databases. 
-The idea is to improve the interaction across repositories trough an \gls{api}, a standard way to ensure the interoperability between systems. 
+The idea is to improve the interaction across repositories through an \gls{api}, a standard way to ensure the interoperability between systems. 
 This approach keeps the responsibility of the system and data maintenance on the service providers. 
 Service providers must ensure the compliance to standard of curation and integration, which would simplify the data analysis and visualisation, and ultimately promote the use of the integrated resources.  
 
@@ -325,22 +321,48 @@ Service providers must ensure the compliance to standard of curation and integra
 \section{Aim and objectives}
 
 
-The main aim of this PHD is to make accessible the resources bioinformatic tools able to cope with the size and complexity of the wheat genome need to be developed.
-The tools can only be effective if they are designed taking in account the biological questions they will address. The tools developed in this PhD take advantage of the wheat resources as they were made public (Figure \ref{fig:intro:timeline}).  
+The main aim of this PhD is to develop bioinformatics tools that help answer biological questions of importance by addressing the complexities associated with the wheat genome, such as its size and polyploid nature. These tools can only be effective if they are designed within a biological context and as such I have worked alongside experimental biologists over the past four years. The strategies and resources developed in this PhD take advantage of the latest developments in wheat research and I incorporated these as they were made public (Figure \ref{fig:intro:timeline}).  
 
-As this thesis is about the development tools that deal with polyploidy in wheat, the purpose is better reflective as objectives, rather than a constrained hypothesis.
+
+
+As my aim was to develop new approaches, strategies and tools in polyploid wheat, I have listed a series of objectives, rather than specific hypotheses, which I tried to address over the course of this PhD. 
 
 
 \begin{enumerate}
 
-\item Simplify the design of primers for marker assisted selection in polyploid wheat (Chapter \ref{cha:polymarker}).
-\item Develop a pipeline that can be used find genetic markers for breeding, using bulk segregant analysis and reduced representation sequencing (Chapter \ref{yr15}).
-\item Integrate and display expression experiments (Chapter \ref{cha:exp})
-\item Set a framework to integrate different resources (Chapter \ref{cha:discussion}).
+\item Simplify and automate the design of primers for marker assisted selection in polyploid wheat (Chapter \ref{cha:polymarker}).
+\item Develop a pipeline that can be used to find genetic markers for breeding, using bulked segregant analysis and reduced representation sequencing  (Chapter \ref{yr15}).
+\item Develop a platform to integrate and visualize RNA-seq expression experiments (Chapter \ref{cha:exp})
+\item Establish an overall framework to integrate the different resources developed in this PhD (Chapter \ref{cha:discussion}).
 \end{enumerate}
 
-All the pipelines and data produced by this project is publicly available.  
+All the pipelines and data produced by this project are publicly available. Towards this end I have also strived to publish this research in open access journals. Peer reviewed publications stemming from these research chapters are listed below: 
 
+\begin{itemize}
+\item Chapter 2 (PolyMarker)
+\begin{itemize}
+	\item \textbf{Ramirez-Gonzalez RH}, Uauy C, Caccamo M (2015) PolyMarker: a fast polyploid primer design pipeline. Bioinformatics, doi:10.1093/bioinformatics/btv069 (corresponding author)
+	\item King R, Bird N, \textbf{Ramirez-Gonzalez RH}, Coghill JA, Patil A, Hassani-Pak K, Uauy C, Phillips AL (2015) Mutation scanning in wheat by exon capture and next-generation sequencing. PlosOne. 10 (9), e0137549
+	\item Hubbard A, Lewis CM, Yoshida K, \textbf{\textbf{Ramirez-Gonzalez RH}}, de Vallavieille-Pope C, Thomas J, Kamoun S, Bayles R, Uauy C, Saunders DGO (2015) Field pathogenomics reveals the emergence of a diverse wheat yellow rust population. Genome Biology 16:23 
+\end{itemize}
+
+ \item Chapter 3 (Bulked segregant mapping)
+\begin{itemize}
+\item	\textbf{Ramirez-Gonzalez RH}, Segovia V, Bird N, Fenwick P, Holdgate S, Berry S, Jack P, Caccamo M, Uauy C (2014) RNA-Seq bulked segregant analysis enables the identification of high-resolution genetic markers for breeding in hexaploid wheat Plant Biotechnology Journal 13:613-624
+\item	\textbf{Ramirez-Gonzalez RH}, Segovia V, Bird N, Caccamo M, Uauy C (2015) Next Generation Sequencing Enabled Genetics in Hexaploid Wheat. in Advances in Wheat Genetics: From Genome to Field eds Ogihara Y, Takumi S, Handa H, pg 201-209
+\end{itemize}
+\item Chapter 4 (expVIP)
+\begin{itemize}
+	\item Borrill P, \textbf{Ramirez-Gonzalez RH}, Uauy C. 2016. expVIP: a customisable RNA-Seq data analysis and visualisation platform. Plant Physiology 170:2172 (joint first author) 
+\end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{Introduction/RicardoThesisTopics.pdf}
+\caption{Topics of this Thesis}
+\label{fig:intr:topics}
+\end{figure}
 
 
 \begin{landscape}
@@ -351,5 +373,6 @@ All the pipelines and data produced by this project is publicly available.
   \label{fig:intro:timeline}
  \end{figure}
 \end{landscape}
+
 
 
