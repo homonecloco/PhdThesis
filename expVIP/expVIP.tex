@@ -36,19 +36,22 @@ As of September 2016, 202 differential and 82 base experiments had been included
 The visualisation is designed to explore each gene individually, showing all the related ontologies and details on the expression by factor, or by pairs of factor on a heatmap. 
 The quantification is calculated with HTSeq \citep{Anders2015}, from alignments produced with Tophat \citep{Ling2013}.
 
-\unsure{introduce BioGPS. It is not wheat related, but is feature rich. }
+%\unsure{introduce BioGPS. It is not wheat related, but is feature rich. }
 
 
 \subsection{Public wheat RNA-Seq experiments.}
 
-Table of experiments to include 
+Table \ref{tab:exp:studiesDetails} contains the 16 studies used during the development of the \gls{expvip}. 
+This studies were categorized by developmental time courses, tissues, pathogen infections, and abiotic stresses. 
+The use of divers studies demonstrate the utility of an integrated platform to generate novel hypotheses. 
+
 \input{expVIP/tables/formated_studies}
 
 \subsection{Expression quantification with Kallisto.}
 \label{exp:kallisto}
 Differential expression experiments try to elucidate which genes change under different conditions. 
 To do that, a quantification of the levels of expressions is needed. 
-When using RNA-Seq, the expression analysis usually consists on: aligning the reads to the genome or transcriptome reference and quantify the expression according to how many reads map to a region. 
+When using RNA-Seq, the expression analysis usually consists of: aligning the reads to the genome or transcriptome reference and quantifying the expression according to how many reads map to a region. 
 However, this process usually takes around 6 hours per sample. 
 Aligners such as \texttt{bwa} or \texttt{bowtie} produce a detailed alignment of each read, which is useful find polymorphisms (see Chapter \ref{yr15}) or to find novel alternative splices \citep{Trapnell2012}. 
 
@@ -68,7 +71,7 @@ nodes (v1, v2, v3, ... ) are k-mers, each transcript corresponds to a colored pa
 
 
 \subsection{Relational databases.}
-A Relational database is a set of structured tables that have relationships between each other. 
+A relational database is a set of structured tables that have relationships between each other. 
 The tables correspond to the data that is essential for the represented concept (domain).
 For example, in a table representing several species, the common name and the scientific name belong to the same domain (ie name: Bread wheat; scientific name \textit{Triticum aestivum}). 
 Tables in the same relational database form relationships between each other. 
@@ -208,7 +211,7 @@ The aims of expVIP are to:
 \begin{enumerate}
 \item Integrate RNA-Seq experiments from several sources in a single database (Section \ref{exp:DB}). 
 \item Automate the calculation of the expression values and load them in to the database (Section \ref{exp:pipeline}).
-\item Produce a usable visualisation for said expression values (Section \ref{exp:gui}).
+\item Produce a tool  visualisation for said expression values with a short time to learn, good perfomance, memorability, accuracy and satisfaction s (Section \ref{exp:gui}).
 \item Make the system available to the community (Section \ref{exp:gui}).
 \end{enumerate}
 
@@ -216,7 +219,7 @@ The software developed in this chapter is published in \cite*{Borrill2016}.
 
 \section{General design}
 
-One of the main objectives of expVIP is to make the public expression datasets easily accessible and explorable for the target community (currently wheat, but not limited to it). 
+One of the main objectives of \gls{expvip} is to make the public expression datasets easily accessible and explorable for the target community (currently wheat, but not limited to it). 
 A web interface is an effective way to reach a global audience. 
 A web service requires to have a server to run the application, and a browser to connect to the server and display the application to the user (ie Internet Explorer, Chrome, Firefox).
 The web server technology used for expVIP is \acrshort{ror}, as it abstracts the \acrshort{mvc} metaphor and it is designed to speed development \citep{RailsGuide2016}. 
@@ -317,7 +320,7 @@ WHERE
 \end{code}
 
 \begin{table}[h]
-\caption[Results of query for values]{Results of query to get the values for gene 'Traes\_5BS\_0AFC3F795.1' (Listing \ref{lst:exp:queryExpValues}), only 'Group1' is displayed from the output.}
+\caption[Results of query for values]{Results of query to get the values for gene 'Traes\_5BS\_0AFC3F795.1' (Listing \ref{lst:exp:queryExpValues}), only 'Group1' is displayed from the output. The three values with the same unit correspond to replicates on the same study.}
 \label{tab:exp:queryExpValues}
 \input{expVIP/tables/valuesGroup1GeneTraes_5BS_0AFC3F795.1}
 \end{table}
@@ -418,10 +421,10 @@ GGCTGCA
 \toprule
 Gene & A & B & D & Group & Genome \\
 \midrule
-Traes\_5BS\_0AFC3F795 & Traes\_5BS\_0AFC3F795 & Traes\_5BS\_0AFC3F795 & Traes\_5DS\_C204EBAA9 & 5 & B \\
-Traes\_5DS\_C204EBAA9 & Traes\_5DS\_C204EBAA9 & Traes\_5BS\_0AFC3F795 & Traes\_5DS\_C204EBAA9 & 5 & D \\
-Traes\_7DL\_82360D4EE1 & Traes\_7DL\_82360D4EE1 & Traes\_7DL\_82360D4EE1 & & 7 & D \\
-Traes\_2AL\_1368BE0AD & & Traes\_2AL\_1368BE0AD & Traes\_2BL\_CD459994C1 & 2 & A \\
+Traes\_5BS\_0AFC3F795 & Traes\_5AS\_0AFCC204EBA & Traes\_5BS\_0AFC3F795 & Traes\_5DS\_C204EBAA9 & 5 & B \\
+Traes\_5DS\_C204EBAA9 & Traes\_5DS\_0AFCC204EBA & Traes\_5BS\_0AFC3F795 & Traes\_5DS\_C204EBAA9 & 5 & D \\
+Traes\_7DL\_82360D4EE1 & & Traes\_7BL\_3F7958204 & Traes\_7DL\_82360D4EE1 &  7 & D \\
+Traes\_2AL\_1368BE0AD & Traes\_2AL\_1368BE0AD & & Traes\_2BL\_CD459994C1 & 2 & A \\
 ... & & & & &  \\
 \bottomrule 
 \end{tabular}
@@ -562,7 +565,7 @@ The fact that the loading is done in transactions ensures that the database is k
 \section{Graphical interface}
 \label{exp:gui}  
 %How the expression can be displayed filtered, and sorted
-With the expression across experiments integrated in a single database, the next challenge is to make the data accessible to a wide audience. 
+With the expression across experiments integrated in a single database, the next challenge was to make the data accessible to a wide audience. 
 \acrshort{ror} has tasks to automate the construction of controllers and views from the \acrshort{mvc} metaphor, helping on the retrieval and formatting of the raw data. 
 However, the main objective was to visualise the data from all the experiments as intuitively as possible. 
 To make the visualisation dynamic in a browser, the use of \verb|JavaScript| is necessary, as it is the only widely adopted programming language used for web content. 
@@ -581,7 +584,7 @@ As memorability and satisfaction are subjective, they were not directly tested f
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{expVIP/Figures/UIsketch.pdf}
-\caption[expVIP \acrshort{gui} layout]{expVIP \acrlong{gui} components components. The top bar shows a short description of what is displayed. The General and Visualisation controls contain the buttons and menus that enable the interaction with the figure. The Headers, Labels and Plot are the actual components of the visualisation}
+\caption[\gls{expvip} \gls{gui} layout]{expVIP \acrlong{gui} components. The top bar shows a short description of what is displayed. The General and Visualisation controls contain the buttons and menus that enable the interaction with the figure. The Headers, Labels and Plot are the actual components of the visualisation}
 \label{fig:exp:layout}
 \end{figure}
 
