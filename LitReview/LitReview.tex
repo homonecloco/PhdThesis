@@ -13,23 +13,23 @@ The section describes alleles an the concept of gene, both as a locus in the gen
 \subsection{Polyploidy and Wheat}
 \label{lit:polyploidy}
 
-A polyploid species contains more than one set of related genomes, that may come from a chromosomal duplication or from an hybridization with a related species. 
-\textit{Triticum aestivum} (bread wheat) has gone through an specialisation event and two major hybridization events. 
-Initially, an unknown species first evolved in two different species around 7 million years ago to form the A and B genomes, whose closest known relative are \textit{Triticum urartu} and \textit{Aegelopolis speltoides}. 
-As both ancestral wheat were able to cross, at some point around 5.5 million years ago the D genome arouse, \textit{Aegelopolis tauschii}. 
-Then, less than 800 thousand years ago the ancient species carrying the  A and B genomes hybridized and formed a tetraploid wheat, \textit{Triticum turgidum} (pasta wheat). 
-A final event occurred less than 400 thousand years ago, when pasta wheat hybridized with the carrier of the D genome, leading to bread wheat (Figure \ref{lit:polyploidy}, \citealt{Marcussen2014}).  
+A polyploid species contains more than one set of related genomes, that may come from a chromosomal duplication (autopolyploid) or from an hybridization with a related species (allopolyploid; \citealt{Shewry2009}) . 
+\textit{Triticum aestivum} (bread wheat) has gone through an speciation event and two major hybridization events. 
+Initially, a common progenitor evolved into two different species around 7 million years ago to form the A and B genomes, whose closest known relatives are \textit{Triticum urartu} and \textit{Aegelopolis speltoides}, respectively. 
+At some point around 5.5 million years ago the D genome arouse, \textit{Aegilops tauschii}. 
+Then, less than 800 thousand years ago the ancient A and B genome species hybridised and formed a tetraploid wheat, \textit{Triticum turgidum} ssp. \textit{dicoccoides} (wild emmer). 
+A final event occurred less than 400 thousand years ago, when emmer wheat hybridized with \textit{Ae. tauschii}, leading to bread wheat (Figure \ref{lit:polyploidy}, \citealt{Marcussen2014}).  
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{LitReview/Figures/WheatPolyplodization.pdf}
   \caption{Hibridizations that lead to bread wheat \textit{T. aestivum}.  }
   \label{fig:lit:polyplody}
 \end{figure}
-Because bread wheat contains three independent copies of its genome, the expectation is to have three homoeologues for each gene. 
+Because bread wheat contains three related, yet independent copies of its genome, the expectation is that it has three copies of each genes, which are referred to as homoeologs. 
 
-\unsure{Talk about paralogues. }
+%\unsure{Talk about paralogues. }
 
-\subsection{Genetic Linkage}
+%\subsection{Genetic Linkage}
 
 
 \subsection{Experimental lines}
@@ -161,19 +161,15 @@ The resulting cDNA library is sequenced using available high throughput sequenci
 \unsure{Figure of This process}
 
 
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth]{Introduction/RicardoThesisTopics.pdf}
-\caption{Topics of this Thesis}
-\end{figure}
+
 
 
 \section{Sequence analysis}
-This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
+%This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
 
 
 
-DNA sequence alone is not alone to enough to understand the biology behind, a context is required. There are databases like Ensembl and NCBI that act as repositories of the known public sequences. 
+%DNA sequence alone is not alone to enough to understand the biology behind, a context is required. There are databases like Ensembl and NCBI that act as repositories of the known public sequences. 
 
 From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman\cite{Smith1981} and Needleman-Wunsch\cite{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O(mn), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST index the references and use heuristics to make the search more manageable, with some penalty in the accuracy. This alignments tools are useful for long stretches of DNA (like cDNA or contigs)\cite{Altschul1990}.
 
@@ -360,6 +356,13 @@ All the pipelines and data produced by this project are publicly available. Towa
 	\item Borrill P, \textbf{Ramirez-Gonzalez RH}, Uauy C. 2016. expVIP: a customisable RNA-Seq data analysis and visualisation platform. Plant Physiology 170:2172 (joint first author) 
 \end{itemize}
 \end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{Introduction/RicardoThesisTopics.pdf}
+\caption{Topics of this Thesis}
+\label{fig:intr:topics}
+\end{figure}
 
 
 \begin{landscape}
