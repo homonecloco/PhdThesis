@@ -24,7 +24,7 @@
 \usepackage{algpseudocode}
 \usepackage{pbox}
 \usepackage{listings}
-\usepackage[acronym]{glossaries}
+\usepackage[acronym, xindy]{glossaries}
 \usepackage{xcolor}
 \usepackage[pdfencoding=auto,psdextra]{hyperref}
 \usepackage{xargs}   
@@ -186,7 +186,7 @@
 
 \author{Ricardo Humberto Ramirez Gonzalez}
 \title{Next generation genomics tools for wheat improvement}
-
+\input{Abbreviations}
 \makeglossaries
 \begin{document}
 \tableofcontents
@@ -202,18 +202,19 @@
 \include{expVIP/expVIP}
 \include{Conclusions/Conclusions}
 
-\include{Abbreviations}
+
 %“We passed through forests of fire, forded rivers of light and forged dark seas and mountains of snow and ice.
 %Each crossing took us thousands of years, though it seemed no more than the blink of an eye.” 
 %― Orhan Pamuk, My Name is Red
+
+\bibliographystyle{plainnat_short}
+\bibliography{References}
+
 \appendix
 \chapter{Supplemental tables}
 \input{Yr15/Supplemental}
 \input{PolyMarker/Supplemental}
 \input{Appendices/qc}
-%\input{expVIP/tutorial}
-
-\bibliographystyle{plainnat_short}
-\bibliography{References}
+\input{expVIP/tutorial}
 
 \end{document}
