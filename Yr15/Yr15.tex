@@ -9,20 +9,20 @@
 %Breeding importance of \textit{Yr15} and original source (an introgression of \textit{T. diccocoides}). 
 \section{Background.}
 Wheat breeding programs aim to improve the wheat lines available for production.
-One of the traits desired in an elite line is the resistance to pathogens, such as \textit{Puccinia striiformis} f. sp.  \textit{tritici}, the fungi responsible of yellow rust.
-A source of resistance genes are introgressions from other species, such as \textit{Triticum diccocides}. 
+One of the traits desired in an elite line is the resistance to pathogens, such as\gls{pst}, the fungi responsible of yellow rust.
+A source of resistance genes are introgressions from other species, such as \textit{Triticum dicoccoides} (emmer, Figure \ref{fig:lit:polyplody}). 
 In the University of Sydney a collection of \glspl{nil} with introgressions to several yellow rust resistance genes on a susceptible background were developed \citep{Wellings1998}. 
-On this chapter the NIL for the \textit{Yr15} locus is used to produce a mapping population to improve diagnostic markers. 
+In this chapter the \gls{nil} for the \textit{Yr15} locus is used to produce a mapping population to produce a mapping population, which when combined with mapping by sequencing approaches, results in improved diagnostic markers. 
 
 %TODO: Paragraph explaining NILs
 \subsection{Segregation on \texorpdfstring{$F_{2}$}{F2} populations.}
 \label{yr15:f2}
-Line selection can be done with molecular markers that can be used to test if certain allele is present in a line, without the need to phenotype  the given line.
-To find which regions are linked to a trait the use of $F_{2}$ mapping populations is a common practice.
+Molecular markers can be used to select lines by testing if certain allele is present in a line, without the need to phenotype  the given line.
+To find which regions are linked to a trait the use of $F_{2}$ mapping populations is a common practice, especially for major single gene traits.
 The population is produced by crossing two (usually homozygous) parents ($P_1$ and $P_{2}$) with different alleles, A/A (dominant, resistant if containing \textit{Yr15}) and a/a (recessive, susceptible in our experiment).
 When the trait is dominant and has a mendelian segregation, the $F_1$ population should exhibit the dominant trait, as it has a copy of each allele (A/a). 
-The $F_1$ is then self-pollinated to produce and $F_2$ population which should segregate with a ration 1:2:1, dominant:heterozygous:recessive respectively.
-This generates a population with a phenotypic ratio of 3:1 (resistant:susceptible), since the effect of the recessive allele is masked by the dominant gene (\citealt{VanOoijen2013}; Figure \ref{fig:yr15:f2schematic}).  
+The $F_1$ is then self-pollinated to produce and $F_2$ population which should segregate with a ratio of 1:2:1, dominant:heterozygous:recessive respectively.
+This generates a population with a phenotypic ratio of 3:1 (resistant:susceptible), since the effect of the recessive allele is masked by the dominant allele (\citealt{VanOoijen2013}; Figure \ref{fig:yr15:f2schematic}).  
 
 \begin{figure}
   \centering
@@ -44,13 +44,14 @@ This generates a population with a phenotypic ratio of 3:1 (resistant:susceptibl
 \end{figure}
 
 \subsection{SNP calling}
-\gls{bsa} consists on pooling the DNA of individuals from a segregating population with contrasting phenotypes \citep{Michelmore1991}. 
-The bulks should segregate for any given SNP as heterozygous except for the region that is linked to the trait of interest. 
+\gls{bsa} consists on pooling the DNA of individuals from a segregating population with contrasting phenotypes \citep{Michelmore1991} in a segregating population. 
+By combining multiple independent individuals with similar phenotypes, one can identify regions which are over-represented or enriched in the corresponding bulks. 
+Regions which are not linked to the trait of interest show up as heterozygous in the bulks, whereas regions which are linked to the trait of interest will be enriched for either parental allele.
 Here one would expect an enrichment of the resistant allele A with respect to the susceptible allele a in the resistant bulk. 
 Analogously, one would expect the absence of the resistant allele A in the susceptible bulk (Figure \ref{fig:yr15:BSAschematic}). 
-This approach can be used to identify SNPs using \gls{ngs}, such as: exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome resquencing \citep{Schneeberger2009}, among others. 
+This approach can be used to identify SNPs using \gls{ngs}, such as: exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome resequencing \citep{Schneeberger2009}, among others. 
 
-To find SNPs linked to the trait segregating in an $F_{2}$ population from \acrshort{ngs} there several options. 
+To find SNPs linked to the trait segregating in an $F_{2}$ population from \gls{ngs} there several options. 
 In organisms with a contiguous reference genome a normalized count of the times each allele is observed is enough to find the region linked to the trait, this simple ratio is called SNP-Index \citep{Takagi2013a}.
 However, wheat is a poliploid organisms, with an identity between homoeologues over 98\%. 
 Because of the high identity, and in cases where the reference for some of the homoeologues is absent, reads coming from different homoeologues may map to the same reference. 
@@ -60,11 +61,15 @@ Both methodologies relay on an enrichment of the alleles linked to the trait in 
 
 Homoeologous variants between two sub-genomes of wheat are exemplified by the G$>$T variant at position 181; K in consensus (Figure \ref{fig:yr15:bfr}) and will produce the same ambiguity code for both parental consensus sequences and can therefore be excluded. 
 Real allelic varietal SNPs between the parental genotypes, exemplified by the G$>$A variant at position 184; R in consensus, are distinguished by the presence in one, but not the other parental consensus sequence. 
-The allelic SNPs are then examined further with the alignments of the bulks to identified the SNPs that are enriched on the resistant plants.
+The allelic SNPs are then examined further with the alignments of the bulks to identify the SNPs that are enriched on the resistant plants.
 The SNP index is the proportion of times an alternative allele is observed over the coverage at certain position, in the example the susceptible bulk has an SNP index of $1/8=0.125$ and $6/8=0.75$ for the resistant bulk \citep{Takagi2013a}. 
-The \acrshort{bfr} are then calculated by dividing the SNP Index of sample containing the target phenotype (resistance) over the sample without the trait (susceptible), on the example is $0.75/0.125=6$.  
+The \glspl{bfr} are then calculated by dividing the SNP Index of the sample containing the target phenotype (resistance) over the sample without the trait (susceptible), For this example it would be $0.75/0.125=6$.  
 A high BFR suggests that the \acrshort{snp} is linked to the target trait \citep{Trick2012}. 
 The implementation of the BFR analysis is detailed in Section \ref{yr15:sub:bfr} and the results on the $F_2$ population are discussed in Section \ref{sec:yr15:bfr}. 
+The Bulk Frequency Ratio (BFR) methodology
+can work on organisms that have more than one pseudo genome
+with not all the genes, homoeologues or paralogues, characterised independently;
+it works with a single reference collapsing similar regions.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{Yr15/Figures/bfr.pdf}
@@ -105,7 +110,7 @@ The steps described in this chapter were first published in \citet{Ramirez-Gonza
 
 The population was developed by crossing the resistant line \gls{yr15} \citep{Wellings1998}, Figure \ref{fig:yr15.yr15Photo}, to the susceptible line \gls{avs}, Figure \ref{fig:yr15:avsPhoto}. 
 \gls{yr15} is a \gls{nil} of a 6th generation \gls{bc} and the \gls{avs} background is highly succeptible to yellow rust, hence the resistance is coffered by the \gls{yr15} locus. 
-$F_{2}$ seeds from tree independent $F_{1}$ plants where sown and tissue was collected, before the fungal inoculation to avoid the effect of the response on the gene expression. 
+$F_{2}$ seeds from three independent $F_{1}$ plants where sown and tissue was collected, before the fungal inoculation to avoid the effect of the disease resistance response on the gene expression. 
 Sampling after inoculation could have led to associations in the bulks due to expression of genes downstream of \gls{yr15} and not due to the gene itself.
 Seedlings were challenged at the three leaf stage as it is know that \textit{Yr15} confers resistance in seedlings \citep{Gerechter-Amitai1989}.
 The expected segregation on an $F_{2}$ population is 3:1 (resistant:susceptible), since \textit{Yr15} is a dominant gene.
@@ -561,7 +566,7 @@ Using this design were the values of each region are calculated at once increase
 Also, the fact that the calculation of each region is independent to other regions, it is possible to use a computing cluster to distribute the analysis on several nodes.
 
 The code produces a table with the SNP-Indices and BFRs for all the SNPs found in the progenitors. 
-The program was used to calculate the BFRs on the independent conditions (Bulk 1: S1-R1, Bulk 2: S2-R2 and Bulk 3: S3-R3); the \textit{in silico} mixes of bulks 1 and 2; and bulks 1, 2 and 3. 
+The program was used to calculate the \glspl{bfr} on the independent conditions (Bulk 1: S1-R1, Bulk 2: S2-R2 and Bulk 3: S3-R3); the \textit{in silico} mixes of bulks 1 and 2; and bulks 1, 2 and 3. 
 
 
 \begin{code}[language=Ruby,caption=Section of the code that , label=lst:yr15:bfr]
@@ -658,17 +663,23 @@ As described in \citet{Ramirez-Gonzalez2015b}:
 
 
 Resequencing the $\sim17$Gbp genome of hexaploid wheat is costly and approaches to reduce the required sequenced volume to effectively call for SNPs had been evolving since the conception of this project. 
-The RNA and DNA extraction and the sequencing for this project was carried on before the beginning of my PhD (before October 2012). 
-At that point exome capture was already established for genotyping humans \citep{Ng2009}, however the first exome capture on wheat was just recently published, with probes coming from unassembled 454 reads \citep{Winfield2012}, and a probe designed from transcripts \citep{Henry2014} was not published after the analysis of this section was completed and validated.
+The RNA and DNA extraction and the sequencing for this project was carried out before the beginning of my PhD (before October 2012). 
+At that time exome capture was already established for genotyping humans \citep{Ng2009}, however the first exome capture on wheat was just recently published, with probes coming from unassembled 454 reads \citep{Winfield2012}, and a probe designed from transcripts \citep{Henry2014} was not published after the analysis of this section was completed and validated (Figure \ref{fig:yr15:timeline}).
 An even more targeted capture for resistance genes (RenSeq), by capturing genes with the NBS-LRR motif, was published while this study was executed \citep{Jupe2013}.
 On the other hand RNA-Seq was already tested for \acrlong{bsa} on tetraploid wheat \citep{Trick2012}.  
-Hence, the decision of reducing the sequenced space with RNA-Seq was appropriate at the time (Figure \ref{fig:intro:timeline}). 
+Hence, the decision of reducing the sequenced space with RNA-Seq was appropriate at the time (Figure \ref{fig:yr15:timeline}). 
 Unfortunately, one of the shortcomings of RNA-Seq used to call for SNPs is that the coverage is not uniform and the genes that have low expression don't have enough coverage to call for SNPs (Section  \ref{yr15:sequencing}).
-If a similar study is to be started today, a better alternative would be to use exome capture in general from a segregating population for any trait, or RenSeq if the target gene is a resistance gene. 
+If a similar study was to be started today, a better alternative would be to use exome capture in general from a segregating population for any trait, or RenSeq if the target gene is a resistance gene. 
+
+\begin{figure}
+\includegraphics[width=1\textwidth]{expVIP/Figures/Timeline.pdf}
+\caption{Timeline of resources used, or potentially used for \gls{yr15}.}
+\label{fig:yr15:timeline}
+\end{figure}
 
 The quality and completeness  of the reference genome or gene models directly affects the mapping of \gls{ngs} reads. 
-This is particularly true on polyploid organisms: if one of the homoeologues is absent, the reads are likely to map to the wrong genome if the parameters of the aligner are relaxed or; not map at all if the required identity is high.
-When the bioinformatic analysis of this project started, the only available wheat genomic reference was a whole genome shotgun 454 sequencing, unassembled \citep{Brenchley2012}; the \gls{css} assembly was being finished \citep{Mayer2014}; the longer scaffolds from \citet{Chapman2015} were not public yet and; the efforts to make a whole genome shotgun assembly were being planned independently by the International Wheat Genome Sequencing consortium  \citep{Pozniak2016} and TGAC \citep{Clark2016}.  
+This is particularly true on polyploid organisms: if one of the homoeologues is absent, the reads are likely to map to the wrong genome if the parameters of the aligner are relaxed or; not map at all if the required identity is too high.
+When the bioinformatic analysis of this project started, the only available wheat genomic reference was a whole genome shotgun 454 sequencing, unassembled \citep{Brenchley2012}; the \gls{css} assembly was being finished \citep{Mayer2014}; the longer scaffolds from \citet{Chapman2015} were not public yet and; the efforts to make a whole genome shotgun assembly were being planned independently by the International Wheat Genome Sequencing consortium  \citep{Pozniak2016} and TGAC (\citealt{Clark2016} ;Figure \ref{fig:yr15:timeline}).  
 Because a contiguous assembly with the corresponding annotation wasn't available at the time of the analysis and the fact that the data available was from a transcriptome, the use of gene models as a reference for the alignment was a suitable approach. 
 
 In terms of available gene sets when the analysis started, the canonical reference was the UniGenes from the NCBI \citep{PontiusJUWagnerL2002}. 
