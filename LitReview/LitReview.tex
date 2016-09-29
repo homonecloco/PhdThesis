@@ -7,7 +7,7 @@
 
 
 \section{Wheat Genetics}
-The section describes alleles an the concept of gene, both as a locus in the genome (Quantitative Trait Locus, QTL) and an specific transcript (central dogma of molecular biology). Finally, it discuses traditional Mendelian inheritance and the effect of polyploidy.  Some of this is described in the Yr15 chapter, maybe it is not needed any more here. 
+%The section describes alleles an the concept of gene, both as a locus in the genome (Quantitative Trait Locus, QTL) and an specific transcript (central dogma of molecular biology). Finally, it discuses traditional Mendelian inheritance and the effect of polyploidy.  Some of this is described in the Yr15 chapter, maybe it is not needed any more here. 
 
 
 \subsection{Polyploidy and Wheat}
@@ -160,44 +160,58 @@ The remaining sequences are enriched using the polymerase chain reaction (PCR), 
 The resulting cDNA library is sequenced using available high throughput sequencing technologies. 
 \unsure{Figure of This process}
 
-
-
-
-
 \section{Sequence analysis}
 %This section discusses the criteria to decide analysis done after sequencing, when to do re-alignments or \textit{de novo} assemblies, how to do SNP calling in diploid and polyploid organisims and the bulk frequency ratios.  
 
-
-
 %DNA sequence alone is not alone to enough to understand the biology behind, a context is required. There are databases like Ensembl and NCBI that act as repositories of the known public sequences. 
 
-From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman\cite{Smith1981} and Needleman-Wunsch\cite{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O(mn), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST index the references and use heuristics to make the search more manageable, with some penalty in the accuracy. This alignments tools are useful for long stretches of DNA (like cDNA or contigs)\cite{Altschul1990}.
+From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman \cite{Smith1981} and Needleman-Wunsch\cite{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O(mn), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST index the references and use heuristics to make the search more manageable, with some penalty in the accuracy. This alignments tools are useful for long stretches of DNA (like cDNA or contigs)\cite{Altschul1990}.
 
-TODO: List of global aligners
--BLAST
--BLAT
--Exonerate
--nucmer
+Several tools have been developed to do sequence alignment, among them the most common ones are:
 
--MAFFT
--Clustal
+\begin{description}
+\item[BLAST] The BLAST heuristic algorithm compares a query sequence with those deposited in NCBI database, attempting to align the sections amongst them of significant sequence similarities \citep{Altschul1990}. BLAST is the most commonly used bioinformatics tool for sequence searching. When the query sequence and sequence within the database have a high sequence similarity and length coverage this is defined as a ‘hit’. The significant hits are generally termed as those that have protein sequence comparisons above 75\% sequence similarity and high coverage. BLAST accepts as input FASTA  or GenBank format of sequences.
+\item[BLAT] Blast-Like Alignment Tool, is much faster than BLAST but less sensitive as it does a k-mer indexing of the database instead of a linear search, which means it finds seeds quicker. The way that BLAT performs quick analyses is by computing an "index of all non-overlapping K-mers in the genome". It is important to note that BLAT is less effective for sequences with less than 90\% sequence identity \citep{Kent2002}. This level of identity is enough to find the homoeologous genes in wheat, as they have an identity over 92\% between chromosomes \citep{Krasileva2013}
+\item[Exonerate] Is another alignment program that works as a faster alternative to exhaustive sequence alignment methodologies, by implementing bounded sparse dynamic programming (BSDP).  It performs pairwise sequence comparisons, doing so by using various alignment models, exhaustive dynamic programming or different heuristic algorithms \citep{Slater2005}.  Exonerate is able to model intron-exon junctions when doing the alignment. 
+\end{description}
 
-
-When looking at a protein level, where the sequences may be only loosely similar, Hidden Markov Models (HMM) are used to search for protein families. This can be useful to annotate putative proteins and their functions. HMMs require a training dataset, where proteins are previously annotated and the reference is a model encoding the characteristics of a family, with associated probabilities. Hence, this technique is something between a sequences aligner and a classifier\cite{Eddy2004}. 
 
 When analysing high-throughput sequencing, having millions of short sequences make unfeasible to try to align the data to every possible reference. However, one can take in advantage the fact that you know which organism you are looking for and, if available, use a genomic reference. For this, tools like MAQ, BWA, Bowtie, among others, provide indexed search.  Once you have your reads aligned to a reference you can do more analysis, depending on the biological question being asked and the type of sequencing carried on.  Fortunately, most of the Short-Read sequence alignment produce similar outputs and the SAM format is becoming a de facto standard. This is allowing to make more modularised downstream analysis where you can test different aligners with different settings and pick the algorithm that better fits your experiment\cite{Liu2012,Li2009,Li2009a}. 
 
-\subsubsection{Ambiguity Codes}
+\subsubsection{\gls{iuapc} Ambiguity Codes}
 \label{lit:ambiguity}
-Make a table with the ambiguity codes and why they are useful. 
+To represent polymorphisms in a single sequence the \gls{iuapc} has developed an representation of a single character combining more than one possible nucleotide. 
+This table is used in Chapters \ref{cha:polymarker} and \ref{yr15} to represent \glspl{snp}.
 
-
-
+\begin{table}
+\caption{\gls{iuapc} ambiguity codes}
+\centering
+\begin{tabular}{ccc}
+\toprule
+IUPAC Code & Meaning & Complement \\
+A & A & T \\
+C & C & G \\
+G & G & C \\
+T/U & T & A \\
+M & A or C & K \\
+R & A or G & Y \\
+W & A or T & W \\
+S & C or G & S \\
+Y & C or T & R \\
+K & G or T & M \\
+V & A or C or G & B \\
+H & A or C or T & D \\
+D & A or G or T & H \\
+B & C or G or T & V \\
+N & G or A or T or C & N \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{RNA-Seq}
 \label{lit:RNASeq}
 
-One way to narrow down which genes are involved in certain trait or response to the environment is to focus on studying only the expressed genes. One of the techniques involving high-throughput sequencing is RNA-Seq. This technique captures the messenger RNA in the tissue being studied and sequenced. The premise is that you will find a gene more expressed if it is being used by the organism. Some proteins with a vital role for the cell are always expressed (i.e. RuBisCO for carbon fixation in plants\cite{CooperGM2000}). On the simplest of the experiments you would need two datasets to compare, one with the gene being looked expressed and one where it is not. The expression can come from different environmental conditions, development stage or different genotypes.\cite{Mortazavi2008} 
+One way to narrow down which genes are involved in certain trait or response to the environment is to focus on studying only the expressed genes. One of the techniques involving \gls{ngs} is RNA-Seq. This technique captures the messenger RNA in the tissue being studied and sequenced. The premise is that you will find a gene more expressed if it is being used by the organism. Some proteins with a vital role for the cell are always expressed (i.e. RuBisCO for carbon fixation in plants\cite{CooperGM2000}). On the simplest of the experiments you would need two datasets to compare, one with the gene being looked expressed and one where it is not. The expression can come from different environmental conditions, development stage or different genotypes.\cite{Mortazavi2008} 
 
 Depending on how much \textit{a priori} information of the analysed organism is available different bioinformatic approaches can be used.
 \begin{description}
@@ -206,23 +220,33 @@ Depending on how much \textit{a priori} information of the analysed organism is 
 \item[\textit{De Novo} transcriptome assembly] If a reference of the organism is not available, it is possible to generate a draft transcriptome with the RNA-Seq reads with traditional assemblers (velvet, abyss) or with specialised assembler tools like Trinity. 
 \end{description}
 
-Once you have the alignments it is possible to evaluate the relative expression of the genes in the sample calculating the Reads per Kilobase per Million mapped reads (RPKM) or the Transcripts per Million (TPM). This normalises the expression by the amount of sequenced data and can be used to find which genes change in expression volume across different samples.   
+Once you have the alignments it is possible to evaluate the relative expression of the genes in the sample calculating the \gls{rpkm} or the \gls{tpm}. This normalises the expression by the amount of sequenced data and can be used to find which genes change in expression volume across different samples.   
 %TODO: Write more details of RPKM vs TPM
 
 
 \section{Wheat specific resources resources}
 \label{lit:wheatResourcers}
 
-During the course of this PhD, several resources were released in the wheat community. 
+During the course of this PhD, several resources were released in the wheat community. A timeline of the release of each one of those resource is in Figure \ref{fig:intro:timeline}. 
 
+%\begin{landscape}
+ \begin{sidewaysfigure}
+  \centering
+  \includegraphics[width=1\textheight]{Introduction/RicardoPhdTimelineV1.pdf}
+  \caption[PhD timeline.]{Timeline of the projects carried on during this PhD and the wheat resources that were released in the same period of time. }
+  \label{fig:intro:timeline}
+ \end{sidewaysfigure}
+%\end{landscape}
 \subsection{Genomic sequence}
-Assemblies 
 
--454 Liverpool
--Chapman
--IWGSC
--TGACv1
-%-NRGene (unpublished?)
+The length of the genomic references available for wheat has been increasing year by year. During my PhD the following genomic references where published.   
+
+\begin{description}
+\item[454 Liverpool.] A \gls{wgs} sequencing project for \gls{cs} done in 454. The average coverage was around 5x. Assembling the reads produced an assembly with shorter contigs than the original reads. Hence, it was released as raw reads \citep{Brenchley2012}. Despite not being a proper reference genome, the reads where enough to find variations across the genomes and was used to designed genome specific primers before the IWGSC reference was published. 
+\item[IWGSC CSS.] The \gls{iwgsc} is able to extract DNA from a single chromosome arm, using a method called flow sorting. DNA for each sample was sequenced with Illumina to a coverage of at least 60x and it was assembled \citep{Mayer2014}. The assembly is quite fragmented partly because the assembler not being able to cope with repetitive regions, and partly because the flow sorting reduces the quality of DNA, preventing the preparation of long fragments. 
+\item[Chapman.] A \gls{wgs} project, but done with ilumina. Instead of sequencing \gls{cs}, a synthetic wheat was used. The scaffolds are longer than the \gls{css} assembly, but the project was not annotated. It was used mainly to develop markers in a mapping population between synthetic (W7984) and non-synthetic (Opata) wheat lines \citep{Chapman2015}.   
+\item[TGACv1] A \gls{wgs} originally proposed as an improvment to the \gls{css} assembly. The scaffolds are longer than in Chapman and it uses the contigs from \gls{css} to assign the chromosome arm corresponding to each contig. An annotation for this assembly is available \citep{Clark2016}
+\end{description}
 
 
 \subsection{Gene models}
@@ -245,85 +269,50 @@ When using this reference with hexaploid wheat, care must be taken of reads comi
 \item[Genome annotation IWGSC.] To complement the \acrshort{css} genome assembly, the genome was annotated using related grasses ( \textit{Brachypodium distachyon}, \textit{Oryza sativa}, \textit{Sorghum bicolor}, and \textit{Hordeum vulgare}. 
 The annotation was supported by RNA-Seq data from five samples from different tissues at three developmental stages \citep{Mayer2014}. 
 This was the first genome-scale annotation effort including the three genomes independently. 
-The main caveat of this annotation is that due the relatively small size of the scaffolds used as reference, several genes are splitted in two different gene models. 
+The main caveat of this annotation is that due the relatively small size of the scaffolds used as reference, several genes are split in two different gene models. 
 \item[Genome annotation TGACv1.] This is the companion annotatuin for the TGACv1 assembly. 
 The annotation was produced with a novel approach, by merging four alternative assemblies from three RNA-Seq datasets. 
-Also, long reads from PacBio where used to validate the gene models (ie. Full length, alternative splicing, cannonical sequence) \citep{Venturini2016}. 
+Also, long reads from PacBio where used to validate the gene models (ie. Full length, alternative splicing, canonical sequence) \citep{Venturini2016}. 
 This gene models were made public during the last year of this PhD, hence they were not used for the analysis. 
 However the tools described in Chapters \ref{cha:polymarker} and \ref{cha:exp} can work with the updated gene models. 
 \end{description}
 
 
 
-\subsection{Genetic markers}
+\subsection{Genetic markers and maps}
+
+The development of high resolution genetic maps had been benefited by technologies like SNP arrays and \gls{ngs}. 
+\gls{snp} arrays allow the genotyping of thousands of alleles from a single plant. Likewise, low coverage sequencing can be used with the support of a good reference to do genotyping. 
+Both techniques had been used recently to produce the following genetic maps: 
+
+\begin{description}
+\item[90k iSelect chip] This dataset consist of 81,597 \glspl{snp} coming from 19 hexaploid and 18 tetraploid wheat accessions and, a an aggregation of previously published SNPs. The wheat accession where sequenced with RNA-Seq and the reads where used to detect polymorphisms. The sequence flanking the SNPs come may include the intron-exon junction. 46,977 of the SNPs were genetically mapped with a combination of eight mapping populations \citep{Wang2014}. 
+\item[820k Axiom chip] The \gls{snp} discovery for this array was done using exome capture from 43 bread wheat and relative species. Three mapping populations (Avalon $\times$ Cadenza, W7984 $\times$ Opata and Savannah $\times$  Rialto) were used to prduce a consensus map with 56,505 markers \citep{Allen2016,Winfield2016}. This points out that a higher number of markers does not necessarily means a higher resolution in the genetic map, the main constrain are the mapping populations.  
+\item[Popseq/Chapman] The SNPs came from a mapping population of 90 individuals, all consisiting of \gls{dh} lines from a cross W7984 $\times$ Opata. Those \gls{dh} lines were lightly sequenced, with a coverage less than 2$\times$. Because of the high density of the SNPs, the haplotypes could be inferred. The total number of SNP is over 24 million, but the minimal set of markers 112,687 for the genetic map. The same population was used for the original \gls{css} assembly \citep{Mayer2014} and the assembly from \citet{Chapman2015}. 
+\end{description}
 
 
-Markers
--90k \citep{Wang2014}
--820k \citep{Winfield2016}
--MASwheat/SRR
--Chapman 
+%\subsection{Online resources}
+%Portal
+%-CeralsDB
+%-MASWheat
+%-Ensembl
+%-Wheat-expression
+%-Copo
 
-\subsection{Genetic maps}
-Genetic maps
--Wang \citet{Wang2014} 
--Chapman/PopSeq (is the same population, improved)
--latest additions! \citep{Allen2016,Winfield2016}
+%The Collaborative Open Plant Omics (COPO; \citealt{Davey2015}) is a an initiative to integrate data from different databases. 
+%The idea is to improve the interaction across repositories through an \gls{api}, a standard way to ensure the interoperability between systems. 
+%This approach keeps the responsibility of the system and data maintenance on the service providers. 
+%Service providers must ensure the compliance to standard of curation and integration, which would simplify the data analysis and visualisation, and ultimately promote the use of the integrated resources.  
 
-\subsection{Online resources}
-Portal
--CeralsDB
--MASWheat
--Ensembl
--Wheat-expression
--Copo
-
-The Collaborative Open Plant Omics (COPO; \citealt{Davey2015}) is a an initiative to integrate data from different databases. 
-The idea is to improve the interaction across repositories through an \gls{api}, a standard way to ensure the interoperability between systems. 
-This approach keeps the responsibility of the system and data maintenance on the service providers. 
-Service providers must ensure the compliance to standard of curation and integration, which would simplify the data analysis and visualisation, and ultimately promote the use of the integrated resources.  
-
-
-
-%A compilation of the currently available resource for whet genetics and genomics. MAS wheat, CeralsDB, Ensembl, etc.  
-
-
-
-%\section{Computer Programming}
-%Why Ruby and javascript?
-%-Ruby
-%-BioRuby
-%-JavaScript
-%-BioJS
-%-Rails. 
-%-SQL
-%-D3%
-
-%-lamda functions
-%-functions/methods
-
-%\subsection{Computer science used for this thesis}
-
-%The following subsections give a brief overview of computer science concepts used in the thesis for the development of PolyMarker (Chapter \ref{cha:polymarker}), expVIP (Chapter \ref{cha:exp}) and, the algorithms for the data analysis for the marker development for \acrshort{yr15} (Chapter \ref{yr15}).  
-
-%\subsubsection{Functions}
-
-%\subsubsection{Hash tables}
-
-%\subsubsection{Object Orientated}
-
-%\subsubsection{Web development vs desktop development}
-
-
-%-Containers, as in AWT. 
-% \label{lit:patterns}
 
 \section{Aim and objectives}
 
 
-The main aim of this PhD is to develop bioinformatics tools that help answer biological questions of importance by addressing the complexities associated with the wheat genome, such as its size and polyploid nature. These tools can only be effective if they are designed within a biological context and as such I have worked alongside experimental biologists over the past four years. The strategies and resources developed in this PhD take advantage of the latest developments in wheat research and I incorporated these as they were made public (Figure \ref{fig:intro:timeline}).  
-
-
+The main aim of this PhD is to develop bioinformatics tools that help answer biological questions of importance by addressing the complexities associated with the wheat genome, such as its size and polyploid nature. 
+These tools can only be effective if they are designed within a biological context and as such I have worked alongside experimental biologists over the past four years. 
+The strategies and resources developed in this PhD take advantage of the latest developments in wheat research and I incorporated these as they were made public (Figure \ref{fig:intro:timeline}). 
+The topics covered by this thesis, their relationship and, the chapter where they are used are shown in Figure \ref{fig:intr:topics}.
 
 As my aim was to develop new approaches, strategies and tools in polyploid wheat, I have listed a series of objectives, rather than specific hypotheses, which I tried to address over the course of this PhD. 
 
@@ -335,6 +324,14 @@ As my aim was to develop new approaches, strategies and tools in polyploid wheat
 \item Develop a platform to integrate and visualize RNA-seq expression experiments (Chapter \ref{cha:exp})
 \item Establish an overall framework to integrate the different resources developed in this PhD (Chapter \ref{cha:discussion}).
 \end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{Introduction/RicardoThesisTopics.pdf}
+\caption{Topics of this Thesis}
+\label{fig:intr:topics}
+\end{figure}
+
 
 All the pipelines and data produced by this project are publicly available. Towards this end I have also strived to publish this research in open access journals. Peer reviewed publications stemming from these research chapters are listed below: 
 
@@ -357,22 +354,7 @@ All the pipelines and data produced by this project are publicly available. Towa
 \end{itemize}
 \end{itemize}
 
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth]{Introduction/RicardoThesisTopics.pdf}
-\caption{Topics of this Thesis}
-\label{fig:intr:topics}
-\end{figure}
 
-
-\begin{landscape}
- \begin{figure}
-  \centering
-  \includegraphics[height=0.9\textheight]{Introduction/RicardoPhdTimelineV1.pdf}
-  \caption[PhD timeline.]{Timeline of the projects carried on during this PhD and the wheat resources that were released in the same period of time. }
-  \label{fig:intro:timeline}
- \end{figure}
-\end{landscape}
 
 
 
