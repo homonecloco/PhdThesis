@@ -8,7 +8,7 @@
 
 %\section{Analysis and tool development for polyploid organisms}
 
-Knowledge from  computer science can be applied to produce software for specific needs, and which can also be useful for the community. 
+Knowledge from  computer science can be applied to produce software for specific needs, and which can also be useful for the comunity. 
 One of the limitations though is that most approaches are developed for diploid systems and are sometimes not compatible with polyploid species, such as wheat. 
 Polyploidy adds an extra level of complexity (due to homoeologs) and in the case of wheat the large genome size also hinders certain approaches to genome analyses. Therefore bespoke tools are required to deal with this barriers. 
 
@@ -44,7 +44,6 @@ However, a genetic map may contain markers from several marker sets as well.
 For those reasons, a genetic map is not connected directly to a marker set, but the relationship is maintained through the markers and their position in the genetic map.
 
 To be able to use the genetic marker in a genomic context, the sequence of the markers must be mapped to a reference. 
-<<<<<<< HEAD
 The assembly may be in a single pseudomolecule (such as the new NRGene assembly) molecule or be separated in scaffolds (such as the IWGSC CSS or TGACv1 assemblies). 
 If the assembly is fragmented, the  map can be used to anchor the scaffolds to a genetic position. 
 If the assembly consist of long scaffolds the genetic map and the positions can be used to find if the lines used for the map have a rearrangement event. 
@@ -61,18 +60,6 @@ After identifying polymorphic markers these had to be manually converted into KA
 Similarly, many labs routinely use RNA-Seq for SNP discovery and spend several weeks or months in primer design \citep{Shatalina2013}. 
 Discussions with this group and others also supported the need to rapidly convert in silico SNP data into functional individual SNP assays. 
 PolyMarker has largely succeeded in removing this important bottleneck. 
-=======
-The assembly may be in a single pseudomolecule or in separated scaffolds. 
-If the assembly is fragmented, the  map can be used to anchor the scaffolds to a genetic position. 
-If the assembly consist on long scaffolds the genetic map and the positions can be used to find if a rearrangement event has occurred in the lines used for the map. 
-If a rearrangement is present, the collinearity between the genomic and genetic reference is not conserved. 
-Having the markers and scaffolds in the database simplifies this kind of analysis, as all the needed data is readily available. 
-
-Furthermore, PolyMarker (Chapter \ref{cha:polymarker}) has been used to design KASP assays for most of the primers in the 90k \citep{Wang2014} and 820k \citet{Winfield2016} SNP arrays. 
-The primers for the assays can be integrated in the database. 
-\unsure{Do we have any paper on the lab where this approach is used?}
-This allows to envision a use case where known flanking markers are queried and the database can return a list of possible markers with the primers already designed to be validated on a mapping population. 
->>>>>>> bb05390c38dbc9d6d682fbd317bee650a24c80aa
 
 \section{Integration of different genome references. }
 
@@ -92,7 +79,7 @@ Figure \ref{fig:discussion:assemblyTables} includes the tables used to store ass
 New assemblies are required to address the shortcomings of the use of \acrshort{cs} as a genome reference and to include the diversity from other lines \citep{Allen2016,Winfield2016}. 
 The assemblies may include their own annotation, and that should be reflected in the database too. 
 
-As of September 2016 there are four sets of genomic sequence used by the wheat community:
+As of september 2016 there are four sets of genomic sequence used by the wheat community:
 \begin{enumerate}
 	\item  A 454 whole genome shotgun sequence that is unassembled, and each read is treated as a scaffold \citep{Brenchley2012}.
 	\item The genome assembly and annotation from the \gls{css} done by the \acrshort{iwgsc} \citep{Mayer2014}.
@@ -107,10 +94,10 @@ Furthermore, the scaffolds can be mapped to related species, such as \textit{Bra
 As each genome assemblies are usually annotated with their genes and other features. 
 To include the annotation, each scaffold can contain several features. 
 As some features consist on sub-features, like genes conformed by several exons, a recursive relationship is included in the features tables. 
-With the support of scaffold mapping, the different annotations can be projected on different references. 
+With the support of the scaffold mapping, the different annotations can be projected on different references. 
 Gene models, like the ones described in \citep{Krasileva2013}, and  genetic markers can be aligned to any of the reference genomes.
 
-With all those relationships available, the \textit{in silico} mapping in Chapter \ref{yr15} could be produced on several references at once. 
+With all those relationships available, the \textit{In silico} mapping in Chapter \ref{yr15} could be produced on several references at once. 
 Also, the relationship between different gene models could be simplified, as the corresponding features will share coordinates.
 Likewise, the co-expression of genes located in the same region could be useful feature for expVIP (Chapter \ref{cha:exp}). 
 
@@ -207,7 +194,6 @@ In te future, the proposed database and the webservices described earlier should
 
 \section{Final remarks}
 
-<<<<<<< HEAD
 I started my PhD with a strong computational background, but with a limited knowledge of wheat genetics and breeding.
 When I was looking for a PhD I wanted an interdisciplinary supervisory team, with a member with bioinformatic background on one side, an one with a strong knowledge of biology. 
 Since I had previous experience with processing sequencing data, I found the project about using sequencing to improve wheat caught my attention lead by Mario Caccamo and Cristobal Uauy. 
@@ -246,6 +232,3 @@ However, the tables that would be useful for the database were different to the 
 At the end, the combination of the expression and tilling databases, combined with my initial prototype conform the relationships described in the final discussion (this chapter). 
 
 After the four years of my PhD I became convinced that in order to produce bioinformatic software that is powerful and usable it is required an understanding of both: the biological processes to solve and; computational methods and software development practices.
-=======
-In order to produce bioinformatics software that is powerful and usable it is required an understanding of both: the biological processes to solve on one hand, and the computational methods and software best development practices on the other.
->>>>>>> bb05390c38dbc9d6d682fbd317bee650a24c80aa
