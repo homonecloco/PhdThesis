@@ -1,4 +1,5 @@
 \documentclass[12pt,a4paper,oneside]{book}
+%\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage[sharp]{easylist}
@@ -21,16 +22,20 @@
 \usepackage{sidecap}
 \usepackage{setspace}
 \usepackage{algorithm2e}
+\usepackage{textcomp}
 \usepackage{algpseudocode}
 \usepackage{pbox}
 \usepackage{listings}
-\usepackage[acronym, xindy]{glossaries}
+\usepackage[acronym, xindy,toc]{glossaries}
 \usepackage{xcolor}
 \usepackage[pdfencoding=auto,psdextra]{hyperref}
 \usepackage{xargs}   
 \usepackage[all]{nowidow}
 \usepackage{pdfpages}
 \usepackage{coloremoji}
+\usepackage{lmodern}
+
+
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
 \newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
@@ -38,7 +43,7 @@
 \newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 \newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
 
-
+\newlength\longest
 \lstloadlanguages{Ruby}
 %\lstset{ 
 %basicstyle=\footnotesize\color{black},
@@ -184,18 +189,22 @@
 \item[]}{\end{list}}
 
 
-\author{Ricardo Humberto Ramirez Gonzalez}
-\title{Next generation genomics tools for wheat improvement}
 \input{Abbreviations}
 \makeglossaries
+
 \begin{document}
+\include{Title}
+
+\include{Introduction/Introduction}
+
 \tableofcontents
 \listoffigures
 \listoftables
 \lstlistoflistings
-\printglossaries
 
-%\include{Introduction/Introduction}
+\input{quote}
+\include{ACK}
+
 \include{LitReview/LitReview}
 \include{PolyMarker/PolyMarker}
 \include{Yr15/Yr15}
@@ -203,12 +212,9 @@
 \include{Conclusions/Conclusions}
 
 
-%“We passed through forests of fire, forded rivers of light and forged dark seas and mountains of snow and ice.
-%Each crossing took us thousands of years, though it seemed no more than the blink of an eye.” 
-%― Orhan Pamuk, My Name is Red
 
-\bibliographystyle{plainnat_short}
-\bibliography{References}
+
+
 
 \appendix
 \chapter{Supplemental tables}
@@ -217,4 +223,11 @@
 \input{Appendices/qc}
 \input{expVIP/tutorial}
 
+
+\printglossaries
+
+
+\bibliographystyle{plainnat_short}
+\bibliography{References}
+\addcontentsline{toc}{chapter}{Bibliography}
 \end{document}
