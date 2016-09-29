@@ -28,7 +28,7 @@
 
 To the best of my knowledge, the only alternative expression browser developed for specifically for wheat is WheatExp \citep{Pearce2015b}. 
 This expression browser contains information of 6 studies from diploid, tetraploid and hexaploid wheat. 
-The studies were selected to be complementary among them; " a broad study of five different tissues across multiple timepoints \citep{Choulet2014}, a study of seedling photomorphogenesis \citep{Fox2014}, a study of drought and heat stress in wheat seedlings \citep{Liu2015}, a study of wheat grain layers at a single timepoint \citep{Pearce2015}, a senescing leaf timecourse \citep{Pearce2014} and a timecourse of different grain tissue layers during development \citep{Pfeifer2014}".
+The studies were selected to be complementary among them; ``a broad study of five different tissues across multiple timepoints \citep{Choulet2014}, a study of seedling photomorphogenesis \citep{Fox2014}, a study of drought and heat stress in wheat seedlings \citep{Liu2015}, a study of wheat grain layers at a single timepoint \citep{Pearce2015}, a senescing leaf timecourse \citep{Pearce2014} and a timecourse of different grain tissue layers during development \citep{Pfeifer2014}''.
 The expression quantification is produced by aligning to the gene transcripts using BWA \citep{Li2010}, and the counts are extracted with HTSeq \citep{Anders2015}. 
 The Expression Atlas from \acrshort{ebi} is a public resource that collects expression experiments of several species \citep{Petryszak2016}. 
 The samples are processed automatically from the reads deposited ArrayExpress \citep{Kolesnikov2015}, containing data from microarrays and RNA-Seq.
@@ -65,8 +65,8 @@ Finally, the program estimates the abundance of the transcript in the sample (Fi
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{LitReview/Figures/kallisto.pdf}
-\caption[Overview of kallisto.]{"Overview of kallisto. The input consists of a reference transcriptome and reads from an RNA-seq experiment. (a) An example of a read (in black) and three overlapping transcripts with exonic regions as shown. (b) An index is constructed by creating the transcriptome de Bruijn Graph (T-DBG) where
-nodes (v1, v2, v3, ... ) are k-mers, each transcript corresponds to a colored path as shown and the path cover of the transcriptome induces a k-compatibility class for each k-mer. (c) Conceptually, the k-mers of a read are hashed (black nodes) to find the k-compatibility class of a read. (d) Skipping (black dashed lines) uses the information stored in the T-DBG to skip k-mers that are redundant because they have the same k-compatibility class. (e) The k-compatibility class of the read is determined by taking the intersection of the k-compatibility classes of its constituent k-mers" \citep{Bray2016}.}
+\caption[Overview of kallisto.]{``Overview of kallisto. The input consists of a reference transcriptome and reads from an RNA-seq experiment. (a) An example of a read (in black) and three overlapping transcripts with exonic regions as shown. (b) An index is constructed by creating the transcriptome de Bruijn Graph (T-DBG) where
+nodes (v1, v2, v3, ... ) are k-mers, each transcript corresponds to a colored path as shown and the path cover of the transcriptome induces a k-compatibility class for each k-mer. (c) Conceptually, the k-mers of a read are hashed (black nodes) to find the k-compatibility class of a read. (d) Skipping (black dashed lines) uses the information stored in the T-DBG to skip k-mers that are redundant because they have the same k-compatibility class. (e) The k-compatibility class of the read is determined by taking the intersection of the k-compatibility classes of its constituent k-mers'' \citep{Bray2016}.}
 \label{fig:exp:kallisto}
 \end{figure}
 
@@ -83,6 +83,7 @@ In our example an extra \texttt{id} column is added allowing to create a stable 
 The tables \ref{exp:tab:species} and \ref{exp:tab:studies} have the content of their corresponding domains. 
 
 \begin{figure}
+\centering
 \includegraphics{expVIP/Figures/miniER.pdf}
 \caption[Example of a relationship between tables.]{Example of a relationship between tables. The tables Species and Studies are related. Each study has one species and each species can have several studies.}
 \label{fig:expvip:miniER}
@@ -104,24 +105,24 @@ The tables \ref{exp:tab:species} and \ref{exp:tab:studies} have the content of t
 
 \subsection{SQL.}
 \gls{sql} is a common language to retrieve information from relational databases. 
-\acrshort{sql} has operations to select columns and rows, join tables, group repeated values and order the results. 
+\acrshort{sql} provides operations to select columns and rows, join tables, group repeated values and order the results. 
 Those simple operations are enough to retrieve information between tables \citep{Oracle2014}. 
 The following list shows a brief description of some commands  that can be used to build a query.  
 
 \begin{description}
-\item[\texttt{SELECT <EXPRESSIONS> }]. A list of columns or an expression that will be displayed, separated by commas (\texttt{,}). To display all the columns, the \texttt{*} character  all the columns in the table. The order of the columns will be the same as the order given in this part of the command
-\item[\texttt{FROM <TABLE>}]. follows the column names to add a list of tables to select from.
-\item[\texttt{JOIN <TABLE> ON <EXPRESSION> }]. is used to join the table from the left side of the statement with the \texttt{<EXPRESSION>} given after the \texttt{ON} clause.  
+\item[\texttt{SELECT <EXPRESSIONS>}] A list of columns or an expression that will be displayed, separated by commas (\texttt{,}). To display all the columns, the \texttt{*} character  all the columns in the table. The order of the columns will be the same as the order given in this part of the command
+\item[\texttt{FROM <TABLE>}] follows the column names to add a list of tables to select from.
+\item[\texttt{JOIN <TABLE> ON <EXPRESSION>}] is used to join the table from the left side of the statement with the \texttt{<EXPRESSION>} given after the \texttt{ON} clause.  
 \item[\texttt{WHERE <EXPRESSION>}] filters the rows by the \texttt{<EXPRESSION>}
-\item[\texttt{ORDER BY <COLUMNS>}]. The rows will be sorted by the natural order of the given \texttt{<COLUMNS>}.  
-\item[\texttt{GROUP BY <COLUMNS>}]. The rows are merged by the columns stated. This can be used to get an unique set of values and apply a function to all the rows that have the same value, as a count.
+\item[\texttt{ORDER BY <COLUMNS>}] The rows will be sorted by the natural order of the given \texttt{<COLUMNS>}.  
+\item[\texttt{GROUP BY <COLUMNS>}] The rows are merged by the columns stated. This can be used to get an unique set of values and apply a function to all the rows that have the same value, as a count.
 \end{description} 
 
 Expressions can be values, operators or functions like:
 
 \begin{description}
 \item[\texttt{COLUMN}] The value of a column. 
-\item[ \texttt{<EXPRESSION> = <EXPRESSION>}] \texttt{TRUE} when the left and right \texttt{<EXPRESSION>} are equal. \texttt{FALSE} otherwise 
+\item[ \texttt{<EXPRESSION> = <EXPRESSION>}] \texttt{TRUE} when both, the left and right, \texttt{<EXPRESSION>} are equal. \texttt{FALSE} otherwise 
 \item[ \texttt{<EXPRESSION> > <EXPRESSION>}] \texttt{TRUE} when the left  \texttt{<EXPRESSION>} is greater than the  right \texttt{<EXPRESSION>} are equal. \texttt{FALSE} otherwise 
 \item[ \texttt{<EXPRESSION> < <EXPRESSION>}] \texttt{TRUE} when the left  \texttt{<EXPRESSION>} is less than the  right \texttt{<EXPRESSION>} are equal. \texttt{FALSE} otherwise
 \item[ \texttt{COUNT(*)}] The count of rows that have the same values, as selected in the \texttt{GROUP BY} clause.
@@ -265,14 +266,14 @@ The design comprises two core groups of tables and two auxiliary tables that tak
 \item[Values] have a domain that includes the \texttt{meta experiment}, \texttt{gene} and, \texttt{type of value}.
 \end{description}
 \item[Homoeologues] contains the relationship between genes. This allows to get the expression values of several related genes. 
-\item[Species] contains the target species of a study. It is not linked to the gene models to allow the direct comparison between related species using the same gene models (ie, \texttt{T. aestivum} vs \texttt{T. turgidum}). 
+\item[Species] contains the target species of a study. It is not linked to the gene models to allow the direct comparison between related species using the same gene models (ie, \textit{T. aestivum} vs \textit{T. turgidum}). 
 \end{description}
 
-In the cases where a relationship between tables is not unique, such as \texttt{experiment\_groups} having many \texttt{factors} and the \texttt{factors} having many \texttt{experiment\_groups}, storing of relationships is done with an auxiliary table (ie. \texttt{ExperimentGroups\_Factors}, not explicitly shown in Figure \ref{fig:expvip:dbDesign}, but implicit by the lines with whiskers). 
+In the cases where a relationship between tables is not unique, such as \texttt{experiment\_groups} having many \texttt{factors} and the \texttt{factors} having many \texttt{experiment\_groups}, storing of relationships is done with an auxiliary table (for example, \texttt{ExperimentGroups\_Factors}, not explicitly shown in Figure \ref{fig:expvip:dbDesign}, but implicit by the lines with whiskers). 
 
 Once all the data is stored, the tables can be queried together to make clear the relationship between specific rows. 
 One of the core tasks of \gls{expvip} is to get all the factors that define each experiment, in order to be able to merge similar studies. 
-To retrieve the \texttt{experiments} and \texttt{factors} of an \texttt{experiment group}, the auxiliary tables \texttt{ExperimentGroups\_Factors}  and \texttt{experiment\_groups\_experiments} are used in the query. (Listing \ref{lst:exp:queryMetadata} and Table \ref{tab:exp:queryMetadata}).
+To retrieve the \texttt{experiments} and \texttt{factors} of an \texttt{experiment group}, auxiliary tables \texttt{ExperimentGroups\_Factors}  and \texttt{experiment\_groups\_experiments} are used in the query. (Listing \ref{lst:exp:queryMetadata} and Table \ref{tab:exp:queryMetadata}).
 
 
 \begin{code}[language=sql, caption={[Query experiments and factors]Query experiments and factorsQuery experiments and factors from accession 'DRR003148'},label=lst:exp:queryMetadata]
@@ -295,7 +296,7 @@ WHERE accession =  'DRR003148'
 
 %\pagebreak
 \begin{table}[h]
-\caption[Results of query for metadata]{Results of querying the metadata for accession 'DRR003148' (Listing \ref{lst:exp:queryMetadata})}
+\caption[Results of query for metadata]{Results of querying the metadata for accession `DRR003148' (Listing \ref{lst:exp:queryMetadata})}
 \label{tab:exp:queryMetadata}
 \input{expVIP/tables/metadataDRR003148}
 \end{table}
@@ -303,7 +304,7 @@ WHERE accession =  'DRR003148'
 Likewise, to get the \texttt{expression\_values} for a \texttt{gene} with the corresponding unit (\texttt{type\_of\_values}) and \texttt{experiment} a simple query joining the four tables is used. 
 The Listing \ref{lst:exp:queryExpValues} retrieves the \texttt{expression\_values} for the \texttt{gene} 'Traes\_5BS\_0AFC3F795.1', and the result is on Listing \ref{tab:exp:queryExpValues}
 
-\begin{code}[language=sql, caption={[Query values for gene and experiment group] Query values from 'Group1' and gene 'Traes\_5BS\_0AFC3F795.1' },label=lst:exp:queryExpValues]
+\begin{code}[language=sql, caption={[Query values for gene and experiment group] Query values from `Group1' and gene `Traes\_5BS\_0AFC3F795.1' },label=lst:exp:queryExpValues]
 SELECT 
 	genes.name as gene, 
 	expression_values.value,
@@ -321,8 +322,9 @@ WHERE
 \end{code}
 
 \begin{table}[h]
-\caption[Results of query for values]{Results of query to get the values for gene 'Traes\_5BS\_0AFC3F795.1' (Listing \ref{lst:exp:queryExpValues}), only 'Group1' is displayed from the output. The three values with the same unit correspond to replicates on the same study.}
+\caption[Results of query for values]{Results of query to get the values for gene `Traes\_5BS\_0AFC3F795.1' (Listing \ref{lst:exp:queryExpValues}), only `Group1' is displayed from the output. The three values with the same unit correspond to replicates on the same study.}
 \label{tab:exp:queryExpValues}
+\centering
 \input{expVIP/tables/valuesGroup1GeneTraes_5BS_0AFC3F795.1}
 \end{table}
 
@@ -402,7 +404,7 @@ Besides the main fields, each factor has a a corresponding column Variety, Tissu
 
 \item[Gene set] The gene set is provided as a single \verb|fasta| file. 
 The file may contain alternative transcripts from the same gene. To identify this, the \verb|fasta| header may include the optional fields \texttt{gene} and \texttt{transcript}. 
-In the absence of this, the only stored value is the name derived from the header, going from the \textgreater character to the first space on the line (Listing \ref{lst:poly:geneFa}). 
+In the absence of this, the only stored value is the name derived from the header, going from the '\textgreater' character to the first space on the line (Listing \ref{lst:poly:geneFa}). 
 
 \begin{code}[label=lst:poly:geneFa, caption={[Gene set fasta file] A fasta entry on of the gene set.}]
 >Traes_5BL_3FC5BA305.1 cdna:novel scaffold:IWGSC2:IWGSC_CSS_5BL_scaff_1082268:5:199:-1 gene:Traes_5BL_3FC5BA305 transcript:Traes_5BL_3FC5BA305.1
@@ -904,7 +906,7 @@ In a collaboration with the Earlham Institute and eLife, another PhD student is 
 If I had kept the code closed, this potential use of the component would have never happened. 
 
 The webserver is also open and hosted on github (\url{https://github.com/homonecloco/expvip-web}), with a tutorial on how to load the data on a personal server (Appendix \ref{exp:tutorial}). 
-As the quantification tool used by \gls{expvip} has a relatively low memory requirement, I was able to prepare and preconfigure two virtual machines, one without any data loaded and one with all the data used in the original article \url{http://www.wheat-expression.com}. 
+As the quantification tool used by \gls{expvip} has a relatively low memory requirement, I was able to prepare and preconfigure two virtual machines, one without any data loaded and one with all the data used in the original article.% \url{http://www.wheat-expression.com}. 
 This allows the comparison of private projects in the context of previous studies. 
 On the Norwich Research Park, at least two groups are actively on using \gls{expvip} to make their data available to the community on other species.
 We had also been contacted by both the team behind the annotation of TGACv1 and the \gls{iwgsc} NRGene assembly to include the upcoming annotations to the public instance of expVIP. 

@@ -17,7 +17,7 @@ Because of the similarity homoeologous regions can interfere in \gls{pcr} amplif
 This chapters describes PolyMarker, a bioinformatic tool to design genome-specific primers. 
 
 
-\subsection{Primers and Polymerase Chain Reaction (PCR)}
+\subsection{Primers and Polymerase Chain Reaction}
 To generate new copies of DNA, biological systems requiere a DNA polymerase to copy DNA into DNA or a reverse transcriptase to translate RNA to DNA. During DNA replication, the DNA polymerase binds to the template strand and to a short strand of RNA that serves as a primer for DNA synthesis and replication, and then adds complementary nucleotides. Eventually, this results in two complementary DNA strands\cite{alberts2014molecular}.
 
 This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. PCR uses an heat-stable DNA polymerase to amplify the template sequence. The DNA polymerase requieres a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesized oligonucleotides of approximately 20 bases are added as primers. This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. The process is repeated multiple times to increase the number of DNA sequences exponentially \cite{alberts2014molecular}.
@@ -190,6 +190,7 @@ The flanking sequence may contain \acrshort{indels} and the sequences do not ali
 The following parameters can be adjusted to extend the functionality of PolyMarker: Minimum Identity to designs for organisms with homoeologous regions that are more divergent; flanking sequence for different types of primers (ie. for Sanger sequencing) and;  \verb|model| to adjust the search according to the source of the SNP (ie. if it is known that the SNP comes from DNA, \verb|affine:local| would be a better option as \verb|exonerate| will not pay attention to the intron-exon junctions).
 
 \begin{figure}
+\centering
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/scaffoldsFound.pdf}
 \caption[Sequence of flanking regions around the SNP.]{Sequence of flanking regions around the SNP. The \acrshort{indels} produce a slight shift on the sequence.}
 \label{fig:poly:globalSequence}
@@ -251,6 +252,7 @@ To ensure that the \acrshort{indels} between homoeologues do not produce spuriou
 The arguments used are the recommended ones in the manual for small number of sequences:
 
 \begin{figure}
+\centering
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/localAlignment.pdf}
 \caption{Local alignment on regions around the SNP detects \acrshort{indels}.}
 \label{fig:poly:localSequence}
@@ -292,6 +294,7 @@ A mask is produced to highlight the bases with a variations, Figure \ref{fig:pol
 
 
 \begin{figure}
+\centering
 \includegraphics[width=1\textwidth]{PolyMarker/Figures/aln/mask.pdf}
 \caption[Alignment with mask and primer candidates.]{Alignment with mask and primer candidates. The green and light red boxes highlight the allele specific primers. The blue box highlights a genome specific primer. }
 \label{fig:poly:mask}
@@ -318,7 +321,7 @@ The candidate primer pairs are then evaluated with \texttt{Primer3} \citep{Rozen
 \texttt{Primer3} receives a file with the preferences to design the markers, for PolyMarker the following preferences are set up: 
 
 \begin{description}
-\item[\texttt{PRIMER\_PRODUCT\_SIZE\_RANGE=50-150}.] This is a reasonable size for KASP markers, as the technology does not have an extension step. 
+\item[\texttt{PRIMER\_PRODUCT\_SIZE\_RANGE=50-150}.] A reasonable size for KASP markers, as the technology does not have an extension step. 
 \item[\texttt{PRIMER\_MAX\_SIZE=25}.] KASP primers are usually between 21 and 25 bases.
 \item[\texttt{PRIMER\_LIB\_AMBIGUITY\_CODES\_CONSENSUS=1}.] To ensure that bases with ambiguity code are matched between primer pairs. 
 \item[\texttt{PRIMER\_LIBERAL\_BASE=1}.] To allow the use of ambiguity codes in the sequence
@@ -331,7 +334,7 @@ To keep track of what kind of marker each position will produce the ID field has
 The starting position of the primers is forced with the options \verb|SEQUENCE_FORCE_LEFT_END| and \verb|SEQUENCE_FORCE_RIGHT_END| on the specific and semi-specific positions. 
 For the non specific positions only the \verb|SEQUENCE_FORCE_LEFT_END| is given to make a full search of candidates. 
 
-\begin{code}[language=Ruby,caption={[\texttt{Bio::PolyploidTools::SNP.mask\_aligned\_chromosomal\_snp}] Method in \texttt{Bio::PolyploidTools::SNP} that calculates the mask of the alignment}, label=lst:poly:mask]
+\begin{code}[language=Ruby,caption={[\texttt{Bio::PolyploidTools::SNP.}\texttt{mask\_aligned\_chromosomal\_snp}] Method in \texttt{Bio::PolyploidTools::SNP} that calculates the mask of the alignment}, label=lst:poly:mask]
 def mask_aligned_chromosomal_snp(chromosome)
   names = exon_sequences.keys
   parentals =  parental_sequences.keys
@@ -400,7 +403,7 @@ Finally, the best primer for each marker is produced and a \acrshort{csv} file i
 \item[SNP] The position of the SNP in the original sequence and the kind of SNP
 \item[RegionSize] The size of the original sequence tested, up to the maximum size including the flanking sequence. 
 \item[chromosome] The target chromosome
-\item[total\_contigs] How many contigs mapped to the SNP. If it is more than the expected by the ploidy of the organism it can show paralogues or repetitive regions/
+\item[total\_contigs] How many contigs mapped to the SNP. If it is more than the expected by the ploidy of the organism it can show paralogues or repetitive regions.
 \item[contig\_regions] The locations where the marker mapped. In the format Scaffold:start-end
 \item[SNP\_type] homoeologous or non-homoeologus. If it is homoeologous, the SNP is probably a variation between chromosomes. 
 \item[A] Primer for the first allele.
@@ -436,16 +439,19 @@ The graphical representation is helpful to understand how the primers were desig
 \centering
 \begin{subfigure}{1\textwidth}
 \caption{}
+\centering
 \label{fig:poly:non-hom-sp}
 \includegraphics[width=0.75\textwidth]{PolyMarker/Figures/website/non-hom-sp.png}
 \end{subfigure}
 \begin{subfigure}{1\textwidth}
 \caption{}
+\centering
 \label{fig:poly:hom-sp}
 \includegraphics[width=0.75\textwidth]{PolyMarker/Figures/website/hom-sp.png}
 \end{subfigure}
 \begin{subfigure}{1\textwidth}
 \caption{}
+\centering
 \label{fig:poly:hom-multi}
 \includegraphics[width=0.75\textwidth]{PolyMarker/Figures/website/hom-multi.png}
 \end{subfigure}
@@ -519,23 +525,27 @@ When a deletion is present the results of the assay resemble the results for a h
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \caption{}
+        \centering
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/deletions/wt.pdf}
         \label{fig:poly:wt}
     \end{subfigure}
     ~
      \begin{subfigure}[b]{0.45\textwidth}
         \caption{}
+        \centering
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/deletions/homM4.pdf}
         \label{fig:poly:homM4}
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
         \caption{}
+        \centering
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/deletions/homFalse.pdf}
         \label{fig:poly:homFalse}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.3\textwidth}
         \caption{}
+        \centering
         \includegraphics[width=1\textwidth]{PolyMarker/Figures/deletions/homReal.pdf}
         \label{fig:poly:homReal}
     \end{subfigure}
@@ -606,7 +616,7 @@ Briefly, the steps to develop primers for wheat was:
     \item \textbf{Sequence the amplicons}. The \gls{pcr} products from the relative species are sequenced individually with capillary sequence. 
     \item \textbf{Alignment of the amplicons}. To search for variations between related species, the amplicons are aligned and the bases that are different across diploid species are used to design new primers, that should be genome specific in hexaploid wheat. 
     \item \textbf{Validation on nullisomic-tetrasomic lines}. 
-Nullisomic-tetrasomic lines are research wheat lines that have been treated to remove one of their chromosome pairs. 
+Those research lines have been treated to remove one of their chromosome pairs. 
 In the process, one of the homoeologue chromosomes is duplicated (four chromosomes, hence tetra).
 This lines are useful to evaluate the effect of a particular chromosome. 
 In the case of genome-specific primer design, it is possible to evaluate if the primer is specific to the missing chromosome, as it will not amplify in the nullisomic-tetrasomic line. 

@@ -13,8 +13,8 @@
 \subsection{Polyploidy and Wheat}
 \label{lit:polyploidy}
 
-A polyploid species contains more than one set of related genomes, that may come from a chromosomal duplication (autopolyploid) or from an hybridization with a related species (allopolyploid; \citealt{Shewry2009}) . 
-\textit{Triticum aestivum} (bread wheat) has gone through an speciation event and two major hybridization events. 
+A polyploid species contains more than one set of related genomes, that may come from a chromosomal duplication (autopolyploid) or from an hybridization with a related species (allopolyploid; \citealt{Shewry2009}). 
+\textit{Triticum} \textit{aestivum} (bread wheat) has gone through an speciation event and two major hybridization events. 
 Initially, a common progenitor evolved into two different species around 7 million years ago to form the A and B genomes, whose closest known relatives today are \textit{Triticum urartu} and \textit{Aegilops speltoides} \citep{Dubcovsky2007}, respectively. 
 Around 5.5 million years ago, these two lineages hybridized though homoploid hybrid speciation to give rise to the D genome progenitor \textit{Ae. tauschii} \citep{Marcussen2014,ElBaidouri2016}. Homoploid hybrid speciation refers to the event which occurs when a fertile lineage, in this case \textit{Ae. tauschii}, results from hybridization between two distinct species (\textit{T. urartu} and \textit{Ae. speltoides}), without a change in ploidy level \citep{Gross2012}.
 Then, less than 800 thousand years ago the ancient A and B genome species hybridised and formed a tetraploid wheat, \textit{Triticum turgidum} ssp. \textit{dicoccoides} (wild emmer). 
@@ -164,7 +164,7 @@ The resulting cDNA library is sequenced using available high throughput sequenci
 
 %DNA sequence alone is not alone to enough to understand the biology behind, a context is required. There are databases like Ensembl and NCBI that act as repositories of the known public sequences. 
 
-From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman \cite{Smith1981} and Needleman-Wunsch\cite{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O($mn$), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST index the references and use heuristics to make the search more manageable, with some penalty in the accuracy. This alignments tools are useful for long stretches of DNA (like cDNA or contigs)\cite{Altschul1990}.
+From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman \citep{Smith1981} and Needleman-Wunsch \citep{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O($mn$), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST index the references and use heuristics to make the search more manageable, with some penalty in the accuracy. This alignments tools are useful for long stretches of DNA (like cDNA or contigs; \citealt{Altschul1990}).
 
 Several tools have been developed to do sequence alignment, among them the most common ones are:
 
@@ -177,12 +177,13 @@ Several tools have been developed to do sequence alignment, among them the most 
 
 When analysing high-throughput sequencing, having millions of short sequences make unfeasible to try to align the data to every possible reference. However, one can take in advantage the fact that you know which organism you are looking for and, if available, use a genomic reference. For this, tools like MAQ, BWA, Bowtie, among others, provide indexed search.  Once you have your reads aligned to a reference you can do more analysis, depending on the biological question being asked and the type of sequencing carried on.  Fortunately, most of the Short-Read sequence alignment produce similar outputs and the SAM format is becoming a de facto standard. This is allowing to make more modularised downstream analysis where you can test different aligners with different settings and pick the algorithm that better fits your experiment\cite{Liu2012,Li2009,Li2009a}. 
 
+\pagebreak
 \subsubsection{\gls{iuapc} Ambiguity Codes}
 \label{lit:ambiguity}
 To represent polymorphisms in a single sequence the \gls{iuapc} has developed an representation of a single character combining more than one possible nucleotide. 
 This table is used in Chapters \ref{cha:polymarker} and \ref{yr15} to represent \glspl{snp}.
 
-\begin{table}
+\begin{table}[h!]
 \caption{\gls{iuapc} ambiguity codes}
 \centering
 \begin{tabular}{ccc}
@@ -212,7 +213,6 @@ N & G or A or T or C & N \\
 
 One way to narrow down which genes are involved in certain trait or response to the environment is to focus on studying only the expressed genes. One of the techniques involving \gls{ngs} is RNA-Seq (See Section \ref{lit:rna-seq:lab}). %This technique captures the messenger RNA in the tissue being studied and sequenced. 
 %The premise is that you will find a gene more expressed if it is being used by the organism. Some proteins with a vital role for the cell are always expressed (i.e. RuBisCO for carbon fixation in plants\cite{CooperGM2000}). On the simplest of the experiments you would need two datasets to compare, one with the gene being looked expressed and one where it is not. The expression can come from different environmental conditions, development stage or different genotypes.\cite{Mortazavi2008} 
-
 Depending on how much \textit{a priori} information of the analysed organism is available different bioinformatic approaches can be used.
 \begin{description}
 \item[Transcriptome alignment] The reads are aligned to a database of known cDNA. Ideally, alternative splicing sequences are available, so a simple alignment should work (i.e. BWA, bowtie). 
@@ -270,9 +270,8 @@ When using this reference with hexaploid wheat, care must be taken of reads comi
 The annotation was supported by RNA-Seq data from five samples from different tissues at three developmental stages \citep{Mayer2014}. 
 This was the first genome-scale annotation effort including the three genomes independently. 
 The main caveat of this annotation is that due the relatively small size of the scaffolds used as reference, several genes are split in two different gene models. 
-\item[Genome annotation TGACv1.] This is the companion annotatuin for the TGACv1 assembly. 
-The annotation was produced with a novel approach, by merging four alternative assemblies from three RNA-Seq datasets. 
-Also, long reads from PacBio where used to validate the gene models (ie. Full length, alternative splicing, canonical sequence) \citep{Venturini2016}. 
+\item[Genome annotation TGACv1.] This is the companion annotation for the TGACv1 assembly. 
+The annotation was produced with a novel approach, by merging four alternative assemblies from three RNA-Seq datasets and long reads from PacBio sequencing \citep{Venturini2016}. The polished assemblies and full length cDNA alignments were used together with protein alignments as basis for evidence-based \textit{ab initio} predictions with Augustus. 
 This gene models were made public during the last year of this PhD, hence they were not used for the analysis. 
 However the tools described in Chapters \ref{cha:polymarker} and \ref{cha:exp} can work with the updated gene models. 
 \end{description}
@@ -346,7 +345,7 @@ All the pipelines and data produced by this project are publicly available. Towa
 
  \item Chapter 3 (Bulked segregant mapping)
 \begin{itemize}
-\item	\textbf{Ramirez-Gonzalez RH}, Segovia V, Bird N, Fenwick P, Holdgate S, Berry S, Jack P, Caccamo M, Uauy C (2014) RNA-Seq bulked segregant analysis enables the identification of high-resolution genetic markers for breeding in hexaploid wheat Plant Biotechnology Journal 13:613-624
+\item	\textbf{Ramirez-Gonzalez RH}, Segovia V, Bird N, Fenwick P, Hold\-gate S, Berry S, Jack P, Caccamo M, Uauy C (2014) RNA-Seq bulked segregant analysis enables the identification of high-resolution genetic markers for breeding in hexaploid wheat Plant Biotechnology Journal 13:613-624
 \item	\textbf{Ramirez-Gonzalez RH}, Segovia V, Bird N, Caccamo M, Uauy C (2015) Next Generation Sequencing Enabled Genetics in Hexaploid Wheat. in Advances in Wheat Genetics: From Genome to Field eds Ogihara Y, Takumi S, Handa H, pg 201-209
 \end{itemize}
 \item Chapter 4 (expVIP)

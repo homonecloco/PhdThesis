@@ -104,8 +104,9 @@ Gene models, like the ones described in \citep{Krasileva2013}, and  genetic mark
 
 With all those relationships available, the \textit{In silico} mapping in Chapter \ref{yr15} could be produced on several references at once. 
 Also, the relationship between different gene models could be simplified, as the corresponding features will share coordinates.
-Likewise, the co-expression of genes located in the same region could be useful feature for expVIP (Chapter \ref{cha:exp}). 
+Likewise, the co-expression of genes located in the same region is an useful feature for expVIP (Chapter \ref{cha:exp}). 
 
+\pagebreak
 \section{Integration of expression data and beyond}
 
 A database to integrate expression studies was developed for expVIP (Chapter \ref{cha:exp}). 
@@ -114,7 +115,7 @@ To better unify expVIP with the rest of the database, the experiments can be ass
 In that way, when the RNA-Seq experiment is used for SNP calling, a relationship for it will be available. 
 A more comprehensive discussion of the tables in Figure \ref{fig:discussion:expressionTables} is found in Chapter \ref{cha:exp}. 
 
-\begin{figure}
+\begin{figure}[b]
 \includegraphics[width=1\textwidth]{Conclusions/Figures/ExpressionTables.pdf}
 \caption{Tables to store information about gene expression.}
 \label{fig:discussion:expressionTables}
@@ -133,7 +134,7 @@ Hence, to see if a mutation is in a gene differentially expressed requires a sep
 If the two databases were merged as proposed, it would be possible to have a query to find all the SNPs in genes that are differentially express under certain conditions.
 Moreover, this integration would allow users to query for specific mutations which result in truncations in all differentially expressed genes in a given chromosome interval.  
 
-\begin{figure}
+\begin{figure}[b]
 \includegraphics[width=1\textwidth]{Conclusions/Figures/IntegratingExperiments.pdf}
 \caption{Relationship of different types .}
 \label{fig:discussion:sequencingExperimentsTables}
@@ -157,7 +158,7 @@ Storing the coverage at the exon level in the database, along with the annotatio
 
 Overall, having a single database with different types of genomic and genetic data, alongside with a reliable annotation can simplify functional genomics. 
 
-\pagebreak
+%\pagebreak
 \section{Integration of sequencing experiments and genetic maps}
 %\unsure{Im not sure if I'm repeating the first bit of the discussion, but I think it rounds the idea that everything is related. }
 Genomic data by itself is a valuable resource that can help to find SNP markers, differential expression under different condition and structural variation of the genome. 
@@ -199,7 +200,7 @@ This requires an active effort from all the service providers.
 Initiatives like COPO try to reduce the friction between data providers, by providing a common language between sites. 
 In the future, the proposed database and the webservices described earlier should implement an interface to communicate with other databases. 
 
-\pagebreak
+%\pagebreak
 \section{Final remarks}
 
 I started my PhD with a strong computational background, but with a limited knowledge of wheat genetics and breeding.

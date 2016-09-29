@@ -39,7 +39,7 @@ This generates a population with a phenotypic ratio of 3:1 (resistant:susceptibl
    \centering
    \includegraphics[height=0.3\textheight]{Yr15/Figures/BSA.pdf}
   \end{subfigure}
-   \caption[Alleles on $F_2$ population and Bulk Segregant Analysis.]{Alleles on $F_2$ population and Bulk Segregant Analysis. The $\otimes$ represent self-pollination. (\subref{fig:yr15:f2schematic}) The cross of two homozygous parents, $P_{1}$ and $P_{2}$, with a dominant and a recessive allele of a gene produces an heterozygous $F_{1}$. The $F_{1}$ crossed with itself produce a segregating $F_{2}$ population with a 1:2:1 ratio (A/A:A/a:a/a). The upper and lower cases represent dominant and recessive alleles, respectively. (\subref{fig:yr15:BSAschematic}) Bulk Segregant Analysis consist on pooling DNA from the $F_{2}$ population. The DNA is mixed in bulks coming from plants with a shared phenotype. For a dominant resistance gene, an R sulk contains only resistant individuals (with A/A and A/ genotype) and, an S bulk with the susceptible individuals (with a/a genotype). } 
+   \caption[Alleles on $F_2$ population and Bulk Segregant Analysis.]{Alleles on $F_2$ population and Bulk Segregant Analysis. The $\otimes$ represent self-pollination. (\subref{fig:yr15:f2schematic}) The cross of two homozygous parents, $P_{1}$ and $P_{2}$, with a dominant and a recessive allele of a gene produces an heterozygous $F_{1}$. The $F_{1}$ crossed with itself produce a segregating $F_{2}$ population with a 1:2:1 ratio (A/A:A/a:a/a). The upper and lower cases represent dominant and recessive alleles, respectively. (\subref{fig:yr15:BSAschematic}) Bulk Segregant Analysis consist on pooling DNA from the $F_{2}$ population. The DNA is mixed in bulks coming from plants with a shared phenotype. For a dominant resistance gene, an R sulk contains only resistant individuals (with A/A and A/a genotype) and, an S bulk with the susceptible individuals (with a/a genotype). } 
   
 \end{figure}
 
@@ -195,15 +195,17 @@ Therefore exclusion of bulk 3 plants in the S1+S2 and R1+R2 bulk would provide t
 
 \begin{figure}
 \centering
-\begin{subfigure}{0.38\textwidth}
+\begin{subfigure}{0.75\textwidth}
     \caption{}
-     \includegraphics[width=1\textwidth]{Yr15/Figures/CoveragePerGene.pdf} 
+    \centering
+     \includegraphics[height=0.25\textheight]{Yr15/Figures/CoveragePerGene.pdf} 
     \label{fig:yr15:covPerGene}
 \end{subfigure}
-~
-\begin{subfigure}{0.58\textwidth}
+
+\begin{subfigure}{0.75\textwidth}
     \caption{}
-    \includegraphics[width=1\textwidth]{Yr15/Figures/PercentageOfSnps.pdf} 
+    \centering
+    \includegraphics[height=0.25\textheight]{Yr15/Figures/PercentageOfSnps.pdf} 
     
     \label{fig:yr15:SNPper}
 \end{subfigure}
@@ -646,11 +648,11 @@ end
 \subsection{Primer design and KASP assays}
 The primer designs for KASP were designed with PolyMarker as described in Chapter \ref{cha:polymarker}. 
 The only difference with default settings is that instead of using a template sequence, the sequence for each allele is calculated from the consensus of the alignments. 
-As described in \citet{Ramirez-Gonzalez2015b}, the primers 
-\begin{blockquote} were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standard FAM or HEX compatible tails (FAM tail: 5' GAAGGTGACCAAGTTCATGCT 3'; HEX tail: 5' GAAGGTCGGAGTCAACGGATT 3') and the target SNP at the 30 end. 
+As described in \citet{Ramirez-Gonzalez2015b}, 
+\begin{blockquote} [the primers] were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standard FAM or HEX compatible tails (FAM tail: 5' GAAGGTGACCAAGTTCATGCT 3'; HEX tail: 5' GAAGGTCGGAGTCAACGGATT 3') and the target SNP at the 30 end. 
 Primer mix was set up as recommended by LGC [46 $\mu$L dH$_{2}$O, 30 $\mu$L common primer (100 $\mu$M) and 12 $\mu$L of each tailed primer (100 $\mu$M)] \citep{LGC}
 Assays were tested in 384-well format and set up as 4-$\mu$L reactions [2-$\mu$L template (10–20 ng of DNA), 1.944 $\mu$L of V4 2 $\times$ Kaspar mix and 0.056 $\mu$L primer mix]. 
-PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95 °C for 15 min, followed by ten touchdown cycles (95°C for 20 s; touchdown 65°C, $-1$ °C per cycle, 25 s) then followed by 30 cycles of amplification (95°C 10 s; 57°C 60 s).
+PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95°C for 15 min, followed by ten touchdown cycles (95°C for 20s; touchdown 65°C, $-1$°C per cycle, 25 s) then followed by 30 cycles of amplification (95°C 10s; 57°C 60s).
 As KASP amplicons are smaller than 120 bp, an extension step is unnecessary in the PCR protocol. 384-well optically clear plates (Cat. No. E10423000; Starlab Milton Keynes, UK) were read on a Tecan Safire plate reader. 
 Fluorescence was detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).
 \end{blockquote}
