@@ -172,7 +172,7 @@ A transaction is a set of related operations that need to be performed at the sa
 Several \gls{rdbms} implement \acrshort{sql}, with various levels of compliance to the standard and different licenses.  
 A popular \acrshort{rdbms} is \texttt{MySQL}.
 From the beginning \texttt{MySQL} aimed to be a lightweight and easy to install open source product \citep{Oracle2014}. 
-This characteristics made it popular on the web and it is currently the \gls{rdbms} behind ensembl! \citep{Flicek2012}. 
+This characteristics made it popular on the web and it is currently the \gls{rdbms} behind Ensembl! \citep{Flicek2012}. 
 
 \subsection{Model-View-Controller}
 
@@ -455,7 +455,7 @@ The gene sets are loaded slightly differently, as the input is a \verb|fasta| fi
 The reader for the \verb|FastaFormat| from BioRuby \citep{Goto2010} is used to read the file (Listing \ref{lst:exp:loadGenes}; line 4). 
 Since \gls{expvip} only records the name of the genes, only the id of the fasta sequence is extracted (lines 6-79). 
 The name is stored in the name and cDNA columns. 
-The parser for entries from ensembl, such the one in Listing \ref{lst:poly:geneFa} include code to load the \acrshort{cdna} and transcript fields correctly. 
+The parser for entries from Ensembl, such the one in Listing \ref{lst:poly:geneFa} include code to load the \acrshort{cdna} and transcript fields correctly. 
 
 \begin{code}[language=ruby, caption={[Load genes from Fasta]Task that load genes from a fasta file}, label=lst:exp:loadGenes]
 task :de_novo_genes, [:gene_set,:filename] => :environment do |t, args|
@@ -895,7 +895,7 @@ Making the relationship of the expression between related genes easily accessibl
 Likewise, when the update to the table that keeps arbitrary relationships between genes is completed, it will be possible to find if related genes have a conserved expression pattern across species. 
 To achieve this though it will be critical that the metadata uses common nomenclature across species. 
 For example, proper plant ontology \citep{Cooper2013} terms should be implemented in the metadata to be able to conclude that expression patterns are conserved across the same tissue and developmental stage in different species. 
-This is not a trivial undertaking but a new PhD project at EI is looking in ways to facilitate this feature. 
+This is not a trivial undertaking but a new PhD project at \gls{ei} is looking in ways to facilitate this feature. 
 
 \subsection{An open access resource.}
 Since its conception, I wanted \gls{expvip} to be open source and available to the community. 
