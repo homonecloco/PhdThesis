@@ -388,9 +388,9 @@ The non-uniform distribution of the coverage in RNA-Seq experiments affects the 
 \input{Yr15/SupplementalTables/numberOfGenesWithUniqHit}
 
 %TODO: maybe move to the discussion. 
-Around $60\%$ of the gene models, across both references, had a unique hit with greater than 99\% sequence identity to a single \acrshort{css} scaffold (Table \ref{tab:yr15:mappedGenes}). 
-\unsure{This sentence is not completely clear.}
-This is likely because there is no unique homoeologue in the gene models, leading to reads, from two different homoeologues, mapping to the same region.
+Around $60\%$ of the gene models, across both references, had a unique hit with greater than 99\% sequence identity to a single \gls{css} scaffold (Table \ref{tab:yr15:mappedGenes}). 
+%\unsure{This sentence is not completely clear.}
+This is likely because the gene models don't have a unique mapping between gene sets because in cases where only one homoeologue is present in one reference, all the homoeologues in the complementary reference will map to the only represented gene in the original set of genes. 
 To reduce the number of spurious SNPs we used IUPAC ambiguity codes (Section \ref{lit:ambiguity}, \citet{Cornish-Bowden1985}) when two different alleles were observed.
 This had the side effect that in order to keep only high confidence SNPs we required a higher coverage ($>20x$). 
 On the original study introducing the BFR in tetraploid wheat, the authors show that increasing the coverage, from $8x$ to $16x$, reduces the putative SNPs by $60\%$, but the validated SNPs increase from $57\%$ to $83\%$ \citep{Trick2012}. 
@@ -480,9 +480,9 @@ Using the eight SNP markers and 2 SRRs, the \acrshort{yr15} locus was mapped to 
 	\caption[Genetic maps for \acrshort{yr15}.]{Genetic maps for \acrshort{yr15}. (\subref{fig:yr15:initialMap}) Genetic map of the test panel from 50 individuals. (\subref{fig:yr15:finalMap}) Genetic map from 196 individuals from the full population only with the 8 markers previously identified as closer to the \acrshort{yr15} locus. (\subref{fig:yr15:mapDetails})Graphical genotype of the 196 $F_{2}$ individuals used to develop the genetic map. The alleles are abbreviated according to their origin: A: AVS; B: \textit{Yr15} and H: Heterozygous. Missing calls are indicated by a hyphen.}
 \end{figure}
 
-The sub-cM resolution is expected in a $F_{2}$ population of 196 individuals, as 392 gametes should provide n average resolution of 0.26{}cM. 
-\unsure{I assume here that mas pipelines prefer now to use SNPs.}
-Despite the fact that none of the selected markers have perfect linkage to \acrshort{yr15}, the resulting genetic map is an improvement in the resolution of the map for the locus and it enables the shift to SNP markers from microsatellites. The former has become the preferred marker system in \acrshort{mas} pipelines in breeding programmes. 
+The sub-cM resolution is expected in a $F_{2}$ population of 196 individuals, as 392 gametes should provide n average resolution of 0.26cM. 
+%\unsure{I assume here that mas pipelines prefer now to use SNPs.}
+Despite the fact that none of the selected markers have perfect linkage to \gls{yr15}, the resulting genetic map is an improvement in the resolution of the map for the locus and it enables the shift to SNP markers from microsatellites. The former has become the preferred marker system in \gls{mas} pipelines in breeding programmes. 
 
 
 \section{Methods}
@@ -625,7 +625,7 @@ The class \texttt{Bio::Blat::Report::Hit}  was extended to calculate how many ba
 Only the genes that align over 60\% of covered bases with an identity of at least 90\% were considered. 
 This removes spurious mappings from repetitive regions, while retaining assignment to a homoeologue in the case in which the correct scaffold is not in the genetic map. 
 The genes were also aligned to the full \acrshort{css} reference, to be able to allocate the genes to a chromosome arm, even when it is not possible to assign a position in neither the genetic map nor to the cDNAs of \textit{Hordeum vulgare} \citep{Mayer2011} (as deposited in Ensembl! Plants, release 16 \citep{Kersey2012}). 
-\unsure{Include code on how the coordinates where extracted, with the patch to the Ensembl package}
+%\unsure{Include code on how the coordinates where extracted, with the patch to the Ensembl package}
 The genetic position of the contigs was used to calculate the density of SNPs between \acrshort{avs} and \acrshort{yr15} in the genetic bins for Figure \ref{fig:yr15:bfrs:0-6}. 
 This information was used to select the SNPs with high BFR to validate.  
 
@@ -729,13 +729,13 @@ Using the three in-house markers, 79 resistant lines carried the expected haplot
 Within the intermediate and susceptible DH lines, all but one had a non-\textit{Yr15} haplotype (CAT or TAT) across R11, R5 and R8 (Figure \ref{fig:yr15:breeders}). This single DH line was scored as a false positive as it carried the TGC \textit{Yr15} haplotype, but was found to have an intermediate (chlorotic) reaction to \textit{P. striiformis}. This line was also the only one scored as a false positive using the three in-house markers.
 \end{blockquote}
 %\unsure{This is a very long quote, but I'm finding hard to shorten it. } 
-The fact that the developed markers perform better than markers developed by breeders shows the value of this particular experiment and further confirms that \acrshort{bsa} combined with \acrshort{ngs} is an effective way to develop novel markers. 
+The fact that the developed markers perform better than markers developed by breeders shows the value of this particular experiment and further confirms that \gls{bsa} combined with \gls{ngs} is an effective way to develop novel markers. 
 %\unsure{ Mention other people using a similar strategy since this was published. }
 
 %TODO: Discuss other people using the mark 
 
 In this chapter the integration of different levels of data helped to improve the selection of the candidate SNPs. 
-The main criteria for selecting \acrshortpl{snp}  was the\acrshort{bfr} score.
-Thanks to the genetic map from \citet{Wang2014} and the \acrshort{css} scaffolds from \citet{Mayer2014}, we were able to confirm that the high scoring \arcshortpl{snp} were in the expected region. 
+The main criteria for selecting \glspl{snp}  was the \gls{bfr} score.
+Thanks to the genetic map from \citet{Wang2014} and the \gls{css} scaffolds from \citet{Mayer2014}, we were able to confirm that the high scoring \glspl{snp} were in the expected region. 
 As the reference genome for wheat improves, defining the location of SNPs linked to a trait of interest will become easier. 
 With a continuous reference between two markers flanking a locus and an improved annotation, it will also be possible to compile a more focused set of candidate genes.

@@ -166,7 +166,7 @@ A transaction is a set of related operations that need to be performed at the sa
 \item[Durability.] The result of the transaction is stored even if the server is restarted.
 \end{description}  
 
-\unsure{Add explanaiton of inserts. }
+%\unsure{Add explanaiton of inserts. }
 
 Several \gls{rdbms} implement \acrshort{sql}, with various levels of compliance to the standard and different licenses.  
 A popular \acrshort{rdbms} is \texttt{MySQL}.
@@ -695,7 +695,7 @@ For a comprehensive user manual see Appendix \ref{exp:tutorial}.
 
 %%\section{Virtual Machine}
 %%\label{exp:vm}
-\unsure{If I have time, I'll add the section about the virtual machine, as I would also need to add something in the background on virtualisation, it can potentially be a sink of time}
+%\unsure{If I have time, I'll add the section about the virtual machine, as I would also need to add something in the background on virtualisation, it can potentially be a sink of time}
 
 \begin{landscape}
 \begin{code_2}[label=lst:exp:exportSample, caption={[Export data example] Export data example, corresponding to the data plot in Figure \ref{fig:exp:tutorial1}}]
@@ -836,7 +836,7 @@ RNA-Seq mapping algorithms are implemented by \verb|Kallisto|  \citep{Bray2016} 
 
 I decided to integrate \verb|Kallisto|  into expVIP because the algorithm is able to walk through different splicing junctions via a \acrshort{tdbg} (see Section \ref{exp:kallisto}; \citealt{Bray2016}), as opposed to Sailfish, which is based on counting k-mers only \citep{Patro2014}. 
 Since homoeologues with a high level of identity may form a bubble in the graph, in a similar way to small indels or SNPs \citep{Leggett2013}, \verb|Kallisto|  should be able to assign the reads to the correct k-compatibility class for their corresponding homoeologue.  
-\unsure{Make a diagrame with the graph. Unfortunatly, I don't have in hand my diagrams for cortex an Richard did the diagrams for Legget et al.}
+%\unsure{Make a diagrame with the graph. Unfortunatly, I don't have in hand my diagrams for cortex an Richard did the diagrams for Legget et al.}
 
 Some features that could improve expVIP in the long term and that already present in other expression browsers would include searching by sequence, by gene ontology and a heatmap of a particular gene displaying two different factors on each axis . 
 A feature that expVIP could leverage from other genomic resources is the retrieval of genes flanking a gene of interest, or between genetic markers. 

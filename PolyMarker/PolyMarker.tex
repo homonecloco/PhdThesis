@@ -16,7 +16,12 @@ However, in polyploid species the variations between homoeologues are not consid
 Because of the similarity homoeologous regions can interfere in \gls{pcr} amplification it is preferable to design primers that will take in account the variations between the genomes and the target \gls{snp} simultaneously. 
 This chapters describes PolyMarker, a bioinformatic tool to design genome-specific primers. 
 
-\subsection{PCR amplification.}
+
+\subsection{Primers and Polymerase Chain Reaction (PCR)}
+To generate new copies of DNA, biological systems requiere a DNA polymerase to copy DNA into DNA or a reverse transcriptase to translate RNA to DNA. During DNA replication, the DNA polymerase binds to the template strand and to a short strand of RNA that serves as a primer for DNA synthesis and replication, and then adds complementary nucleotides. Eventually, this results in two complementary DNA strands\cite{alberts2014molecular}.
+
+This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. PCR uses an heat-stable DNA polymerase to amplify the template sequence. The DNA polymerase requieres a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesized oligonucleotides of approximately 20 bases are added as primers. This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. The process is repeated multiple times to increase the number of DNA sequences exponentially \cite{alberts2014molecular}.
+
 \Gls{pcr} amplification is a technique that can be used to copy a fragment of DNA several times. 
 To start the amplification a pair of sequences (left and right primers) on each side of the target sequence is required. 
 The sequence between primers is copied thanks to the DNA polymerase, an enzyme that moves along the DNA strand making a copy (product). 
