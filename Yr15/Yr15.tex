@@ -228,25 +228,25 @@ Both gene sets were derived from varieties different to \gls{avs} and are likely
 To represent cases where more than one consensus base is called we use \gls{iuapc} codes (\citet{Cornish-Bowden1985}; Section \ref{lit:ambiguity}; Figure \ref{fig:yr15:bfr}).  
 To focus the analysis on informative \gls{snp}s, the common varietal SNPs and variations between homoeologues were removed by finding cases where the consensus call on both progenitors was the same. 
 The \gls{snp}s that are unique to a single parental were examined in detail. 
-There are 66,426 putative \gls{SNP}s across 16,022 (17\%) \gls{ucw} genes and 52,262 \acrshortpl{snp} on 11,056 UniGenes (19.4\%; Figure \ref{fig:yr15:geneCount}).  
+There are 66,426 putative SNPs across 16,022 (17\%) \gls{ucw} genes and 52,262 \acrshortpl{snp} on 11,056 UniGenes (19.4\%; Figure \ref{fig:yr15:geneCount}).  
 
 \begin{SCfigure}
     %\centering
     \includegraphics[width=0.4\textwidth]{Yr15/Figures/geneCounts.pdf} 
-    \caption[Gene models with putative SNPs]{Gene models with putative \gls{SNP}s in common between the UCW and UniGenes reference. The intersection represents the genes that are common in both sets. Adapted from \citet{Ramirez-Gonzalez2015b}}
+    \caption[Gene models with putative SNPs]{Gene models with putative SNPs in common between the UCW and UniGenes reference. The intersection represents the genes that are common in both sets. Adapted from \citet{Ramirez-Gonzalez2015b}}
     \label{fig:yr15:geneCount}
 \end{SCfigure}
 
 \input{Yr15/SupplementalTables/genesAssignedtoArm}
 
-The high number of genes with \gls{snp}s was unexpected as a \gls{bc}6 \gls{nil} used for an $F_2$ mapping population expects to have $<1\%$ of the genetic background segregating. 
-Both sets of gene models were aligned with BLAT \citep{Kent2002} to the \gls{css} assembly \citep{Mayer2014}; the alignment resulted on 80,031 (85.0\%) UCW gene models and 41,118 (72.2\%) UniGenes assigned to a chromosome arm (Table \ref{tab:yr15:genesToCSS}). 
+The high number of genes with \gls{snp}s was unexpected as a \gls{bc}6 \gls{nil} used for a $F_2$ mapping population expects to have less than $1\%$ of the genetic background segregating. 
+Both sets of gene models were aligned with BLAT \citep{Kent2002} to the \gls{css} assembly \citep{Mayer2014}; the alignment resulted on 80,031 (85.0\%) \acrshort{ucw} gene models and 41,118 (72.2\%) UniGenes assigned to a chromosome arm (Table \ref{tab:yr15:genesToCSS}). 
 The SNPs found in the mapped genes are evenly distributed across all the chromosomes (see Section \ref{sub:yr15:inSilico}), suggesting that the \gls{avs} (\gls{jic}, UK) used as parent in the $F_{2}$ is different to the \gls{avs} used for the \acrshort{yr15} \acrshort{nil} development (University of Sydney, Australia).  
 
 To confirm that the \gls{avs} seed stocks from \gls{jic} are distinct to the stocks in Sydney, DNA from both stocks was procured and compared with the iSelect 90k wheat SNP chip. 
 Between two independent \gls{avs} seeds from \gls{jic} only 58 out of 71,972 (0.08\%) valid assays were polymorphic. 
 Nonetheless, there are over 5,000 ($>7.5\%$) assays with polymorphisms between  \gls{jic}-\gls{avs} and \gls{avs} from Sydney. 
-The different was not expected originally, but considering that the \gls{avs} seeds are coming from different stocks and the fact that in both countries commercial varieties with the same name had been released, it is not surprising. 
+The difference was not expected originally, but considering that the \gls{avs} seeds are coming from different stocks and the fact that in both countries commercial varieties with the same name had been released, it is not surprising. 
 
 
 \section{Bulk Frequency Ratios}
@@ -254,15 +254,15 @@ The different was not expected originally, but considering that the \gls{avs} se
 
 \input{Yr15/SupplementalTables/scoredSNPs}
 
-The objective was to find the \acrshort{snp}s enriched  (or depleted) on each bulk and hence linked to the phenotype.  \Glspl{snp} originating from \gls{yr15} would be expected to be linked to resistance whereas those from AVS to susceptibility. from \gls{avs} to susceptibility in the segregating population. 
-Across individual bulks, it was possible to score between 15,261 (24.5\%) to 31,891(48.0\%) \glspl{snp} across both reference sets.
-On the \textit{in silico} mixes over $95\%$ of SNPs where scored (Table \ref{app:yr15:scoredSNPs}), suggesting that the coverage of individual bulks is not enough to score all the SNPs.  
+The objective was to find the SNPs enriched (or depleted) in each bulk and hence linked to the phenotype.  \Glspl{snp} originating from \gls{yr15} would be expected to be linked to resistance whereas those from \acrshort{avs} to susceptibility in the segregating population. 
+Across individual bulks, it was possible to score between 15,261 (24.5\%) and 31,891(48.0\%) \glspl{snp}s across both reference sets.
+On the \textit{in silico} mixes, over $95\%$ of SNPs where scored (Table \ref{app:yr15:scoredSNPs}), suggesting that the coverage of individual bulks is not enough to score all the SNPs.
 The scoring was done with the \acrlong{bfr} (\citealt{Trick2012};Figure \ref{fig:yr15:bfr}; Section \ref{yr15:sub:bfr}), which has a value that increases as the \acrshort{yr15} allele is observed more times relatively to the \acrshort{avs} allele.
 
 \input{Yr15/SupplementalTables/bfrThresholds}
 
-When increasing the minimum BFR threshold, enrichment of SNPs was observed in the short arm of the group 1 chromosomes (1S). 
-Without taking into account the BFR, $~3.6\%$ of the SNPs are located in the 1S group, similar to the number of SNPs located in other groups \ref{tab:yr15:genesToCSS}. 
+When increasing the minimum \acrshort{bfr} threshold, enrichment of SNPs was observed in the short arm of the group 1 chromosomes (1S). 
+Without taking into account the \acrshort{bfr}, $~3.6\%$ of the SNPs are located in the 1S group, similar to the number of SNPs located in other groups \ref{tab:yr15:genesToCSS}. 
 However, when increasing the threshold  (between $BFR > 5 $ and $BFR > 7$) the relative number of SNPs in group 1S increases. 
 After $BFR>7$ the gains in relative enrichment only improves marginally, but the number of called SNPs is reduced (Table \ref{app:yr15:bfrThresholds}; Figure \ref{fig:yr15:bfrChange}).
 For that reason, SNPs with a $BFR>6$ were selected for further validation. 
@@ -280,8 +280,8 @@ A total of 1,582 SNPs across 1,173 genes had a $BFR>6$.
 \section{\textit{In silico} mapping}
 \label{sub:yr15:inSilico}
 From the mapped SNPs with a $BFR>6$, 872 of 1,582 ($\sim60\%$) were assigned to the chromosomes in group 1 of hexaploid wheat, being the only group with more than $4\%$ of the SNPs assigned to it (Table \ref{app:yr15:bfr6Mapping}). 
-From the group 1, the B genome contained the higher proportion of SNPs mapped ($54\%$), having 255 ($54\%$) and 214 ($46\%$) assigned to the long and short arms respectively (Figure \ref{fig:yr15:snpsBFR6Group1}).  
-This results are expected since previous studies have located \acrshort{yr15} near the centromere in the short arm of chromosome 1B and, the \acrshort{yr15} introgression contains regions from the long and short arm from \textit{T. diccocoides} \citep{Murphy2009,Peng2000,Grama1997}. 
+From group 1, the B genome contained the higher proportion of SNPs mapped ($54\%$), having 255 ($54\%$) and 214 ($46\%$) assigned to the long and short arms respectively (Figure \ref{fig:yr15:snpsBFR6Group1}).  
+These results are expected since previous studies have located \acrshort{yr15} near the centromere in the short arm of chromosome 1B and the \acrshort{yr15} introgression contains regions from the long and short arm from \textit{T. diccocoides} \citep{Murphy2009,Peng2000,Grama1997}. 
 
 \begin{SCfigure}
   \centering
@@ -305,7 +305,7 @@ This results are expected since previous studies have located \acrshort{yr15} ne
    \label{fig:yr15:BFRValues1BS}
    \includegraphics[width=1\textwidth]{Yr15/Figures/mapping/BFRValues1BS.pdf}
   \end{subfigure}
-\caption[\textit{In silico} location of SNPs with BFR\textgreater6]{\textit{In silico} location of SNPs with $BFR>6$. (\subref{fig:yr15:snpsBFR6Chr1B}) Number of SNPs with $BFR>6$ per cM in chromosome 1B. (\subref{fig:yr15:BFRValues1BS}) BFRs of mapped genes with SNPs on chromosome 1B. The area of the circle represents the number of SNPs clustered by location (windows size: 10 cM) and BFR (window size: 5cM). R11 is the only marker near the \acrshort{yr15} locus that had a corresponding position in the genetic map. The percentage of genes with SNPs per cM is also illustrated based on UCW (blue) and UniGene (red) gene models. The centromere is imputed by the centre of a window of 10 cM where the short arm switches to the long in the genetic map. BFRs correspond to those from the mixed in silico bulk S1 + S2 + S3/R1 + R2 + R3. Adapted from \citep{Ramirez-Gonzalez2015b}.} 
+\caption[\textit{In silico} location of SNPs with BFR\textgreater6]{\textit{In silico} location of SNPs with $BFR>6$. (\subref{fig:yr15:snpsBFR6Chr1B}) Number of SNPs with $BFR>6$ per cM in chromosome 1B. (\subref{fig:yr15:BFRValues1BS}) BFRs of mapped genes with SNPs on chromosome 1B. The area of the circle represents the number of SNPs clustered by location (windows size: 10 cM) and BFR (window size: 5cM). R11 is the only marker near the \acrshort{yr15} locus that had a corresponding position in the genetic map. The percentage of genes with SNPs per cM is also illustrated based on UCW (blue) and UniGene (red) gene models. The centromere is imputed by the centre of a window of 10 cM where the short arm switches to the long in the genetic map. BFRs correspond to those from the mixed \textit{in silico} bulk S1 + S2 + S3/R1 + R2 + R3. Adapted from \citep{Ramirez-Gonzalez2015b}.} 
 \label{fig:yr15:chr1}
 \end{figure}
 
@@ -316,7 +316,7 @@ Even if the number of located SNPs was not enough to give a position for over $5
 The mapping position further confirmed an enrichment of SNPs near the centromere of chromosome 1B with 325 out of 678 SNPs. 
 Furthermore, 311 of those where located within an interval of 30cM (Figures \ref{fig:yr15:bfr6}, \ref{fig:yr15:snpsBFR6Chr1B}). 
 
-Studies in diploid organismis using \acrshort{qtl}-Seq \citep{Takagi2013} or other \acrshort{ngs}-enable genetic approaches \citep{James2013} have shown smooth curves with a defined peak in the region linked to the studied trait. 
+Studies in diploid organisms using \acrshort{qtl}-Seq \citep{Takagi2013} or other \acrshort{ngs}-enabled genetic approaches \citep{James2013} have shown smooth curves with a defined peak in the region linked to the studied trait. 
 In practice, we only observe clusters of SNPs with  enriched \acrshortpl{bfr} near the centromere of chromosome 1B (Figures \ref{fig:yr15:snpsBFR6Chr1B}, \ref{fig:yr15:bfr6}). 
 
 \begin{figure}
@@ -332,14 +332,14 @@ In practice, we only observe clusters of SNPs with  enriched \acrshortpl{bfr} ne
 	\label{fig:yr15:bfr6}
 	\includegraphics[height=0.55\textheight]{Yr15/Figures/mapping/snpsBFR6.pdf}
 	\end{subfigure}
-	\caption[Genetic location of genes with SNPs between AVS and Yr15.]{Genetic location of genes with SNPs between AVS and Yr15. The colour scale indicates the percentage of genes with SNPs per centi-Morgan (cM) across the 21 wheat chromosomes. The location of the genes was determined by the best alignment to the CSS scaffolds, and the location of these was determined by their position on a genetic map \citep{Wang2014} (\subref{fig:yr15:bfr0}). All the SNPS between progenitors. Note the lack of enrichment across any individual chromosome. (\subref{fig:yr15:bfr6}) SNPs with BFR$>$6. Note the enrichment in Chromosome 1B }
+	\caption[Genetic location of genes with SNPs between AVS and Yr15.]{Genetic location of genes with SNPs between AVS and Yr15. The colour scale indicates the percentage of genes with SNPs per centi-Morgan (cM) across the 21 wheat chromosomes. The location of the genes was determined by the best alignment to the CSS scaffolds, and the location of these was determined by their position on a genetic map \citep{Wang2014} (\subref{fig:yr15:bfr0}). All the SNPs between progenitors. Note the lack of enrichment across any individual chromosome. (\subref{fig:yr15:bfr6}) SNPs with BFR$>$6. Note the enrichment in Chromosome 1B }
 	\label{fig:yr15:bfrs:0-6}
 \end{figure}
 
 The location of the clusters with an enrichment of SNPs near the centromere is not expected on a random selection of genes, as the gene density increases with the distance to the centromere \citep{Akhunov2003}. 
 This suggests that the experiment was successful on finding \acrshortpl{snp} linked to \acrshort{yr15}. 
-There are several factor that prevent a clear peak; these include the biases induced by the differential expression and the fragmented reference sequence with scaffolds that are not long enough to go across genetic positions. 
-Since there are several SNPs with a high BFR and the genetic map is not enough to locate a single region linked to \acrshort{yr15},  multiple criteria were needed to prioritise SNPs that were more likely to yield on successful genetic markers.
+There are several factor that prevent a clear peak; these include the biases induced by the differential expression and the fragmented reference sequence, with scaffolds that are not long enough to span genetic positions. 
+Since there are several SNPs with a high BFR and the genetic map is not dense enough to locate a single region linked to \acrshort{yr15},  multiple criteria were needed to prioritise SNPs that were more likely to yield successful genetic markers.
 
 \section{Assay selection} 
 \label{yr15:assaySelection}
@@ -350,14 +350,14 @@ Since there are several SNPs with a high BFR and the genetic map is not enough t
 \label{fig:yr15:snpset}
 \end{figure}
 
-Three independent criteria were use to prioritize the SNPs for marker development and validation: 
+Three independent criteria were used to prioritize the SNPs for marker development and validation: 
 
 \begin{description}
 \item[High BFR.] SNPs with a $BFR>6$ in at least two independent bulk replicates or in either of the \textit{in silico} mixes were selected to ensure consistency and recover SNPs with a low coverage on a particular bulk. 
 \item[Group 1S.] SNPs that are in \acrshort{css} scaffolds in the short arm of chromosome group 1 were selected.
-The selection included \glspl{snp} from the A, B and D genomes because the best hit to each gene model may be missing from the \gls{css} assembly, hence locating the gene in the wrong chromosome, where an homoeologues exist. 
-Likewise, if the gene model corresponding in 1B, the reads would have mapped to one of the homoeologues.
-This is to be consistent with the \textit{in silico} genetic map and with previous studies \citep{Murphy2009,Peng2000,Grama1997}.
+The selection included \glspl{snp} from the A, B and D genomes because the best hit to each gene model may be missing from the \gls{css} assembly.
+Therefore, in cases where one or more of the homoeologous genes is missing from the reference, reads might be assigned to the wrong subgenome.
+This is consistent with the \textit{in silico} genetic map and with previous studies \citep{Murphy2009,Peng2000,Grama1997}.
 \item[\acrshort{yr15} parent.] The SNPs should originate from the \acrshort{yr15} parent to ensure that the SNP is coming from the \textit{T. diccocoides} introgression and not from a SNP in the \acrshort{avs} genetic background, who would be less useful in breeding programs with a different background.
 \end{description}
 
@@ -370,35 +370,37 @@ Only SNPs meeting the three criteria were selected for further analysis.
 \label{fig:yr15:bfrDetailScore}
 \end{figure}
 
-With the multiple criteria the number of genes with a putative SNP went down from $>27,000$ to just 175; 77 and 98 from the UniGene and UCW gene sets respectively. 
-The selected genes from both references were aligned between references, as they come from independent sources an overlap in the selection between them is expected and, as expected, around half of the genes between gene sets overlap (Figure \ref{fig:yr15:snpset}). 
-The 50 SNPs with the highest BFRs, out of the 175 genes, were selected for validation, 15 of them were redundant between references, resulting on 35 SNPs to validate. 
+Applying these multiple criteria, the number of genes with a putative SNP went down from over 27,000 to just 175; 77 and 98 from the UniGene and UCW gene sets, respectively.
+As the two gene sets originate from independent sources, an overlap between the two selected sets is to be expected.
+When we aligned the 77 and 98 genes from the two collections, we indeed found that around half of the genes overlap (Figure \ref{fig:yr15:snpset}). 
+The 50 SNPs with the highest BFRs, out of the 175 genes, were selected for validation; fifteen of them were found to be redundant between references, resulting in a final set of 35 SNPs to validate. 
 
 The separate bulks and the \textit{in silico} mixes were evaluated in detail to understand the behaviour and value of having multiple bulks. 
-The initial expectation was that as the number of SNPs with $BFR=\infty$ should drop in the mixes, as the improved coverage should reduce the instances were the absence of an allele is because of the lack of coverage on a particular sample. 
+The initial expectation was that the number of SNPs with $BFR=\infty$ should drop in the mixes, as the improved coverage should reduce the number of instances where the absence of an allele is due to the lack of coverage on a particular sample. 
 However, the opposite happened, the additional coverage in the \textit{in silico} mixes recovered SNPs in genes with a low expression at the time of the sampling (Figure \ref{fig:yr15:bfrDetailScore}).  
-Some SNPs were present across all the samples, however the value of the BFR changed depending on the sample (marker R5). 
-In some cases a \gls{snp} is missing in an individual bulk, but present in the rest of them and in the mixes (marker R8). 
-The main reason affecting the scoring is the coverage in the sample for each particular gene, hence a strategy with a consistent coverage would be preferred for this kind of analysis.  
-Previous studies have shown that a coverage of $<5x$ is enough to call for SNPs in model organisms with a high-quality reference \citep{Schneeberger2011}.
+Some SNPs were present across all the samples, however the value of the BFR changed depending on the sample (e.g. marker R5). 
+In some cases a \gls{snp} was missing in an individual bulk, but present in the rest and also in the mixes (e.g. marker R8). 
+The main parameter affecting the scoring was the coverage in the sample for each particular gene, hence a strategy with a consistent coverage would be preferred for this kind of analysis.  
+Previous studies have shown that a coverage of less than 5x is sufficient to call SNPs in model organisms with a high-quality reference \citep{Schneeberger2011}.
 However, the results on this study are in line with other studies using populations for SNP calling \citep{Abe2012,Takagi2013}. 
-The non-uniform distribution of the coverage in RNA-Seq experiments affects the number of reads that can be used to call for SNPs, specially on genes with a low expression level \citep{Mortazavi2008}. 
+The non-uniform distribution of the coverage in RNA-Seq experiments affects the number of reads that can be used to call for SNPs, especially on genes with a low expression level \citep{Mortazavi2008}. 
 
 \input{Yr15/SupplementalTables/numberOfGenesWithUniqHit}
 
 %TODO: maybe move to the discussion. 
-Around $60\%$ of the gene models, across both references, had a unique hit with $>99\%$ sequence identity to a single \acrshort{css} scaffold (Table \ref{tab:yr15:mappedGenes}). 
+Around $60\%$ of the gene models, across both references, had a unique hit with greater than 99\% sequence identity to a single \acrshort{css} scaffold (Table \ref{tab:yr15:mappedGenes}). 
+\unsure{This sentence is not completely clear.}
 This is likely because there is no unique homoeologue in the gene models, leading to reads, from two different homoeologues, mapping to the same region.
-To reduce the number of spurious SNPs we used IUAPC ambiguity codes (Section \ref{lit:ambiguity}, \citet{Cornish-Bowden1985}) when two different alleles were observed.
-This had as side effect that in order to keep only high confidence SNPs we required a higher coverage ($>20x$). 
-On the original study introducing the BFR in tetraploid wheat, the authors show that increasing the coverage, from $8x$ to $16x$, reduces the putative SNPs by $60\%$, but the validated SNPs increas from $57\%$ to $83\%$ \citep{Trick2012}. 
+To reduce the number of spurious SNPs we used IUPAC ambiguity codes (Section \ref{lit:ambiguity}, \citet{Cornish-Bowden1985}) when two different alleles were observed.
+This had the side effect that in order to keep only high confidence SNPs we required a higher coverage ($>20x$). 
+On the original study introducing the BFR in tetraploid wheat, the authors show that increasing the coverage, from $8x$ to $16x$, reduces the putative SNPs by $60\%$, but the validated SNPs increase from $57\%$ to $83\%$ \citep{Trick2012}. 
 Hence, a compromise between increasing the minimum coverage at the cost of reducing the SNP candidates had to be reached in line with the objectives and available resources for this particular study. 
 
 \section {SNP Validation}
 
-KASP assays were designed to validate and generate a genetic map of the \acrshort{yr15} locus for the 35 selected SNPs. 
+KASP assays were designed to validate and generate a genetic map of the \acrshort{yr15} locus for the 35 selected SNPs.
 To automate the design of genome-specific primers for polyploid organisms PolyMarker was developed (Chapter \ref{cha:polymarker}).
-Out of the 35 assays to design, 17 were design as specific, 9 as semi-specific to chormosome 1BS, and 9 were not specific because there was no information for the homoeolouges on the \acrshort{css} scaffolds. 
+Out of the 35 assays to design, 17 were designed as specific, 9 as semi-specific to chromosome 1BS, and 9 were not specific because there was no information for the homoeolouges on the \acrshort{css} scaffolds. 
 PolyMarker also identified putative homoeologous variants (between genomes, as opposed to between varieties) that were in the list of candidate SNPs, but were not identified previously (Figure \ref{fig:poly:mask}; Table \ref{tab:yr15:polymarker}). 
 
 
@@ -418,14 +420,14 @@ PolyMarker also identified putative homoeologous variants (between genomes, as o
 \begin{subfigure}{0.31\textwidth}
 \caption{}
 \label{fig:yr15:r8f2}
-\includegraphics[width=1\textwidth]{Yr15/Figures/selection/R8f2.pdf}
+\includegraphics[width=1\textwidth]{Yr15/Figures/selection/R8F2.pdf}
 \end{subfigure}
 
-\caption[KASP output from the wheat variety panel]{KASP output from the wheat variety panel with (Ochre, Boston, Cortez) and without (Robigus, Cadenza and Shamrock) \acrshort{yr15}. Marker  R2 (\subref{fig:yr15:r2}) is monomorphic while R8 (\subref{fig:yr15:r8})  is polymorphic between varieties know to carry the gene.  Marker R8 results for the F2 population (\subref{fig:yr15:r8f2}) showing three distinct clusters. The central cluster (light green) is comprised of heterozygous individuals, whereas clusters near the axes are homozygous for either AVS (VIC; orange) or \acrshort{yr15} (FAM; dark green).}
+\caption[KASP output from the wheat variety panel]{KASP output from the wheat variety panel with (Ochre, Boston, Cortez) and without (Robigus, Cadenza and Shamrock) \acrshort{yr15}. Marker  R2 (\subref{fig:yr15:r2}) is monomorphic while R8 (\subref{fig:yr15:r8})  is polymorphic between varieties known to carry the gene.  Marker R8 results for the F2 population (\subref{fig:yr15:r8f2}) showing three distinct clusters. The central cluster (light green) is comprised of heterozygous individuals, whereas clusters near the axes are homozygous for either AVS (VIC; orange) or \acrshort{yr15} (FAM; dark green).}
 \end{figure}
 
 
-To validate if the 35 SNPs were polymorphic across the parents and, diagnostic to \acrshort{yr15} we tested them in the progenitors plus six commercial varieties, three containing \acrshort{yr15} (Ochre, Boston and, Cortez) and three without it (Shamrock, Robigus and, Cadenza).
+To validate if the 35 SNPs were polymorphic across the parents and diagnostic for \acrshort{yr15} we tested them in the progenitors plus six commercial varieties, three containing \acrshort{yr15} (Ochre, Boston and, Cortez) and three without it (Shamrock, Robigus and, Cadenza).
 Two of the lines without \acrshort{yr15} have \textit{T. diccocoides} in their pedigree (Shamrock and Robigus), as it is the donor species of \textit{Yr15} \citep{mcintosh1995}. 
 This test panel allows to test if the SNPs are only diagnostic to \textit{T. diccocoides} instead of \acrshort{yr15}.
 On the test panel, 28 ($80\%$) SNPs were polymorphic across the parents and three of them where diagnostic to \textit{Yr15} (R5, R8, R33).
@@ -454,8 +456,6 @@ The $F_{2}$ population consisted on 232 plants with phenotypic information, of t
 Using the eight SNP markers and 2 SRRs, the \acrshort{yr15} locus was mapped to an interval of 0.77cM, with R8/xgwm413 0.26cM distal, and R5/R11 0.77cM proximal from \acrshort{yr15} (Figure \ref{fig:yr15:finalMap},\subref{fig:yr15:mapDetails}). 
 
 
-
-
 \begin{figure}
 	\centering
 	\begin{subfigure}{0.45\textwidth}
@@ -481,7 +481,8 @@ Using the eight SNP markers and 2 SRRs, the \acrshort{yr15} locus was mapped to 
 \end{figure}
 
 The sub-cM resolution is expected in a $F_{2}$ population of 196 individuals, as 392 gametes should provide n average resolution of 0.26{}cM. 
-Despite the fact that none of the selected markers have perfect linkage to \acrshort{yr15}, the produce genetic map is an improvement in the resolution of the map for the locus and it enables the shift to SNP markers from microsatellites, which has become the preferred marker system in \acrshort{mas} pipelines in breeding programmes. 
+\unsure{I assume here that mas pipelines prefer now to use SNPs.}
+Despite the fact that none of the selected markers have perfect linkage to \acrshort{yr15}, the resulting genetic map is an improvement in the resolution of the map for the locus and it enables the shift to SNP markers from microsatellites. The former has become the preferred marker system in \acrshort{mas} pipelines in breeding programmes. 
 
 
 \section{Methods}
@@ -511,13 +512,13 @@ The alignments where sorted and stored as single BAM files to have random access
 
 \subsection{Bulk Frequency Ratios and SNP calling}
 \label{yr15:sub:bfr}
-To avoid the creation of several temporary files with the coverage information on all the bases I developed a \texttt{Ruby} pipeline based on the \texttt{bio-samtools} library \citep{Ramirez-Gonzalez2012}, and some of the improvements to work with pileups were published as a followup on the library \citep{Etherington2015}.
+To avoid the creation of several temporary files with the coverage information on all the bases I developed a \texttt{Ruby} pipeline based on the \texttt{bio-samtools} library \citep{Ramirez-Gonzalez2012}, and some of the improvements to work with pileups were published as a follow-up on the library \citep{Etherington2015}.
 To call for the consensus, the function \texttt{Bio::DB::Sam::mpileup} is called to generate the pileup of each gene. 
 As the pileups are used several times during the analysis, a function that caches the current pileup is implemented.
 The consensus is called by counting how many times each base appears, and if the number of bases is higher than \texttt{minumum\_ratio\_for\_iuap\_consensus} the base is added to the set of possible bases \citep{Cornish-Bowden1985} 
 If there is no coverage at a certain position, the reference base is used, and set as lowercase. 
 If the set of called bases is not empty, the ambiguity code for the observed bases is called, and set as upper case (Listing \ref{lst:yr15:consensus}).
-The minimum ratio was done on 0.2 (20\%), that allows for calling for a consensus even when more than one homoeologue is mapping to the same reference.
+The minimum ratio was done on 0.2 (20\%), as it allows calling for a consensus even when more than one homoeologue is mapping to the same reference.
 
 \begin{code}[language=Ruby,caption=Method to call for the consensus on progenitors from a pileup, label=lst:yr15:consensus]
 def consensus_iuap(minumum_ratio_for_iuap_consensus)
@@ -564,8 +565,8 @@ def base_ratios
 To calculate \acrshortpl{bfr} the class \texttt{Bio::BFRTools::Container} was implemented to contain all the \texttt{BIO:DB:Sam} objects corresponding to the progenitors and the bulks. 
 The class \texttt{Bio::BFRTools::BFRRegion}  was implemented to contain the ratios and consensus sequences of each region. 
 The method \texttt{bfr} uses the calculated SNP-Indices on every position, from the point of view of both progenitors (lines 15-16: Listing \ref{lst:yr15:bfr}, and in the case of lack of coverage the value is set to 0 or \texttt{Infinity} (lines 8-13), depending on the progenitor where the base is not called at all. 
-Using this design were the values of each region are calculated at once increases reduces the number of times the pileup needs to be generated for each sample and, allows to have in a single place in memory all the elements to calculate the \acrshortpl{bfr} without having to write any temporary files on disc. 
-Also, the fact that the calculation of each region is independent to other regions, it is possible to use a computing cluster to distribute the analysis on several nodes.
+Using this design where the values of each region are calculated at once reduces the number of times the pileup needs to be generated for each sample and allows to have in a single place in memory all the elements to calculate the \acrshortpl{bfr}, without having to write any temporary files on disc. 
+Also, the fact that the calculation of each region is independent from that for other regions, it is possible to use a computing cluster to distribute the analysis on several nodes.
 
 The code produces a table with the SNP-Indices and BFRs for all the SNPs found in the progenitors. 
 The program was used to calculate the \glspl{bfr} on the independent conditions (Bulk 1: S1-R1, Bulk 2: S2-R2 and Bulk 3: S3-R3); the \textit{in silico} mixes of bulks 1 and 2; and bulks 1, 2 and 3. 
@@ -598,10 +599,10 @@ end
 \subsection{\textit{In Silico} mapping}
 \label{yr15:met:inSilico}
 
-To find the chromosomal position of the SNPs with a high BFR the sequence of the markers with a genetic position from \citet{Wang2014} were aligned with BLAT \citep{Kent2002} to the \acrshort{css} scaffolds \citep{Mayer2014}. 
-To find the best hit for each query was kept using a \texttt{Ruby script}. 
+To find the chromosomal position of the SNPs with a high BFR the sequences of the markers with a genetic position from \citet{Wang2014} were aligned with BLAT \citep{Kent2002} to the \acrshort{css} scaffolds \citep{Mayer2014}. 
+The best hit for each query was found and cached using a \texttt{Ruby script}. 
 Briefly, the class \texttt{Bio::Blat::Report} from \texttt{BioRuby} \citep{Goto2010} was extended to include an iterator only for the best alignment of each query: 
-First, the whole file is iterated (line 5); the alignment with the best score is stored in a hash (lines 7-9) and; the hash is iterated (line 11).
+First, the whole file is iterated (line 5); the alignment with the best score is stored in a hash (lines 7-9) and finally the hash is iterated (line 11).
 The script found 46,977 scaffolds that contained at least one marker from the map. 
 
 \begin{code}[language=Ruby, caption={[\texttt{Bio::Blat::Report.each\_best\_hit}] Extension to \texttt{Bio::Blat::Report} that selects the best alignment from a \texttt{psl file from BLAT}}, label=lst:yr15:bestHit]
@@ -622,8 +623,8 @@ end
 Then, the UniGenes and the UCW gene models were also aligned with BLAT to the scaffolds that were located in the genetic map.  
 The class \texttt{Bio::Blat::Report::Hit}  was extended to calculate how many bases are covered in the alignment and the percentage of covered bases in both, the target and query sequences (Listing \ref{lst:yr15:hit}).
 Only the genes that align over 60\% of covered bases with an identity of at least 90\% were considered. 
-This removes spurious mappings from repetitive regions while retaining a location to an homoeologue in case that the correct scaffold is not in the genetic map. 
-The genes were also align to the full \acrshort{css} reference, to be able to locate the genes to a chromosome arm, even when it is not possible to assign a position in the genetic map and, to the cDNA of \textit{Hordeum vulgare} \citep{Mayer2011} as deposited in Ensembl! Plants, release 16 \citep{Kersey2012}. 
+This removes spurious mappings from repetitive regions, while retaining assignment to a homoeologue in the case in which the correct scaffold is not in the genetic map. 
+The genes were also aligned to the full \acrshort{css} reference, to be able to allocate the genes to a chromosome arm, even when it is not possible to assign a position in neither the genetic map nor to the cDNAs of \textit{Hordeum vulgare} \citep{Mayer2011} (as deposited in Ensembl! Plants, release 16 \citep{Kersey2012}). 
 \unsure{Include code on how the coordinates where extracted, with the patch to the Ensembl package}
 The genetic position of the contigs was used to calculate the density of SNPs between \acrshort{avs} and \acrshort{yr15} in the genetic bins for Figure \ref{fig:yr15:bfrs:0-6}. 
 This information was used to select the SNPs with high BFR to validate.  
@@ -643,15 +644,15 @@ end
 \end{code}
 
 \subsection{Primer design and KASP assays}
-The primer design for KASP were designed with PolyMarker as described in Chapter \ref{cha:polymarker}. 
-The only difference with the default settings is that instead of using a template sequence, the sequence for each allele is calculated from the consensus of the alignments. 
-As described in as described in \citet{Ramirez-Gonzalez2015b}, the primers 
-\begin{blockquote} were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standard FAM or HEX compatible tails (FAM tail: 5' GAAGGTGACCAAGTTCATGCT 3'; HEX tail: 5' GAAGGTCGGAGTCAACGGATT 3') with the target SNP at the 30 end. 
+The primer designs for KASP were designed with PolyMarker as described in Chapter \ref{cha:polymarker}. 
+The only difference with default settings is that instead of using a template sequence, the sequence for each allele is calculated from the consensus of the alignments. 
+As described in \citet{Ramirez-Gonzalez2015b}, the primers 
+\begin{blockquote} were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standard FAM or HEX compatible tails (FAM tail: 5' GAAGGTGACCAAGTTCATGCT 3'; HEX tail: 5' GAAGGTCGGAGTCAACGGATT 3') and the target SNP at the 30 end. 
 Primer mix was set up as recommended by LGC [46 $\mu$L dH$_{2}$O, 30 $\mu$L common primer (100 $\mu$M) and 12 $\mu$L of each tailed primer (100 $\mu$M)] \citep{LGC}
 Assays were tested in 384-well format and set up as 4-$\mu$L reactions [2-$\mu$L template (10–20 ng of DNA), 1.944 $\mu$L of V4 2 $\times$ Kaspar mix and 0.056 $\mu$L primer mix]. 
 PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95 °C for 15 min, followed by ten touchdown cycles (95°C for 20 s; touchdown 65°C, $-1$ °C per cycle, 25 s) then followed by 30 cycles of amplification (95°C 10 s; 57°C 60 s).
 As KASP amplicons are smaller than 120 bp, an extension step is unnecessary in the PCR protocol. 384-well optically clear plates (Cat. No. E10423000; Starlab Milton Keynes, UK) were read on a Tecan Safire plate reader. 
-Fluorescence was detected detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).
+Fluorescence was detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).
 \end{blockquote}
 
 
@@ -665,13 +666,13 @@ As described in \citet{Ramirez-Gonzalez2015b}:
 
 
 Resequencing the $\sim17$Gbp genome of hexaploid wheat is costly and approaches to reduce the required sequenced volume to effectively call for SNPs had been evolving since the conception of this project. 
-The RNA and DNA extraction and the sequencing for this project was carried out before the beginning of my PhD (before October 2012). 
-At that time exome capture was already established for genotyping humans \citep{Ng2009}, however the first exome capture on wheat was just recently published, with probes coming from unassembled 454 reads \citep{Winfield2012}, and a probe designed from transcripts \citep{Henry2014} was not published after the analysis of this section was completed and validated (Figure \ref{fig:yr15:timeline}).
+Both the RNA and DNA extraction and the sequencing for this project were carried out before the beginning of my PhD (before October 2012). 
+At that time, exome capture was already an established technique for genotyping humans \citep{Ng2009}, however the first exome capture on wheat had just been published, with probes coming from unassembled 454 reads \citep{Winfield2012}; the first probe designed directly from transcripts \citep{Henry2014} was not published until after the analysis of this section was completed and validated (Figure \ref{fig:yr15:timeline}).
 An even more targeted capture for resistance genes (RenSeq), by capturing genes with the NBS-LRR motif, was published while this study was executed \citep{Jupe2013}.
-On the other hand RNA-Seq was already tested for \acrlong{bsa} on tetraploid wheat \citep{Trick2012}.  
+On the other hand, RNA-Seq had already been tested for \acrlong{bsa} on tetraploid wheat \citep{Trick2012}.  
 Hence, the decision of reducing the sequenced space with RNA-Seq was appropriate at the time (Figure \ref{fig:yr15:timeline}). 
-Unfortunately, one of the shortcomings of RNA-Seq used to call for SNPs is that the coverage is not uniform and the genes that have low expression do not have enough coverage to call for SNPs (Section  \ref{yr15:sequencing}).
-If a similar study was to be started today, a better alternative would be to use exome capture in general from a segregating population for any trait, or RenSeq if the target gene is a resistance gene. 
+Unfortunately, one of the shortcomings of using RNA-Seq for calling SNPs is that the coverage is not uniform, and the genes that have low expression do not have enough coverage to allow reliable SNP calling (Section  \ref{yr15:sequencing}).
+If a similar study had to be started today, a better alternative would be to use exome capture in general from a segregating population for any trait, or RenSeq if the target gene is a resistance gene. 
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{expVIP/Figures/Timeline.pdf}
@@ -680,34 +681,34 @@ If a similar study was to be started today, a better alternative would be to use
 \end{figure}
 
 The quality and completeness  of the reference genome or gene models directly affects the mapping of \gls{ngs} reads. 
-This is particularly true on polyploid organisms: if one of the homoeologues is absent, the reads are likely to map to the wrong genome if the parameters of the aligner are relaxed or; not map at all if the required identity is too high.
-When the bioinformatic analysis of this project started, the only available wheat genomic reference was a whole genome shotgun 454 sequencing, unassembled \citep{Brenchley2012}; the \gls{css} assembly was being finished \citep{Mayer2014}; the longer scaffolds from \citet{Chapman2015} were not public yet and; the efforts to make a whole genome shotgun assembly were being planned independently by the International Wheat Genome Sequencing consortium  \citep{Pozniak2016} and TGAC (\citealt{Clark2016} ;Figure \ref{fig:yr15:timeline}).  
-Because a contiguous assembly with the corresponding annotation was not available at the time of the analysis and the fact that the data available was from a transcriptome, the use of gene models as a reference for the alignment was a suitable approach. 
+This is particularly true on polyploid organisms: if one of the homoeologues is absent, the reads are likely to map to the wrong genome if the parameters of the aligner are relaxed, or not map at all if the required identity is too high.
+When the bioinformatic analysis of this project started, the only available wheat genomic reference was a whole genome shotgun 454 sequencing, unassembled \citep{Brenchley2012}; the \gls{css} assembly was being finished \citep{Mayer2014}; the longer scaffolds from \citet{Chapman2015} were not public yet; and finally, the efforts to make a whole genome shotgun assembly were being planned independently by the International Wheat Genome Sequencing consortium  \citep{Pozniak2016} and TGAC (\citealt{Clark2016} ;Figure \ref{fig:yr15:timeline}).  
+Because a contiguous assembly with the corresponding annotation was not available at the time of the analysis, and the fact that all the data available was derived from transcriptomic sequencing, the use of gene models as a reference for the alignment was a suitable approach. 
 
 In terms of available gene sets when the analysis started, the canonical reference was the UniGenes from the NCBI \citep{PontiusJUWagnerL2002}. 
 The UniGenes are produced with an automated pipeline that clusters all the \glspl{est} deposited in the NCBI by identity and selects the longest transcript, which can merge homoeologous transcripts as a single reference.
-Shortly after I started the bioinformatic analysis, two aditional gene models were available, the draft annotation for the \gls{css} assembly (MIPSv1) in January 2013 and the UCW gene models \citep{Krasileva2013} in May 2013. 
-I selected the UCW gene models, as they were more mature and were phased to distinguish between genomes and already published, over the MIPSv1 genes, still being refined from an initial approach lifting proteins from related organisms and a few RNA-Seq experiments.  
-The MIPS gene models were improved by removing duplications in the assembly in a later stage and the nomenclature before the release of the assembly \citep{Mayer2014}, but at that point the results of this project where already submitted for publication (Figure \ref{fig:intro:timeline}; \citealt{Ramirez-Gonzalez2015b}). 
+Shortly after I started the bioinformatic analysis, two additional gene models were made available, the draft annotation for the \gls{css} assembly (MIPSv1) in January 2013 and the UCW gene models \citep{Krasileva2013} in May 2013. 
+I selected the UCW gene models, as they were more mature, phased to distinguish between genomes and already published, over the MIPSv1 genes, as they were still being refined from an initial approach of lifting proteins from related organisms combined with few RNA-Seq experiments.  
+The MIPS gene models were improved by removing duplications in the assembly in a later stage and the nomenclature before the release of the assembly \citep{Mayer2014}, but at that point the results of this project had already been submitted for publication (Figure \ref{fig:intro:timeline}; \citealt{Ramirez-Gonzalez2015b}). 
  
-To locate the gene models in the chromosome arms and see if there was an enrichment on the called SNPs the use of a high resolution consensus map is needed, as the genome assemblies available during the analysis are fragmented. 
-Initially, I used barley to locate the gene models because the genetic map used to locate the \gls{css} scaffolds was not released yet and barley has a conserved syntheny across the wheat genomes. 
-It was thus timely that a genetic map with $>42,000$ markers was published \citep{Wang2014}. 
-I was able to use it to locate several \acrshort{css} scaffolds before the assembly was published during the development of this project, as I collaborated in the project. 
+To locate the gene models in the chromosome arms and see if there was an enrichment on the called SNPs, the use of a high resolution consensus map is needed, as the genome assemblies available during the analysis are fragmented. 
+Initially, I used barley to locate the gene models because the genetic map used to locate the \gls{css} scaffolds was not released yet and barley has a conserved synteny across the wheat genomes. 
+The release of a genetic map with over 42,000 markers \citep{Wang2014} was extremely timely, as it happened during the last phase of the project.
+Furthermore, as I collaborated in the project, I was also able to use it to locate several \acrshort{css} scaffolds before the release of the assembly. 
 The located scaffolds were used as proxy to sort just under half of the reference genes in their chromosomal position (Section \ref{sub:yr15:inSilico}). 
 Despite the resolution not being enough to find a single point of enrichment, it was enough to confirm that the SNPs were in the expected location, including one of the SNP candidates flanking the \textit{Yr15} locus (SNP R11, Figure \ref{fig:yr15:BFRValues1BS}).  
 If the analysis was to be done today, the genetic map from \citet{Chapman2015} along with their longer scaffolds, or the scaffolds from TGACv1 or the NRGene should provide a better resolution. 
-Even without having all the \acrshort{css} scaffolds sorted, the fact that they come from individual chromosome arms they enabled the assignment of the genes to a chromosome. 
+Even without having all the \acrshort{css} scaffolds sorted, the fact that they come from individual chromosome arms enabled the assignment of the genes to a chromosome. 
 
-The original expectation was to have a \gls{nil} for the \gls{bsa} to simplify the SNP discovery and analysis since the majority (if not all ) SNPs should be restricted to the region immediately flanking Yr15. However the number of \glspl{snp} called in the progenitors suggested that the background, \acrlong{avs}, was not the same.  
-This happened because despite both succeptible lines being called the same and having the same response to the pathogen, they are different lines from different countries (Section \ref{yr15:snpCalling}). 
-This highlights the importance of genotyping the material used when developing mapping populations, specially if the source of the seeds come from different seed banks. 
+The original expectation was to have a \gls{nil} for the \gls{bsa} to simplify the SNP discovery and analysis since the majority, if indeed not all of the SNPs should be restricted to the region immediately flanking Yr15. However the number of \glspl{snp} called in the progenitors suggested that the background, \acrlong{avs}, was not the same.  
+This happened because despite both susceptible lines being called the same and having the same response to the pathogen, they are in fact different lines from different countries (Section \ref{yr15:snpCalling}). 
+This highlights the importance of genotyping the material used when developing mapping populations, especially if the seeds come from different seed banks. 
 
-Despite this shortcomings, the use of the \glspl{bfr} to score the putative SNPs was effective as most of the SNPs with a high score  mapped in chromosome 1B, as expected from previous studies ($BFR>6$, Section \ref{yr15:assaySelection}).
-Using the extra criteria of only selecting SNPs from the resistant progenitor and in the expected chromosome arm I was able to produce a high resolution genetic map (Section \ref{yr15:geneticMap}). 
+Despite these shortcomings, the use of the \glspl{bfr} to score the putative SNPs was effective, as most of the SNPs with a high score  mapped in chromosome 1B, in line with previous studies ($BFR>6$, Section \ref{yr15:assaySelection}).
+Using the extra criteria of only selecting SNPs from the resistant progenitor and in the expected chromosome arm, I was able to produce a high resolution genetic map (Section \ref{yr15:geneticMap}). 
 The genetic map was of the expected resolution for the size of the population (0.26cM on 196 individuals).
 Since the mapping population contained only one critical recombinant between \textit{Yr15} and the flanking markers, the population could not yield a better map. 
-To improve the map, a cross from the two critical recombinants could be use to repeat a similar analysis, but sequencing with either exome capture or RenSeq. 
+To improve the map, a cross from the two critical recombinants could be used to repeat a similar analysis, sequencing with either exome capture or RenSeq. 
 %\unsure{Talk about Why is R33 diagnostic on the varieties, but maps away?. }
 
 \begin{figure}
@@ -728,14 +729,13 @@ Using the three in-house markers, 79 resistant lines carried the expected haplot
 Within the intermediate and susceptible DH lines, all but one had a non-\textit{Yr15} haplotype (CAT or TAT) across R11, R5 and R8 (Figure \ref{fig:yr15:breeders}). This single DH line was scored as a false positive as it carried the TGC \textit{Yr15} haplotype, but was found to have an intermediate (chlorotic) reaction to \textit{P. striiformis}. This line was also the only one scored as a false positive using the three in-house markers.
 \end{blockquote}
 %\unsure{This is a very long quote, but I'm finding hard to shorten it. } 
-The fact that the developed markers perform better than the markers developed by breeders show the value of this particular experiment and further confirms that \acrshort{bsa} combined with \acrshort{ngs} is an effective way to develop novel markers. 
+The fact that the developed markers perform better than markers developed by breeders shows the value of this particular experiment and further confirms that \acrshort{bsa} combined with \acrshort{ngs} is an effective way to develop novel markers. 
 %\unsure{ Mention other people using a similar strategy since this was published. }
 
 %TODO: Discuss other people using the mark 
 
 In this chapter the integration of different levels of data helped to improve the selection of the candidate SNPs. 
 The main criteria for selecting \acrshortpl{snp}  was the\acrshort{bfr} score.
-However, thanks to the genetic map from \citet{Wang2014} and the \acrshort{css} scaffolds \citep{Mayer2014}) enabled to confirm that the high scores were in the expected region. 
-As the reference genome for wheat improves, the location of SNPs linked to a trait will be easier. 
-With a continous reference between two markers flanking a locus and an improve annotation, a more focused set of gene candidates will be possible. 
-
+Thanks to the genetic map from \citet{Wang2014} and the \acrshort{css} scaffolds from \citet{Mayer2014}, we were able to confirm that the high scoring \arcshortpl{snp} were in the expected region. 
+As the reference genome for wheat improves, defining the location of SNPs linked to a trait of interest will become easier. 
+With a continuous reference between two markers flanking a locus and an improved annotation, it will also be possible to compile a more focused set of candidate genes.
