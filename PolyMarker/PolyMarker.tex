@@ -107,7 +107,7 @@ To ensure that all the constrains needed to produce genome-specific primer pairs
 \item First, a global alignment of the target sequence is used to find all the homoeologues and paralogues in the reference genome.
 This is done with tools like \verb|blast| \citep{Altschul1990}, \verb|blat| \citep{Kent2002} or \verb|exonerate| \citep{Slater2005}.
 All of these tools take a reference sequence and make an index of the database to speed up the search of the queried sequence  \ref{fig:poly:globalSearch}. 
-Since some of the sources of SNPs come from transcriptome data and gene references, the original sequence may go over the intron-exon junction (see Section \ref{lit:RNASeq}).  
+Since some of the sources of SNPs come from transcriptome data and gene references, the original sequence may go over the intron-exon junction (see Section \ref{lit:rna-seq:lab}).  
 The results are aligned to the target and may include sequences only from one exon, but not the adjacent intron, hence it is necesary to make a local alignment to ensure that corresponding bases are aligned correctly. 
 
 \begin{figure}

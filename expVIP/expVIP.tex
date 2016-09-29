@@ -1,8 +1,9 @@
 %!TEX root = ../Main.tex
 
-\chapter[expVIP]{expVIP: a customisable RNA-seq data analysis and visualisation platform.}
+\chapter{expVIP: a customisable RNA-seq data analysis and visualisation platform.}
 \label{cha:exp}
-
+\glsresetall
+\chaptermark{expVIP}
 
 \section{Background.}
 
@@ -16,7 +17,7 @@
 
 %\begin{table}
 
-%\caption{Studies included in expVIP for wheat}
+%\caption{Studies included in \gls{expvip} for wheat}
 %\label{tab:exp:studysDetails}
 
 %\end{table}
@@ -207,7 +208,7 @@ An effective way to communicate large amount of data is through visualisation, b
 
 \subsection{Aims}
 \label{exp:aims}
-The aims of expVIP are to:
+The aims of \gls{expvip} are to:
 \begin{enumerate}
 \item Integrate RNA-Seq experiments from several sources in a single database (Section \ref{exp:DB}). 
 \item Automate the calculation of the expression values and load them in to the database (Section \ref{exp:pipeline}).
@@ -222,8 +223,8 @@ The software developed in this chapter is published in \cite*{Borrill2016}.
 One of the main objectives of \gls{expvip} is to make the public expression datasets easily accessible and explorable for the target community (currently wheat, but not limited to it). 
 A web interface is an effective way to reach a global audience. 
 A web service requires to have a server to run the application, and a browser to connect to the server and display the application to the user (ie Internet Explorer, Chrome, Firefox).
-The web server technology used for expVIP is \acrshort{ror}, as it abstracts the \acrshort{mvc} metaphor and it is designed to speed development \citep{RailsGuide2016}. 
-In order to display the expression data to the users,  expVIP relies on a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}) developed for expVIP. 
+The web server technology used for \gls{expvip} is \acrshort{ror}, as it abstracts the \acrshort{mvc} metaphor and it is designed to speed development \citep{RailsGuide2016}. 
+In order to display the expression data to the users,  \gls{expvip} relies on a BioJS component (\citealt{Yachdav2015}, Section \ref{exp:gui}) developed for expVIP. 
 All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is accessed through models developed under  \acrshort{ror} (Figure \ref{fig:poly:archDesign}).  
 
 \begin{figure}[b] 
@@ -236,7 +237,7 @@ All the data is stored in a MySQL database (Section \ref{exp:DB}) and it is acce
 \section{Database design} 
 \label{exp:DB}
 
-To address the different types of conditions over different experiments, expVIP is designed around a relational database. 
+To address the different types of conditions over different experiments, \gls{expvip} is designed around a relational database. 
 The design comprises two core groups of tables and two auxiliary tables that take care of different species and homoeologues (Figure \ref{fig:expvip:dbDesign}).
 
 
@@ -260,7 +261,7 @@ The design comprises two core groups of tables and two auxiliary tables that tak
 \item[Types of value] keeps a list of different units that are stored. On the original design \acrshort{tpm} and raw counts are set up, but as the units are not hard coded it is possible to use \acrshort{fpkm}, \acrshort{rpkm} or any other unit. 
 \item[Gene Set] contains the name of a reference gene set for the analysis. On the original version of expVIP, the gene models from the \acrshort{iwgsc} as deposited in Ensembl release 26 were used \citep{Mayer2014}. However, this table allows to use several reference gene models on the same database. 
 \item[Genes] are related to a \texttt{gene set}, so even if two genes coming from two different datasets share the same name it is possible to distinguish them and avoid ID collisions. This situation is unlikely to occur when using published references, but might arise when joining several \textit{de novo} gene model datasets. 
-\item[Meta Experiment] allows to have the same data analysed with different tools. By default expVIP uses Kallisto \citep{Bray2016}. However other tools, or different versions of the same tool, can be used to repeat the analysis.   
+\item[Meta Experiment] allows to have the same data analysed with different tools. By default \gls{expvip} uses Kallisto \citep{Bray2016}. However other tools, or different versions of the same tool, can be used to repeat the analysis.   
 \item[Values] have a domain that includes the \texttt{meta experiment}, \texttt{gene} and, \texttt{type of value}.
 \end{description}
 \item[Homoeologues] contains the relationship between genes. This allows to get the expression values of several related genes. 
@@ -270,7 +271,7 @@ The design comprises two core groups of tables and two auxiliary tables that tak
 In the cases where a relationship between tables is not unique, such as \texttt{experiment\_groups} having many \texttt{factors} and the \texttt{factors} having many \texttt{experiment\_groups}, storing of relationships is done with an auxiliary table (ie. \texttt{ExperimentGroups\_Factors}, not explicitly shown in Figure \ref{fig:expvip:dbDesign}, but implicit by the lines with whiskers). 
 
 Once all the data is stored, the tables can be queried together to make clear the relationship between specific rows. 
-One of the core tasks of expVIP is to get all the factors that define each experiment, in order to be able to merge similar studies. 
+One of the core tasks of \gls{expvip} is to get all the factors that define each experiment, in order to be able to merge similar studies. 
 To retrieve the \texttt{experiments} and \texttt{factors} of an \texttt{experiment group}, the auxiliary tables \texttt{ExperimentGroups\_Factors}  and \texttt{experiment\_groups\_experiments} are used in the query. (Listing \ref{lst:exp:queryMetadata} and Table \ref{tab:exp:queryMetadata}).
 
 
@@ -335,10 +336,10 @@ The database is implemented using the \acrshort{rdbms} \texttt{MySQL 5.5}.
 \label{exp:pipeline}
 
 
-To prepare the database, expVIP requires to have all the metadata for the experiments to integrate. 
+To prepare the database, \gls{expvip} requires to have all the metadata for the experiments to integrate. 
 ExpVIP contains tasks to load all the metadata and a wrapper for Kallisto that can be run from expVIP. 
 Alternatively, the expression values can be calculated with another tool and loaded as a single file, this approach is preferred for a large set of samples (Figure \ref{fig:exp:loadPipeline}). 
-Details on how to load the files in the database are in the expVIP tutorial (Appendix \ref{exp:tutorial}). 
+Details on how to load the files in the database are in the \gls{expvip} tutorial (Appendix \ref{exp:tutorial}). 
 
 \begin{figure}
 \centering
@@ -452,7 +453,7 @@ end
 
 The gene sets are loaded slightly differently, as the input is a \verb|fasta| file, as opposed to tabular file. 
 The reader for the \verb|FastaFormat| from BioRuby \citep{Goto2010} is used to read the file (Listing \ref{lst:exp:loadGenes}; line 4). 
-Since expVIP only records the name of the genes, only the id of the fasta sequence is extracted (lines 6-79). 
+Since \gls{expvip} only records the name of the genes, only the id of the fasta sequence is extracted (lines 6-79). 
 The name is stored in the name and cDNA columns. 
 The parser for entries from ensembl, such the one in Listing \ref{lst:poly:geneFa} include code to load the \acrshort{cdna} and transcript fields correctly. 
 
@@ -550,15 +551,15 @@ end
 \label{fig:exp:runKallisto}
 \end{wrapfigure}
 
-Alternatively, expVIP can execute \verb|Kallisto| on all the samples loaded in the database. 
-For this purpose, expVIP stores the raw reads in FastQ format, organized in directories named with the same accessions as in the metadata (ie a directory named \verb|DRR003148| contains the reads for the metadata displayed in table \ref{tab:exp:queryMetadata}). 
+Alternatively, \gls{expvip} can execute \verb|Kallisto| on all the samples loaded in the database. 
+For this purpose, \gls{expvip} stores the raw reads in FastQ format, organized in directories named with the same accessions as in the metadata (ie a directory named \verb|DRR003148| contains the reads for the metadata displayed in table \ref{tab:exp:queryMetadata}). 
 expVIP takes all the accessions for the experiments in the database and searches for the corresponding folder. 
 If the folder exists and if it contains the \verb|fastq| files, then it is deemed as valid. 
 If the folder already has the \verb|kallisto| output, the next folder is evaluated, otherwise \verb|kallisto| is executed with its default settings and the results are loaded into the database. 
 This process is repeated for all the accessions (Figure \ref{fig:exp:runKallisto}).  
 This pipeline allows to populate the database partially, in case that not all the experiments are ready from the beginning. 
 
-New experiments can be added to the existing metadata file  or to a new file; the expVIP loading procedure then can be run again to update the list of experiments and the corresponding expression values. 
+New experiments can be added to the existing metadata file  or to a new file; the \gls{expvip} loading procedure then can be run again to update the list of experiments and the corresponding expression values. 
 This design allows to keep the database updated as more experiments become available. 
 The fact that the loading is done in transactions ensures that the database is kept consistent, regardless of potential errors in the input files. 
 
@@ -648,7 +649,7 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure2.png} 
-\caption{Features on expVIP (continued)}
+\caption{Features on \gls{expvip} (continued)}
 \label{fig:exp:tutorial2}
 \end{figure}
 
@@ -677,7 +678,7 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure2a.png} 
-\caption{Features on expVIP for Multiple gene comparisons}
+\caption{Features on \gls{expvip} for Multiple gene comparisons}
 \label{fig:exp:tutorial3}
 \end{figure}
 
@@ -728,35 +729,48 @@ spike, vegetative, no stress(n=2)	6.55	0.39	2.27	0.27	2.43	0.03
 
 %The use of previously published studies is a valuable resource. 
 
-In model organisms there are several on-line resources that aggregate the raw data and meta analysis of several studies. 
-For example, the Expression Atlas \acrshort{ebi}  includes over 2,000 studies for \textit{Arabidopsis thaliana} inclusive of other technologies besides RNA-Seq (ie Affymetrix expression arrays). 
-However, when I started the development of expVIP the Expression Atlas only included a couple of baseline experiments and WheatExp had not been published yet (Figure \ref{fig:exp:timeline}).  
+\subsection{Expression databases in wheat.}
+In model organisms there are several on-line resources that aggregate the raw data and meta analysis of several expression studies. 
+For example, the Expression Atlas, from \gls{ebi},  includes over 2,000 studies for \textit{Arabidopsis thaliana} inclusive of other technologies besides RNA-Seq (ie Affymetrix expression arrays). 
+For the purpose of the discussion I will refer to www.wheat-expression.com as \gls{expvip} as this is the wheat implementation of the pipeline.  
+However, when I started the development of \gls{expvip} the Expression Atlas only included a couple of baseline experiments for wheat and WheatExp had not been published yet (Figure \ref{fig:exp:timeline}).  
 
-\begin{figure}
+\begin{figure}[b!]
 \includegraphics[width=1\textwidth]{expVIP/Figures/Timeline.pdf}
-\caption[expVIP resources time line]{expVIP resources time line. In bold the line of the time for development of expVIP and the annotation used. The Expression Atlas has a line starting on the initial study deposited on it till the last update, as of September 2016.}
+\caption[expVIP resources time line]{expVIP resources time line. In bold the line of the time for development of \gls{expvip} and the annotation used. The Expression Atlas has a line starting on the initial study deposited on it till the last update, as of September 2016.}
 \label{fig:exp:timeline}
 \end{figure}
 
-%When I started the development of expVIP none of the expression browsers mentioned in Section \ref{exp:alternative} had data for wheat. 
+%When I started the development of \gls{expvip} none of the expression browsers mentioned in Section \ref{exp:alternative} had data for wheat. 
 
 
-WheatExp was developed roughly at the same time of expVIP and contains 6 studies (against 16 on expVIP; \citealt{Pearce2015b}). 
-Four of the studies in WheatExp are on hexaploid wheat and are included in expVIP as well. 
-In WheatExp, the expression for each gene is displayed on the context of the original experiment without a direct comparison between studies. 
-However, because the studies are kept independently the levels of the categories are a direct reflection of the original studies. 
+WheatExp was developed roughly at the same time of \gls{expvip} and contains 6 RNA-Seq studies (against 16 on expVIP; \citealt{Pearce2015b}). 
+Four of the studies in WheatExp are on hexaploid wheat and are included in \gls{expvip} as well. 
+In WheatExp, the expression for each gene is displayed on the context of the original experiment, making it difficult to compare across studies. 
+However, because the studies are kept independently the factors of each study are dependant on the study. 
 %\unsure{Why is this fact a detriment for WheatEXP?}
-WheatExp allows to search genes by sequence, a feature not implemented in expVIP. 
+WheatExp allows to search genes by sequence, through a BLAST interface. 
+This feature is not yet implemented in expVIP but is a logical extension which will be set up similarly to the work I've done on the \url{www.wheat-tilling.com} blast search.  
 
-The Expression Atlas from \acrshort{ebi}, as of September 2016, contains 10 studies, 4 baseline and 6 for differential expression \citep{Petryszak2016}. 
+The Expression Atlas from \gls{ebi}, as of September 2016, contains 10 studies, 4 baseline and 6 for differential expression \citep{Petryszak2016}. 
 ExpVIP contains studies released before \acrshort{ebi} started to upload expression experiments for wheat. 
-Even if some of the most recent studies in the Expression Atlas are not included in expVIP yet, we are in the process of updating our tool to include studies published after the initial release.
-In terms of visualisation, the \acrshort{ebi} included a heatmap to compare to different factors at the same time for given gene (ie. tissue vs stress); the same information can be displayed on expVIP by sorting by two factors.
+Even if some of the most recent studies in the Expression Atlas are not included in \gls{expvip} yet, we are in the process of updating our tool to include studies published after the initial release.
+In terms of visualisation, the \gls{ebi} Expression Atlas includes a heatmap to compare to different factors at the same time for given gene (ie. tissue vs stress); the same information can be displayed on \gls{expvip} by sorting by two factors.
+The Expression Atlas currently uses a similar gene set build as that implemented for wheat through \gls{expvip} (\acrshort{iwgsc} gene models). 
+However, \gls{expvip} provides additional flexibility as it allows users to update the different parameters. 
+For example using the Virtual Machine (detailed below) users can implement the pipeline using a modified or extended gene build. 
+Likewise we have implemented \gls{expvip} for the recently released TGACv1 gene models which are now the community standard and available through EnsemblPlants. 
+We plan to allow users to search for the original IWGSC CSS gene models or the new TGACv1 models using a drop down menu. 
+When the final gene models are developed based on the NRGene assmebly a similar approach will be pursued. 
+Retaining all three datasets (IWGSC, TGACv1, NRGene) will allow the community to have a smooth transition as data can be queried based on the different gene model names. 
+This flexibility is not available in WheatExp nor in Expression Atlas. 
 
-
-Most of the RNA-Seq studies report their results in terms of \acrshort{rpkm}. 
-This normalisation, which is computed for done for each feature $g$ in the reference $G$, requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and the total number of mapped reads $R$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
+\subsection{Quantification of RNA-seq reads.}
+Most of the RNA-Seq studies report their results in terms of \gls{rpkm}. 
+This normalisation, which is computed for each feature $g$ in the reference $G$, requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and the total number of mapped reads $R$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
 As the denominator of \ref{eq:exp:rpkm} is based on the number of mapped reads rather than the number of nucleotides covered, RPKM does not allow to compare correctly results obtained between different samples, or even results from the same sample when the average read length changes due to variations in the experimental protocol \citealt{Wagner2012}.
+This is relevant for example in the case of the data in WheatExp which includes studies with 101 bp paired end data and 50 bp single end data. 
+Using \gls{rpkm} as is implemented in WheatExp (and EBI Expression Atlas), this data is not treated differently.  
 %\unsure{The original sentence was not completely clear; I hope this version elucidates more}
 
 \begin{figure}
@@ -776,7 +790,7 @@ R = \displaystyle\sum_{g \in G} r_{g}
   \textrm{RPKM}_{g} = \frac{r_{g}\times10^9}{\textrm{fl}_{g}\times R}
 \end{equation}
 
-The \acrshort{tpm} is an alternative to \acrshort{rpkm} that approximates the total number of transcripts $T$ as a normalisation factor (equation \ref{eq:exp:T}). 
+The \gls{tpm} is an alternative to \gls{rpkm} that approximates the total number of transcripts $T$ as a normalisation factor (equation \ref{eq:exp:T}). 
 Besides the previously described parameters, the \acrshort{tpm} also includes the read length $\textrm{rl}$, which is dependent on the study. 
 This formula assumes that each read corresponds to a full observed transcript (equation \ref{eq:exp:tpm}; \citealt{Wagner2012}). 
 %\unsure{Do you mean here that the formula assumes that each read has been assigned *unambiguously* to a single transcript? The sentence is unclear.}
@@ -792,8 +806,8 @@ T = \displaystyle\sum_{g \in G} \frac{r_{g} \times \textrm{rl}}{\textrm{fl}_{g}}
 \end{equation}
 
 
-One of the aims in developing TPM was to be able to compare samples from different studies; as it is more stable across different experiments, we decided to use it as the main unit of comparison in expVIP. 
-After we took the decision of which unit to use, we found a couple of tools, Kallisto \citep{Bray2016} and Sailfish \citep{Patro2014}, that could calculate the TPMs directly from mapping the reads to a reference, without producing a precise alignment.
+One of the aims in developing \gls{tpm} was to be able to compare samples from different studies; as it is more stable across different experiments \citep{Wagner2012}, we decided to use it as the main unit of comparison in expVIP. 
+After we took the decision of which unit to use, we found a couple of tools, Kallisto \citep{Bray2016} and Sailfish \citep{Patro2014}, that could calculate the TPMs directly from mapping the reads to a reference (sometimes referred as pseudo-aligner, but the logic behind is closer to a mapping function than actually aligning), without producing a precise alignment.
 The main advantage of only doing mapping, without aligning is a significant reduction in both the computational resources and the time needed to analyse a sample.
 
 %\unsure{These lists would really benefit from being multi-line, not all inline like they are displayed at the moment.}
@@ -814,7 +828,8 @@ An advantage of using a mapper is that the quantification pipeline is shorter:
   \item Index the reference. Only done once, as the same index can be used for all the samples. 
   \item Map the reads to the reference and quantify the expression in a single program.   
 \end{enumerate}
-Since mapping does not require the precise alignment of every single base on the read and the output is only the quantification for each gene, as opposed to the alignment of each read, the programs implementing mapping take around 15 minutes to run. 
+Since mapping does not require the precise alignment of every single base on the read and the output is only the quantification for each gene, as opposed to the alignment of each read, the programs implementing mapping take around 15 minutes to run on a 6 Gb RAM computer.
+This amount of memory is now available on desktop computers, making this analysis more accessible for groups that do not have access to an \gls{hpc} cluster.
 RNA-Seq mapping algorithms are implemented by \verb|Kallisto|  \citep{Bray2016} and \verb|Sailfish| \citep{Patro2014}.
 
 \begin{figure}
@@ -834,20 +849,24 @@ RNA-Seq mapping algorithms are implemented by \verb|Kallisto|  \citep{Bray2016} 
 \label{fig:exp:alnVSmap}
 \end{figure} 
 
-I decided to integrate \verb|Kallisto|  into expVIP because the algorithm is able to walk through different splicing junctions via a \acrshort{tdbg} (see Section \ref{exp:kallisto}; \citealt{Bray2016}), as opposed to Sailfish, which is based on counting k-mers only \citep{Patro2014}. 
+I decided to integrate \verb|Kallisto|  into \gls{expvip} because the algorithm is able to walk through different splicing junctions via a \gls{tdbg} (see Section \ref{exp:kallisto}; \citealt{Bray2016}), as opposed to Sailfish, which is based on counting k-mers only \citep{Patro2014}. 
 Since homoeologues with a high level of identity may form a bubble in the graph, in a similar way to small indels or SNPs \citep{Leggett2013}, \verb|Kallisto|  should be able to assign the reads to the correct k-compatibility class for their corresponding homoeologue.  
 %\unsure{Make a diagrame with the graph. Unfortunatly, I don't have in hand my diagrams for cortex an Richard did the diagrams for Legget et al.}
 
-Some features that could improve expVIP in the long term and that already present in other expression browsers would include searching by sequence, by gene ontology and a heatmap of a particular gene displaying two different factors on each axis . 
-A feature that expVIP could leverage from other genomic resources is the retrieval of genes flanking a gene of interest, or between genetic markers. 
+\subsection{Next steps in wheat expVIP.}
+Some features that could improve \gls{expvip} in the long term and that already present in other expression browsers would include searching by sequence, by gene ontology and a heatmap of a particular gene displaying two different factors on each axis . 
+A feature that \gls{expvip} could leverage from other genomic resources is the retrieval of genes flanking a gene of interest, or between genetic markers. 
 The upcoming assemblies , from the IWGSC \citep{Clark2016} and TGACv1 \citep{Pozniak2016}  with longer scaffolds in conjunction with the high resolution genetic maps from \citet{Wang2014} and \citet{Chapman2015} can enable such kind of queries (resources described in Section \ref{lit:wheatResourcers}). 
+Likewise, once the NRGene sequence is annotated, it will be possible to generate this information which will be extremely useful to refine candidate genes for QTL or in positional cloning projects. 
 
-For the TGACv1 assembly, an improved wheat annotation was made available after the initial release of expVIP (Figure \ref{fig:exp:timeline}). The \acrshort{iwgsc} will provide an updated annotation for their genome as well. 
-In the near future, expVIP will be updated to include those annotations and some development will be needed to allow the comparison between annotations, at least while the community adopts a canonical reference. 
+For the TGACv1 assembly, an improved wheat annotation was made available after the initial release of \gls{expvip} (Figure \ref{fig:exp:timeline}). 
+The \gls{iwgsc} is currently working on developing an updated annotation based on the new NRGene assembly. 
+In the near future, \gls{expvip} will be updated to include those annotations and some development will be needed to allow the comparison between annotations, at least while the community adopts a canonical reference. 
 
+\subsection{Comparisons within and between species.}
 The same mechanisms to compare expression between different references can be used to compare the expression between different organisms. 
 However, the current implementation uses the homology table with one column for each genome group in hexaploid wheat (A, B, and D; Figure \ref{fig:exp:currentGeneRelations}). 
-To be able to allow the inclusion of different polyploids with different genome names, to compare homologoues and paralogues effectively and to add any arbitrary relationship between genes the homoeologues table needs to be updated. 
+To be able to allow the inclusion of different polyploids with different genome names, to compare homologoues and paralogues effectively and to add any arbitrary relationship between genes, the homoeologues table needs to be updated. 
 Instead of representing triplets, the table should contain binary relationships; each gene pair will have a type to be able to distinguish between relationships. 
 Furthermore, each gene set should be linked to a species. 
 With that explicit relationship, equivalent genes from the same species, but coming from different gene models can be identified. 
@@ -868,41 +887,45 @@ Likewise, genes known to be conserved across relatives (ie Barley vs Wheat genes
 \label{fig:exp:futureGeneRelations}
 \includegraphics[width=0.85\textwidth]{expVIP/Figures/futureGeneRelations.pdf}
 \end{subfigure}
-\caption[Changes to improve gene comparasions]{Changes to improve gene comparisons. (\subref{fig:exp:currentGeneRelations}) Current implementation of homoeology. (\subref{fig:exp:currentGeneRelations}) Proposed implementation to extend the types of relationships between genes.  }
+\caption[Changes to improve gene comparasions]{Changes to improve gene comparisons. (\subref{fig:exp:currentGeneRelations}) Current implementation of homoeology. (\subref{fig:exp:futureGeneRelations}) Proposed implementation to extend the types of relationships between genes.  }
 \end{figure}
 
 To the best of my knowledge, none of the expression browsers available for wheat, or other polyploid species, allow the direct comparison between homoeologues. However, the effect of different related genes is a topic of active research in polyploids. 
 Making the relationship of the expression between related genes easily accessible can provide some initial evidence of having an uniform expression across homoeologues or of a triplet with a dominant gene. 
-Likewise, when the update to the table that keeps arbitrary relationships between genes is completed, it will be possible to find if related genes have a conserved expression pattern. 
+Likewise, when the update to the table that keeps arbitrary relationships between genes is completed, it will be possible to find if related genes have a conserved expression pattern across species. 
+To achieve this though it will be critical that the metadata uses common nomenclature across species. 
+For example, proper plant ontology \citep{Cooper2013} terms should be implemented in the metadata to be able to conclude that expression patterns are conserved across the same tissue and developmental stage in different species. 
+This is not a trivial undertaking but a new PhD project at EI is looking in ways to facilitate this feature. 
 
-Since its conception, I wanted expVIP to be open source and available to the community. 
+\subsection{An open access resource.}
+Since its conception, I wanted \gls{expvip} to be open source and available to the community. 
 As part of the project, I released the visualisation component as a biojs component  (\texttt{bio-vis-expression-bar}; \url{http://biojs.io/d/bio-vis-expression-bar}; \citealt{Yachdav2015}).
 In a collaboration with the Earlham Institute and eLife, another PhD student is working to integrate the visualisation plugin as a live figure. 
 If I had kept the code closed, this potential use of the component would have never happened. 
 
 The webserver is also open and hosted on github (\url{https://github.com/homonecloco/expvip-web}), with a tutorial on how to load the data on a personal server (Appendix \ref{exp:tutorial}). 
-As the quantification tool used by expVIP has a relatively low memory requirement, I was able to prepare and preconfigure two virtual machines, one without any data loaded and one with all the data used in the original article \url{http://www.wheat-expression.com}. 
+As the quantification tool used by \gls{expvip} has a relatively low memory requirement, I was able to prepare and preconfigure two virtual machines, one without any data loaded and one with all the data used in the original article \url{http://www.wheat-expression.com}. 
 This allows the comparison of private projects in the context of previous studies. 
-On the Norwich Research Park, at least two groups have shown interest on using expVIP to make their data available to the community on other species.
-We had also been contacted by both the team behind the annotation of TGACv1 and the IWGSC to include the upcoming annotations to the public instance of expVIP. 
+On the Norwich Research Park, at least two groups are actively on using \gls{expvip} to make their data available to the community on other species.
+We had also been contacted by both the team behind the annotation of TGACv1 and the \gls{iwgsc} NRGene assembly to include the upcoming annotations to the public instance of expVIP. 
 
-The public server has received visitors from several research institutes around the globe (Figure \ref{fig:exp:users}). 
-Since April, when the google analytics tracker was setup in the website, over 1,500 users have visited the site. 
+The public server at \url{http://www.wheat-expression.com} has received visitors from the majority of the wheat research institutes around the globe (Figure \ref{fig:exp:users}). 
+Since March 2016, when the google analytics tracker was setup in the website, over 1,921 users have visited the site. 
 Most of the users are based in the UK (34\%), and within the nation the majority of the traffic originates from Norwich, Cambridge, Harpenden, London and Dundee. 
 Those cities have research institutes that work on wheat, so it is very likely that the users are real. 
 Most of the international users are coming from the US, China, Australia, India, Germany and Canada. 
-In those countries, most of the visitors also come from cities where wheat institutes are based. 
-Furthermore, around half of the sessions stay on the website to access either the the individual genes or the heatmap. 
+In those countries, most of the visitors also come from cities where wheat institutes are based (i.e. Perth, Ludhiana, Quedlinburg (IPK), etc). 
+Furthermore, around half of the sessions stay on the website to access either the the individual genes or the heatmap  with an average session duration of over 4:30 across the $>$3,500 sessions. 
 Around 25\% of the sessions consult their genes using the heatmap, suggesting that they have a list of candidate genes for a trait of interest to select by comparing their expression.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{expVIP/Figures/WorldSessions.png}
-\caption{Heatmap of the number of unique sessions of expVIP in the world.}
+\caption{Heatmap of the number of unique sessions of \gls{expvip} in the world.}
 \label{fig:exp:users}
 \end{figure}
 
-Overall, expVIP has met its aims (Section \ref{exp:aims}). 
+Overall, \gls{expvip} has met its aims (Section \ref{exp:aims}). 
 I designed a relational database capable of storing several RNA-Seq experiments with their corresponding metadata. 
 The expression analysis has been automated, to facilitate the process of running Kallisto, the selected quantification tool. 
 The stored data can be visualised to compare the expression across several conditions, and the visualisation tool allows the arbitrary grouping and selection of studies. 
-Finally, the open source code and the virtual machines facilitate the adoption of expVIP on other communities, not necessarily working on wheat. 
+Finally, the open source code and the virtual machines facilitate the adoption of \gls{expvip} on other communities, not necessarily working on wheat. 
