@@ -18,9 +18,9 @@ This chapters describes PolyMarker, a bioinformatic tool to design genome-specif
 
 
 \subsection{Primers and Polymerase Chain Reaction}
-To generate new copies of DNA, biological systems requiere a DNA polymerase to copy DNA into DNA or a reverse transcriptase to translate RNA to DNA. During DNA replication, the DNA polymerase binds to the template strand and to a short strand of RNA that serves as a primer for DNA synthesis and replication, and then adds complementary nucleotides. Eventually, this results in two complementary DNA strands\cite{alberts2014molecular}.
+To generate new copies of DNA, biological systems require a DNA polymerase to copy DNA into DNA or a reverse transcriptase to translate RNA to DNA. During DNA replication, the DNA polymerase binds to the template strand and to a short strand of RNA that serves as a primer for DNA synthesis and replication, and then adds complementary nucleotides. Eventually, this results in two complementary DNA strands\cite{alberts2014molecular}.
 
-This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. PCR uses an heat-stable DNA polymerase to amplify the template sequence. The DNA polymerase requieres a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesized oligonucleotides of approximately 20 bases are added as primers. This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. The process is repeated multiple times to increase the number of DNA sequences exponentially \cite{alberts2014molecular}.
+This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. PCR uses an heat-stable DNA polymerase to amplify the template sequence. The DNA polymerase requires a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesised oligonucleotides of approximately 20 bases are added as primers. This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. The process is repeated multiple times to increase the number of DNA sequences exponentially \cite{alberts2014molecular}.
 
 \Gls{pcr} amplification is a technique that can be used to copy a fragment of DNA several times. 
 To start the amplification a pair of sequences (left and right primers) on each side of the target sequence is required. 
@@ -108,7 +108,7 @@ To ensure that all the constrains needed to produce genome-specific primer pairs
 This is done with tools like \verb|blast| \citep{Altschul1990}, \verb|blat| \citep{Kent2002} or \verb|exonerate| \citep{Slater2005}.
 All of these tools take a reference sequence and make an index of the database to speed up the search of the queried sequence  \ref{fig:poly:globalSearch}. 
 Since some of the sources of SNPs come from transcriptome data and gene references, the original sequence may go over the intron-exon junction (see Section \ref{lit:rna-seq:lab}).  
-The results are aligned to the target and may include sequences only from one exon, but not the adjacent intron, hence it is necesary to make a local alignment to ensure that corresponding bases are aligned correctly. 
+The results are aligned to the target and may include sequences only from one exon, but not the adjacent intron, hence it is necessary to make a local alignment to ensure that corresponding bases are aligned correctly. 
 
 \begin{figure}
 \centering
@@ -129,7 +129,7 @@ This is useful on the context of genome-specific primer design because to correc
 \label{fig:poly:globalAround} 
 \end{figure}
 
-\item Finally, the primers are validated to conform physiochemical properties that ensure the amplification. 
+\item Finally, the primers are validated to conform physicochemical properties that ensure the amplification. 
 The melting temperature needs to be in the range were the DNA will separate, but not too high that the temperature will damage other elements in the reaction, such as the polymerase. 
 Also, the primers must avoid sequences that self-bind, hairpins, or binding to the complementary primer. 
 The validation primers based on their intrinsic properties can be done with tools like \verb|Primer3| \citep{Rozen}. 
@@ -149,7 +149,7 @@ The template sequences are aligned with \verb|exonerate| \citep{Slater2005}  to 
 For my thesis, I implemented this using the IWGSC reference sequence (described in Chapter \ref{lit:wheatResourcers}).  
 Then, the alignment between homoeologues is refined using \verb|MAFFT| \citep{Katoh2013}. 
 A list of candidate variations is produced and used as input for \verb|Primer3| \citep{Rozen}. 
-Finally, the output of \verb|Primer3| is parsed to select the shortes primer pair containing the targeted SNP and a base that is specific to the target genome (Figure \ref{fig:poly:pipeline}).  
+Finally, the output of \verb|Primer3| is parsed to select the shortest primer pair containing the targeted SNP and a base that is specific to the target genome (Figure \ref{fig:poly:pipeline}).  
 The pipeline is written as a Ruby script, using parsers and wrappers from BioRuby \citep{Goto2010} and bio-samtools \citep{Etherington2015,Ramirez-Gonzalez2012}. 
 The software is open source and released as a biogem \citep{Bonnal2012}, \verb|bio-polyploid-tools|, the source code is available in: \url{https://github.com/TGAC/bioruby-polyploid-tools}.
 
@@ -163,7 +163,7 @@ The PolyMarker input consists on SNP list with: unique name for the marker, the 
 The alternative alleles are flanked by square brackets within the sequence. PolyMarker can take a list of several markers and design them in batch (Figure \ref{fig:poly:input}). 
 A \verb|FASTA| file is produced with all the template sequences, with the alternative alleles substituted by the IUAPC ambiguity codes \citep{Cornish-Bowden1985}. 
 The flanking sequence surrounding the SNP is limited by default to 100bp to reduce the search time and avoid missing regions that diverge near the SNP, as when the variation is near an intron-exon junction. 
-The limittaion of the flanking sequence to +/- 100 is consistet with the marker assay which is restrictied to amplicons of 100-120 bp. 
+The limitation of the flanking sequence to +/- 100 is consistent with the marker assay which is restricted to amplicons of 100-120 bp. 
 
 %%TODO: Should we elaborate more here? 
 \begin{figure}
@@ -179,7 +179,7 @@ The following parameters are used to optimise the output:
 
 \item[\texttt{--verbose 0 --show --alignment no --show vulgar no}.] To override the default output. 
 \item[\texttt{--bestn 20}.] By default, it increases the number of best hits to 20. Intuitively, it would be expected to have 3 copies, on for each homoeologue. However, the \acrshort{css} assembly has some duplication in the scaffolds and it is possible to find paralogues elsewhere in the genome. 
-\item[\texttt{--model est2genome}.] To allow the search of sequences coming from transcripts, such as the SNPs descriped in Chapter \ref{yr15}  and in the SNP chip described by \citep{Allen2011}
+\item[\texttt{--model est2genome}.] To allow the search of sequences coming from transcripts, such as the SNPs described in Chapter \ref{yr15}  and in the SNP chip described by \citep{Allen2011}
 \item[\texttt{--ryo 'RESULT:\char`\\t\%S\char`\\t\%pi\char`\\t\%ql\char`\\t\%tl\char`\\t\%g\char`\\t\%\char`\\n'}.]To set the output in a tabular format that is easy to parse as follow: \verb|\%S| the minimum information of the alignment, \verb|\%pi| percentage of identity, \verb|\%ql| query length, \verb|\%tl| target length and, \verb|\%g| orientation. 
 \end{description}
 
@@ -202,7 +202,7 @@ Each SNP marker is represented on the \verb|Bio::PolyploidTools::SNP| class, con
 For each step step there is a container that holds the SNP set and parses each output for all the called programs. 
 The container for exonerate is \verb|BIO:PolyploidTools::ExonContainer|. 
 The hits with the SNP are called exon henceforth, as the original design was for SNPs in gene models which may contain intron-exon junctions. 
-The main job of the \verb|ExonContainer| is to parse the \verb|exonrate| output and add it to the corresponding SNP (Listing \ref{lst:poly:exonerateParsing}). 
+The main job of the \verb|ExonContainer| is to parse the \verb|exonerate| output and add it to the corresponding SNP (Listing \ref{lst:poly:exonerateParsing}). 
 
 \begin{code}[language=Ruby,caption={[\texttt{Bio::PolyploidTools::ExonContainer.add\_alignments}]Method in \texttt{Bio::PolyploidTools::ExonContainer} that adds to each SNP object the alignments}, label=lst:poly:exonerateParsing]
 def add_alignments(opts=Hash.new) 
@@ -316,7 +316,7 @@ To generate the mask the following logic is followed:
 \end{enumerate}
 
 When designing SNP markers the aim is to have the amplification as specific as possible. 
-To improve the specificity of the assays, polymarker categorises all the possible primers as Specific; Semi-specific or; Non-specific. 
+To improve the specificity of the assays, PolyMarker categorises all the possible primers as Specific; Semi-specific or; Non-specific. 
 The candidate primer pairs are then evaluated with \texttt{Primer3} \citep{Rozen}. 
 \texttt{Primer3} receives a file with the preferences to design the markers, for PolyMarker the following preferences are set up: 
 
@@ -405,14 +405,14 @@ Finally, the best primer for each marker is produced and a \acrshort{csv} file i
 \item[chromosome] The target chromosome
 \item[total\_contigs] How many contigs mapped to the SNP. If it is more than the expected by the ploidy of the organism it can show paralogues or repetitive regions.
 \item[contig\_regions] The locations where the marker mapped. In the format Scaffold:start-end
-\item[SNP\_type] homoeologous or non-homoeologus. If it is homoeologous, the SNP is probably a variation between chromosomes. 
+\item[SNP\_type] homoeologous or non-homoeologous. If it is homoeologous, the SNP is probably a variation between chromosomes. 
 \item[A] Primer for the first allele.
 \item[B] Primer for the second allele.
 \item[common] Common primer that gives the specificity to the assay.
 \item[primer\_type] specific, semi-specific or non-specific. Depending on the rules described previously. 
 \item[orientation] If it is forward, the allelic primers are in the same orientation as the original sequence. If it is reverse, the common primer is in the same orientation as the original sequence.
 \item[A\_TM] Melting temperature of the first allelic primer
-\item[B\_TM] Melting temperature of the secibd allelic primer
+\item[B\_TM] Melting temperature of the second allelic primer
 \item[common\_TM] Melting temperature of the common primer
 \item[selected\_from] For internal purposes, points from which of the primers was used as template. 
 \item[product\_size] The size of the PCR product produced by the primers. 
@@ -430,7 +430,7 @@ Since the release of the public service in July 2014 until August 2016, 1,739 re
 
 Besides the previously described output, the web interface of PolyMarker provides a graphical representation of the multiple sequence alignment and the mask used to design the primer (Figure \ref{fig:poly:website}). 
 The visualisation consists on a table containing the primers and the BioJS component MSAViewer \citep{Yachdav2016}, that highlights the designed primers. 
-On an ideal case, you have an SNP that is in a non-homoeologus position with a genome-specific triplet (Figure \ref{fig:poly:non-hom-sp}). 
+On an ideal case, you have an SNP that is in a non-homoeologous position with a genome-specific triplet (Figure \ref{fig:poly:non-hom-sp}). 
 However, sometimes the SNP is located in an homoeologous variation (Figure \ref{fig:poly:hom-sp}), which can signal a miscalled SNP. 
 In some extreme cases, a SNP is located in regions that have homoeologues and paralogs in several chromosomes (Figure \ref{fig:poly:hom-multi}), it is useful to highlight such kind of SNPs that can produce spurious amplification from non-target chromosomes. 
 The graphical representation is helpful to understand how the primers were designed.
@@ -455,7 +455,7 @@ The graphical representation is helpful to understand how the primers were desig
 \label{fig:poly:hom-multi}
 \includegraphics[width=0.75\textwidth]{PolyMarker/Figures/website/hom-multi.png}
 \end{subfigure}
-\caption[Examples outputs from the PolyMarker website.]{Examples outputs from the PolyMarker website. (\subref{fig:poly:non-hom-sp}) The primer triplet is genome specific. The original marker sequence had the SNP near the begining of the template, but PolyMarker used the genomic reference to complement the sequence. (\subref{fig:poly:hom-sp}) An specific primer, but the SNP is located on the same position than an homologous variation. (\subref{fig:poly:hom-multi}) A case where the marker sequence align to 10 different chromosomes. The SNP is also located on a position with variations between genomes.}
+\caption[Examples outputs from the PolyMarker website.]{Examples outputs from the PolyMarker website. (\subref{fig:poly:non-hom-sp}) The primer triplet is genome specific. The original marker sequence had the SNP near the beginning of the template, but PolyMarker used the genomic reference to complement the sequence. (\subref{fig:poly:hom-sp}) An specific primer, but the SNP is located on the same position than an homologous variation. (\subref{fig:poly:hom-multi}) A case where the marker sequence align to 10 different chromosomes. The SNP is also located on a position with variations between genomes.}
 \label{fig:poly:website}
 \end{sidewaysfigure}
 
@@ -611,7 +611,7 @@ Briefly, the steps to develop primers for wheat was:
 
 \begin{enumerate}
     \item \textbf{Find candidate ESTs} from a database. This could be the UniGene database from the \gls{ncbi} or gene sequences from a relative species, such as \textit{Brachypodium distachyon}.
-    \item \textbf{Design primers from unigenes.} The sequence of the ESTs used as a reference are aligned across them. The conserved regions are used to design primers to be able to amplify the same region across different species.
+    \item \textbf{Design primers from UniGenes.} The sequence of the ESTs used as a reference are aligned across them. The conserved regions are used to design primers to be able to amplify the same region across different species.
     \item \textbf{\gls{pcr} amplification of diploid species.} DNA from \textit{T. urartu}, \textit{Ae. tauschii} and, \textit{Ae. speltoides} are used to amplify the identified sequences. 
     \item \textbf{Sequence the amplicons}. The \gls{pcr} products from the relative species are sequenced individually with capillary sequence. 
     \item \textbf{Alignment of the amplicons}. To search for variations between related species, the amplicons are aligned and the bases that are different across diploid species are used to design new primers, that should be genome specific in hexaploid wheat. 
@@ -636,7 +636,7 @@ If the primer amplifies it means that it is not specific to the target chromosom
 \label{fig:poly:nullitetra}
 \end{SCfigure}
 
-Even having a the sequence for each homoeologue, without an automatated bioinfmatic pipeline, the primer design was done manually, a slow, error-prone and, repetitive process. 
+Even having a the sequence for each homoeologue, without an automated bioinformatic pipeline, the primer design was done manually, a slow, error-prone and, repetitive process. 
 The steps require the use of several bioinformatics tools, but once I understood the primer design steps I decided to automate the process. 
 Since designing genome-specific primers is a common task in wheat research and breeding, the community showed interest on the tool and I decided to refine it and make it open source. 
 PolyMarker has been used successfully in several projects \citep{Ramirez-Gonzalez2015b,Hubbard2015,Burt2015,King2015,Sollars2016} and it even allowed the novel use of KASP assays to validate long deletions in polyploids \citep{Krasileva2016}. 
@@ -652,7 +652,7 @@ Also, the codes were useful when representing all the observed bases on each coo
 %\unsure{Look at http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3868579/ to get some way to compare SRR vs SNP markers }
 
 The ideas behind PolyMarker had been taken by other projects like the scripts described in \cite{Ma2015} and the corresponding web interface, GSP \citep{Wang2016}. 
-Briefly, GSP does uses \verb|blast| to search in a local database to find all the homoeologus regions and provides a diagram with the bases that are genome specific. 
+Briefly, GSP does uses \verb|blast| to search in a local database to find all the homoeologous regions and provides a diagram with the bases that are genome specific. 
 It then allows the user to select a primer pair according to the constrains for their individual experiment, like product size. 
 The advantage over PolyMarker is that it allows to pick arbitrary primers, at the cost of having a step for manual selection of the pair. 
 Recently, LGC also developed a program (MAGICBOX) that require a SNP sequence, does the alignment and selects primers with a genome specific anchor. 
@@ -664,9 +664,9 @@ A successful modification to PolyMarker was to be able to design primers to dete
 The modularity of the code permits to swap components with relatively little effort. 
 
 The current web interface of PolyMarker is limited to KASP assays, however the command line version is more flexible and has been used to design primers for PCR amplicons, capillary sequencing and on other organisms. 
-However, to install the command requires a linux machine and some knowledge on the command line. 
+However, to install the command requires a Linux machine and some knowledge on the command line. 
 
 PolyMarker is a tool that was originally designed to design the markers to validate the \glspl{snp} found in Chapter \ref{yr15}. 
 Overall, PolyMarker provides an useful resource to the wheat community, as the primer design process is now streamlined. 
-PolyMarker is not restricted to wheat, it can be used on any polyploid systems, like the poliplods in the genus \textit{Brassica}.
-As new references of wheat come available, PolyMarker should be updated to work with pseudomolecules and the web interface updated accordingly. The source code of PolyMarker is open source and available on \url{https://github.com/TGAC/bioruby-polyploid-tools}. 
+PolyMarker is not restricted to wheat, it can be used on any polyploid systems, like the polyploids in the genus \textit{Brassica}.
+As new references of wheat come available, PolyMarker should be updated to work with pseudo-molecules and the web interface updated accordingly. The source code of PolyMarker is open source and available on \url{https://github.com/TGAC/bioruby-polyploid-tools}. 

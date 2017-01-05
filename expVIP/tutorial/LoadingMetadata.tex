@@ -12,7 +12,7 @@ terminal. The assumption is that expVIP is located in
 
 The first thing to do is to setup the available factors. The
 \lstinline!factor file! is a text file, where each field is separated by
-tabs. A header is necesary on each column. The headers are the
+tabs. A header is necessary on each column. The headers are the
 following:
 
 \begin{itemize}
@@ -136,7 +136,7 @@ columns with the header named exactly as stated:
 \item
   \textbf{Mapped reads}: (optional)
 \item
-  \textbf{High level variety}: A higher level grouping to get summarized
+  \textbf{High level variety}: A higher level grouping to get summarised
   data of the factors.
 \item
   \textbf{High level tissue}
@@ -201,7 +201,7 @@ rake load_data:metadata[FILE_WITH_THE_METADATA]
 
 Before loading the actual expression data or running kallisto, it is
 necessary to load the gene models. Currently, only the fasta file with
-the cdna from ensembl is supported. The fasta header should contain the
+the cdna from Ensembl is supported. The fasta header should contain the
 following fields, besides the gene name (first string in the header).
 
 \begin{itemize}
@@ -286,7 +286,7 @@ correspond to the gene name.
 \subsubsection{Generating the file with the homoeologues from Ensembl
 compara}\label{generating-the-file-with-the-homoeologues-from-ensembl-compara}
 
-The file can be genrated with ensembl compara, using the following
+The file can be generated with Ensembl compara, using the following
 query:
 
 \begin{code}[language=SQL]
@@ -313,7 +313,7 @@ ruby bin/homologyTable.rb compara_homolgy.txt homology.txt homology_counts.txt
 You can get your homoeologies elsewhere, as long as you keep the file
 format.
 
-At this point, the homoloeologues are called A,B and D. This is going to
+At this point, the homoeologues are called A,B and D. This is going to
 change on a future release to allow any chromosome group naming.
 
 \begin{enumerate}
@@ -332,8 +332,8 @@ change on a future release to allow any chromosome group naming.
   And select the homoeologues file.
   \\ \includegraphics[width=0.75\textwidth]{expVIP/tutorial/images/LoadHom04.png}
 \item
-  Succesfully loaded. At the end of the log you can see which how many
-  homologies where loaded. \\ \includegraphics[width=0.75\textwidth]{expVIP/tutorial/images/LoadHom05.png}
+  Successfully loaded. At the end of the log you can see which how many
+  homoeologies where loaded. \\ \includegraphics[width=0.75\textwidth]{expVIP/tutorial/images/LoadHom05.png}
 \end{enumerate}
 
 \subsubsection{Rake task}\label{rake-task-3}

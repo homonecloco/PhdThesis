@@ -20,7 +20,7 @@ In this chapter the \gls{nil} for the \textit{Yr15} locus is used to produce a m
 Molecular markers can be used to select lines by testing if certain allele is present in a line, without the need to phenotype  the given line.
 To find which regions are linked to a trait the use of $F_{2}$ mapping populations is a common practice, especially for major single gene traits.
 The population is produced by crossing two (usually homozygous) parents ($P_1$ and $P_{2}$) with different alleles, A/A (dominant, resistant if containing \textit{Yr15}) and a/a (recessive, susceptible in our experiment).
-When the trait is dominant and has a mendelian segregation, the $F_1$ population should exhibit the dominant trait, as it has a copy of each allele (A/a). 
+When the trait is dominant and has a Mendelian segregation, the $F_1$ population should exhibit the dominant trait, as it has a copy of each allele (A/a). 
 The $F_1$ is then self-pollinated to produce and $F_2$ population which should segregate with a ratio of 1:2:1, dominant:heterozygous:recessive respectively.
 This generates a population with a phenotypic ratio of 3:1 (resistant:susceptible), since the effect of the recessive allele is masked by the dominant allele (\citealt{VanOoijen2013}; Figure \ref{fig:yr15:f2schematic}).  
 
@@ -49,10 +49,10 @@ By combining multiple independent individuals with similar phenotypes, one can i
 Regions which are not linked to the trait of interest show up as heterozygous in the bulks, whereas regions which are linked to the trait of interest will be enriched for either parental allele.
 Here one would expect an enrichment of the resistant allele A with respect to the susceptible allele a in the resistant bulk. 
 Analogously, one would expect the absence of the resistant allele A in the susceptible bulk (Figure \ref{fig:yr15:BSAschematic}). 
-This approach can be used to identify SNPs using \gls{ngs}-based methods, such as exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome resequencing \citep{Schneeberger2009}, among others. 
+This approach can be used to identify SNPs using \gls{ngs}-based methods, such as exome capture \citep{Hodges2007}, RNA-Seq \citep{Pickrell2010}, whole genome re-sequencing \citep{Schneeberger2009}, among others. 
 
 To find SNPs linked to the trait segregating in an $F_{2}$ population using \gls{ngs} data there are several options. 
-In organisms with a contiguous reference genome, a normalized count of the times each allele is observed is enough to find the region linked to the trait; this simple ratio is called SNP-Index \citep{Takagi2013a}.
+In organisms with a contiguous reference genome, a normalised count of the times each allele is observed is enough to find the region linked to the trait; this simple ratio is called SNP-Index \citep{Takagi2013a}.
 However, wheat is a polyploid organism, with an average identity between homoeologues of over 98\%. 
 Because of the high identity, reads coming from different homoeologues may map to the same position; and this problem is exacerbated in cases where a reference sequence for some of the homoeologues is absent. 
 The \gls{bfr} \citep{Trick2012} methodology can work on organisms that have more than one pseudo genome and where not all of the genes, either homoeologues or paralogues, have been characterised independently; it works with a single reference by collapsing similar regions. 
@@ -85,7 +85,7 @@ When the SNPs are called from genes like the UniGenes \citep{PontiusJUWagnerL200
 A source to get the order of the scaffolds are previously published genetic maps, such as the one described in \citet{Wang2014}, which has the sequence of the markers available.
 The markers and the genes can be aligned to the scaffolds with a high identity cutoff (over $98\%$), to avoid them being assigned to a homoeologue or paralogue on a different chromosome.
 The practice of using genetic maps to sort genomic sequence and produce pseudo-chromosomes is common in genome wide projects, and is usually performed with \textit{ad-hoc} tools \citep{Tang2015}.
-The highly fragmented state of the \acrshort{css} assembly prevents the use of genetic maps to produce pseudomolecules, as those maps which are currently available do not have enough resolution.
+The highly fragmented state of the \acrshort{css} assembly prevents the use of genetic maps to produce pseudo-molecules, as those maps which are currently available do not have enough resolution.
 However, they are dense enough to sort the scaffolds in bins when several markers map to the same location. 
 In this way, it is possible to use the scaffolds as a proxy to map the genes to their genetic position (Figure \ref{fig:yr15:layersOfMapping}).
 The results of mapping the genes with SNPs to the CSS assembly and the genetic map are described in Section \ref{sub:yr15:inSilico}. 
@@ -219,8 +219,8 @@ Therefore exclusion of bulk 3 plants in the S1+S2 and R1+R2 bulk would provide t
 
 The \gls{snp} calling was done on positions with a coverage of at least $20x$ on the progenitor lines against the gene reference. The \gls{avs} progenitor had roughly $3\%$ more genes with polymorphisms than \gls{yr15}, consistent with the difference in coverage, suggesting that with a higher coverage we could recover more \gls{snp}s from \gls{yr15}.
 The UniGenes have a higher number of \gls{snp}s because the \gls{ucw} gene models have a higher number of monomorphic genes when compared to the UniGenes (Figure \ref{fig:yr15:SNPper}; Table \ref{app:yr15:cntSNP100bp}). 
-The difference in the number of relative monomorphic SNPs between reference can be explained by the fact that in the UniGenes set many homeologoues might have been collapsed into a single representative sequence, whereas the \acrshort{ucw} gene set is homoeologue-specific.
-Therefore, mapping to the correct homeologue is improved in the \acrshort{ucw} gene set over the UniGenes.
+The difference in the number of relative monomorphic SNPs between reference can be explained by the fact that in the UniGenes set many homologous might have been collapsed into a single representative sequence, whereas the \acrshort{ucw} gene set is homoeologue-specific.
+Therefore, mapping to the correct homoeologue is improved in the \acrshort{ucw} gene set over the UniGenes.
 
 
 \input{Yr15/SupplementalTables/snpsPer100bp}
@@ -283,7 +283,7 @@ A total of 1,582 SNPs across 1,173 genes had a $BFR>6$.
 \label{sub:yr15:inSilico}
 From the mapped SNPs with a $BFR>6$, 872 of 1,582 ($\sim60\%$) were assigned to the chromosomes in group 1 of hexaploid wheat, being the only group with more than $4\%$ of the SNPs assigned to it (Table \ref{app:yr15:bfr6Mapping}). 
 From group 1, the B genome contained the higher proportion of SNPs mapped ($54\%$), having 255 ($54\%$) and 214 ($46\%$) assigned to the long and short arms respectively (Figure \ref{fig:yr15:snpsBFR6Group1}).  
-These results are expected since previous studies have located \acrshort{yr15} near the centromere in the short arm of chromosome 1B and the \acrshort{yr15} introgression contains regions from the long and short arm from \textit{T. diccocoides} \citep{Murphy2009,Peng2000,Grama1997}. 
+These results are expected since previous studies have located \acrshort{yr15} near the centromere in the short arm of chromosome 1B and the \acrshort{yr15} introgression contains regions from the long and short arm from \textit{T. dicoccoides} \citep{Murphy2009,Peng2000,Grama1997}. 
 
 \begin{SCfigure}
   \centering
@@ -352,15 +352,15 @@ Since there are several SNPs with a high BFR and the genetic map is not dense en
 \label{fig:yr15:snpset}
 \end{figure}
 
-Three independent criteria were used to prioritize the SNPs for marker development and validation: 
+Three independent criteria were used to prioritise the SNPs for marker development and validation: 
 
 \begin{description}
 \item[High BFR.] SNPs with a $BFR>6$ in at least two independent bulk replicates or in either of the \textit{in silico} mixes were selected to ensure consistency and recover SNPs with a low coverage on a particular bulk. 
 \item[Group 1S.] SNPs that are in \acrshort{css} scaffolds in the short arm of chromosome group 1 were selected.
 The selection included \glspl{snp} from the A, B and D genomes because the best hit to each gene model may be missing from the \gls{css} assembly.
-Therefore, in cases where one or more of the homoeologous genes is missing from the reference, reads might be assigned to the wrong subgenome.
+Therefore, in cases where one or more of the homoeologous genes is missing from the reference, reads might be assigned to the wrong sub-genome.
 This is consistent with the \textit{in silico} genetic map and with previous studies \citep{Murphy2009,Peng2000,Grama1997}.
-\item[\acrshort{yr15} parent.] The SNPs should originate from the \acrshort{yr15} parent to ensure that the SNP is coming from the \textit{T. diccocoides} introgression and not from a SNP in the \acrshort{avs} genetic background, who would be less useful in breeding programs with a different background.
+\item[\acrshort{yr15} parent.] The SNPs should originate from the \acrshort{yr15} parent to ensure that the SNP is coming from the \textit{T. dicoccoides} introgression and not from a SNP in the \acrshort{avs} genetic background, who would be less useful in breeding programs with a different background.
 \end{description}
 
 Only SNPs meeting the three criteria were selected for further analysis. 
@@ -402,7 +402,7 @@ Hence, a compromise between increasing the minimum coverage at the cost of reduc
 
 KASP assays were designed to validate and generate a genetic map of the \acrshort{yr15} locus for the 35 selected SNPs.
 To automate the design of genome-specific primers for polyploid organisms PolyMarker was developed (Chapter \ref{cha:polymarker}).
-Out of the 35 assays to design, 17 were designed as specific, 9 as semi-specific to chromosome 1BS, and 9 were not specific because there was no information for the homoeolouges on the \acrshort{css} scaffolds. 
+Out of the 35 assays to design, 17 were designed as specific, 9 as semi-specific to chromosome 1BS, and 9 were not specific because there was no information for the homoeologues on the \acrshort{css} scaffolds. 
 PolyMarker also identified putative homoeologous variants (between genomes, as opposed to between varieties) that were in the list of candidate SNPs, but were not identified previously (Figure \ref{fig:poly:mask}; Table \ref{tab:yr15:polymarker}). 
 
 
@@ -430,8 +430,8 @@ PolyMarker also identified putative homoeologous variants (between genomes, as o
 
 
 To validate if the 35 SNPs were polymorphic across the parents and diagnostic for \acrshort{yr15} we tested them in the progenitors plus six commercial varieties, three containing \acrshort{yr15} (Ochre, Boston and, Cortez) and three without it (Shamrock, Robigus and, Cadenza).
-Two of the lines without \acrshort{yr15} have \textit{T. diccocoides} in their pedigree (Shamrock and Robigus), as it is the donor species of \textit{Yr15} \citep{mcintosh1995}. 
-This test panel allows to test if the SNPs are only diagnostic to \textit{T. diccocoides} instead of \acrshort{yr15}.
+Two of the lines without \acrshort{yr15} have \textit{T. dicoccoides} in their pedigree (Shamrock and Robigus), as it is the donor species of \textit{Yr15} \citep{mcintosh1995}. 
+This test panel allows to test if the SNPs are only diagnostic to \textit{T. dicoccoides} instead of \acrshort{yr15}.
 On the test panel, 28 ($80\%$) SNPs were polymorphic across the parents and three of them where diagnostic to \textit{Yr15} (R5, R8, R33).
 From the five homoeologous SNPs, three of them were monomorphic and two polymorphic, suggesting that PolyMarker is effective on detecting which assays are less likely to work (Table \ref{tab:yr15:markersToTest}; Figure \ref{fig:yr15:r2},\subref{fig:yr15:r8}).
 The segregation of the SNPs in the full $F_{2}$ population (Section \ref{sub:mappingPopulation}, Figure \ref{fig:yr15:r8f2}) and a genetic map was produced (Section \ref{yr15:geneticMap}).   
@@ -501,7 +501,7 @@ For clarity, the snippets of code on this section had been simplified by removin
 
 \subsection{Base-call and Quality Control of sequencing reads}
 The raw output from the Illumina HiSeq 2000 was processed with Casava v1.8 \citep{casavaBCL}. 
-Lanes 1 and 2, containing multiplexed bulks (Table \ref{tab:yr15:reads}) was demultiplexed with a tolerance of 1 mismatch in the barcode. 
+Lanes 1 and 2, containing multiplexed bulks (Table \ref{tab:yr15:reads}) was de-multiplexed with a tolerance of 1 mismatch in the barcode. 
 Lanes 3 and 4 contained the parental sequences without a barcode. 
 The FastQ files where left compressed and in chunks of 40,000, as the default for the BCL conversion pipeline from Casava to allow parallel processing in a cluster environment. 
 The quality of the sequencing lanes was assessed with FastQC v0.10.1 \citep{fastqc}. 
@@ -652,7 +652,7 @@ As described in \citet{Ramirez-Gonzalez2015b},
 \begin{blockquote} [the primers] were ordered from Sigma-Aldrich (Gillingham, UK), with primers carrying standard FAM or HEX compatible tails (FAM tail: 5' GAAGGTGACCAAGTTCATGCT 3'; HEX tail: 5' GAAGGTCGGAGTCAACGGATT 3') and the target SNP at the 30 end. 
 Primer mix was set up as recommended by LGC [46 $\mu$L dH$_{2}$O, 30 $\mu$L common primer (100 $\mu$M) and 12 $\mu$L of each tailed primer (100 $\mu$M)] \citep{LGC}
 Assays were tested in 384-well format and set up as 4-$\mu$L reactions [2-$\mu$L template (10–20 ng of DNA), 1.944 $\mu$L of V4 2 $\times$ Kaspar mix and 0.056 $\mu$L primer mix]. 
-PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hotstart at 95°C for 15 min, followed by ten touchdown cycles (95°C for 20s; touchdown 65°C, $-1$°C per cycle, 25 s) then followed by 30 cycles of amplification (95°C 10s; 57°C 60s).
+PCR cycling was performed on a Eppendorf Mastercycler pro 384 using the following protocol: hot-start at 95°C for 15 min, followed by ten touchdown cycles (95°C for 20s; touchdown 65°C, $-1$°C per cycle, 25 s) then followed by 30 cycles of amplification (95°C 10s; 57°C 60s).
 As KASP amplicons are smaller than 120 bp, an extension step is unnecessary in the PCR protocol. 384-well optically clear plates (Cat. No. E10423000; Starlab Milton Keynes, UK) were read on a Tecan Safire plate reader. 
 Fluorescence was detected at ambient temperature. If the signature genotyping clusters had not formed after the initial amplification, additional amplification cycles (usually 5–10) were conducted, and the samples were read again. Data analysis was performed manually using Klustercaller software (version 2.22.0.5; LGC Hoddesdon, UK).
 \end{blockquote}
@@ -667,7 +667,7 @@ As described in \citet{Ramirez-Gonzalez2015b}:
 \section{Discussion} 
 
 
-Resequencing the $\sim17$Gbp genome of hexaploid wheat is costly and approaches to reduce the required sequenced volume to effectively call for SNPs had been evolving since the conception of this project. 
+Re-sequencing the $\sim17$Gbp genome of hexaploid wheat is costly and approaches to reduce the required sequenced volume to effectively call for SNPs had been evolving since the conception of this project. 
 Both the RNA and DNA extraction and the sequencing for this project were carried out before the beginning of my PhD (before October 2012). 
 At that time, exome capture was already an established technique for genotyping humans \citep{Ng2009}, however the first exome capture on wheat had just been published, with probes coming from unassembled 454 reads \citep{Winfield2012}; the first probe designed directly from transcripts \citep{Henry2014} was not published until after the analysis of this section was completed and validated (Figure \ref{fig:yr15:timeline}).
 An even more targeted capture for resistance genes (RenSeq), by capturing genes with the NBS-LRR motif, was published while this study was executed \citep{Jupe2013}.

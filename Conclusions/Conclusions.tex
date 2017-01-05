@@ -9,7 +9,7 @@
 
 %\section{Analysis and tool development for polyploid organisms}
 
-Knowledge from  computer science can be applied to produce software for specific needs, and which can also be useful for the comunity. 
+Knowledge from  computer science can be applied to produce software for specific needs, and which can also be useful for the community. 
 One of the limitations though is that most approaches are developed for diploid systems and are sometimes not compatible with polyploid species, such as wheat. 
 Polyploidy adds an extra level of complexity (due to homoeologs) and in the case of wheat the large genome size also hinders certain approaches to genome analyses. Therefore bespoke tools are required to deal with these barriers. 
 
@@ -84,11 +84,11 @@ Figure \ref{fig:discussion:assemblyTables} includes the tables used to store ass
 New assemblies are required to address the shortcomings of the use of \acrshort{cs} as a genome reference and to include the diversity from other lines \citep{Allen2016,Winfield2016}. 
 The assemblies may include their own annotation, and that should be reflected in the database too. 
 
-As of september 2016 there are four sets of genomic sequence used by the wheat community:
+As of September 2016 there are four sets of genomic sequence used by the wheat community:
 \begin{enumerate}
 	\item  A 454 whole genome shotgun sequence that is unassembled, and each read is treated as a scaffold \citep{Brenchley2012}.
 	\item The genome assembly and annotation from the \gls{css} done by the \acrshort{iwgsc} \citep{Mayer2014}.
-	\item A whole genome shotgun sequence from a syntetic wheat, without a corresponding annotation \citep{Chapman2015}.
+	\item A whole genome shotgun sequence from a synthetic wheat, without a corresponding annotation \citep{Chapman2015}.
 	\item The whole genome shotgun sequencing and annotation from \acrshort{cs} (TGACv1; \citealt{Clark2016}).
 \end{enumerate}
 
@@ -142,7 +142,7 @@ Moreover, this integration would allow users to query for specific mutations whi
 
 To increase the available information, the SNPs and the corresponding alleles for lines with a known genotype  can be added to the database. 
 Several varieties had been genotyped with the 820k \citep{Winfield2016} and 90k \citep{Wang2014} SNP arrays, as well as with exome capture methods \citep{Jordan2015}.
-Despite being publicly available in CerealsDB, the size of the datasets require specialized bioinformatic knowledge, as regular spreadsheet software is unable to load all the information and stay responsive. 
+Despite being publicly available in CerealsDB, the size of the datasets require specialised bioinformatic knowledge, as regular spreadsheet software is unable to load all the information and stay responsive. 
 For that reason, a database to query this datasets would be valuable by itself. 
 However, integrating the marker information on the general database can be useful to validate if SNPs called for a studied line are consistent with the expected genotype. 
 This kind of validation of the variety of the sample has been done with custom scripts in \citep{Hubbard2015}.
@@ -192,7 +192,7 @@ The Collaborative Open Plant Omics (COPO; \citealt{Davey2015}) is trying to inte
 This approach requires the cooperation of the service providers, which have their own view of what is important. 
 I believe that in order to effectively integrate the resources it is necessary to understand how the users are likely to interact with the data.
 
-In order to increase the exposure of PolyMarker (Chatper \ref{cha:polymarker}) and \gls{expvip} (Chapter \ref{cha:exp}), an integration with other online resources is necessary. 
+In order to increase the exposure of PolyMarker (Chapter \ref{cha:polymarker}) and \gls{expvip} (Chapter \ref{cha:exp}), an integration with other online resources is necessary. 
 So far, expVIP links to Ensembl to get the details of a displayed gene. 
 However, there is no link back from a gene in Ensembl to expVIP. 
 To address this it should be possible to contact Ensembl to link back, but it may require a custom interface between both sites. 
@@ -233,7 +233,7 @@ Nevertheless, the idea of integrating different types of data matured enough as 
 When discussing with the group how to make available the public RNA-Seq samples deposited by the community I believed that I could leverage on part of my design to power an expression browser. 
 Originally, we thought on looking for other open source expression browsers, but none of them had the flexibility required to work on polyploids and they were designed with model organisms in mind, with stable resources and conventions followed by the community. 
 So I decided to write the the expression browser that eventually became expVIP (Chapter \ref{cha:exp}). 
-For the visualisation I leveraged on my previous experience developing BioJS components, as I worked on a component to visualize BAM files in the browser, under the Google Summer of Code in 2014. 
+For the visualisation I leveraged on my previous experience developing BioJS components, as I worked on a component to visualise BAM files in the browser, under the Google Summer of Code in 2014. 
 
 During the last year I extended the database design and implementation, as we required to display the data from the tilling population described in \citet{Krasileva2016}. 
 As the data grew in size and complexity, a single table containing all the mutations with their corresponding effects and primers was not enough. 

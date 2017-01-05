@@ -28,7 +28,7 @@
 
 To the best of my knowledge, the only alternative expression browser developed for specifically for wheat is WheatExp \citep{Pearce2015b}. 
 This expression browser contains information of 6 studies from diploid, tetraploid and hexaploid wheat. 
-The studies were selected to be complementary among them; ``a broad study of five different tissues across multiple timepoints \citep{Choulet2014}, a study of seedling photomorphogenesis \citep{Fox2014}, a study of drought and heat stress in wheat seedlings \citep{Liu2015}, a study of wheat grain layers at a single timepoint \citep{Pearce2015}, a senescing leaf timecourse \citep{Pearce2014} and a timecourse of different grain tissue layers during development \citep{Pfeifer2014}''.
+The studies were selected to be complementary among them; ``a broad study of five different tissues across multiple time points \citep{Choulet2014}, a study of seedling photomorphogenesis \citep{Fox2014}, a study of drought and heat stress in wheat seedlings \citep{Liu2015}, a study of wheat grain layers at a single time point \citep{Pearce2015}, a senescing leaf time-course \citep{Pearce2014} and a time-course of different grain tissue layers during development \citep{Pfeifer2014}''.
 The expression quantification is produced by aligning to the gene transcripts using BWA \citep{Li2010}, and the counts are extracted with HTSeq \citep{Anders2015}. 
 The Expression Atlas from \acrshort{ebi} is a public resource that collects expression experiments of several species \citep{Petryszak2016}. 
 The samples are processed automatically from the reads deposited ArrayExpress \citep{Kolesnikov2015}, containing data from microarrays and RNA-Seq.
@@ -43,7 +43,7 @@ The quantification is calculated with HTSeq \citep{Anders2015}, from alignments 
 \subsection{Public wheat RNA-Seq experiments.}
 
 Table \ref{tab:exp:studiesDetails} contains the 16 studies used during the development of the \gls{expvip}. 
-This studies were categorized by developmental time courses, tissues, pathogen infections, and abiotic stresses. 
+This studies were categorised by developmental time courses, tissues, pathogen infections, and abiotic stresses. 
 The use of divers studies demonstrate the utility of an integrated platform to generate novel hypotheses. 
 
 \input{expVIP/tables/formated_studies}
@@ -65,8 +65,8 @@ Finally, the program estimates the abundance of the transcript in the sample (Fi
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{LitReview/Figures/kallisto.pdf}
-\caption[Overview of kallisto.]{``Overview of kallisto. The input consists of a reference transcriptome and reads from an RNA-seq experiment. (a) An example of a read (in black) and three overlapping transcripts with exonic regions as shown. (b) An index is constructed by creating the transcriptome de Bruijn Graph (T-DBG) where
-nodes (v1, v2, v3, ... ) are k-mers, each transcript corresponds to a colored path as shown and the path cover of the transcriptome induces a k-compatibility class for each k-mer. (c) Conceptually, the k-mers of a read are hashed (black nodes) to find the k-compatibility class of a read. (d) Skipping (black dashed lines) uses the information stored in the T-DBG to skip k-mers that are redundant because they have the same k-compatibility class. (e) The k-compatibility class of the read is determined by taking the intersection of the k-compatibility classes of its constituent k-mers'' \citep{Bray2016}.}
+\caption[Overview of Kallisto.]{``Overview of Kallisto. The input consists of a reference transcriptome and reads from an RNA-seq experiment. (a) An example of a read (in black) and three overlapping transcripts with exonic regions as shown. (b) An index is constructed by creating the transcriptome de Bruijn Graph (T-DBG) where
+nodes (v1, v2, v3, ... ) are k-mers, each transcript corresponds to a coloured path as shown and the path cover of the transcriptome induces a k-compatibility class for each k-mer. (c) Conceptually, the k-mers of a read are hashed (black nodes) to find the k-compatibility class of a read. (d) Skipping (black dashed lines) uses the information stored in the T-DBG to skip k-mers that are redundant because they have the same k-compatibility class. (e) The k-compatibility class of the read is determined by taking the intersection of the k-compatibility classes of its constituent k-mers'' \citep{Bray2016}.}
 \label{fig:exp:kallisto}
 \end{figure}
 
@@ -213,7 +213,7 @@ The aims of \gls{expvip} are to:
 \begin{enumerate}
 \item Integrate RNA-Seq experiments from several sources in a single database (Section \ref{exp:DB}). 
 \item Automate the calculation of the expression values and load them in to the database (Section \ref{exp:pipeline}).
-\item Produce a tool  visualisation for said expression values with a short time to learn, good perfomance, memorability, accuracy and satisfaction s (Section \ref{exp:gui}).
+\item Produce a tool  visualisation for said expression values with a short time to learn, good performance, memorability, accuracy and satisfaction s (Section \ref{exp:gui}).
 \item Make the system available to the community (Section \ref{exp:gui}).
 \end{enumerate}
 
@@ -281,7 +281,7 @@ SELECT
 	experiments.accession,  
 	factors.factor,
 	factors.description, 
-	experiment_groups.name as expriment_group 
+	experiment_groups.name as experiment_group 
 FROM factors 
 JOIN ExperimentGroups_Factors 
 	ON factors.id = ExperimentGroups_Factors.factor_id
@@ -495,7 +495,7 @@ The steps to load the values are:
 \begin{enumerate}
 \item A transaction is initiated at the beginning of the task, to ensure that if any step fails and the execution is aborted the database will stay in a consistent state (Listing \ref{lst:exp:loadValues}; line 2).
 \item The connection is assigned to the variable \verb|conn|, to be able to execute queries directly to the database (line 3).   
-\item The \verb|meta_experimet|, \verb|gene_set| and \verb|value_type| are loaded and stored to get the corresponding IDs in the insertion (line 4).
+\item The \verb|meta_experiment|, \verb|gene_set| and \verb|value_type| are loaded and stored to get the corresponding IDs in the insertion (line 4).
 \item All the \verb|Genes| and \verb|Experiments| are loaded in their corresponding hash table, to be able to get the IDs when the actual values are inserted (lines 7-11). 
 \item The file is read with the \verb|CSV| library from Ruby, keeping the headers to be able to assign the correct experiment (line 14). 
 \item The first column is named \verb|target_id| and contains the gene name. The ID of the gene  in the database is retrieved from the previously loaded hash (lines 15-16)
@@ -554,10 +554,10 @@ end
 \end{wrapfigure}
 
 Alternatively, \gls{expvip} can execute \verb|Kallisto| on all the samples loaded in the database. 
-For this purpose, \gls{expvip} stores the raw reads in FastQ format, organized in directories named with the same accessions as in the metadata (ie a directory named \verb|DRR003148| contains the reads for the metadata displayed in table \ref{tab:exp:queryMetadata}). 
+For this purpose, \gls{expvip} stores the raw reads in FastQ format, organised in directories named with the same accessions as in the metadata (ie a directory named \verb|DRR003148| contains the reads for the metadata displayed in table \ref{tab:exp:queryMetadata}). 
 expVIP takes all the accessions for the experiments in the database and searches for the corresponding folder. 
 If the folder exists and if it contains the \verb|fastq| files, then it is deemed as valid. 
-If the folder already has the \verb|kallisto| output, the next folder is evaluated, otherwise \verb|kallisto| is executed with its default settings and the results are loaded into the database. 
+If the folder already has the \verb|Kallisto| output, the next folder is evaluated, otherwise \verb|Kallisto| is executed with its default settings and the results are loaded into the database. 
 This process is repeated for all the accessions (Figure \ref{fig:exp:runKallisto}).  
 This pipeline allows to populate the database partially, in case that not all the experiments are ready from the beginning. 
 
@@ -604,14 +604,14 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
 \item
   \textbf{\lstinline!Compare box!}: it is possible to add a second gene and press the \lstinline!Compare! button to generate two expression graphs drawn at the same scale.
 \item
-  \textbf{\lstinline!Menu options!}: has several links on the details of the study and tutorial. The menu can be edited to customize instances of expVIP. 
+  \textbf{\lstinline!Menu options!}: has several links on the details of the study and tutorial. The menu can be edited to customise instances of expVIP. 
 \item
   \textbf{\lstinline!Gene!}: shows the currently displayed gene, with a link to Ensembl to the corresponding description. 
 \item
   \textbf{\lstinline!Expression unit!}: selects the expression unit to visualise. This can be either \gls{tpm} or  estimated counts. If other units are loaded in the database, they will appear in this field. 
 \item
   \textbf{\lstinline!Save graph!}: these two buttons allow users to save the current graphs in either \lstinline!SVG! (to work on Adobe Illustrator) or as \lstinline!PNG! files. 
-  The export process selects the graphical elements from the visualization and binds them together on a single \verb|SVG| file. The reasons to follow this process are: to ensure that the plot reflects the user selection; remove the elements that do not have a meaning in a static context and; allow the user to format the image with publication quality (Figure \ref{fig:exp:exportImage}).
+  The export process selects the graphical elements from the visualisation and binds them together on a single \verb|SVG| file. The reasons to follow this process are: to ensure that the plot reflects the user selection; remove the elements that do not have a meaning in a static context and; allow the user to format the image with publication quality (Figure \ref{fig:exp:exportImage}).
 
 \begin{figure}
 
@@ -685,7 +685,7 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
 \end{figure}
 
 \item
-  \textbf{\lstinline!Expression unit!}: For heatmaps, the default unit log2(tpm) as the logarithmic scale provides a better context for comparisons acorss several genes.
+  \textbf{\lstinline!Expression unit!}: For heatmaps, the default unit log2(tpm) as the logarithmic scale provides a better context for comparisons across several genes.
 \item
   \textbf{\lstinline!Heatmap!}: To compare several genes, the values are represented as a heatmap. The sorting and filtering is done with the same controls as for single genes.
   Up to 50 genes are displayed in the heatmap, as more genes will degrade the performance of the database, and the visual clutter makes the plot hard to interpret. 
@@ -761,7 +761,7 @@ In terms of visualisation, the \gls{ebi} Expression Atlas includes a heatmap to 
 The Expression Atlas currently uses a similar gene set build as that implemented for wheat through \gls{expvip} (\acrshort{iwgsc} gene models). 
 However, \gls{expvip} provides additional flexibility as it allows users to update the different parameters. 
 For example using the Virtual Machine (detailed below) users can implement the pipeline using a modified or extended gene build. 
-Likewise we have implemented \gls{expvip} for the recently released TGACv1 gene models which are now the community standard and available through EnsemblPlants. 
+Likewise we have implemented \gls{expvip} for the recently released TGACv1 gene models which are now the community standard and available through Ensembl Plants. 
 We plan to allow users to search for the original IWGSC CSS gene models or the new TGACv1 models using a drop down menu. 
 When the final gene models are developed based on the NRGene assmebly a similar approach will be pursued. 
 Retaining all three datasets (IWGSC, TGACv1, NRGene) will allow the community to have a smooth transition as data can be queried based on the different gene model names. 
@@ -821,8 +821,8 @@ The traditional pipeline to quantify expression from RNA-Seq consists on the fol
   \item Quantify the expression.  
 \end{enumerate}
 This is the prevailing pipeline for expression analysis. 
-In my experience, on a computing cluster it takes between 6 to 8 hours to process each wheat sample on a computing cluster, using multiprocessing and up to 24 Gb of RAM (Figure \ref{fig:exp:alnPipeline}). 
-This pipeline is usually implemented by aligning the reads with \verb|BWA| \citep{Li2009} or \verb|tophat|  \citep{Trapnell2012} and the quantification is performed with tools like \verb|HTSeq| \citep{Anders2015} or \verb|cufflinks| \citep{Trapnell2012}.
+In my experience, on a computing cluster it takes between 6 to 8 hours to process each wheat sample on a computing cluster, using multiprocessing and up to 24 GB of RAM (Figure \ref{fig:exp:alnPipeline}). 
+This pipeline is usually implemented by aligning the reads with \verb|BWA| \citep{Li2009} or \verb|Tophat|  \citep{Trapnell2012} and the quantification is performed with tools like \verb|HTSeq| \citep{Anders2015} or \verb|cufflinks| \citep{Trapnell2012}.
 
 %\unsure{Again, this list would be clearer as one item per line rather than inline.}
 An advantage of using a mapper is that the quantification pipeline is shorter:
@@ -830,7 +830,7 @@ An advantage of using a mapper is that the quantification pipeline is shorter:
   \item Index the reference. Only done once, as the same index can be used for all the samples. 
   \item Map the reads to the reference and quantify the expression in a single program.   
 \end{enumerate}
-Since mapping does not require the precise alignment of every single base on the read and the output is only the quantification for each gene, as opposed to the alignment of each read, the programs implementing mapping take around 15 minutes to run on a 6 Gb RAM computer.
+Since mapping does not require the precise alignment of every single base on the read and the output is only the quantification for each gene, as opposed to the alignment of each read, the programs implementing mapping take around 15 minutes to run on a 6 GB RAM computer.
 This amount of memory is now available on desktop computers, making this analysis more accessible for groups that do not have access to an \gls{hpc} cluster.
 RNA-Seq mapping algorithms are implemented by \verb|Kallisto|  \citep{Bray2016} and \verb|Sailfish| \citep{Patro2014}.
 
@@ -889,7 +889,7 @@ Likewise, genes known to be conserved across relatives (ie Barley vs Wheat genes
 \label{fig:exp:futureGeneRelations}
 \includegraphics[width=0.85\textwidth]{expVIP/Figures/futureGeneRelations.pdf}
 \end{subfigure}
-\caption[Changes to improve gene comparasions]{Changes to improve gene comparisons. (\subref{fig:exp:currentGeneRelations}) Current implementation of homoeology. (\subref{fig:exp:futureGeneRelations}) Proposed implementation to extend the types of relationships between genes.  }
+\caption[Changes to improve gene comparisons]{Changes to improve gene comparisons. (\subref{fig:exp:currentGeneRelations}) Current implementation of homoeology. (\subref{fig:exp:futureGeneRelations}) Proposed implementation to extend the types of relationships between genes.  }
 \end{figure}
 
 To the best of my knowledge, none of the expression browsers available for wheat, or other polyploid species, allow the direct comparison between homoeologues. However, the effect of different related genes is a topic of active research in polyploids. 
@@ -901,7 +901,7 @@ This is not a trivial undertaking but a new PhD project at \gls{ei} is looking i
 
 \subsection{An open access resource.}
 Since its conception, I wanted \gls{expvip} to be open source and available to the community. 
-As part of the project, I released the visualisation component as a biojs component  (\texttt{bio-vis-expression-bar}; \url{http://biojs.io/d/bio-vis-expression-bar}; \citealt{Yachdav2015}).
+As part of the project, I released the visualisation component as a BioJS component  (\texttt{bio-vis-expression-bar}; \url{http://biojs.io/d/bio-vis-expression-bar}; \citealt{Yachdav2015}).
 In a collaboration with the Earlham Institute and eLife, another PhD student is working to integrate the visualisation plugin as a live figure. 
 If I had kept the code closed, this potential use of the component would have never happened. 
 
@@ -912,7 +912,7 @@ On the Norwich Research Park, at least two groups are actively on using \gls{exp
 We had also been contacted by both the team behind the annotation of TGACv1 and the \gls{iwgsc} NRGene assembly to include the upcoming annotations to the public instance of expVIP. 
 
 The public server at \url{http://www.wheat-expression.com} has received visitors from the majority of the wheat research institutes around the globe (Figure \ref{fig:exp:users}). 
-Since March 2016, when the google analytics tracker was setup in the website, over 1,921 users have visited the site. 
+Since March 2016, when the Google analytics tracker was setup in the website, over 1,921 users have visited the site. 
 Most of the users are based in the UK (34\%), and within the nation the majority of the traffic originates from Norwich, Cambridge, Harpenden, London and Dundee. 
 Those cities have research institutes that work on wheat, so it is very likely that the users are real. 
 Most of the international users are coming from the US, China, Australia, India, Germany and Canada. 
