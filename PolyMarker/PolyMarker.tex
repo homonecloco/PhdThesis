@@ -18,9 +18,15 @@ This chapters describes PolyMarker, a bioinformatic tool to design genome-specif
 
 
 \subsection{Primers and Polymerase Chain Reaction}
+\label{sub:poly:pcr}
 To generate new copies of DNA, biological systems require a DNA polymerase to copy DNA into DNA or a reverse transcriptase to translate RNA to DNA. During DNA replication, the DNA polymerase binds to the template strand and to a short strand of RNA that serves as a primer for DNA synthesis and replication, and then adds complementary nucleotides. Eventually, this results in two complementary DNA strands\cite{alberts2014molecular}.
 
-This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. PCR uses an heat-stable DNA polymerase to amplify the template sequence. The DNA polymerase requires a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesised oligonucleotides of approximately 20 bases are added as primers. This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. The process is repeated multiple times to increase the number of DNA sequences exponentially \cite{alberts2014molecular}.
+This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. 
+PCR uses an heat-stable DNA polymerase to amplify the template sequence. 
+The DNA polymerase requires a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesised oligonucleotides of approximately 20 bases are added as primers (see Section \ref{sub:poly:primer3} for details on primer design). 
+This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. 
+Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. 
+The process is repeated multiple times to increase the number of DNA sequences exponentially \cite{alberts2014molecular}.
 
 \Gls{pcr} amplification is a technique that can be used to copy a fragment of DNA several times. 
 To start the amplification a pair of sequences (left and right primers) on each side of the target sequence is required. 
@@ -39,7 +45,24 @@ This process is repeated several times to increase the representation of the tar
 \label{fig:poly:amplificationProduct}
 \end{figure}
 
+\subsection{Primer design with Primer3}
+\label{sub:poly:primer3}
+To initialize de \gls{pcr} reaction (Section \ref{sub:poly:pcr})) it is crucial to design pairs of short DNA sequences, primers, that will start the amplification process. 
+For a primer to be effective it has to be design under certain constrains. 
+Primer3 \citep{Untergasser2012} is a bioinfrmatic tool to desig primers, considering the following critera:
+
+\begin{description}
+    \item[Oligonucleotide melting temperature]. It is the temperature at which the double stranded primer melts into single strands. If the melting temperature is too high, the primer will not bind to the target sequence \citep{Breslauer1986}.
+    \item[Size.] The size of the primers needs to be balanced to be long enough to provide the desired specificity to the target seqnece, and short enough to to bind easily to the target sequence. A common range of sizes for priemrs is between 18-25bp. 
+    \item[GC content.] Primers with a high GC content are more efficent, however they also tend to be less specific \citep{Rychlik1995}.
+    \item[Avoid primer-dimers.] In a primer pair, if the corresponding 3' ends are similar the primer pairs may bind to each other. Hence, when selecting a primer pair, even if the individual primers are good candidates, the corresponding pair must be checked to avoid this issue. \citep{Chou1992}.
+    \item[PCR product size.] It is the distance between the 5' end of both primers. The length of the product will determine how many cycles of extension are needed. For SNP markers, a short product size is prefered because the snp is already contained in the primer. 
+    \item[Positional constrains in the template sequence.] It is possible to exclude or force the inclusion of certain regions in the primer design. In particular, this capability enables PolyMarker to select primers with the SNP in the 3' end of the first primer for KASP (see Section \ref{sub:poly:kasp}) and genome-specifc priemrs on the second primer (see Section \ref{sub:poly:genome-specific}). 
+\end{description}
+This list is of criteria considered by Primer3 is not comprehensive, but it includes the relevant options considered for primer design in PolyMarker. 
+
 \subsection{KASP assays.}
+\label{sub:poly:kasp}
 A technology used for genotyping SNP markers is Kompetitive Allele Specific PCR (KASP) assay, the original target technology for PolyMarker.
 The assay consists on triplets of primers, having a primer for each allele and a common primer that will amplify both alleles. 
 The allelic primers have at the 5'-end a tail, HEX (5' GAAGGTCGGAGTCAACGGATT 3') or FAM (5' GAAGGTGACCAAGTTCATGCT 3'), which is used to distinguish between them (Figure \ref{fig:poly:kaspTriplet}). 
@@ -76,6 +99,7 @@ If the experiment fails, because poor amplification, that means that there are n
 
 
 \subsection{Genome specific primers.}
+\label{sub:poly:genome-specific}
 One of the main challenges of working with polyploid species is the design of genome specific molecular markers. 
 In hexaploid wheat, most of the genes have at three homoeologues copies, one for each genome (See section \ref{lit:polyploidy}). 
 The similarity between homoeologues is around 98\% \citep{Krasileva2013}, which represent around 1 mismatch for every 50 bp. 
@@ -108,7 +132,7 @@ To ensure that all the constrains needed to produce genome-specific primer pairs
 This is done with tools like \verb|blast| \citep{Altschul1990}, \verb|blat| \citep{Kent2002} or \verb|exonerate| \citep{Slater2005}.
 All of these tools take a reference sequence and make an index of the database to speed up the search of the queried sequence  \ref{fig:poly:globalSearch}. 
 Since some of the sources of SNPs come from transcriptome data and gene references, the original sequence may go over the intron-exon junction (see Section \ref{lit:rna-seq:lab}).  
-The results are aligned to the target and may include sequences only from one exon, but not the adjacent intron, hence it is necessary to make a local alignment to ensure that corresponding bases are aligned correctly. 
+The results are aligned to the target and may include sequences only from one exon, but not the adjacent intron, hence it is necessary to make a local alignment to ensure that corresponding bases are aligned correctly.
 
 \begin{figure}
 \centering
