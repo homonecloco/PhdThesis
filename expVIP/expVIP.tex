@@ -595,11 +595,11 @@ As memorability and satisfaction are subjective, they were not directly tested f
 
 The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref{fig:exp:tutorial2} and \ref{fig:exp:tutorial3}, with a description of each element of the \acrshort{gui} listed below. 
 
-\begin{figure}
-\includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure1.png} 
+\begin{sidewaysfigure}
+\includegraphics[width=0.90\textwidth]{expVIP/tutorial/images/Figure1.png} 
 \caption{Features on expVIP}
 \label{fig:exp:tutorial1}
-\end{figure}
+\end{sidewaysfigure}
 \begin{enumerate}
 \item
   \textbf{\lstinline!Search box!}: at any point it is possible to type a new gene name (based on Ensembl Plants nomenclature) and generate a new set of expression data.
@@ -615,23 +615,23 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
   \textbf{\lstinline!Save graph!}: these two buttons allow users to save the current graphs in either \lstinline!SVG! (to work on Adobe Illustrator) or as \lstinline!PNG! files. 
   The export process selects the graphical elements from the visualisation and binds them together on a single \verb|SVG| file. The reasons to follow this process are: to ensure that the plot reflects the user selection; remove the elements that do not have a meaning in a static context and; allow the user to format the image with publication quality (Figure \ref{fig:exp:exportImage}).
 
-\begin{figure}
-
-\begin{subfigure}{1\textwidth}
+\begin{sidewaysfigure}
+\centering
+\begin{subfigure}{0.8\textwidth}
 \caption{}
 \label{fig:exp:exportLayout}
 \includegraphics[width=1\textwidth]{expVIP/Figures/Exportsketch.pdf}
 \end{subfigure}
 
-\begin{subfigure}{1\textwidth}
+\begin{subfigure}{0.9\textwidth}
 \caption{}
 \label{fig:exp:exportImageSample}
 \includegraphics[width=1\textwidth]{expVIP/Figures/tutorialSampleOutput.png}
 \end{subfigure}
 
-\caption[expVIP export image]{expVIP export image. (\ref{fig:exp:exportLayout}) \acrshort{gui} components components exported in image} (\ref{fig:exp:exportImageSample}) The exported components from Figure \ref{fig:exp:tutorial1}) 
+\caption[expVIP export image]{expVIP export image. (\subref{fig:exp:exportLayout}) \acrshort{gui} components components exported in image (\subref{fig:exp:exportImageSample}). The exported components from Figure \ref{fig:exp:tutorial1}) }
 \label{fig:exp:exportImage}.
-\end{figure}
+\end{sidewaysfigure}
 
 \item
   \textbf{\lstinline!Save data!}: downloads a \lstinline!csv! file with the data with the current selection and
@@ -651,11 +651,11 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
   \textbf{\lstinline!Expression level!}: the expression level adjusts according to the expression of each set of gene homoeologues. The scale remains consistent across homoeologues to allow comparison. 
   The values are based on the unit selected in the \lstinline!expression unit! box (see point 5 above).
 
-\begin{figure}
-\includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure2.png} 
+\begin{sidewaysfigure}
+\includegraphics[width=0.9\textwidth]{expVIP/tutorial/images/Figure2.png} 
 \caption{Features on \gls{expvip} (continued)}
 \label{fig:exp:tutorial2}
-\end{figure}
+\end{sidewaysfigure}
 
 \item
   \textbf{\lstinline!Filter!}: opens a pop-up window revealing the levels of the selected category. 
@@ -680,11 +680,11 @@ The elements in the graphical are shown in Figures \ref{fig:exp:tutorial1}, \ref
   \textbf{\lstinline!Description!}: Textual description of the grouped factors, according to the selection criteria (11 and 12 above). 
   The number of grouped samples is also displayed.
 
-\begin{figure}
-\includegraphics[width=1\textwidth]{expVIP/tutorial/images/Figure2a.png} 
+\begin{sidewaysfigure}
+\includegraphics[width=0.9\textwidth]{expVIP/tutorial/images/Figure2a.png} 
 \caption{Features on \gls{expvip} for Multiple gene comparisons}
 \label{fig:exp:tutorial3}
-\end{figure}
+\end{sidewaysfigure}
 
 \item
   \textbf{\lstinline!Expression unit!}: For heatmaps, the default unit log2(tpm) as the logarithmic scale provides a better context for comparisons across several genes.
@@ -922,11 +922,11 @@ In those countries, most of the visitors also come from cities where wheat insti
 Furthermore, around half of the sessions stay on the website to access either the the individual genes or the heatmap  with an average session duration of over 4:30 across the $>$3,500 sessions. 
 Around 25\% of the sessions consult their genes using the heatmap, suggesting that they have a list of candidate genes for a trait of interest to select by comparing their expression.
 
-\begin{figure}
+\begin{sidewaysfigure}
 \includegraphics[width=1\textwidth]{expVIP/Figures/WorldSessions.png}
-\caption{Heatmap of the number of unique sessions of \gls{expvip} in the world.}
+\caption{Heatmap of the number of unique sessions of \gls{expvip} in the world. The shade of blue represents the count of sessions per country. The highest number of sessions (1,027) come from the U.K. }
 \label{fig:exp:users}
-\end{figure}
+\end{sidewaysfigure}
 
 Overall, \gls{expvip} has met its aims (Section \ref{exp:aims}). 
 I designed a relational database capable of storing several RNA-Seq experiments with their corresponding metadata. 
