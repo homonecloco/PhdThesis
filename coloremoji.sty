@@ -29,13 +29,13 @@
   }%
  }
 
-\bool_if:nTF { \xetex_if_engine_p: || \luatex_if_engine_p: }
-  {
-   \cs_set_eq:NN \coloremoji \coloremoji_unicode:n
-  }
-  {
+%\bool_if:nTF { \xetex_if_engine_p: || \luatex_if_engine_p: }
+%  {
+%   \cs_set_eq:NN \coloremoji \coloremoji_unicode:n
+%  }
+%  {
    \cs_set_eq:NN \coloremoji \coloremoji_eightbit:n
-  }
+%  }
 \ExplSyntaxOff
 
 % Issue in Ruby 1.9+

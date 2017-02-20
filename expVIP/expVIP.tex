@@ -772,7 +772,7 @@ This flexibility is not available in WheatExp nor in Expression Atlas.
 \subsection{Quantification of RNA-seq reads.}
 Most of the RNA-Seq studies report their results in terms of \gls{rpkm}. 
 This normalisation, which is computed for each feature $g$ in the reference $G$, requires the count of the number of reads  $r_{g}$, the feature length $\textrm{fl}_{g}$ and the total number of mapped reads $R$ (Figure \ref{fig:exp:units}; equations \ref{eq:exp:R} and  \ref{eq:exp:rpkm} \citealt{Mortazavi2008}).
-As the denominator of \ref{eq:exp:rpkm} is based on the number of mapped reads rather than the number of nucleotides covered, RPKM does not allow to compare correctly results obtained between different samples, or even results from the same sample when the average read length changes due to variations in the experimental protocol \citealt{Wagner2012}.
+As the denominator of \ref{eq:exp:rpkm} is based on the number of mapped reads rather than the number of nucleotides covered, RPKM does not allow to compare correctly results obtained between different samples, or even results from the same sample when the average read length changes due to variations in the experimental protocol \citep{Wagner2012}.
 This is relevant for example in the case of the data in WheatExp which includes studies with 101 bp paired end data and 50 bp single end data. 
 Using \gls{rpkm} as is implemented in WheatExp (and EBI Expression Atlas), this data is not treated differently.  
 %\unsure{The original sentence was not completely clear; I hope this version elucidates more}

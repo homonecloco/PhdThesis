@@ -22,7 +22,7 @@ This chapters describes PolyMarker, a bioinformatic tool to design genome-specif
 To generate new copies of DNA, biological systems require a DNA polymerase to copy DNA into DNA or a reverse transcriptase to translate RNA to DNA. During DNA replication, the DNA polymerase binds to the template strand and to a short strand of RNA that serves as a primer for DNA synthesis and replication, and then adds complementary nucleotides. Eventually, this results in two complementary DNA strands \citep{mullis1987process}.
 
 This process can be used to generate multiple copies of a DNA sequence using the \gls{pcr}. 
-PCR uses an heat-stable DNA polymerase to amplify the template sequence. 
+PCR uses a heat-stable DNA polymerase to amplify the template sequence. 
 The DNA polymerase requires a primer sequence that is complementary to the template strand to begin the reaction. Usually, chemically synthesised oligonucleotides of approximately 20 bases are added as primers (see Section \ref{sub:poly:primer3} for details on primer design). 
 This primer sequence can be specific to the target region, or random if multiple regions are being duplicated. 
 Once the DNA strand has been elongated, the temperature is elevated and then lowered to separate the DNA strands. 
@@ -601,7 +601,7 @@ In \cite{Hubbard2015}, \gls{pst} isolates were sequenced and assigned to cluster
 The clusters are useful to monitor the changes in the pathogen population, which can be used to predict if certain wheat lines will be resistant to the isolates in the field. 
 \gls{pst} is a dikaryon, an organism with two nuclei, each one containing a single haploid chromosome.
 For PolyMarker it can be treated as a diploid, so the \verb|--genomes_count 1| argument was used.
-PolyMarker was used to design primers for \gls{pst}, using the assembly PST-130 \citet{Cantu2011}.
+PolyMarker was used to design primers for \gls{pst}, using the assembly PST-130 \citep{Cantu2011}.
 As the assembly is fragmented, an \textit{ad hoc} function was used to always get the name of the assembly (Listing \ref{lst:poly:pst130}). 
 Out of 15 assays, 11 can be used to identify to which cluster of isolates a sample is likely to belong, Table \ref{app:PolyMarkerPST}.
 Until this study, the previous method to genotype \gls{pst} was \gls{ssr} markers which were difficult to replicate across laboratories and interpret in cases of multiple alleles \citep{Ali2014}.

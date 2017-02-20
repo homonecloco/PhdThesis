@@ -125,7 +125,7 @@ Depending on multiple factors, including gene regulation, this process can be re
 The pre-mRNA suffers various modifications like splicing and capping. 
 In a gene, there are  intragenic regions, called introns, that are removed from the pre-mRNA, while the remaining sequences, called exons, become part of the mature mRNA. 
 Splicing is catalysed by the spliceosome, which recognises the sequences of the splice donor, branch and acceptor sites in the intron, cuts the intron and pastes the remaining exons.
-In some cases, different introns and exons can be included or excluded, creating alternative splicings of the RNA sequence\citep{alberts2014molecular}. 
+In some cases, different introns and exons can be included or excluded, creating alternative splicings of the RNA sequence \citep{alberts2014molecular}. 
 Then, the 5' and 3' ends of the RNA sequence are modified to generate a mature messenger RNA (mRNA). 
 A 7-methylguanosine cap is added to the 5' end. The 3' end is cleaved and polyadenidated, acquiring a poly(A) tail of approximately 200 adenines \citep{alberts2014molecular}. 
 The result of this process is a mature mRNA, which forms part of the transcriptome.
@@ -134,20 +134,20 @@ The result of this process is a mature mRNA, which forms part of the transcripto
 
 Both DNA and RNA can be sequenced using available \gls{ngs} technologies. 
 The preferred starting template will depend on several factors including the biological question at hand, the size of the genome and gene space, the resources available, etc. 
-In the case of wheat, complete representation of DNA is impractical given the genome size (17 Gbp; Bennett and Lynch (see Borrill Tansley Review for REF). 
+In the case of wheat, complete representation of DNA is impractical given the genome size \citep{Borrill2015}. 
 Therefore reduced representation methods constitute an important alternative (Figure \ref{fig:lit:reducedRepresentation}). 
-Among them, we used exome capture and RNA-seq during the course of this PhD. However, my main focus was on the use of RNA-Seq and therefore I detail more on this methodology below. 
+Among them, we used exome capture and RNA-Seq during the course of this PhD. However, my main focus was on the use of RNA-Seq and therefore I detail more on this methodology below. 
 Originally, sequencers where designed with DNA in mind, so that analysing RNA requires converting the transcriptome into a cDNA library \citep{wang2009rna}.
 To begin with, RNA is first isolated, purified and enriched for mature mRNA.  
 For some sequencers, the resulting mRNAs need to be fragmented to improve sequence coverage, as current sequencers can only read sequences shorter than the transcripts. 
 Once the quality of the RNA has been verified, it is converted into cDNA and adaptor sequences are added. 
-First, the RNA strand is copied into first strand cDNA using the reverse transcriptase, as traditional polymerases cannot convert from RNA to DNA\citep{alberts2014molecular}.
+First, the RNA strand is copied into first strand cDNA using the reverse transcriptase, as traditional polymerases cannot convert from RNA to DNA \citep{alberts2014molecular}.
 Reverse transcriptase, as other polymerase, requires a primer annealed to begin the polymerisation, so random primer are used to avoid 3' bias and improve coverage.
-To obtain the second strand, RNase H is used to cleave the original RNA. 
+To obtain the second strand, RNase is used to cleave the original RNA. 
 The remaining fragments serve as primers for DNA polymerase I, creating a double-stranded complementary DNA. 
 The cDNA fragments then go through an end repair process, the addition of a single ‘A’ base, and then ligation of the adaptors, which will be used by the sequencer to read the sequence. 
 The products are then purified, to remove artefact and their quality is verified.
-The remaining sequences are enriched using the polymerase chain reaction (PCR),  which can generate thousands to millions of copies of a particular DNA sequence \citep{ truseq}.
+The remaining sequences are enriched using the polymerase chain reaction (PCR),  which can generate thousands to millions of copies of a particular DNA sequence \citep{truseq}.
 The resulting cDNA library is sequenced using available high throughput sequencing technologies. 
 
 
@@ -159,7 +159,8 @@ The resulting cDNA library is sequenced using available high throughput sequenci
 
 \section{Sequence analysis}
 
-From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman \citep{Smith1981} and Needleman-Wunsch \citep{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O($mn$), as it requires calculating a matrix of size $mn$ where $m$ is the target sequence and $n$ is the query sequence.  To scale this to a manageable problem algorithms like BLAST, BLAT and exonerate index the references to make the search faster. This alignments tools are useful for long stretches of DNA (like cDNA or contigs; \citealt{Altschul1990}).
+From the computational point of view, the problem can be viewed as a string matching. The Smith-Waterman \citep{Smith1981} and Needleman-Wunsch \citep{Needleman1970} algorithms are the gold standard interns of accuracy looking for similarity between sequences. However, the execution time for both of them is prohibitive to run in massive databases. The algorithm execution time is O($mn$), as it requires calculating a matrix of size $m\times n$ where $m$ is the target sequence and $n$ is the query sequence.  
+To scale this to a manageable problem algorithms like BLAST, BLAT and exonerate index the references to make the search faster. This alignments tools are useful for long stretches of DNA (like cDNA or contigs; \citealt{Altschul1990}).
 
 \begin{description}
 
@@ -172,7 +173,7 @@ From the computational point of view, the problem can be viewed as a string matc
 \end{description}
 
 
-When analysing high-throughput sequencing, having millions of short sequences make unfeasible to try to align the data to every possible reference. However, one can take in advantage the fact that you know which organism you are looking for and, if available, use a genomic reference. For this, tools like MAQ, BWA, Bowtie, among others, provide indexed search.  Once you have your reads aligned to a reference you can do more analysis, depending on the biological question being asked and the type of sequencing carried on.  Fortunately, most of the Short-Read sequence alignment produce similar outputs and the SAM format is becoming a de facto standard. This is allowing to make more a modular downstream analysis where you can test different aligners with different settings and pick the algorithm that better fits your experiment\citep{Liu2012,Li2009,Li2009a}. 
+When analysing high-throughput sequencing, having millions of short sequences make unfeasible to try to align the data to every possible reference. However, one can take advantage of the fact that you know which organism you are looking for and, if available, use a genomic reference. For this, tools like MAQ, BWA, Bowtie, among others, provide indexed search.  Once the reads are aligned, to a reference the downstream analysis will depend on the biological question being asked and the type of sequencing carried on.  Fortunately, most of the Short-Read sequence alignment produce similar outputs and the SAM format is becoming a \textit{de facto} standard. This is allowing to make more a modular downstream analysis where you can test different aligners with different settings and pick the algorithm that better fits your experiment \citep{Liu2012,Li2009,Li2009a}. 
 
 \pagebreak
 \subsubsection{\gls{iuapc} Ambiguity Codes}
@@ -241,8 +242,8 @@ The length of the genomic references available for wheat has been increasing yea
 \begin{description}
 \item[454 Liverpool.] A \gls{wgs} sequencing project for \gls{cs} done in 454. The average coverage was around 5x. Assembling the reads produced an assembly with shorter contigs than the original reads. Hence, it was released as raw reads \citep{Brenchley2012}. Despite not being a proper reference genome, the reads where enough to find variations across the genomes and was used to designed genome specific primers before the IWGSC reference was published. 
 \item[IWGSC CSS.] The \gls{iwgsc} is able to extract DNA from a single chromosome arm, using a method called flow sorting. DNA for each sample was sequenced with Illumina to a coverage of at least 60x and it was assembled \citep{Mayer2014}. The assembly is quite fragmented partly because the assembler not being able to cope with repetitive regions, and partly because the flow sorting reduces the quality of DNA, preventing the preparation of long fragments. 
-\item[Chapman.] A \gls{wgs} project, but done with Illumina. Instead of sequencing \gls{cs}, a synthetic wheat was used. The scaffolds are longer than the \gls{css} assembly, but the project was not annotated. It was used mainly to develop markers in a mapping population between synthetic (W7984) and non-synthetic (Opata) wheat lines \citep{Chapman2015}.   
-\item[TGACv1] A \gls{wgs} originally proposed as an improvement to the \gls{css} assembly. The scaffolds are longer than in Chapman and it uses the contigs from \gls{css} to assign the chromosome arm corresponding to each contig. An annotation for this assembly is available \citep{Clark2016}
+\item[Chapman.] A \gls{wgs} project, done with Illumina. Instead of sequencing \gls{cs}, a synthetic wheat was used. The scaffolds are longer than the \gls{css} assembly, but the project was not annotated. It was used mainly to develop markers in a mapping population between synthetic (W7984) and non-synthetic (Opata) wheat lines \citep{Chapman2015}.   
+\item[TGACv1] A \gls{wgs} originally proposed as an improvement to the \gls{css} assembly. The scaffolds are longer than in Chapman and it uses the contigs from \gls{css} to assign the chromosome arm corresponding to each contig. An annotation for this assembly is available \citep{Clavijo2016}.
 \end{description}
 
 
